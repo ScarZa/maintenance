@@ -74,7 +74,9 @@ if(page!=''){
                                 <img src='images/icon_set2/bookshelf.ico' width='20'> <span>ความรู้เกี่ยวกับความเสี่ยง</span></a></li>")
                                                                     ,$("<li id='treeview1' class='treeview'></li>")
                                                                     ,$("<li class=''><a href='#' id='manual_risk'>\n\
-                                <img src='images/icon_set2/booklet.ico' width='20'> <span>คู่มือโปรแกรมความเสี่ยง</span></a></li>"));
+                                <img src='images/icon_set2/booklet.ico' width='20'> <span>คู่มือโปรแกรมความเสี่ยง</span></a></li>")
+                                                                    ,$("<li class=''><a href='#' id='in_prod'>\n\
+                                <img src='images/icon_set2/pencil.ico' width='20'> <span>เพิ่มครุภัณฑ์</span></a></li>"));
                                                 $("#treeview1").append($("<a href='#'><img src='images/Import.ico' width='20'> <span>ดาวน์โหลดแบบฟอร์ม</span>\n\
                                 <i class='fa fa-angle-left pull-right'></i></a>")
                                                                     ,$("<ul id='treeview-menu1' class='treeview-menu'></ul>"));
@@ -82,8 +84,9 @@ if(page!=''){
                                                                                ,$("<li><a href='form-format/RCA.doc' title='แบบฟอร์ม RCA'><i class='fa fa-circle-o text-aqua'></i> แบบฟอร์ม RCA </a></li>"));
                                                     $("#knowledge").attr("onclick","sendget('content/knowledge.html','index_content')");
                                                     $("#manual_risk").attr("onclick","window.open('form-format/manual_risk.pdf','','width=750,height=1000'); return false");
+                                                    $("#in_prod").attr("onclick","sendget('content/add_prods.php','index_content')");
                                             $("#gear_side").append("<li class='dropdown messages-menu'><a id='login' href='#' title='เข้าสู่ระบบบริหารความเสี่ยง'><img src='images/key-y.ico' width='18'> เข้าสู่ระบบ</a></li>");
-                                                            $("#login").attr("onclick","return popup('login_page.html', popup, 300, 330);");
+                                                            $("#login").attr("onclick","return popup('login_page.html', popup, 300, 500);");
                                             $("#gear_side1").remove();//ไม่ให้แสดง gear         
                                         }
                                 $(".sidebar-menu").append("<li class=''><a id='about' href='#'><img src='images/Paper Mario.ico' width='20'> <span>เกี่ยวกับ</span></a></li>");
