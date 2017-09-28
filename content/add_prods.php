@@ -1,7 +1,7 @@
 <script type="text/javascript">
     $(function () {
-       $("#DP_content").append("<div class='form-group' id='pd_id'>รหัสครุภัณฑ์ : <INPUT TYPE='text' NAME='pd_id' id='pd_id'></div>");
-//            $("#pd_id").append($("")
+        $("#DP_content").append("<div class='form-group' id='pdId'></div>");
+        $("#pdId").append("รหัสครุภัณฑ์ : <INPUT TYPE='text' NAME='pd_id' id='pd_id'>");
 //                    ,$(""));
     });
 </script> 
@@ -21,44 +21,44 @@
             </div><!-- /.box-header -->
             <div class="box-body">
                 <div class=" col-md-6">
-                 <div class="box box-primary box-solid">
-                    <div class="box-header with-border">
-                        <h4 class="box-title"> ข้อมูลครุภัณฑ์ </h4>
-                    </div><!-- /.box-header -->
+                    <div class="box box-primary box-solid">
+                        <div class="box-header with-border">
+                            <h4 class="box-title"> ข้อมูลครุภัณฑ์ </h4>
+                        </div><!-- /.box-header -->
                         <div class="box-body">
                             <div id="DP_content"></div>
-                 </div>
+                        </div>
                     </div>
                 </div>
                 <div class=" col-md-6">
-                <div class="box box-primary box-solid">
-                    <div class="box-header with-border">
-                        <h4 class="box-title"> ข้อมูลการซื้อครุภัณฑ์ </h4>
-                    </div><!-- /.box-header -->
+                    <div class="box box-primary box-solid">
+                        <div class="box-header with-border">
+                            <h4 class="box-title"> ข้อมูลการซื้อครุภัณฑ์ </h4>
+                        </div><!-- /.box-header -->
                         <div class="box-body">
                             <div id="DSP_content"></div>
-                 </div>
-                </div>
-                </div>
-                <div class=" col-md-6">
-                 <div class="box box-primary box-solid">
-                    <div class="box-header with-border">
-                        <h4 class="box-title"> ข้อมูลการรับประกันครุภัณฑ์ </h4>
-                    </div><!-- /.box-header -->
-                        <div class="box-body">
-                            <div id="DWP_content"></div>
-                 </div>
+                        </div>
                     </div>
                 </div>
                 <div class=" col-md-6">
-                <div class="box box-primary box-solid">
-                    <div class="box-header with-border">
-                        <h4 class="box-title"> ข้อมูลสถานที่ครุภัณฑ์ </h4>
-                    </div><!-- /.box-header -->
+                    <div class="box box-primary box-solid">
+                        <div class="box-header with-border">
+                            <h4 class="box-title"> ข้อมูลการรับประกันครุภัณฑ์ </h4>
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                            <div id="DWP_content"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" col-md-6">
+                    <div class="box box-primary box-solid">
+                        <div class="box-header with-border">
+                            <h4 class="box-title"> ข้อมูลสถานที่ครุภัณฑ์ </h4>
+                        </div><!-- /.box-header -->
                         <div class="box-body">
                             <div id="DPP_content"></div>
-                 </div>
-                </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
