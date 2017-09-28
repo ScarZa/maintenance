@@ -1,8 +1,8 @@
 <script type="text/javascript">
     $(function () {
-       $("#DP_content").append("<div class='form-group' id='pd_id'></div>");
-            $("#pd_id").append($("รหัสครุภัณฑ์ : <INPUT TYPE='text' NAME='pd_id' id='pd_id'>")
-                    ,$(""));
+       $("#DP_content").append("<div class='form-group' id='pd_id'>รหัสครุภัณฑ์ : <INPUT TYPE='text' NAME='pd_id' id='pd_id'></div>");
+//            $("#pd_id").append($("")
+//                    ,$(""));
     });
 </script> 
 <h2 style="color: blue">รายละเอียด/ดำเนินการความเสี่ยง</h2>
