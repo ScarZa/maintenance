@@ -1,6 +1,6 @@
 localhost
 root
 
-risk
+hrd
 3306
 utf8
