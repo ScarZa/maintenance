@@ -1,17 +1,34 @@
 <script type="text/javascript">
     $(function () {
+        var cate_no ="";
         $("#DP_content").append($("<div class='form-group'>หมวดครุภัณฑ์ : <select name='pdgroup' class='form-control select2' id='pdgroup' required></select>")
                         ,$("<div class='form-group'>ประเภทครุภัณฑ์ : <select name='pdcate' class='form-control select2' id='pdcate' required></select>")
-                        ,$("<div class='form-group'>รหัสครุภัณฑ์ : <INPUT TYPE='text' NAME='pd_id' id='pd_id'></div>")
-                        ,$("<div class='form-group'>เลขครุภัณฑ์ : <INPUT TYPE='text' NAME='num' id='num'></div>")
-                        ,$("<div class='form-group'>เลขครุภัณฑ์ : <INPUT TYPE='text' NAME='num' id='num'></div>"));
+                        ,$("<div class='form-group'>เลขครุภัณฑ์ : <INPUT TYPE='text' NAME='head_no' id='head_no' style='width: 100px'> <b id='cate_no'></b> <INPUT TYPE='text' NAME='num' id='num' style='width: 50px'></div>")
+                        ,$("<div class='form-group'><INPUT TYPE='text' NAME='num1' id='num1'></div>")
+                        ,$("<div class='form-group'> : <INPUT TYPE='text' NAME='num2' id='num2'></div>"));
                 $("select#pdgroup").append($("<option value=''> เลือกหมวดครุภัณฑ์ </option>"));
-                                $.getJSON('JsonData/group_data.php', function (LR) {
-                                    for (var key in LR) {
+                                $.getJSON('JsonData/group_Data.php', function (GD) {
+                                    for (var key in GD) {
                                         //if(LR[key].group_id==data.detail.group_id){var select='selected';}else{var select='';}
-                                              $("select#combobox2").append($("<option value='"+LR[key].group_id+"' "/*+select+*/"> "+LR[key].group_name+" </option>"));
+                                              $("select#pdgroup").append($("<option value='"+GD[key].group_id+"'> "+GD[key].group_name+" </option>"));
                                     }$(".select2").select2();
-                                });            
+                                });    
+                $("select#pdcate").append($("<option value=''> เลือกประเภทครุภัณฑ์ </option>"));
+                                $("select#pdgroup").change(function () {
+                                    
+                                $.getJSON('JsonData/cate_Data.php',{data: $("#pdgroup").val()}, function (CD) {
+                                    for (var key in CD) {
+                                        //if(LR[key].group_id==data.detail.group_id){var select='selected';}else{var select='';}
+                                              $("select#pdcate").append($("<option value='"+CD[key].category_id+"'> "+CD[key].category_name+" </option>"));
+                                                cate_no = CD[key].category_no;
+                                        }
+                                        $(".select2").select2();
+                                    
+                                });
+                            });document.write(cate_no);
+                            $("select#pdcate").change(function () {
+                                    $("cate_no").text(cate_no);
+                                     });
     });
 </script> 
 <h2 style="color: blue">รายละเอียด/ดำเนินการความเสี่ยง</h2>
@@ -72,5 +89,6 @@
             </div>
         </div>
     </div>
+    <INPUT TYPE='text' NAME='head_no' id='head_no' class='form-control' style="width: 100px">
     <div class="col-md-12" id="DR_content"></div>
 </div>
