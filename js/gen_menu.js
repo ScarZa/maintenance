@@ -1,5 +1,5 @@
             $.getJSON('JsonData/up_header.php',function (data) {
-              $("head").prepend($("<title></title>").text("ระบบบริหารความเสี่ยง")
+              $("head").prepend($("<title></title>").text("ระบบแจ้งซ่อม")
                                 ,$("<link rel='SHORTCUT ICON' href='"+data.logo+"'>"));  
               if(data.rm_status == 'Y'){
                   var onload="bodyOnload();";
@@ -10,7 +10,7 @@
                                     $("#gear_side").empty().load("content/inbox.php");//โหลด inbox.php เข้ามา
                         $(".sidebar").append($("<ul class='sidebar-menu'></ul>"));
                                 $(".image").append("<img src='"+data.logo+"' class='img-circle' alt='User Image'>");
-                                $(".info").append($("<p>โรงพยาบาลจิตเวชเลยฯ</p>"),$("<a href='#'><i class='fa fa-circle text-success'></i> ระบบบริหารความเสี่ยง</a>"));
+                                $(".info").append($("<p>โรงพยาบาลจิตเวชเลยฯ</p>"),$("<a href='#'><i class='fa fa-circle text-success'></i> ระบบแจ้งซ่อม</a>"));
                                 $(".sidebar-menu").append($("<li class='header'>เมนูหลัก</li>")
                                                         ,$("<li id='home'><a href='#'><img src='images/gohome.ico' width='20'> <span>หน้าหลัก</span></a></li>"));
                                                 $("#home > a").attr("onclick","loadPage('#index_content','content/info_index.html');");        
@@ -77,7 +77,7 @@ if(page!=''){
                                                                     ,$("<li id='treeview1' class='treeview'></li>")
                                                                     ,$("<li class=''><a href='#' id='manual_risk'>\n\
                                 <img src='images/icon_set2/booklet.ico' width='20'> <span>คู่มือโปรแกรมความเสี่ยง</span></a></li>")
-                                                                    ,$("<li class=''><a id='addProds' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>เพิ่มครุภัณฑ์</span></a></li>"));
+                                                                    ,$("<li class=''><a id='addProds' href='#'><img src='images/icon_set2/pencil.ico' width='20'> <span>เพิ่มครุภัณฑ์</span></a></li>"));
                                                                     $("#addProds").attr("onclick","loadPage('#index_content','content/add_prods.php');");
                                                 $("#treeview1").append($("<a href='#'><img src='images/Import.ico' width='20'> <span>ดาวน์โหลดแบบฟอร์ม</span>\n\
                                 <i class='fa fa-angle-left pull-right'></i></a>")
