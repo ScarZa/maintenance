@@ -4,8 +4,9 @@
         $("#DP_content").append($("<div class='form-group'>หมวดครุภัณฑ์ : <select name='pdgroup' class='form-control select2' id='pdgroup' required></select>")
                         ,$("<div class='form-group'>ประเภทครุภัณฑ์ : <select name='pdcate' class='form-control select2' id='pdcate' required></select>")
                         ,$("<div class='form-group'>เลขครุภัณฑ์ : <INPUT TYPE='text' NAME='head_no' id='head_no' style='width: 100px'> <b id='cate_no'></b> <INPUT TYPE='text' NAME='num' id='num' style='width: 50px'></div>")
-                        ,$("<div class='form-group'><INPUT TYPE='text' NAME='num1' id='num1'></div>")
-                        ,$("<div class='form-group'> : <INPUT TYPE='text' NAME='num2' id='num2'></div>"));
+                        ,$("<div class='form-group'>ยี่ห้อ : <INPUT TYPE='text' NAME='brand' id='brand'></div>")
+                        ,$("<div class='form-group'>หมายเลขเครื่อง : <INPUT TYPE='text' NAME='serial' id='serial'></div>")
+                        ,$("<div class='form-group'>สถานะการใช้งาน : <select name='pd_status' class='form-control select2' id='pd_status' required></select>"));
                 $("select#pdgroup").append($("<option value=''> เลือกหมวดครุภัณฑ์ </option>"));
                                 $.getJSON('JsonData/group_Data.php', function (GD) {
                                     for (var key in GD) {
@@ -25,10 +26,19 @@
                                         $(".select2").select2();
                                     
                                 });
-                            });document.write(cate_no);
+                            });console.log(cate_no);
                             $("select#pdcate").change(function () {
                                     $("cate_no").text(cate_no);
                                      });
+                
+                $("select#pd_status").append($("<option value=''> เลือกสถานะครุภัณฑ์ </option>"));
+                                $.getJSON('JsonData/pdstatus_Data.php', function (SD) {
+                                    for (var key in SD) {
+                                        //if(LR[key].group_id==data.detail.group_id){var select='selected';}else{var select='';}
+                                              $("select#pd_status").append($("<option value='"+SD[key].pd_status_id+"'> "+SD[key].pd_status+" </option>"));
+                                        }
+                                        $(".select2").select2();
+                            });
     });
 </script> 
 <h2 style="color: blue">รายละเอียด/ดำเนินการความเสี่ยง</h2>
@@ -89,6 +99,5 @@
             </div>
         </div>
     </div>
-    <INPUT TYPE='text' NAME='head_no' id='head_no' class='form-control' style="width: 100px">
     <div class="col-md-12" id="DR_content"></div>
 </div>
