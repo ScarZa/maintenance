@@ -3,7 +3,7 @@
         var cate_no ="";
         $("#DP_content").append($("<div class='form-group'>หมวดครุภัณฑ์ : <select name='pdgroup' class='form-control select2' id='pdgroup' required></select>")
                         ,$("<div class='form-group'>ประเภทครุภัณฑ์ : <select name='pdcate' class='form-control select2' id='pdcate' required></select>")
-                        ,$("<div class='form-group'>เลขครุภัณฑ์ : <INPUT TYPE='text' NAME='head_no' id='head_no' style='width: 100px'> <b id='cate_no'></b> <INPUT TYPE='text' NAME='num' id='num' style='width: 50px'></div>")
+                        ,$("<div class='form-group'>เลขครุภัณฑ์ : <INPUT TYPE='text' NAME='head_no' id='head_no' style='width: 100px'> <b id='cate_no'>1234</b> <INPUT TYPE='text' NAME='num' id='num' style='width: 50px'></div>")
                         ,$("<div class='form-group'>ยี่ห้อ : <INPUT TYPE='text' NAME='brand' id='brand'></div>")
                         ,$("<div class='form-group'>หมายเลขเครื่อง : <INPUT TYPE='text' NAME='serial' id='serial'></div>")
                         ,$("<div class='form-group'>สถานะการใช้งาน : <select name='pd_status' class='form-control select2' id='pd_status' required></select>"));
@@ -25,10 +25,11 @@
                                         }
                                         $(".select2").select2();
                                     
-                                });
-                            });console.log(cate_no);
-                            $("select#pdcate").change(function () {
-                                    $("cate_no").text(cate_no);
+                                }); //$("#cate_no").text(cate_no);
+                            });
+                                console.log(cate_no);
+                                    $("select#pdcate").change(function () {
+                                    $("#cate_no").text(cate_no);
                                      });
                 
                 $("select#pd_status").append($("<option value=''> เลือกสถานะครุภัณฑ์ </option>"));
@@ -41,11 +42,10 @@
                             });
     });
 </script> 
-<h2 style="color: blue">รายละเอียด/ดำเนินการความเสี่ยง</h2>
+<h2 style="color: blue">เพิ่มครุภัณฑ์</h2>
 <ol class="breadcrumb">
     <li><a href="index.php"><i class="fa fa-home"></i> หน้าหลัก</a></li>
-    <li id="bc"></li>
-    <li class="active"><i class="fa fa-envelope"></i> รายละเอียด/ดำเนินการความเสี่ยง</li>
+    <li class="active"><i class="fa fa-envelope"></i> เพิ่มครุภัณฑ์</li>
 </ol>
 <div class="row">
     <div class="col-md-12">
