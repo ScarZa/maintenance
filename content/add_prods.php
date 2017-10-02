@@ -1,9 +1,10 @@
 <script type="text/javascript">
     $(function () {
         var cate_no ="";
+        var cate = "";
         $("#DP_content").append($("<div class='form-group'>หมวดครุภัณฑ์ : <select name='pdgroup' class='form-control select2' id='pdgroup' required></select>")
                         ,$("<div class='form-group'>ประเภทครุภัณฑ์ : <select name='pdcate' class='form-control select2' id='pdcate' required></select>")
-                        ,$("<div class='form-group'>เลขครุภัณฑ์ : <INPUT TYPE='text' NAME='head_no' id='head_no' style='width: 100px'> <b id='cate_no'>1234</b> <INPUT TYPE='text' NAME='num' id='num' style='width: 50px'></div>")
+                        ,$("<div class='form-group'>เลขครุภัณฑ์ : <INPUT TYPE='text' NAME='head_no' id='head_no' style='width: 100px'> <b id='cate_no'></b> <INPUT TYPE='text' NAME='num' id='num' style='width: 50px'></div>")
                         ,$("<div class='form-group'>ยี่ห้อ : <INPUT TYPE='text' NAME='brand' id='brand'></div>")
                         ,$("<div class='form-group'>หมายเลขเครื่อง : <INPUT TYPE='text' NAME='serial' id='serial'></div>")
                         ,$("<div class='form-group'>สถานะการใช้งาน : <select name='pd_status' class='form-control select2' id='pd_status' required></select>"));
@@ -20,16 +21,16 @@
                                 $.getJSON('JsonData/cate_Data.php',{data: $("#pdgroup").val()}, function (CD) {
                                     for (var key in CD) {
                                         //if(LR[key].group_id==data.detail.group_id){var select='selected';}else{var select='';}
-                                              $("select#pdcate").append($("<option value='"+CD[key].category_id+"'> "+CD[key].category_name+" </option>"));
-                                                cate_no = CD[key].category_no;
+                                              $("select#pdcate").append($("<option value='"+CD[key].category_id+"_"+CD[key].category_no+"'> "+CD[key].category_name+" </option>"));
                                         }
                                         $(".select2").select2();
                                     
-                                }); //$("#cate_no").text(cate_no);
+                                }); 
                             });
-                                console.log(cate_no);
-                                    $("select#pdcate").change(function () {
-                                    $("#cate_no").text(cate_no);
+                                     $("select#pdcate").change(function () {
+                                        cate_no = $("#pdcate").val();
+                                        cate = cate_no.split('_');
+                                    $("#cate_no").text(cate[1]);
                                      });
                 
                 $("select#pd_status").append($("<option value=''> เลือกสถานะครุภัณฑ์ </option>"));
