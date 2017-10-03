@@ -5,8 +5,8 @@
         $("#DP_content").append($("<div class='form-group'>หมวดครุภัณฑ์ : <select name='pdgroup' class='form-control select2' id='pdgroup' required></select>")
                         ,$("<div class='form-group'>ประเภทครุภัณฑ์ : <select name='pdcate' class='form-control select2' id='pdcate' required></select>")
                         ,$("<div class='form-group'>เลขครุภัณฑ์ : <INPUT TYPE='text' NAME='head_no' id='head_no' style='width: 100px'> <b id='cate_no'></b> <INPUT TYPE='text' NAME='num' id='num' style='width: 50px'></div>")
-                        ,$("<div class='form-group'>ยี่ห้อ : <INPUT TYPE='text' NAME='brand' id='brand'></div>")
-                        ,$("<div class='form-group'>หมายเลขเครื่อง : <INPUT TYPE='text' NAME='serial' id='serial'></div>")
+                        ,$("<div class='form-group'>ยี่ห้อ : <INPUT TYPE='text' NAME='brand' id='brand' class='form-control'></div>")
+                        ,$("<div class='form-group'>หมายเลขเครื่อง : <INPUT TYPE='text' NAME='serial' id='serial' class='form-control'></div>")
                         ,$("<div class='form-group'>สถานะการใช้งาน : <select name='pd_status' class='form-control select2' id='pd_status' required></select>"));
                 $("select#pdgroup").append($("<option value=''> เลือกหมวดครุภัณฑ์ </option>"));
                                 $.getJSON('JsonData/group_Data.php', function (GD) {
@@ -41,7 +41,73 @@
                                         }
                                         $(".select2").select2();
                             });
-    });
+                            
+        $("#DSP_content").append($("<div class='form-group'>ผู้ขาย : <select name='com_id' class='form-control select2' id='com_id' required></select>")
+                        ,$("<div class='form-group'>ราคาซื้อ : <INPUT TYPE='text' NAME='price' id='price' class='form-control'>")
+                        ,$("<div class='form-group'>ชนิดเงิน : <select name='montype_id' class='form-control select2' id='montype_id' required></select>")
+                        ,$("<div class='form-group'>วิธีซื้อ : <select name='mon_id' class='form-control select2' id='mon_id' required></select>")
+                        ,$("<div class='form-group'>ปีที่ซื้อ : <select name='yearbuy' class='form-control select2' id='yearbuy' required></select>"));      
+                $("select#com_id").append($("<option value=''> เลือกผู้ขาย </option>"));
+                                $.getJSON('JsonData/comp_Data.php', function (CmD) {
+                                    for (var key in CmD) {
+                                        //if(LR[key].group_id==data.detail.group_id){var select='selected';}else{var select='';}
+                                              $("select#com_id").append($("<option value='"+CmD[key].comp_id+"'> "+CmD[key].comp_name+" </option>"));
+                                    }$(".select2").select2();
+                                });  
+                $("select#montype_id").append($("<option value=''> เลือกชนิดเงินงบ </option>"));
+                                $.getJSON('JsonData/montype_Data.php', function (CmD) {
+                                    for (var key in CmD) {
+                                        //if(LR[key].group_id==data.detail.group_id){var select='selected';}else{var select='';}
+                                              $("select#montype_id").append($("<option value='"+CmD[key].id+"'> "+CmD[key].name+" </option>"));
+                                    }$(".select2").select2();
+                                });  
+                $("select#mon_id").append($("<option value=''> เลือกวิธีซื้อ </option>"));
+                                $.getJSON('JsonData/methodsale_Data.php', function (MD) {
+                                    for (var key in MD) {
+                                        //if(LR[key].group_id==data.detail.group_id){var select='selected';}else{var select='';}
+                                              $("select#mon_id").append($("<option value='"+MD[key].mon_id+"'> "+MD[key].mon_name+" </option>"));
+                                    }$(".select2").select2();
+                                });   
+                $("select#yearbuy").append($("<option value=''> เลือกปีที่ซื้อ </option>"));
+                                var d = new Date();
+                                var yearT = (d.getFullYear()+543);
+                                console.log(yearT);
+                                    for (var i = yearT;i >= yearT-15;i--) {
+                                        //if(LR[key].group_id==data.detail.group_id){var select='selected';}else{var select='';}
+                                              $("select#yearbuy").append($("<option value='"+i+"'> "+i+" </option>"));
+                                    }$(".select2").select2();
+                                    
+        $("#DWP_content").append($("<div class='form-group'>วันที่ลงทะเบียน : <input type='text' name='data' id='datepicker1' class='form-control' readonly required>")
+                        ,$("<div class='form-group'>วันที่เริ่มประกัน : <input type='text' name='data' id='datepicker2' class='form-control' readonly required>")
+                        ,$("<div class='form-group'>เลขที่สัญญา : <input type='text' name='ct_number' id='ct_number' class='form-control'>")
+                        ,$("<div class='form-group'>จำนวนเดือนที่รับประกัน : <input type='text' name='nbmoth_insur' id='nbmoth_insur' class='form-control'>"));
+                        
+        $("#DPP_content").append($("<div class='form-group'>งาน : <select name='dep_id' class='form-control select2' id='dep_id' required></select>")
+                        ,$("<div class='form-group'>วันที่ติดตั้ง : <input type='text' name='data' id='datepicker3' class='form-control' readonly required>")
+                        ,$("<div class='form-group'>วันที่เคลื่อนย้าย : <input type='text' name='data' id='datepicker4' class='form-control' readonly required>")
+                        ,$("<div class='form-group'>ผู้รับผิดชอบ : <select name='rp_person' class='form-control select2' id='rp_person' required></select>"));                
+                        
+                $("select#dep_id").append($("<option value=''> เลือกงาน </option>"));
+                                $.getJSON('JsonData/Dep_Data.php', function (CmD) {
+                                    for (var key in CmD) {
+                                        //if(LR[key].group_id==data.detail.group_id){var select='selected';}else{var select='';}
+                                              $("select#dep_id").append($("<option value='"+CmD[key].depId+"'> "+CmD[key].depName+" </option>"));
+                                    }$(".select2").select2();
+                                }); 
+                $("select#rp_person").append($("<option value=''> เลือกผู้รับผิดชอบ </option>"));
+                                $.getJSON('JsonData/emp_Data.php', function (CmD) {
+                                    for (var key in CmD) {
+                                        //if(LR[key].group_id==data.detail.group_id){var select='selected';}else{var select='';}
+                                              $("select#rp_person").append($("<option value='"+CmD[key].empno+"'> "+CmD[key].fullname+" </option>"));
+                                    }$(".select2").select2();
+                                });
+                                
+                        var DP = new DatepickerThai();
+                            DP.GetDatepicker('#datepicker1');
+                            DP.GetDatepicker('#datepicker2');
+                            DP.GetDatepicker('#datepicker3');
+                            DP.GetDatepicker('#datepicker4');
+    });         
 </script> 
 <h2 style="color: blue">เพิ่มครุภัณฑ์</h2>
 <ol class="breadcrumb">
@@ -57,6 +123,7 @@
                 <h4 class="box-title"> เพิ่มข้อมูลครุภัณฑ์ </h4>
             </div><!-- /.box-header -->
             <div class="box-body">
+                <div class="col-md-12">
                 <div class=" col-md-6">
                     <div class="box box-primary box-solid">
                         <div class="box-header with-border">
@@ -77,6 +144,8 @@
                         </div>
                     </div>
                 </div>
+                </div>
+                <div class="col-md-12">
                 <div class=" col-md-6">
                     <div class="box box-primary box-solid">
                         <div class="box-header with-border">
@@ -96,6 +165,7 @@
                             <div id="DPP_content"></div>
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
         </div>
