@@ -4,7 +4,9 @@
         var cate = "";
         $("#DP_content").append($("<div class='form-group'>หมวดครุภัณฑ์ : <select name='pdgroup' class='form-control select2' id='pdgroup' required></select>")
                         ,$("<div class='form-group'>ประเภทครุภัณฑ์ : <select name='pdcate' class='form-control select2' id='pdcate' required></select>")
-                        ,$("<div class='form-group'>เลขครุภัณฑ์ : <INPUT TYPE='text' NAME='head_no' id='head_no' style='width: 100px'> <b id='cate_no'></b> <INPUT TYPE='text' NAME='num' id='num' style='width: 50px'></div>")
+                        //,$("<div class='form-group'>เลขครุภัณฑ์ : <INPUT TYPE='text' NAME='head_no' id='head_no' style='width: 100px'> <b id='cate_no'></b> <INPUT TYPE='text' NAME='num' id='num' style='width: 50px'></div>")
+                        ,$("<div class='form-group'>เลขครุภัณฑ์ : <INPUT TYPE='text' NAME='pd_number' id='pd_number' class='form-control'></div>")
+                        ,$("<div class='form-group'>ชื่อครุภัณฑ์ : <INPUT TYPE='text' NAME='name' id='name' class='form-control' placeholder='เช่น printer brother MFC-J5910DW'></div>")
                         ,$("<div class='form-group'>ยี่ห้อ : <INPUT TYPE='text' NAME='brand' id='brand' class='form-control'></div>")
                         ,$("<div class='form-group'>หมายเลขเครื่อง : <INPUT TYPE='text' NAME='serial' id='serial' class='form-control'></div>")
                         ,$("<div class='form-group'>สถานะการใช้งาน : <select name='pd_status' class='form-control select2' id='pd_status' required></select>"));
@@ -26,12 +28,13 @@
                                         $(".select2").select2();
                                     
                                 }); 
-                            });
-                                     $("select#pdcate").change(function () {
+                            }); 
+                                    
+                                    /*$("select#pdcate").change(function () {
                                         cate_no = $("#pdcate").val();
                                         cate = cate_no.split('_');
                                     $("#cate_no").text(cate[1]);
-                                     });
+                                     });*/
                 
                 $("select#pd_status").append($("<option value=''> เลือกสถานะครุภัณฑ์ </option>"));
                                 $.getJSON('JsonData/pdstatus_Data.php', function (SD) {
@@ -71,8 +74,7 @@
                 $("select#yearbuy").append($("<option value=''> เลือกปีที่ซื้อ </option>"));
                                 var d = new Date();
                                 var yearT = (d.getFullYear()+543);
-                                console.log(yearT);
-                                    for (var i = yearT;i >= yearT-15;i--) {
+                                     for (var i = yearT;i >= yearT-15;i--) {
                                         //if(LR[key].group_id==data.detail.group_id){var select='selected';}else{var select='';}
                                               $("select#yearbuy").append($("<option value='"+i+"'> "+i+" </option>"));
                                     }$(".select2").select2();
@@ -85,7 +87,8 @@
         $("#DPP_content").append($("<div class='form-group'>งาน : <select name='dep_id' class='form-control select2' id='dep_id' required></select>")
                         ,$("<div class='form-group'>วันที่ติดตั้ง : <input type='text' name='data' id='datepicker3' class='form-control' readonly required>")
                         ,$("<div class='form-group'>วันที่เคลื่อนย้าย : <input type='text' name='data' id='datepicker4' class='form-control' readonly required>")
-                        ,$("<div class='form-group'>ผู้รับผิดชอบ : <select name='rp_person' class='form-control select2' id='rp_person' required></select>"));                
+                        ,$("<div class='form-group'>ผู้รับผิดชอบ : <select name='rp_person' class='form-control select2' id='rp_person' required></select>")
+                        ,$("<div class='form-group'>หมายเหตุ : <textarea class='form-control' style='width: 100%' COLS='100%' rows='2' placeholder='หมายเหตุ' name='note' id='note'></textarea>"));                
                         
                 $("select#dep_id").append($("<option value=''> เลือกงาน </option>"));
                                 $.getJSON('JsonData/Dep_Data.php', function (CmD) {
@@ -107,6 +110,41 @@
                             DP.GetDatepicker('#datepicker2');
                             DP.GetDatepicker('#datepicker3');
                             DP.GetDatepicker('#datepicker4');
+            $("div#add_pd").append("<button type='submit' class='btn btn-primary' id='APsubmit'>บันทึก</button>");
+            $("button#APsubmit").click(function () {
+                                    cate_no = $("#pdcate").val();
+                                    cate = cate_no.split('_');
+					$.ajax({
+					   type: "POST",
+					   url: "process/prcprods.php",
+					   data: {pdgroup:$("#pdgroup").val()
+                                                 ,pdcate:cate[0]
+                                                 ,pd_number:$("#pd_number").val()
+                                                 ,name:$("#name").val()
+                                                ,brand:$("#brand").val()
+                                                ,serial:$("#serial").val()
+                                                ,pd_status:$("#pd_status").val()
+                                                ,com_id:$("#com_id").val()
+                                                ,price:$("#price").val()
+                                                ,montype_id:$("#montype_id").val()
+                                                ,mon_id:$("#mon_id").val()
+                                                ,yearbuy:$("#yearbuy").val()
+                                                ,regis_date:$("#datepicker1").val()
+                                                ,date_stinsur:$("#datepicker2").val()
+                                                ,ct_number:$("#ct_number").val()
+                                                ,nbmoth_insur:$("#nbmoth_insur").val()
+                                                ,dep_id:$("#dep_id").val()
+                                                ,lnstalldate:$("#datepicker3").val()
+                                                ,movingdate:$("#datepicker4").val()
+                                                ,rp_person:$("#rp_person").val()
+                                                ,note:$("#note").val()
+                                                ,data0:'add_prods'},
+					   success: function(result) {
+						alert(result);
+                                                $("#index_content").empty().load('content/add_prods.php');
+					   }
+					 });
+        });
     });         
 </script> 
 <h2 style="color: blue">เพิ่มครุภัณฑ์</h2>
@@ -122,7 +160,7 @@
             <div class="box-header with-border">
                 <h4 class="box-title"> เพิ่มข้อมูลครุภัณฑ์ </h4>
             </div><!-- /.box-header -->
-            <div class="box-body">
+            <div class="box-body" id="add_pd">
                 <div class="col-md-12">
                 <div class=" col-md-6">
                     <div class="box box-primary box-solid">
