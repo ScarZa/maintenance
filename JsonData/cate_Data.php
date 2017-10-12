@@ -14,7 +14,7 @@ $conn_DB->conn_PDO();
 $rslt=array();
 $result=array();
 $group_id = isset($_GET['data'])?$_GET['data']:'';
-$sql="select category_id,category_name,category_no from pd_category where group_id= :group_id order by category_name";
+$sql="select category_id,category_name from pd_category where group_id= :group_id order by category_name";
 $execute = array(':group_id' => $group_id);
 $conn_DB->imp_sql($sql);
 $result=$conn_DB->select($execute);

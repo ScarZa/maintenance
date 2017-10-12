@@ -23,7 +23,7 @@
                                 $.getJSON('JsonData/cate_Data.php',{data: $("#pdgroup").val()}, function (CD) {
                                     for (var key in CD) {
                                         //if(LR[key].group_id==data.detail.group_id){var select='selected';}else{var select='';}
-                                              $("select#pdcate").append($("<option value='"+CD[key].category_id+"_"+CD[key].category_no+"'> "+CD[key].category_name+" </option>"));
+                                              $("select#pdcate").append($("<option value='"+CD[key].category_id+"'> "+CD[key].category_name+" </option>"));
                                         }
                                         $(".select2").select2();
                                     
@@ -112,13 +112,11 @@
                             DP.GetDatepicker('#datepicker4');
             $("div#add_pd").append("<button type='submit' class='btn btn-primary' id='APsubmit'>บันทึก</button>");
             $("button#APsubmit").click(function () {
-                                    cate_no = $("#pdcate").val();
-                                    cate = cate_no.split('_');
-					$.ajax({
+        				$.ajax({
 					   type: "POST",
 					   url: "process/prcprods.php",
 					   data: {pdgroup:$("#pdgroup").val()
-                                                 ,pdcate:cate[0]
+                                                 ,pdcate:$("#pdcate").val()
                                                  ,pd_number:$("#pd_number").val()
                                                  ,name:$("#name").val()
                                                 ,brand:$("#brand").val()
