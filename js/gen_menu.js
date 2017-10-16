@@ -78,7 +78,7 @@ if(page!=''){
                                                                     ,$("<li class=''><a href='#' id='manual_risk'>\n\
                                 <img src='images/icon_set2/booklet.ico' width='20'> <span>คู่มือโปรแกรมความเสี่ยง</span></a></li>")
                                                                     ,$("<li class=''><a id='addProds' href='#'><img src='images/icon_set2/pencil.ico' width='20'> <span>เพิ่มครุภัณฑ์</span></a></li>"));
-                                                                    $("#addProds").attr("onclick","loadPage('#index_content','content/add_prods.php');");
+                                                                    $("#addProds").attr("onclick","loadPage('#index_content','content/add_prods.html');");
                                                 $("#treeview1").append($("<a href='#'><img src='images/Import.ico' width='20'> <span>ดาวน์โหลดแบบฟอร์ม</span>\n\
                                 <i class='fa fa-angle-left pull-right'></i></a>")
                                                                     ,$("<ul id='treeview-menu1' class='treeview-menu'></ul>"));
