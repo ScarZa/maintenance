@@ -87,20 +87,17 @@ var createTable = function (column,level_col='1', tid=null,responsive=true) {
                     var c =0;
                     $.each( dataTB[i], function( dkey, val ) {
                         if(detail !=false){
-                            if(c< (count_col)-1){
+                            if(c< (count_col)-2){
                             table += "<td align='center'>" + val + "</td>";
-                         }else if(c == (count_col)-1){
-                            table += "<td align='center'><a href='index.html?page="+detail+"&data="+encode64(val)+"'><img src='images/icon_set1/file.ico' width='25'></a></td>";
-                        /*table += "<td class='td_c' align='center'><a href='#'><img src='images/icon_set1/file.ico' width='25'></a></td>";
-                        $('table').find('tr td a:nth-child(1)').attr("onclick","loadPage('#index_content',"+detail+","+val+")");
-                        //console.log(a1);
-                                /*a1.on('click',function(){
-                            //$(e.target).attr("onclick","loadPage('#index_content',"+detail+","+val+")");//#a1 
-                                    alert("yeyeyeyeye!!!");
-                            $('#index_content').load('content/detail_risk.php');
-                            });*/
+                         }else{ 
+                                if(c == (count_col)-2){
+                            table += "<td align='center'><a href='content/add_"+detail+".php?method=edit&id="+val+"' target='_blank'><img src='images/icon_set1/file.ico' width='25'></a></td>";
                             }
-                        }else{
+                                if(c == (count_col)-1){
+                            table += "<td align='center'><a href='index.php?page=process/prc"+detail+"&method=delete_"+detail+"&del_id="+val+"'><img src='images/icon_set1/file_delete.ico' width='25'></a></td>";
+                            }
+                        }
+                    }else{
                             table += "<td align='center'>" + val + "</td>";
                         }c++;
                 });
