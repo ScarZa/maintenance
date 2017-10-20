@@ -1,0 +1,75 @@
+            <h2 style="color: blue">รายการครุภัณฑ์</h2>
+            <ol class="breadcrumb">
+              <li><a href="index.html"><i class="หน้าหลัก"></i> หน้าหลัก</a></li>
+              <li class="active"><i class="fa fa-wrench"></i> รายการครุภัณฑ์</li>
+            </ol>
+             
+<script language="Javascript" type="text/javascript">
+    //var column1 = '{"รายการความเสี่ยงที่รอ RM man มาตรวจสอบ":["เลขที่","รายการ","เกิดขึ้นเมื่อ","ได้รับเมื่อ"]}';
+    var column1 = '["เลขครุภัณฑ์","ชื่อ","งาน","ติดตั้งเมื่อ","วันที่ย้าย","หมายเหตุ","สถานะ"]';
+    var tid = 'dbtable1';
+    var tid3 = 'dbtable3';
+    var tid2 = 'dbtable2';
+              var CTb = new createTable(column1,'1',tid);
+              CTb.GetTableAjax('JsonData/DT_LP.php','contentTB');
+              
+</script>
+<div class="row">
+    <div class="col-md-12">
+            <div class="box box-primary box-solid">
+                <div class="box-header with-border">
+                    <h4 class="box-title"><i class="fa fa-star"></i> รายการครุภัณฑ์ </h4>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div><!-- /.box-tools -->
+                </div><!-- /.box-header -->
+                <div class="box-body">
+        <div id="contentTB"></div>
+                </div>
+            </div>
+    </div>
+</div>
+			<div>
+                                <input type="button" value="ทดสอบสรา้งตาราง" onclick="creatTable();"/>
+			</div>
+			<div id="tableDiv" style="margin-top:10px;"></div>
+
+	<script type="text/javascript">
+            
+        function creatTable() {
+            
+                $.getJSON('JsonData/DT_LP.php', function (dataTB) {
+                    var val;
+                var table = document.createElement ("table");
+            	table.border = "1px";
+            	var tBody = document.createElement ("tbody");
+            	table.appendChild (tBody);
+                    if (dataTB != null && dataTB.length > 0) {
+                for (var i = 0; i < dataTB.length; i++) {
+                		var row = tBody.insertRow (-1);
+                                var count_cols=dataTB.length;
+                                var c =0;
+                                    $.each( dataTB[i], function( dkey, val ) {
+                    			var cell = row.insertCell (-1);
+                    				cell.innerHTML = val;
+                		});
+                                        var cellEdit = row.insertCell (-1);
+					editButton = document.createElement("a");
+					cellEdit.appendChild(editButton);
+					editButton.innerHTML = "แก้ไข";
+					editButton.setAttribute("href","#");
+					//editButton.setAttribute("onclick","edit_local('"+//val+"')");
+					var cellDel = row.insertCell (-1);
+					delButton = document.createElement("a");
+					cellDel.appendChild(delButton);
+					delButton.innerHTML = "ลบ";
+					delButton.setAttribute("href","#");
+					//delButton.setAttribute("onclick","del_local('"+//val+"')");
+            }
+            	var container = document.getElementById ("tableDiv");
+            	container.appendChild(table);
+            }
+            });
+}    
+            
+	</script>

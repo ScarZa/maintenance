@@ -77,8 +77,12 @@ if(page!=''){
                                                                     ,$("<li id='treeview1' class='treeview'></li>")
                                                                     ,$("<li class=''><a href='#' id='manual_risk'>\n\
                                 <img src='images/icon_set2/booklet.ico' width='20'> <span>คู่มือโปรแกรมความเสี่ยง</span></a></li>")
-                                                                    ,$("<li class=''><a id='addProds' href='#'><img src='images/icon_set2/pencil.ico' width='20'> <span>เพิ่มครุภัณฑ์</span></a></li>"));
-                                                                    $("#addProds").attr("onclick","loadPage('#index_content','content/add_prods.html');");
+                                                                    ,$("<li class=''><a id='addProds' href='#'><img src='images/icon_set2/pencil.ico' width='20'> <span>เพิ่มครุภัณฑ์</span></a></li>")
+                                                                    ,$("<li class=''><a id='listProds' href='#'><img src='images/icon_set2/pencil.ico' width='20'> <span>รายการครุภัณฑ์</span></a></li>")
+                                                                    ,$("<li class=''><a id='testTB' href='#'><img src='images/icon_set2/pencil.ico' width='20'> <span>test create table</span></a></li>"));
+                                                                        $("#addProds").attr("onclick","loadPage('#index_content','content/add_prods.html');");
+                                                                        $("#listProds").attr("onclick","loadPage('#index_content','content/list_prods.html');");
+                                                                        $("#testTB").attr("onclick","loadPage('#index_content','content/06.html');");
                                                 $("#treeview1").append($("<a href='#'><img src='images/Import.ico' width='20'> <span>ดาวน์โหลดแบบฟอร์ม</span>\n\
                                 <i class='fa fa-angle-left pull-right'></i></a>")
                                                                     ,$("<ul id='treeview-menu1' class='treeview-menu'></ul>"));

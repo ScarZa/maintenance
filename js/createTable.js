@@ -11,6 +11,31 @@ var createTable = function (column,level_col='1', tid=null,responsive=true) {
     }else{
         var resp = '';
     }
+    
+    this.GetNewTableAjax = function (locate, content,detail=false) {
+        this.locate = locate;
+                var table = document.createElement("table");
+                    table.border="1px";
+                var tBody = document.createComment("tbody");
+            table.appendChild(tBody);
+        
+            $.getJSON(this.locate, function (dataTB) {
+                
+            if (dataTB != null && dataTB.length > 0) {
+                
+                for (var i = 0; i < dataTB.length; i++) {
+                    row = tBody.insertRow(-1);
+                    $.each( dataTB[i], function( dkey, val ) {
+                    var cell = row.insertCell(-1);
+                    cell.innerHTML = val;
+                });
+            }
+            $('#' + content + '').appendChild(table);
+            }
+            
+        });
+    }
+    
     this.GetHead = function () {
         var head = "<div class='"+resp+"'><table id='" + this.tid + "' class='table table-border table-hover' frame='below'>" +
                 "<thead bgcolor='#898888' style='text-align: center'>";
