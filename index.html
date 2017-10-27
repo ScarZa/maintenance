@@ -49,12 +49,20 @@
             alert("Error: " + xhr.status + ": " + xhr.statusText);
     });
 }
-
+</script>
+<script type="text/javascript">
+            function loadAjax(content,pagesend,data,pageload,method='POST') {
+                $.ajax({
+  url: pagesend,
+  method: method,
+  data: {data: value},
+  dataType: 'json', 
+  success: function(result){
+        $(content).empty().load(pageload);
+    }
+});
+}
         </script>
-        <script type="text/javascr">
-            var str_test = getURL("test");
-            console.log(str_test);
-            </script>
         <style type="text/css">
             .black-ribbon {   position: fixed;   z-index: 9999;   width: 70px; }
             @media only all and (min-width: 768px) { .black-ribbon { width: auto; } }

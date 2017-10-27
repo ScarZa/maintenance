@@ -6,7 +6,7 @@
              
 <script language="Javascript" type="text/javascript">
     //var column1 = '{"รายการความเสี่ยงที่รอ RM man มาตรวจสอบ":["เลขที่","รายการ","เกิดขึ้นเมื่อ","ได้รับเมื่อ"]}';
-    var column1 = '["เลขครุภัณฑ์","ชื่อ","งาน","ติดตั้งเมื่อ","วันที่ย้าย","หมายเหตุ","สถานะ"]';
+    var column1 = '["เลขครุภัณฑ์","ชื่อ","งาน","ติดตั้งเมื่อ","วันที่ย้าย","หมายเหตุ","สถานะ","id"]';
     var tid = 'dbtable1';
     var tid3 = 'dbtable3';
     var tid2 = 'dbtable2';
@@ -39,7 +39,7 @@
         function creatTable() {
             
                 $.getJSON('JsonData/DT_LP.php', function (dataTB) {
-                    var val;
+                    var value;
                 var table = document.createElement ("table");
             	table.border = "1px";
             	var tBody = document.createElement ("tbody");
@@ -52,17 +52,21 @@
                                     $.each( dataTB[i], function( dkey, val ) {
                     			var cell = row.insertCell (-1);
                     				cell.innerHTML = val;
-                		});
+                                                value=val;
+                		});console.log(value);
                                         var cellEdit = row.insertCell (-1);
 					editButton = document.createElement("a");
 					cellEdit.appendChild(editButton);
-					editButton.innerHTML = "แก้ไข";
+					editButton.innerHTML = "<img src='images/icon_set1/file.ico' width='25'>";
 					editButton.setAttribute("href","#");
-					//editButton.setAttribute("onclick","edit_local('"+//val+"')");
+					//editButton.setAttribute("onclick","loadPage('#index_content','content/testSendDatat.php',{data: "+value+"});");
+                                        editButton.setAttribute("onclick","loadAjax('#index_content','content/testSendDatat.php','"+value+"','testLoad.html');");
+                                        
+
 					var cellDel = row.insertCell (-1);
 					delButton = document.createElement("a");
 					cellDel.appendChild(delButton);
-					delButton.innerHTML = "ลบ";
+					delButton.innerHTML = "<img src='images/icon_set1/file_delete.ico' width='25'>";
 					delButton.setAttribute("href","#");
 					//delButton.setAttribute("onclick","del_local('"+//val+"')");
             }
