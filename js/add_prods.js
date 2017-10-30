@@ -1,4 +1,4 @@
-        
+function AddProds () {
         var cate_no ="";
         var cate = "";
         $("#DP_content").append($("<div class='form-group'>หมวดครุภัณฑ์ : <select name='pdgroup' class='form-control select2' id='pdgroup' required></select>")
@@ -142,3 +142,4 @@
 					   }
 					 });
         });
+        }
