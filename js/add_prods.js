@@ -1,6 +1,26 @@
 function AddProds () {
         var cate_no ="";
         var cate = "";
+//        $(content).empty().append("<h2 style='color: blue'>เพิ่มครุภัณฑ์</h2>"+
+//                                    "<ol class='breadcrumb'>"+
+//                                    "<li><a href='index.php'><i class='fa fa-home'></i> หน้าหลัก</a></li>"+
+//                                    "<li class='active'><i class='fa fa-envelope'></i> เพิ่มครุภัณฑ์</li>"+
+//                                    "</ol>"+
+//                                    "<div class='row'>"+
+//                                    "<div class='col-md-12'>"+
+//                                    "<div class='box box-primary box-solid'>"+
+//                                    "<div class='box-header with-border'>"+
+//                                    "<h4 class='box-title'> เพิ่มข้อมูลครุภัณฑ์ </h4></div>"+
+//                                    "<div class='box-body' id='add_pd'><div class='col-md-12'><div class='col-md-6'>"+
+//                                    "<div class='box box-primary box-solid'><div class='box-header with-border'>"+
+//                                    "<h4 class='box-title'> ข้อมูลครุภัณฑ์ </h4></div><div class='box-body'><div id='DP_content'></div></div></div></div>"+
+//                                    "<div class='col-md-6'><div class='box box-primary box-solid'><div class='box-header with-border'>"+
+//                                    "<h4 class='box-title'> ข้อมูลการซื้อครุภัณฑ์ </h4></div><div class='box-body'><div id='DSP_content'></div></div></div></div></div>"+
+//                                    "<div class='col-md-12'><div class='col-md-6'><div class='box box-primary box-solid'><div class='box-header with-border'>"+
+//                                    "<h4 class='box-title'> ข้อมูลการรับประกันครุภัณฑ์ </h4></div><div class='box-body'><div id='DWP_content'></div></div></div></div>"+
+//                                    "<div class='col-md-6'><div class='box box-primary box-solid'><div class='box-header with-border'>"+
+//                                    "<h4 class='box-title'> ข้อมูลสถานที่ครุภัณฑ์ </h4></div><div class='box-body'><div id='DPP_content'></div>"+
+//                                    "</div></div></div></div></div></div></div><div class='col-md-12' id='DR_content'></div></div>");
         $("#DP_content").append($("<div class='form-group'>หมวดครุภัณฑ์ : <select name='pdgroup' class='form-control select2' id='pdgroup' required></select>")
                         ,$("<div class='form-group'>ประเภทครุภัณฑ์ : <select name='pdcate' class='form-control select2' id='pdcate' required></select>")
                         //,$("<div class='form-group'>เลขครุภัณฑ์ : <INPUT TYPE='text' NAME='head_no' id='head_no' style='width: 100px'> <b id='cate_no'></b> <INPUT TYPE='text' NAME='num' id='num' style='width: 50px'></div>")
