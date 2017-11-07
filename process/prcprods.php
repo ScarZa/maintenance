@@ -95,7 +95,7 @@ if ($method == 'add_prods') {
     $execute=array(':pd_id' => $pd_id);
     $edit_prods=$connDB->update($table, $data, $where, null, $execute);
     
-    $data2 = array($edit_prods,$dep_id,$lnstalldate,$movingdate,$rp_person,$note);
+    $data2 = array($pd_id,$dep_id,$lnstalldate,$movingdate,$rp_person,$note);
     //$field2=array("pd_id","depId","lnstalldate","movingdate","rp_person","note");
     $table2 = 'pd_place';
     $where2="pd_id=:pd_id";
