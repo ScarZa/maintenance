@@ -6,12 +6,10 @@
              
 <script language="Javascript" type="text/javascript">
     //var column1 = '{"รายการความเสี่ยงที่รอ RM man มาตรวจสอบ":["เลขที่","รายการ","เกิดขึ้นเมื่อ","ได้รับเมื่อ"]}';
-    var column1 = '["id","เลขครุภัณฑ์","ชื่อ","งาน","ติดตั้งเมื่อ","วันที่ย้าย","หมายเหตุ","สถานะ"]';
-    var tid = 'dbtable1';
-    var tid3 = 'dbtable3';
-    var tid2 = 'dbtable2';
-              var CTb = new createTable(column1,'1',tid);
-              CTb.GetTableAjax('JsonData/DT_LP.php','contentTB');
+    var column1 = ["id","เลขครุภัณฑ์","ชื่อ","งาน","ติดตั้งเมื่อ","วันที่ย้าย","หมายเหตุ","สถานะ","แก้ไข","ลบ"];
+              var CTb = new createTableAjax();
+              CTb.GetNewTableAjax('contentTB','JsonData/DT_LP.php','content/testSendDatat.php',column1,'dbtb');
+              CTb.GetNewTableAjax('tableDiv','JsonData/DT_LP.php','content/testSendDatat.php',column1,'dbtab');
               
 </script>
 <div class="row">
@@ -24,30 +22,34 @@
                     </div><!-- /.box-tools -->
                 </div><!-- /.box-header -->
                 <div class="box-body">
-        <div id="contentTB"></div>
+        <div id="contentTB" class="table-responsive"></div>
                 </div>
             </div>
     </div>
 </div>
 <div>
-    <input type="button" value="ทดสอบสร้างตาราง" onclick="creatTable('tableDiv','JsonData/DT_LP.php','content/testSendDatat.php',['id','เลขครุภัณฑ์','ชื่อ','งาน','ติดตั้งเมื่อ','วันที่ย้าย','หมายเหตุ','สถานะ','แก้ไข','ลบ']);"/>
+    <input type="button" value="ทดสอบสร้างตาราง" onclick="creatTable('tableDiv','JsonData/DT_LP.php','content/testSendDatat.php',['id','เลขครุภัณฑ์','ชื่อ','งาน','ติดตั้งเมื่อ','วันที่ย้าย','หมายเหตุ','สถานะ','แก้ไข','ลบ'],'dbtable');"/>
 </div>
-	<div id="tableDiv" style="margin-top:10px;"></div>
+<div id="tableDiv" class="table-responsive" style="margin-top:10px;"></div>
 
 	<script type="text/javascript">
             
-        function creatTable(content,jsonsource,tempdata,cols) {
+        function creatTable(content,jsonsource,tempdata,cols,tid) {
                 var divcontent = content;
                 var jsonsource = jsonsource;
                 var tempdata = tempdata;
                 var cols = cols;
+                var tid = tid;
                 $.getJSON(jsonsource, function (dataTB) {
                 var value;
                 var table = document.createElement ("table");
-            	table.border = "1px";
-                table.id = "dbtable2";
-                table.class = "table table-border table-hover";
+            	//table.border = "1px";
+                table.setAttribute("id", tid);
+                table.setAttribute("class", "table table-border table-hover");
+                table.setAttribute("frame","below");
                 var tHead = document.createElement ("thead");
+                tHead.setAttribute("bgcolor","#898888");
+                tHead.setAttribute("style","text-align: center");
                 table.appendChild (tHead);
                 var rowh = tHead.insertRow (-1);
                 var cellh;
@@ -60,8 +62,6 @@
                     if (dataTB != null && dataTB.length > 0) {
                 for (var i = 0; i < dataTB.length; i++) {
                 		var row = tBody.insertRow (-1);
-                                var count_cols=dataTB.length;
-                                var c =0;
                                     $.each( dataTB[i], function( dkey, val ) {
                     			var cell = row.insertCell (-1);
                     				cell.innerHTML = val;
@@ -86,8 +86,7 @@
             	var container = document.getElementById (divcontent);
             	container.appendChild(table);
             }
-            });
-            $("#dbtable1").DataTable();
+            $("#dbtable").DataTable();
             $('#dbtable2').DataTable({
             "paging": true,
             "lengthChange": false,
@@ -104,6 +103,8 @@
             "info": true,
             "autoWidth": true
         });
+            });
+            
 }    
             
 	</script>

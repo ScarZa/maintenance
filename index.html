@@ -38,6 +38,7 @@
     
         <script language="Javascript" type="text/javascript" src="js/sendGetPost.js"></script>
         <script src="js/createTable.js" type="text/javascript"></script>
+        <script src="js/createTableAjax.js" type="text/javascript"></script>
         
         <script src="js/AJAXCharts.js" type="text/javascript"></script>
         <script src="template/plugins/json2/json2.js" type="text/javascript"></script><!-- JSON2 -->
@@ -51,14 +52,16 @@
 }
 </script>
 <script type="text/javascript">
-            function loadAjax(content,pagesend,data,pageload,method='POST') {
+            function loadAjax(content,pagesend,data,getfunc,method='POST') {
                 $.ajax({
   url: pagesend,
   method: method,
   data: {data: data},
   dataType: 'json', 
   success: function(result){
+      if(getfunc=='AddProds'){
     AddProds(content,result);
+      }
     }
 });
 }
@@ -179,30 +182,8 @@
     <script src="template/dist/js/pages/dashboard.js"></script>-->
     <!-- AdminLTE for demo purposes -->
     <script src="template/dist/js/demo.js"></script>
-    <!-- page script 
-    <script>
-      $(function () {
-        $("#dbtable1").DataTable();
-        $('#dbtable2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false
-        });
-        $('#dbtable3').DataTable({
-            "paging": false,
-            "lengthChange": true,
-            "searching": true,
-            "ordering": true,
-            "info": true,
-            "autoWidth": true
-        });
-        
-    });
-    </script>-->
-                    <script language="JavaScript">
+
+    <script language="JavaScript">
             var HttPRequest = false;
             function doCallAjax(Sort) {
                 HttPRequest = false;
