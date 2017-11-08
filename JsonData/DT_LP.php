@@ -14,7 +14,7 @@ $conn_DB->conn_PDO();
 set_time_limit(0);
 $rslt = array();
 $series = array();
-$sql="SELECT pp.pd_number,pp.name,d.depName,pp2.lnstalldate,pp2.movingdate,pp2.note,ps.pd_status,pp.pd_id
+$sql="SELECT pp.pd_id,pp.pd_number,pp.name,d.depName,pp2.lnstalldate,pp2.movingdate,pp2.note,ps.pd_status
 FROM pd_product pp
 INNER JOIN pd_place pp2 on pp2.pd_id=pp.pd_id
 INNER JOIN department d on d.depId=pp2.depId
@@ -22,6 +22,7 @@ INNER JOIN pd_status ps on ps.pd_status_id=pp.status";
 $conn_DB->imp_sql($sql);
     $num_risk = $conn_DB->select();
     for($i=0;$i<count($num_risk);$i++){
+    $series['pd_id'] = $num_risk[$i]['pd_id'];
     $series['pd_number'] = $num_risk[$i]['pd_number'];
     $series['name']= $num_risk[$i]['name'];
     $series['depName']= $num_risk[$i]['depName'];
@@ -30,7 +31,7 @@ $conn_DB->imp_sql($sql);
     //$series['detail_id'] = $conn_DB->sslEnc($num_risk[$i]['takerisk_id']);
     $series['note'] = $num_risk[$i]['note'];
     $series['pd_status'] = $num_risk[$i]['pd_status'];
-    $series['pd_id'] = $num_risk[$i]['pd_id'];
+    
     array_push($rslt, $series);    
     }
 print json_encode($rslt);

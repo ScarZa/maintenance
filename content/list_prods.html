@@ -6,7 +6,7 @@
              
 <script language="Javascript" type="text/javascript">
     //var column1 = '{"รายการความเสี่ยงที่รอ RM man มาตรวจสอบ":["เลขที่","รายการ","เกิดขึ้นเมื่อ","ได้รับเมื่อ"]}';
-    var column1 = '["เลขครุภัณฑ์","ชื่อ","งาน","ติดตั้งเมื่อ","วันที่ย้าย","หมายเหตุ","สถานะ","id"]';
+    var column1 = '["id","เลขครุภัณฑ์","ชื่อ","งาน","ติดตั้งเมื่อ","วันที่ย้าย","หมายเหตุ","สถานะ"]';
     var tid = 'dbtable1';
     var tid3 = 'dbtable3';
     var tid2 = 'dbtable2';
@@ -29,19 +29,32 @@
             </div>
     </div>
 </div>
-			<div>
-                                <input type="button" value="ทดสอบสรา้งตาราง" onclick="creatTable();"/>
-			</div>
-			<div id="tableDiv" style="margin-top:10px;"></div>
+<div>
+    <input type="button" value="ทดสอบสร้างตาราง" onclick="creatTable('tableDiv','JsonData/DT_LP.php','content/testSendDatat.php',['id','เลขครุภัณฑ์','ชื่อ','งาน','ติดตั้งเมื่อ','วันที่ย้าย','หมายเหตุ','สถานะ','แก้ไข','ลบ']);"/>
+</div>
+	<div id="tableDiv" style="margin-top:10px;"></div>
 
 	<script type="text/javascript">
             
-        function creatTable() {
-            
-                $.getJSON('JsonData/DT_LP.php', function (dataTB) {
-                    var value;
+        function creatTable(content,jsonsource,tempdata,cols) {
+                var divcontent = content;
+                var jsonsource = jsonsource;
+                var tempdata = tempdata;
+                var cols = cols;
+                $.getJSON(jsonsource, function (dataTB) {
+                var value;
                 var table = document.createElement ("table");
             	table.border = "1px";
+                table.id = "dbtable2";
+                table.class = "table table-border table-hover";
+                var tHead = document.createElement ("thead");
+                table.appendChild (tHead);
+                var rowh = tHead.insertRow (-1);
+                var cellh;
+                for (var keys in cols) {
+                    cellh = rowh.insertCell (-1);
+                    cellh.innerHTML = cols[keys];
+                }
             	var tBody = document.createElement ("tbody");
             	table.appendChild (tBody);
                     if (dataTB != null && dataTB.length > 0) {
@@ -53,14 +66,14 @@
                     			var cell = row.insertCell (-1);
                     				cell.innerHTML = val;
                                                 value=val;
-                		});console.log(value);
+                		});
                                         var cellEdit = row.insertCell (-1);
 					editButton = document.createElement("a");
 					cellEdit.appendChild(editButton);
 					editButton.innerHTML = "<img src='images/icon_set1/file.ico' width='25'>";
 					editButton.setAttribute("href","#");
 					//editButton.setAttribute("onclick","loadPage('#index_content','content/testSendDatat.php',{data: "+value+"});");
-                                        editButton.setAttribute("onclick","loadAjax('#index_content','content/testSendDatat.php','"+value+"');");
+                                        editButton.setAttribute("onclick","loadAjax('#index_content','"+tempdata+"','"+value+"');");
                                         
 
 					var cellDel = row.insertCell (-1);
@@ -70,10 +83,27 @@
 					delButton.setAttribute("href","#");
 					//delButton.setAttribute("onclick","del_local('"+//val+"')");
             }
-            	var container = document.getElementById ("tableDiv");
+            	var container = document.getElementById (divcontent);
             	container.appendChild(table);
             }
             });
+            $("#dbtable1").DataTable();
+            $('#dbtable2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false
+        });
+        $('#dbtable3').DataTable({
+            "paging": false,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true
+        });
 }    
             
 	</script>
