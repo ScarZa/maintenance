@@ -27,14 +27,16 @@ var createTableAjax = function () {
             	table.appendChild (tBody);
                 
                 $.getJSON(jsonsource, function (dataTB) {
-                var value;
+                var value=[];
                     if (dataTB != null && dataTB.length > 0) {
                 for (var i = 0; i < dataTB.length; i++) {
                 		var row = tBody.insertRow (-1);
+                                var I=0;
                                     $.each( dataTB[i], function( dkey, val ) {
                     			var cell = row.insertCell (-1);
                     				cell.innerHTML = val;
-                                                value=val;
+                                                value[I]=val;
+                                                I++;
                 		});
                                         var cellEdit = row.insertCell (-1);
 					editButton = document.createElement("a");
@@ -42,7 +44,7 @@ var createTableAjax = function () {
 					editButton.innerHTML = "<img src='images/icon_set1/file.ico' width='25'>";
 					editButton.setAttribute("href","#");
 					//editButton.setAttribute("onclick","loadPage('#index_content','content/testSendDatat.php',{data: "+value+"});");
-                                        editButton.setAttribute("onclick","loadAjax('#index_content','"+tempdata+"','"+value+"','AddProds');");
+                                        editButton.setAttribute("onclick","loadAjax('#index_content','"+tempdata+"','"+value[0]+"','AddProds');");
                                         
 
 					var cellDel = row.insertCell (-1);
