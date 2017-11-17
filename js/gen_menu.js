@@ -18,7 +18,7 @@
                                             $("#sec_content").append("<div id='index_content'>No Login.</div>");
                                         
                     $(".main-footer").append("<div id='version' class='pull-right hidden-xs'></div>").append("<strong>Copyright &copy; 2017 <a href='http://rploei.go.th'>โรงพยาบาลจิตเวชเลยราชนครินทร์</a>.</strong> All rights reserved.");       
-                                $("#version").append("<b>Version</b> 3.0");
+                                $("#version").append("<b>Version</b> 1.0");
                     $(".control-sidebar").empty().load("menu_footer.php");                                                               
                                               if(data.rm_status == 'Y'){
                                             $(".sidebar-menu").append($("<li id='ad_treeview1' class='treeview'></li>"),$("<li id='ad_treeview2' class='treeview'></li>")
@@ -79,9 +79,11 @@ if(page!=''){
                                 <img src='images/icon_set2/booklet.ico' width='20'> <span>คู่มือโปรแกรมความเสี่ยง</span></a></li>")
                                                                     ,$("<li class=''><a id='addProds' href='#'><img src='images/icon_set2/pencil.ico' width='20'> <span>เพิ่มครุภัณฑ์</span></a></li>")
                                                                     ,$("<li class=''><a id='listProds' href='#'><img src='images/icon_set2/pencil.ico' width='20'> <span>รายการครุภัณฑ์</span></a></li>")
+                                                                    ,$("<li class=''><a id='addRepair' href='#'><img src='images/icon_set2/pencil.ico' width='20'> <span>แจ้งซ่อมคอมพิวเตอร์</span></a></li>")
                                                                     ,$("<li class=''><a id='testTB' href='#'><img src='images/icon_set2/pencil.ico' width='20'> <span>test create table</span></a></li>"));
                                                                         $("#addProds").attr("onclick","loadPage('#index_content','content/add_prods.html');");
                                                                         $("#listProds").attr("onclick","loadPage('#index_content','content/list_prods.html');");
+                                                                        $("#addRepair").attr("onclick","loadPage('#index_content','content/add_repair.html');");
                                                                         $("#testTB").attr("onclick","loadPage('#index_content','content/06.html');");
                                                 $("#treeview1").append($("<a href='#'><img src='images/Import.ico' width='20'> <span>ดาวน์โหลดแบบฟอร์ม</span>\n\
                                 <i class='fa fa-angle-left pull-right'></i></a>")
