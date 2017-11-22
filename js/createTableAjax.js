@@ -1,6 +1,6 @@
 var createTableAjax = function () {
     
-    this.GetNewTableAjax = function (content,jsonsource,tempdata,cols,tid1=null,tid2=null,tid3=null) {
+    this.GetNewTableAjax = function (content,jsonsource,tempdata,cols,namefunc,tid1=null,tid2=null,tid3=null) {
                 var table = document.createElement ("table");
             	//table.border = "1px";
                 if(tid1!=null){
@@ -44,7 +44,7 @@ var createTableAjax = function () {
 					editButton.innerHTML = "<img src='images/icon_set1/file.ico' width='25'>";
 					editButton.setAttribute("href","#");
 					//editButton.setAttribute("onclick","loadPage('#index_content','content/testSendDatat.php',{data: "+value+"});");
-                                        editButton.setAttribute("onclick","loadAjax('#index_content','"+tempdata+"','"+value[0]+"','AddProds');");
+                                        editButton.setAttribute("onclick","loadAjax('#index_content','"+tempdata+"','"+value[0]+"','"+namefunc+"');");
                                         
 
 					var cellDel = row.insertCell (-1);

@@ -42,50 +42,23 @@ if ($method == 'add_repair') {
     } else {
         echo "Insert complete!!!!";
     }
-}elseif ($method == 'edit_prods') {
-    $pd_id = $_POST['pd_id'];
-    $pdgroup = $_POST['pdgroup'];
-    $pdcate = $_POST['pdcate'];
-    $pd_number = $_POST['pd_number'];
-    $number = explode("-", $pd_number);
-    $lnumber = explode("/", $number[3]);
-    $name = $_POST['name'];
-    $brand = $_POST['brand'];
-    $serial = $_POST['serial'];
-    $pd_status = $_POST['pd_status'];
-    $com_id = $_POST['com_id'];
-    $price = $_POST['price'];
-    $montype_id = $_POST['montype_id'];
-    $mon_id = $_POST['mon_id'];
-    $yearbuy = $_POST['yearbuy'];
-    $regis_date = insert_date($_POST['datepicker1']);
-    $date_stinsur = insert_date($_POST['datepicker2']);
-    $ct_number = $_POST['ct_number'];
-    $nbmoth_insur = $_POST['nbmoth_insur'];
-    $dep_id = $_POST['dep_id'];
-    $lnstalldate = insert_date($_POST['datepicker3']);
-    $movingdate = insert_date($_POST['datepicker4']);
-    $rp_person = $_POST['rp_person'];
-    $note = $_POST['note'];
+}elseif ($method == 'edit_repair') {
+    echo $repair_id= $_POST['repair_id'];
+    echo $repair_date =insert_date($_POST['datepicker1']);
+    echo $record_date = date('Y-m-d H:i:s');
+    echo $pd_id = $_POST['pd_id'];
+    echo $vital = $_POST['vital'];
+    echo $symptom = $_POST['symptom'];
     
-    $data = array($pd_number, $number[0], $lnumber[1], $pd_status,$name, $brand,'', $com_id, $price, $montype_id
-        , $yearbuy, $mon_id, $ct_number, $pdgroup, $pdcate, $date_stinsur, $regis_date, $nbmoth_insur, $serial);
-    //$field=array("pd_number","head_no","number","status","name","brand","size","com_id","price","montype_id"
-        //,"yearbuy","mon_id","ct_number","group_id","category_id","date_stinsur","regis_date","nbmoth_insur","serial");
-    $table = "pd_product";
-    $where="pd_id=:pd_id";
-    $execute=array(':pd_id' => $pd_id);
-    $edit_prods=$connDB->update($table, $data, $where, null, $execute);
-    
-    $data2 = array($pd_id,$dep_id,$lnstalldate,$movingdate,$rp_person,$note);
-    //$field2=array("pd_id","depId","lnstalldate","movingdate","rp_person","note");
-    $table2 = 'pd_place';
-    $where2="pd_id=:pd_id";
-    $execute2=array(':pd_id' => $pd_id);
-    $edit_place=$connDB->update($table2, $data2, $where2, null, $execute2);
+    $data = array($repair_date, $record_date, $pd_id,$vital, $symptom);
+    $field=array("repair_date","record_date","pd_id","vital","symptom");
+    $table = "m_repair_pd";
+    $where="repair_id=:repair_id";
+    $execute=array(':repair_id' => $repair_id);
+    $edit_repair=$connDB->update($table, $data, $where, $field, $execute);
     $connDB->close_PDO();
     if ($edit_place == false) {
-        echo "Update not complete " .$add_place->errorInfo();
+        echo "Update not complete " .$edit_repair->errorInfo();
     } else {
         echo "Update complete!!!!";
     }

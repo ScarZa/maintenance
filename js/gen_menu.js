@@ -80,10 +80,12 @@ if(page!=''){
                                                                     ,$("<li class=''><a id='addProds' href='#'><img src='images/icon_set2/pencil.ico' width='20'> <span>เพิ่มครุภัณฑ์</span></a></li>")
                                                                     ,$("<li class=''><a id='listProds' href='#'><img src='images/icon_set2/pencil.ico' width='20'> <span>รายการครุภัณฑ์</span></a></li>")
                                                                     ,$("<li class=''><a id='addRepair' href='#'><img src='images/icon_set2/pencil.ico' width='20'> <span>แจ้งซ่อมคอมพิวเตอร์</span></a></li>")
+                                                                    ,$("<li class=''><a id='listRepair' href='#'><img src='images/icon_set2/pencil.ico' width='20'> <span>รายการแจ้งซ่อมคอมพิวเตอร์</span></a></li>")
                                                                     ,$("<li class=''><a id='testTB' href='#'><img src='images/icon_set2/pencil.ico' width='20'> <span>test create table</span></a></li>"));
                                                                         $("#addProds").attr("onclick","loadPage('#index_content','content/add_prods.html');");
                                                                         $("#listProds").attr("onclick","loadPage('#index_content','content/list_prods.html');");
                                                                         $("#addRepair").attr("onclick","loadPage('#index_content','content/add_repair.html');");
+                                                                        $("#listRepair").attr("onclick","loadPage('#index_content','content/list_repair_order.html');");
                                                                         $("#testTB").attr("onclick","loadPage('#index_content','content/06.html');");
                                                 $("#treeview1").append($("<a href='#'><img src='images/Import.ico' width='20'> <span>ดาวน์โหลดแบบฟอร์ม</span>\n\
                                 <i class='fa fa-angle-left pull-right'></i></a>")
