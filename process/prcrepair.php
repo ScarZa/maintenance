@@ -43,12 +43,12 @@ if ($method == 'add_repair') {
         echo "Insert complete!!!!";
     }
 }elseif ($method == 'edit_repair') {
-    echo $repair_id= $_POST['repair_id'];
-    echo $repair_date =insert_date($_POST['datepicker1']);
-    echo $record_date = date('Y-m-d H:i:s');
-    echo $pd_id = $_POST['pd_id'];
-    echo $vital = $_POST['vital'];
-    echo $symptom = $_POST['symptom'];
+    $repair_id= $_POST['repair_id'];
+    $repair_date =insert_date($_POST['datepicker1']);
+    $record_date = date('Y-m-d H:i:s');
+    $pd_id = $_POST['pd_id'];
+    $vital = $_POST['vital'];
+    $symptom = $_POST['symptom'];
     
     $data = array($repair_date, $record_date, $pd_id,$vital, $symptom);
     $field=array("repair_date","record_date","pd_id","vital","symptom");
@@ -57,7 +57,7 @@ if ($method == 'add_repair') {
     $execute=array(':repair_id' => $repair_id);
     $edit_repair=$connDB->update($table, $data, $where, $field, $execute);
     $connDB->close_PDO();
-    if ($edit_place == false) {
+    if ($edit_repair == false) {
         echo "Update not complete " .$edit_repair->errorInfo();
     } else {
         echo "Update complete!!!!";
