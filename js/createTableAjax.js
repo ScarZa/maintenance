@@ -1,6 +1,6 @@
 var createTableAjax = function () {
     
-    this.GetNewTableAjax = function (content,jsonsource,tempdata,cols,namefunc,tid1=null,tid2=null,tid3=null) {
+    this.GetNewTableAjax = function (content,jsonsource,tempdata,cols,namefunc,edit=true,detail=true,tid1=null,tid2=null,tid3=null) {
                 var table = document.createElement ("table");
             	//table.border = "1px";
                 if(tid1!=null){
@@ -38,12 +38,22 @@ var createTableAjax = function () {
                                                 value[I]=val;
                                                 I++;
                 		});
+                                if(detail==true){
                                         var cellEdit = row.insertCell (-1);
 					editButton = document.createElement("a");
 					cellEdit.appendChild(editButton);
-					editButton.innerHTML = "<img src='images/icon_set1/file.ico' width='25'>";
+					editButton.innerHTML = "<img src='images/icon_set1/file_search.ico' width='25'>";
 					editButton.setAttribute("href","#");
-					//editButton.setAttribute("onclick","loadPage('#index_content','content/testSendDatat.php',{data: "+value+"});");
+                                        editButton.setAttribute("data-toggle","modal");
+                                        editButton.setAttribute("data-target","#receiveModal");
+                                        editButton.setAttribute("data-whatever",value[0]);
+                                }
+                                if(edit==true){
+                                        var cellEdit = row.insertCell (-1);
+					editButton = document.createElement("a");
+					cellEdit.appendChild(editButton);
+					editButton.innerHTML = "<img src='images/icon_set1/file_edit.ico' width='25'>";
+					editButton.setAttribute("href","#");
                                         editButton.setAttribute("onclick","loadAjax('#index_content','"+tempdata+"','"+value[0]+"','"+namefunc+"');");
                                         
 
@@ -53,6 +63,7 @@ var createTableAjax = function () {
 					delButton.innerHTML = "<img src='images/icon_set1/file_delete.ico' width='25'>";
 					delButton.setAttribute("href","#");
 					//delButton.setAttribute("onclick","del_local('"+//val+"')");
+                                    }
             }
             	var container = document.getElementById (content);
             	container.appendChild(table);
