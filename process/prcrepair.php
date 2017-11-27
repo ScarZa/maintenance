@@ -62,4 +62,23 @@ if ($method == 'add_repair') {
     } else {
         echo "Update complete!!!!";
     }
+}elseif ($method == 'receive_repair') {
+    $repair_id= $_POST['repair_id'];
+    //$receiver=$_SESSION[''];
+    $repairer = $_POST['repairer'];
+    $receive_date =insert_date($_POST['datepicker1']);
+    $repair_status = 1;
+    
+    $data = array($repairer, $receive_date, $repair_status);
+    $field=array("repairer","receive_date","repair_status");
+    $table = "m_repair_pd";
+    $where="repair_id=:repair_id";
+    $execute=array(':repair_id' => $repair_id);
+    $receive_repair=$connDB->update($table, $data, $where, $field, $execute);
+    $connDB->close_PDO();
+    if ($receive_repair == false) {
+        echo "Update not complete " .$receive_repair->errorInfo();
+    } else {
+        echo "Update complete!!!!";
+    }
 }

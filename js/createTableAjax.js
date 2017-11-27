@@ -1,6 +1,6 @@
 var createTableAjax = function () {
     
-    this.GetNewTableAjax = function (content,jsonsource,tempdata,cols,namefunc,edit=true,detail=true,tid1=null,tid2=null,tid3=null) {
+    this.GetNewTableAjax = function (content,jsonsource,tempdata,cols,namefunc,edit=true,detail=true,modal=null,tid1=null,tid2=null,tid3=null) {
                 var table = document.createElement ("table");
             	//table.border = "1px";
                 if(tid1!=null){
@@ -45,7 +45,7 @@ var createTableAjax = function () {
 					editButton.innerHTML = "<img src='images/icon_set1/file_search.ico' width='25'>";
 					editButton.setAttribute("href","#");
                                         editButton.setAttribute("data-toggle","modal");
-                                        editButton.setAttribute("data-target","#receiveModal");
+                                        editButton.setAttribute("data-target",modal);
                                         editButton.setAttribute("data-whatever",value[0]);
                                 }
                                 if(edit==true){
