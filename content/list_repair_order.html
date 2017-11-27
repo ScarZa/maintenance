@@ -37,8 +37,8 @@
           <span id="repair_detail"></span>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-success" id="submrepair">Send message</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
+        <button type="button" class="btn btn-success" id="submrepair" data-dismiss="modal">รับใบแจ้งซ่อม</button>
       </div>
     </div>
   </div>
@@ -78,7 +78,7 @@
                                            data: $("#frmreceive").serialize(),
 					   success: function(result) {
 						alert(result);
-                                                modal.modal('hide');
+                                                //modal.modal("close");
                                                 $("#index_content").empty().load('content/list_repair_order.html');
 					   }
 					 });
