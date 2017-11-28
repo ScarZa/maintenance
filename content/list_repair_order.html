@@ -26,7 +26,7 @@
     </div>
 </div>
 <!---------------------------- Modal ---------------------------->
-<div class="modal fade" id="receiveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+<div class="modal" id="receiveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -37,7 +37,7 @@
           <span id="repair_detail"></span>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
+        <button type="submit" class="btn btn-danger" data-dismiss="modal">ปิด</button>
         <button type="button" class="btn btn-success" id="submrepair">รับใบแจ้งซ่อม</button>
       </div>
     </div>
@@ -71,19 +71,17 @@
                                 modal.find('.modal-body input#repair_id').val(recipient)
                                 modal.find('.modal-body input#method').val('receive_repair')
                                 
-                                $("button#submrepair").click(function () {
+                                $("button#submrepair").click(function(e) {
+                                        e.preventDefault();
+                                        modal.modal('hide');
         				$.ajax({
 					   type: "POST",
 					   url: "process/prcrepair.php",
                                            data: $("#frmreceive").serialize(),
 					   success: function(result) {
-                                               clearTimeout(modal.data('hideInteval'))
                                                alert(result);
-                                                var id = setTimeout(function(){
-                                                modal.modal('hide');
-                                                });
-                                                modal.data('hideInteval', id);
                                                 $("#index_content").empty().load('content/list_repair_order.html');
+                                                 return false;
 					   }
 					 });
         });
