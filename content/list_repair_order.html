@@ -38,7 +38,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
-        <button type="button" class="btn btn-success" id="submrepair" data-dismiss="modal">รับใบแจ้งซ่อม</button>
+        <button type="button" class="btn btn-success" id="submrepair">รับใบแจ้งซ่อม</button>
       </div>
     </div>
   </div>
@@ -77,8 +77,12 @@
 					   url: "process/prcrepair.php",
                                            data: $("#frmreceive").serialize(),
 					   success: function(result) {
-						alert(result);
-                                                //modal.modal("close");
+                                               clearTimeout(modal.data('hideInteval'))
+                                               alert(result);
+                                                var id = setTimeout(function(){
+                                                modal.modal('hide');
+                                                });
+                                                modal.data('hideInteval', id);
                                                 $("#index_content").empty().load('content/list_repair_order.html');
 					   }
 					 });
