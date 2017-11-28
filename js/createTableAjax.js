@@ -1,6 +1,6 @@
 var createTableAjax = function () {
     
-    this.GetNewTableAjax = function (content,jsonsource,tempdata,cols,namefunc,edit=true,detail=true,modal=null,tid1=null,tid2=null,tid3=null) {
+    this.GetNewTableAjax = function (content,jsonsource,tempdata,cols,namefunc,edit=true,process=true,pmodal=null,detail=true,dmodal=null,tid1=null,tid2=null,tid3=null) {
                 var table = document.createElement ("table");
             	//table.border = "1px";
                 if(tid1!=null){
@@ -25,7 +25,7 @@ var createTableAjax = function () {
                 }
             	var tBody = document.createElement ("tbody");
             	table.appendChild (tBody);
-                
+                tBody.setAttribute("style","text-align: center");
                 $.getJSON(jsonsource, function (dataTB) {
                 var value=[];
                     if (dataTB != null && dataTB.length > 0) {
@@ -45,7 +45,17 @@ var createTableAjax = function () {
 					editButton.innerHTML = "<img src='images/icon_set1/file_search.ico' width='25'>";
 					editButton.setAttribute("href","#");
                                         editButton.setAttribute("data-toggle","modal");
-                                        editButton.setAttribute("data-target",modal);
+                                        editButton.setAttribute("data-target",dmodal);
+                                        editButton.setAttribute("data-whatever",value[0]);
+                                }
+                                if(process==true){
+                                        var cellEdit = row.insertCell (-1);
+					editButton = document.createElement("a");
+					cellEdit.appendChild(editButton);
+					editButton.innerHTML = "<img src='images/icon_set1/file_search.ico' width='25'>";
+					editButton.setAttribute("href","#");
+                                        editButton.setAttribute("data-toggle","modal");
+                                        editButton.setAttribute("data-target",pmodal);
                                         editButton.setAttribute("data-whatever",value[0]);
                                 }
                                 if(edit==true){

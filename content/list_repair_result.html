@@ -6,9 +6,9 @@
              
 <script language="Javascript" type="text/javascript">
     //var column1 = '{"รายการความเสี่ยงที่รอ RM man มาตรวจสอบ":["เลขที่","รายการ","เกิดขึ้นเมื่อ","ได้รับเมื่อ"]}';
-    var column1 = ["ลำดับ","วันที่แจ้ง","เลขครุภัณฑ์","หมายเหตุ","อาการ","งาน","ความสำคัญ","ผู้แจ้ง","รับใบแจ้ง","แก้ไข","ลบ"];
+    var column1 = ["ลำดับ","วันที่แจ้ง","เลขครุภัณฑ์","ความสำคัญ","วันที่รับใบซ่อม","รายละเอียด","บันทึกผลการซ่อม","แก้ไข","ลบ"];
               var CTb = new createTableAjax();
-              CTb.GetNewTableAjax('contentTB','JsonData/DT_LRP.php','JsonData/tempSendData.php',column1,'AddRepair',true,true,'#receiveModal',false,null,'dbtb');
+              CTb.GetNewTableAjax('contentTB','JsonData/DT_LRRP.php','JsonData/tempSendData.php',column1,'AddRepair',true,true,'#receiveModal',true,'#detailModal','dbtb');
 </script>
 <div class="row">
     <div class="col-md-12">
@@ -26,7 +26,42 @@
     </div>
 </div>
 <!---------------------------- Modal ---------------------------->
-<div class="modal" id="receiveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+<div class="modal" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="receiveModalLabel">รับใบแจ้งซ่อม</h4>
+      </div>
+        <div class="modal-body" id="modelrepair">
+          <span id="detail"></span>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script language="Javascript" type="text/javascript">
+    $('#detailModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget)
+  var recipient = button.data('whatever')
+  var modal = $(this)
+  modal.find('.modal-title').text('รับใบแจ้งซ่อม : ลำดับที่ ' + recipient)
+  
+   $.getJSON('JsonData/repair_Data.php',{data: recipient},function (data) {console.log(data.inform);
+        $('span#detail').empty().append("ผู้แจ้งซ่อม : "+data.inform+"  &nbsp;&nbsp;งาน : "+data.depName+"<br>"
+                            +"เลขครุภัณฑ์ : "+data.pd_number+"  &nbsp;&nbsp;หมายเหตุ : "+data.note+"<br>"
+                            +"อาการ : "+data.symptom+"  &nbsp;&nbsp;วันที่แจ้ง : "+data.repair_date+"<br>"+data.vital);
+
+    });
+})
+   
+</script>
+
+
+<!---------------------------- Modal ---------------------------->
+<!--<div class="modal" id="receiveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -53,7 +88,7 @@
    $.getJSON('JsonData/repair_Data.php',{data: recipient},function (data) {
         $('#repair_detail').empty().append("ผู้แจ้งซ่อม : "+data.inform+"  &nbsp;&nbsp;งาน : "+data.depName+"<br>"
                             +"เลขครุภัณฑ์ : "+data.pd_number+"  &nbsp;&nbsp;หมายเหตุ : "+data.note+"<br>"
-                            +"อาการ : "+data.symptom+"  &nbsp;&nbsp;วันที่แจ้ง : "+data.repair_date+"<br>"+data.vital);
+                            +"อาการ : "+data.symptom+"  &nbsp;&nbsp;วันที่แจ้ง : "+data.repair_date+"<br>"+data.vital)
         $('div.modal-body').append("<form name='frmreceive' id='frmreceive'></form>");
                 $('#frmreceive').empty().append($("<div class='form-group'><label for='datepicker1' class='control-label'>วันที่ลงทะเบียน </label><input type='text' name='datepicker1' id='datepicker1' class='form-control' readonly required>")
                                     ,$("<div class='form-group' id='repairer_sel'></div>")
@@ -88,4 +123,4 @@
     });
 })
    
-</script>
+</script>-->
