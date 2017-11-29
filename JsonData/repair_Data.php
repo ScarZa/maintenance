@@ -19,13 +19,13 @@ $sql="SELECT re.repair_id,re.repair_date,pp.pd_number,ppl.note,re.symptom
 ,CASE re.vital
 WHEN '0' THEN 'ไม่เร่งด่วน'
 WHEN '1' THEN 'เร่งด่วน'
-ELSE NULL END as vital
+ELSE NULL END as vital,re.receive_date
 ,(SELECT CONCAT(e.firstname,' ',e.lastname) FROM emppersonal e WHERE e.empno=re.informer) inform
 FROM m_repair_pd re
 INNER JOIN pd_product pp on pp.pd_id=re.pd_id
 INNER JOIN pd_place ppl on ppl.pd_id=pp.pd_id
 INNER JOIN department d on d.depId=ppl.depId
-WHERE re.repair_status=0 and repair_id=:repair_id";
+WHERE repair_id=:repair_id";
 $execute = array(':repair_id' => $repair_id);
 $conn_DB->imp_sql($sql);
 $result=$conn_DB->select_a($execute);
@@ -38,6 +38,7 @@ $data['symptom'] = $result['symptom'];
 $data['depName'] = $result['depName'];
 $data['vital'] = $result['vital'];
 $data['inform'] = $result['inform'];
+$data['receive_date'] = isset($result['receive_date'])?DateThai1($result['receive_date']):'';
 print json_encode($data);
 $conn_DB->close_PDO();
 ?>

@@ -42,10 +42,12 @@ function AddProds (content,id=null) {
                                 $("select#pdgroup").change(function () {
                                     
                                 $.getJSON('JsonData/cate_Data.php',{data: $("#pdgroup").val()}, function (CD) {
+                                    var option;
                                     for (var key in CD) {
                                         //if(LR[key].group_id==data.detail.group_id){var select='selected';}else{var select='';}
-                                              $("select#pdcate").append($("<option value='"+CD[key].category_id+"'> "+CD[key].category_name+" </option>"));
+                                              option += "$('<option value='"+CD[key].category_id+"'> "+CD[key].category_name+" </option>'),";
                                         }
+                                        $("select#pdcate").empty().append(option);
                                         $(".select2").select2();
                                     
                                 }); 
@@ -185,12 +187,28 @@ function AddProds (content,id=null) {
                                 });    
                 $("select#pdcate").append($("<option value=''> เลือกประเภทครุภัณฑ์ </option>"));
                                 $.getJSON('JsonData/cate_Data.php',{data: data.group_id}, function (CD) {
+                                    var option;
                                     for (var key in CD) {
                                         if(CD[key].category_id==data.category_id){var select='selected';}else{var select='';}
-                                              $("select#pdcate").append($("<option value='"+CD[key].category_id+"' "+select+"> "+CD[key].category_name+" </option>"));
+                                              option += "$('<option value='"+CD[key].category_id+"' "+select+"> "+CD[key].category_name+" </option>'),";
                                         }
+                                        $("select#pdcate").empty().append(option);
                                         $(".select2").select2();
                                 }); 
+                                
+                                $("select#pdgroup").change(function () {
+                                    
+                                $.getJSON('JsonData/cate_Data.php',{data: $("#pdgroup").val()}, function (CD) {
+                                    var option;
+                                    for (var key in CD) {
+                                        //if(LR[key].group_id==data.detail.group_id){var select='selected';}else{var select='';}
+                                              option += "$('<option value='"+CD[key].category_id+"'> "+CD[key].category_name+" </option>'),";
+                                        }
+                                        $("select#pdcate").empty().append(option);
+                                        $(".select2").select2();
+                                    
+                                }); 
+                            }); 
                                    
                                     /*$("select#pdcate").change(function () {
                                         cate_no = $("#pdcate").val();

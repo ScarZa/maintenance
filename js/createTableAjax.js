@@ -52,7 +52,7 @@ var createTableAjax = function () {
                                         var cellEdit = row.insertCell (-1);
 					editButton = document.createElement("a");
 					cellEdit.appendChild(editButton);
-					editButton.innerHTML = "<img src='images/icon_set1/file_search.ico' width='25'>";
+					editButton.innerHTML = "<img src='images/icon_set1/file_add.ico' width='25'>";
 					editButton.setAttribute("href","#");
                                         editButton.setAttribute("data-toggle","modal");
                                         editButton.setAttribute("data-target",pmodal);

@@ -37,7 +37,7 @@
           <span id="repair_detail"></span>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-danger" data-dismiss="modal">ปิด</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
         <button type="button" class="btn btn-success" id="submrepair">รับใบแจ้งซ่อม</button>
       </div>
     </div>
@@ -53,7 +53,7 @@
    $.getJSON('JsonData/repair_Data.php',{data: recipient},function (data) {
         $('#repair_detail').empty().append("ผู้แจ้งซ่อม : "+data.inform+"  &nbsp;&nbsp;งาน : "+data.depName+"<br>"
                             +"เลขครุภัณฑ์ : "+data.pd_number+"  &nbsp;&nbsp;หมายเหตุ : "+data.note+"<br>"
-                            +"อาการ : "+data.symptom+"  &nbsp;&nbsp;วันที่แจ้ง : "+data.repair_date+"<br>"+data.vital);
+                            +"อาการ : "+data.symptom+"<br>วันที่แจ้ง : "+data.repair_date+"  &nbsp;&nbsp;<b style='color: red;'>"+data.vital+"</b>");
         $('div.modal-body').append("<form name='frmreceive' id='frmreceive'></form>");
                 $('#frmreceive').empty().append($("<div class='form-group'><label for='datepicker1' class='control-label'>วันที่ลงทะเบียน </label><input type='text' name='datepicker1' id='datepicker1' class='form-control' readonly required>")
                                     ,$("<div class='form-group' id='repairer_sel'></div>")

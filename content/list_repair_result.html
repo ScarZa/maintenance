@@ -6,7 +6,7 @@
              
 <script language="Javascript" type="text/javascript">
     //var column1 = '{"รายการความเสี่ยงที่รอ RM man มาตรวจสอบ":["เลขที่","รายการ","เกิดขึ้นเมื่อ","ได้รับเมื่อ"]}';
-    var column1 = ["ลำดับ","วันที่แจ้ง","เลขครุภัณฑ์","ความสำคัญ","วันที่รับใบซ่อม","รายละเอียด","บันทึกผลการซ่อม","แก้ไข","ลบ"];
+    var column1 = ["ลำดับ","วันที่แจ้ง","เลขครุภัณฑ์","ความสำคัญ","วันที่รับใบซ่อม","ผู้ซ่อม","รายละเอียด","บันทึกผลการซ่อม","แก้ไข","ลบ"];
               var CTb = new createTableAjax();
               CTb.GetNewTableAjax('contentTB','JsonData/DT_LRRP.php','JsonData/tempSendData.php',column1,'AddRepair',true,true,'#receiveModal',true,'#detailModal','dbtb');
 </script>
@@ -33,7 +33,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="receiveModalLabel">รับใบแจ้งซ่อม</h4>
       </div>
-        <div class="modal-body" id="modelrepair">
+        <div class="modal-body">
           <span id="detail"></span>
       </div>
       <div class="modal-footer">
@@ -47,12 +47,12 @@
   var button = $(event.relatedTarget)
   var recipient = button.data('whatever')
   var modal = $(this)
-  modal.find('.modal-title').text('รับใบแจ้งซ่อม : ลำดับที่ ' + recipient)
+  modal.find('.modal-title').text('รายละเอียดใบแจ้งซ่อม : ลำดับที่ ' + recipient)
   
    $.getJSON('JsonData/repair_Data.php',{data: recipient},function (data) {console.log(data.inform);
         $('span#detail').empty().append("ผู้แจ้งซ่อม : "+data.inform+"  &nbsp;&nbsp;งาน : "+data.depName+"<br>"
                             +"เลขครุภัณฑ์ : "+data.pd_number+"  &nbsp;&nbsp;หมายเหตุ : "+data.note+"<br>"
-                            +"อาการ : "+data.symptom+"  &nbsp;&nbsp;วันที่แจ้ง : "+data.repair_date+"<br>"+data.vital);
+                            +"อาการ : "+data.symptom+"<br>วันที่แจ้ง : "+data.repair_date+" &nbsp;&nbsp;<b style='color: red;'>"+data.vital+"</b>  &nbsp;&nbsp;วันที่รับใบแจ้ง : "+data.receive_date);
 
     });
 })
@@ -61,7 +61,7 @@
 
 
 <!---------------------------- Modal ---------------------------->
-<!--<div class="modal" id="receiveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+<div class="modal" id="receiveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -72,8 +72,8 @@
           <span id="repair_detail"></span>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-danger" data-dismiss="modal">ปิด</button>
-        <button type="button" class="btn btn-success" id="submrepair">รับใบแจ้งซ่อม</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
+        <button type="button" class="btn btn-success" id="submresult">บันทึกผลการซ่อม</button>
       </div>
     </div>
   </div>
@@ -83,30 +83,44 @@
   var button = $(event.relatedTarget)
   var recipient = button.data('whatever')
   var modal = $(this)
-  modal.find('.modal-title').text('รับใบแจ้งซ่อม : ลำดับที่ ' + recipient)
+  modal.find('.modal-title').text('ผลการซ่อมใบแจ้งซ่อม : ลำดับที่ ' + recipient)
   
    $.getJSON('JsonData/repair_Data.php',{data: recipient},function (data) {
         $('#repair_detail').empty().append("ผู้แจ้งซ่อม : "+data.inform+"  &nbsp;&nbsp;งาน : "+data.depName+"<br>"
                             +"เลขครุภัณฑ์ : "+data.pd_number+"  &nbsp;&nbsp;หมายเหตุ : "+data.note+"<br>"
-                            +"อาการ : "+data.symptom+"  &nbsp;&nbsp;วันที่แจ้ง : "+data.repair_date+"<br>"+data.vital)
-        $('div.modal-body').append("<form name='frmreceive' id='frmreceive'></form>");
-                $('#frmreceive').empty().append($("<div class='form-group'><label for='datepicker1' class='control-label'>วันที่ลงทะเบียน </label><input type='text' name='datepicker1' id='datepicker1' class='form-control' readonly required>")
-                                    ,$("<div class='form-group' id='repairer_sel'></div>")
+                            +"อาการ : "+data.symptom+" <br>วันที่แจ้ง : "+data.repair_date+"  &nbsp;&nbsp;<b style='color: red;'>"+data.vital+"</b>  &nbsp;&nbsp;วันที่รับใบแจ้ง : "+data.receive_date)
+        $('div.modal-body#modelrepair').append("<form name='frmresult' id='frmresult'></form>");
+                $('#frmresult').empty().append($("<div class='form-group'><label for='datepicker1' class='control-label'>วันที่เริ่มซ่อม </label><input type='text' name='datepicker1' id='datepicker1' class='form-control' readonly required>")
+                                    ,$("<div class='form-group'><label for='datepicker1' class='control-label'>วันที่ซ่อมเสร็จ </label><input type='text' name='datepicker2' id='datepicker2' class='form-control' readonly required>")
+                                    ,$("<div class='form-group'><input type='radio' value='1' name='result' id='result1' required> : ซ่อมได้  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio' value='0' name='result' id='result0' required> : ซ่อมไม่ได้</div>")
+                                    ,$("<div class='form-group' id='cause_sel'></div>")
+                                    ,$("<div class='form-group'><label for='repair_detail' class='control-label'>รายละเอียดการซ่อม</label><textarea class='form-control' style='width: 100%' COLS='100%' rows='2' placeholder='อธิบายรายละเอียดการซ่อม' name='repair_detail' id='repair_detail' required></textarea></div>")
+                                    ,$("<div class='form-group' id='rece_pd_sel'></div>")
                                     ,$("<input type='hidden' class='form-control' id='repair_id' name='repair_id'>")
                                     ,$("<input type='hidden' class='form-control' id='method' name='method'>"));
-                    $('#repairer_sel').empty().append("<label for='repairer' class='control-label'>เลือกผู้ซ่อม</label><select name='repairer' id='repairer' class='form-control select2'></select>");
-                    $.getJSON('JsonData/dep_com.php', function (GD) {
+                    $('#cause_sel').empty().append("<label for='cause' class='control-label'>สรุปอาการเสีย</label><select name='cause' id='cause' class='form-control select2'></select>");
+                    $('#rece_pd_sel').empty().append("<label for='repairer' class='control-label'>ผู้รับการซ่อม</label><select name='rece_pd' id='rece_pd' class='form-control select2'></select>");
+                    $("select#cause").append($("<option value=''> เลือกสรุปอาการเสีย </option>"));
+                    $.getJSON('JsonData/emp_Data.php', function (GD) {
                                     for (var key in GD) {
                                         //if(GD[key].pd_id==data.pd_id){var select='selected';}else{var select='';}
-                                              $("select#repairer").append($("<option value='"+GD[key].empno+"'> "+GD[key].fullname+"</option>"));
-                                    }//$(".select2").select2();
+                                              $("select#cause").append($("<option value='"+GD[key].empno+"'> "+GD[key].fullname+"</option>"));
+                                    }$(".select2").select2();
+                                });
+                    $("select#rece_pd").append($("<option value=''> เลือกผู้รับการซ่อม </option>"));
+                    $.getJSON('JsonData/emp_Data.php', function (GD) {
+                                    for (var key in GD) {
+                                        //if(GD[key].pd_id==data.pd_id){var select='selected';}else{var select='';}
+                                              $("select#rece_pd").append($("<option value='"+GD[key].empno+"'> "+GD[key].fullname+"</option>"));
+                                    }$(".select2").select2();
                                 });
                                 var DP = new DatepickerThai();
                                 DP.GetDatepicker('#datepicker1');
+                                DP.GetDatepicker('#datepicker2');
                                 modal.find('.modal-body input#repair_id').val(recipient)
-                                modal.find('.modal-body input#method').val('receive_repair')
+                                modal.find('.modal-body input#method').val('result_repair')
                                 
-                                $("button#submrepair").click(function(e) {
+                                $("button#submresult").click(function(e) {
                                         e.preventDefault();
                                         modal.modal('hide');
         				$.ajax({
@@ -123,4 +137,4 @@
     });
 })
    
-</script>-->
+</script>
