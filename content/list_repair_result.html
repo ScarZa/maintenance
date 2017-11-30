@@ -8,7 +8,7 @@
     //var column1 = '{"รายการความเสี่ยงที่รอ RM man มาตรวจสอบ":["เลขที่","รายการ","เกิดขึ้นเมื่อ","ได้รับเมื่อ"]}';
     var column1 = ["ลำดับ","วันที่แจ้ง","เลขครุภัณฑ์","ความสำคัญ","วันที่รับใบซ่อม","ผู้ซ่อม","รายละเอียด","บันทึกผลการซ่อม","แก้ไข","ลบ"];
               var CTb = new createTableAjax();
-              CTb.GetNewTableAjax('contentTB','JsonData/DT_LRRP.php','JsonData/tempSendData.php',column1,'AddRepair',true,true,'#receiveModal',true,'#detailModal','dbtb');
+              CTb.GetNewTableAjax('contentTB','JsonData/DT_LRRP.php','JsonData/tempSendData.php',column1,'AddRepair',true,true,'RecRepair',true,'#detailModal','dbtb');
 </script>
 <div class="row">
     <div class="col-md-12">
@@ -102,10 +102,10 @@
                     $('#rece_pd_sel').empty().append("<label for='repairer' class='control-label'>ผู้รับการซ่อม</label><select name='rece_pd' id='rece_pd' class='form-control select2'></select>");
                                 $("select#cause").addClass("select2");
                     $("select#cause").append($("<option value=''> เลือกสรุปอาการเสีย </option>"));
-                    $.getJSON('JsonData/emp_Data.php', function (GD) {
+                    $.getJSON('JsonData/symmptom_category.php', function (GD) {
                                     for (var key in GD) {
                                         //if(GD[key].pd_id==data.pd_id){var select='selected';}else{var select='';}
-                                              $("select#cause").append($("<option value='"+GD[key].empno+"'> "+GD[key].fullname+"</option>"));
+                                              $("select#cause").append($("<option value='"+GD[key].symmptom_cid+"'> "+GD[key].symmptom_name+"</option>"));
                                     }//$(".select2").select2();
                                 });
                     $("select#rece_pd").append($("<option value=''> เลือกผู้รับการซ่อม </option>"));

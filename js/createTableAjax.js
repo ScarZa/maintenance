@@ -1,6 +1,6 @@
 var createTableAjax = function () {
     
-    this.GetNewTableAjax = function (content,jsonsource,tempdata,cols,namefunc,edit=true,process=true,pmodal=null,detail=true,dmodal=null,tid1=null,tid2=null,tid3=null) {
+    this.GetNewTableAjax = function (content,jsonsource,tempdata,cols,namefunc=null,edit=true,process=true,pnamefunc=null,detail=true,dmodal=null,tid1=null,tid2=null,tid3=null) {
                 var table = document.createElement ("table");
             	//table.border = "1px";
                 if(tid1!=null){
@@ -54,9 +54,7 @@ var createTableAjax = function () {
 					cellEdit.appendChild(editButton);
 					editButton.innerHTML = "<img src='images/icon_set1/file_add.ico' width='25'>";
 					editButton.setAttribute("href","#");
-                                        editButton.setAttribute("data-toggle","modal");
-                                        editButton.setAttribute("data-target",pmodal);
-                                        editButton.setAttribute("data-whatever",value[0]);
+                                        editButton.setAttribute("onclick","loadAjax('#index_content','"+tempdata+"','"+value[0]+"','"+pnamefunc+"');");
                                 }
                                 if(edit==true){
                                         var cellEdit = row.insertCell (-1);

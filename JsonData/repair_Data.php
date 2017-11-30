@@ -13,7 +13,7 @@ $conn_DB->Read_Text();
 $conn_DB->conn_PDO();
 $rslt=array();
 $result=array();
-$repair_id = isset($_GET['data'])?$_GET['data']:'';
+$repair_id = isset($_GET['data'])?$_GET['data']:$_POST['data'];
 $sql="SELECT re.repair_id,re.repair_date,pp.pd_number,ppl.note,re.symptom
 ,depName
 ,CASE re.vital

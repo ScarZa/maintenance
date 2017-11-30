@@ -134,7 +134,7 @@ function AddProds (content,id=null) {
                             DP.GetDatepicker('#datepicker3');
                             DP.GetDatepicker('#datepicker4');
             $("div#add_pd").append("<input type='hidden' id='method' name='method' value='add_prods'>");                
-            $("div#add_pd").append("<button type='submit' class='btn btn-primary' id='APsubmit'>บันทึก</button>");
+            $("div#add_pd").append("<div class='col-md-12' align='center'><button type='submit' class='btn btn-primary' id='APsubmit'>บันทึก</button></div>");
             $("button#APsubmit").click(function () {
         				$.ajax({
 					   type: "POST",
@@ -306,7 +306,7 @@ function AddProds (content,id=null) {
                             
             $("div#add_pd").append($("<input type='hidden' id='method' name='method' value='edit_prods'>")
                                     ,$("<input type='hidden' id='pd_id' name='pd_id' value='"+data.pd_id+"'>"));                
-            $("div#add_pd").append("<button type='submit' class='btn btn-primary' id='APsubmit'>แก้ไข</button>");
+            $("div#add_pd").append("<div class='col-md-12' align='center'><button type='submit' class='btn btn-warning' id='APsubmit'>แก้ไข</button></div>");
             $("button#APsubmit").click(function () {
         				$.ajax({
 					   type: "POST",
