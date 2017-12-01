@@ -55,7 +55,7 @@ $.getJSON('JsonData/repair_Data.php',{data: id.data},function (data) {
                                               $("select#acc_part").append($("<option value='"+GD[key].accp_id+"'> "+GD[key].accp_name+"</option>"));
                                     }$(".select2").select2();
                                 });
-                    $("#accModal").find('.modal-title').text('เปลี่ยนอุกรณ์ใบแจ้งซ่อม : ลำดับที่ ' + data.repair_id);
+                    $("#accModal").find('.modal-title').text('เปลี่ยนอุปกรณ์ใบแจ้งซ่อม : ลำดับที่ ' + data.repair_id);
                     $("#accModal").find('.modal-body input#repair_id').val(data.repair_id);
                     $("#accModal").find('.modal-body input#method').val('add_acc');   
                     $("button#submacc").click(function(e) {
