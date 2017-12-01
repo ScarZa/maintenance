@@ -257,5 +257,25 @@
                 window.open(url, name, properties);
             }
         </script>
+        <!--scrip check numberical-->
+        <script type="text/javascript">
+            function inputDigits(sensor) {
+                var regExp = /[0-9.-]$/;
+                if (!regExp.test(sensor.value)) {
+                    alert("กรอกตัวเลขเท่านั้นครับ");
+                    sensor.value = sensor.value.substring(0, sensor.value.length - 1);
+                }
+            }
+        </script>
+        <!--scrip check ตัวอักษร-->
+        <script type="text/javascript">
+            function inputString(sensor) {
+                var regExp = /[A-Za-zก-ฮะ-็่-๋์]$/;
+                if (!regExp.test(sensor.value)) {
+                    alert("กรอกตัวอักษรเท่านั้นครับ");
+                    sensor.value = sensor.value.substring(0, sensor.value.length - 1);
+                }
+            }
+        </script>
     </body>
 </html>
