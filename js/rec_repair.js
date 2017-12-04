@@ -22,15 +22,22 @@ $.getJSON('JsonData/repair_Data.php',{data: id.data},function (data) {
                                     +"<div class='modal-dialog' role='document'><div class='modal-content'><div class='modal-header'>"
                                     +"<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>"
                                     +"<h4 class='modal-title' id='accModalLabel'>เปลี่ยนอุกรณ์</h4></div><div class='modal-body' id='modelacc-body'></div>"
-                                    +"<div class='modal-footer'><button type='button' class='btn btn-danger' id='dismiss'>ปิด</button><button type='button' class='btn btn-success' id='submacc'>บันทึกอุปกรณ์</button></div></div></div></div>");
-                            ///////////////// End Accessories Modal ////////////////////   
+                                    +"<div class='modal-footer'><button type='button' class='btn btn-danger' id='dismiss'>ปิด</button><button type='button' class='btn btn-success' id='submacc'>บันทึกอุปกรณ์</button></div></div></div></div>"
+                            ///////////////// End Accessories Modal ////////////////////
+                            ///////////////// Send Repair Modal ////////////////////
+                                    +"<div class='modal' id='sendreModal' role='dialog' aria-labelledby='exampleModalLabel'>"
+                                    +"<div class='modal-dialog' role='document'><div class='modal-content'><div class='modal-header'>"
+                                    +"<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>"
+                                    +"<h4 class='modal-title' id='sendreModalLabel'>ส่งซ่อมภายนอก</h4></div><div class='modal-body' id='modelsendre-body'></div>"
+                                    +"<div class='modal-footer'><button type='button' class='btn btn-danger' id='sendredismiss'>ปิด</button><button type='button' class='btn btn-success' id='submsendre'>บันทึกส่งซ่อมภายนอก</button></div></div></div></div>");
+                            ///////////////// End Send Repair Modal ////////////////////
         $('div#Rr_content').append($("<div class='form-group'><label for='datepicker1' class='control-label'>วันที่เริ่มซ่อม </label><input type='text' name='datepicker1' id='datepicker1' class='form-control' readonly required></div>")
                                     ,$("<div class='form-group'><label for='datepicker1' class='control-label'>วันที่ซ่อมเสร็จ </label><input type='text' name='datepicker2' id='datepicker2' class='form-control' readonly required></div>")
                                     ,$("<div class='form-group'><input type='radio' value='1' name='result' id='result1' checked='checked' required> : ซ่อมได้  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio' value='0' name='result' id='result0' required> : ซ่อมไม่ได้</div><hr>")
                                     ,$("<div class='form-group' id='do_repair'></div>")
                                     ,$("<div class='form-group' id='dont_repair'></div>")
                                     ,$("<div class='form-group' id='cause_sel'></div>")
-                                    ,$("<div class='form-group'><label for='repair_detail' class='control-label'>รายละเอียดการซ่อม</label><textarea class='form-control' style='width: 100%' COLS='100%' rows='2' placeholder='อธิบายรายละเอียดการซ่อม' name='repair_detail' id='repair_detail' required></textarea></div>")
+                                    ,$("<div class='form-group' id='re_detail'><label for='repair_detail' class='control-label'>รายละเอียดการซ่อม</label><textarea class='form-control' style='width: 100%' COLS='100%' rows='2' placeholder='อธิบายรายละเอียดการซ่อม' name='repair_detail' id='repair_detail' required></textarea></div>")
                                     ,$("<div class='form-group' id='rece_pd_sel'></div>")
                                     ,$("<input type='hidden' class='form-control' id='repair_id' name='repair_id'>")
                                     ,$("<input type='hidden' class='form-control' id='method' name='method'>"));
@@ -46,7 +53,7 @@ $.getJSON('JsonData/repair_Data.php',{data: id.data},function (data) {
                                         }
                                         $("div#detail_acc_part").empty().html(option);
                                 }); 
-                        $('div#dont_repair').append($("<div class='form-group'><label for='datepicker1' class='control-label'>วันที่เริ่มซ่อม2 </label><input type='text' name='datepicker' id='datepicker1' class='form-control' readonly required>"));
+                        $('div#dont_repair').append($("<div class='form-group'><input type='radio' value='1' name='send_repair' id='send_repair1' required> : ส่งซ่อมภายนอก  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio' value='0' name='send_repair' id='send_repair0' checked='checked' required> : ส่งคืนพัสดุ</div>"));
     
     ///////////////// Add Item Accessories Modal ////////////////////
     $('div.modal-body#modelacc-body').append("<form name='frmacc' id='frmacc'></form>");
@@ -98,10 +105,24 @@ $.getJSON('JsonData/repair_Data.php',{data: id.data},function (data) {
                    $("#dont_repair").show("fast"); 
                     $("#do_repair").hide(0);      
        });
-       
+ ///////////////Show modal//////////////      
        $("#accessories1").click(function(){
         $("#accModal").modal();
     });
+    $("#send_repair1").click(function(){
+        $("#sendreModal").modal();
+        $("#cause_sel").hide(0);
+        $("#re_detail").hide(0);
+        $("#rece_pd_sel").hide(0);
+    });
+     ///////////////End Show modal////////////// 
+         $("#send_repair0").click(function(){
+            $("#cause_sel").show("fast"); 
+            $("#re_detail").show("fast"); 
+            $("#rece_pd_sel").show("fast"); 
+    });
+
+     
     
                     $('#cause_sel').empty().append("<label for='cause' class='control-label'>สรุปอาการเสีย</label><select name='cause' id='cause' class='form-control'></select>");
                     $('#rece_pd_sel').empty().append("<label for='repairer' class='control-label'>ผู้รับการซ่อม</label><select name='rece_pd' id='rece_pd' class='form-control select2'></select>");
