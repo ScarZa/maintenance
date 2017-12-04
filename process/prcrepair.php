@@ -81,4 +81,36 @@ if ($method == 'add_repair') {
     } else {
         echo "Update complete!!!!";
     }
+}elseif ($method == 'record_repair') {
+    $repair_id= $_POST['repair_id'];
+    $result = $_POST['result'];
+    $accessories = $_POST['accessories'];
+    $strepair_date =insert_date($_POST['datepicker1']);
+    $enrepair_dare =insert_date($_POST['datepicker2']);
+    $rece_pd = $_POST['rece_pd'];
+    $rece_pd_date = $enrepair_dare;
+    $cause = $_POST['cause'];
+    $repair_detail = $_POST['repair_detail'];
+    //$result_recorder=$_SESSION[''];
+    $result_recdate = date("Y-m-d H:i:s");
+    if($result==1){
+    $repair_status = 2;
+    $send_repair = 0;
+    }else{
+    $repair_status = 3;
+    $send_repair = $_POST['send_repair'];
+    }
+    
+    $data = array($result, $accessories, $strepair_date, $enrepair_dare, $rece_pd, $rece_pd_date, $cause, $repair_detail,$result_recdate,$repair_status,$send_repair);
+    $field=array("result","accessories","strepair_date","enrepair_dare","rece_pd","rece_pd_date","cause","repair_detail","result_recdate","repair_status","send_repair");
+    $table = "m_repair_pd";
+    $where="repair_id=:repair_id";
+    $execute=array(':repair_id' => $repair_id);
+    $record_repair=$connDB->update($table, $data, $where, $field, $execute);
+    $connDB->close_PDO();
+    if ($record_repair == false) {
+        echo "Update not complete " .$record_repair->errorInfo();
+    } else {
+        echo "Update complete!!!!";
+    }
 }
