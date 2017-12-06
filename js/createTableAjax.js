@@ -1,6 +1,6 @@
 var createTableAjax = function () {
     
-    this.GetNewTableAjax = function (content,jsonsource,tempdata,cols,namefunc=null,edit=true,process=true,pnamefunc=null,detail=true,dmodal=null,tid1=null,tid2=null,tid3=null) {
+    this.GetNewTableAjax = function (content,jsonsource,tempdata,cols,namefunc=null,edit=true,process=true,pnamefunc=null,detail=true,dmodal=null,print=true,printpage=null,tid1=null,tid2=null,tid3=null) {
                 var table = document.createElement ("table");
             	//table.border = "1px";
                 if(tid1!=null){
@@ -38,6 +38,40 @@ var createTableAjax = function () {
                                                 value[I]=val;
                                                 I++;
                 		});
+//                                if(status==true){
+//                                        var cellEdit = row.insertCell (-1);
+//                                        if(status==0){
+//                                        editButton = document.createElement("i");
+//					cellEdit.appendChild(editButton);
+//					editButton.setAttribute("class","fa fa-spinner fa-spin");
+//                                        editButton.setAttribute("title","รอลงทะเบียนรับ");
+//                                    }else if(status==1){
+//                                    editButton = document.createElement("i");
+//					cellEdit.appendChild(editButton);
+//					editButton.setAttribute("class","fa fa-spinner");
+//                                        editButton.setAttribute("title","กำลังดำเนินการ");
+//                                    }else if(status==2){
+//                                    editButton = document.createElement("img");
+//					cellEdit.appendChild(editButton);
+//					editButton.setAttribute("src","images/Symbol_-_Check.ico");
+//                                        editButton.setAttribute("title","สำเร็จ");
+//                                    }else if(status==3){
+//                                    editButton = document.createElement("img");
+//					cellEdit.appendChild(editButton);
+//					editButton.setAttribute("src","images/button_cancel.ico");
+//                                        editButton.setAttribute("title","ไม่สำเร็จ");
+//                                    }
+//                                        editButton.setAttribute("width","25");
+//                                        
+//                                }
+                                if(print==true){
+                                        var cellEdit = row.insertCell (-1);
+					editButton = document.createElement("a");
+					cellEdit.appendChild(editButton);
+					editButton.innerHTML = "<img src='images/icon_set1/file_search.ico' width='25'>";
+					editButton.setAttribute("href","#");
+                                        editButton.setAttribute("onclick","popup('"+printpage+"?id="+value[0]+"',popup,700,900');");
+                                }
                                 if(detail==true){
                                         var cellEdit = row.insertCell (-1);
 					editButton = document.createElement("a");

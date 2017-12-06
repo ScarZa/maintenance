@@ -65,9 +65,8 @@ $.getJSON('JsonData/repair_Data.php',{data: id.data},function (data) {
                             $("#acc_price").attr("onKeyUp","javascript:inputDigits(this);");            
                             $('#accpart_sel').empty().append("<label for='acc_part' class='control-label'>อุปกรณ์</label><select name='acc_part' id='acc_part' class='form-control'  style='width: 100%;'></select>");          
                             $("select#acc_part").addClass("select2");
-                    $("select#acc_part").append($("<option value=''> เลือกอุปกรณ์ </option>"));
                     $.getJSON('JsonData/acc_part.php', function (GD) {
-                                var option='';
+                                var option="<option value=''> เลือกอุปกรณ์ </option>";
                                     for (var key in GD) {
                                         option += "$('<option value='"+GD[key].accp_id+"'> "+GD[key].accp_name+" </option>'),";
                                     }
@@ -95,6 +94,45 @@ $.getJSON('JsonData/repair_Data.php',{data: id.data},function (data) {
                                         $("#accModal").modal('hide');
                     });
     ///////////////// End Add Item Accessories Modal ////////////////////
+    /////////////////// Add Item Repair Modal ////////////////////
+    $('div.modal-body#modelsendre-body').append("<form name='frmsendre' id='frmsendre'></form>");
+            $('#frmsendre').empty().append($("<div class='form-group'><label for='datepicker3' class='control-label'>วันที่ส่งซ่อม</label><input type='text' name='datepicker3' id='datepicker3' class='form-control' readonly required></div>")
+                                        ,$("<div class='form-group' id='comp_sel'></div>")
+                                        ,$("<div class='form-group'><label for='repair_detail' class='control-label'>รายละเอียดอาการเสียที่ส่ง</label><textarea class='form-control' style='width: 100%' COLS='100%' rows='2' placeholder='อธิบายรายละเอียดของอาการเสีย' name='repair_detail' id='repair_detail' required></textarea></div>")
+                                        ,$("<input type='hidden' class='form-control' id='repair_id' name='repair_id'>")
+                                        ,$("<input type='hidden' class='form-control' id='submethod2' name='method'>"));
+                            //$("#acc_price").attr("onKeyUp","javascript:inputDigits(this);");            
+                            $('#comp_sel').empty().append("<label for='comp_id' class='control-label'>ร้านซ่อม</label><select name='comp_id' id='comp_id' class='form-control'  style='width: 100%;'></select>");          
+                            $("select#comp_id").addClass("select2");
+                    $.getJSON('JsonData/comp_Data.php', function (GD) {
+                                var option="<option value=''> เลือกร้านซ่อม </option>";
+                                    for (var key in GD) {
+                                        option += "$('<option value='"+GD[key].comp_id+"'> "+GD[key].comp_name+" </option>'),";
+                                    }
+                        $("select#comp_id").empty().append(option);            
+                        $(".select2").select2();
+                                });
+                    $("#sendreModal").find('.modal-title').text('ส่งซ่อมภายนอก ใบแจ้งซ่อม : ลำดับที่ ' + data.repair_id);
+                    $("#sendreModal").find('.modal-body input#repair_id').val(data.repair_id);
+                    $("#sendreModal").find('.modal-body input#submethod2').val('add_sendRepair');   
+                    $("button#submsendre").click(function(e) {
+                                        e.preventDefault();
+                                         $("#sendreModal").modal('hide');
+        				$.ajax({
+					   type: "POST",
+					   url: "process/prcsendrep.php",
+                                           data: $("#frmsendre").serialize(),
+					   success: function(result) {
+                                               alert(result);
+                                                //$("#frmacc").find('input:text, select, textarea').val('');
+					   }
+					 });
+                    });
+                    $("button#sendredismiss").click(function(e) {
+                                        e.preventDefault();
+                                        $("#sendreModal").modal('hide');
+                    });
+    ///////////////// End Add Item Repair Modal ////////////////////
            //$("#do_repair").hide(0);
            $("#dont_repair").hide(0);
        $("#result1").click(function (){
@@ -145,6 +183,7 @@ $.getJSON('JsonData/repair_Data.php',{data: id.data},function (data) {
                                 var DP = new DatepickerThai();
                                 DP.GetDatepicker('#datepicker1');
                                 DP.GetDatepicker('#datepicker2');
+                                DP.GetDatepicker('#datepicker3');
                                 
                                 $("input#method").val('record_repair');
                                 $("input#repair_id").val(data.repair_id);
