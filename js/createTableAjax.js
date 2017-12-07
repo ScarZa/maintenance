@@ -68,10 +68,10 @@ var createTableAjax = function () {
                                         var cellEdit = row.insertCell (-1);
 					editButton = document.createElement("a");
 					cellEdit.appendChild(editButton);
-					editButton.innerHTML = "<img src='images/icon_set1/file_search.ico' width='25'>";
+					editButton.innerHTML = "<img src='images/printer.ico' width='25'>";
 					editButton.setAttribute("href","#");
-                                        editButton.setAttribute("onclick","popup('"+printpage+"?id="+value[0]+"',popup,700,900');");
-                                }
+                                        editButton.setAttribute("onclick","window.open('"+printpage+"?id="+value[0]+"', '', 'width=820,height=1000');return false;");
+                                }                                           
                                 if(detail==true){
                                         var cellEdit = row.insertCell (-1);
 					editButton = document.createElement("a");

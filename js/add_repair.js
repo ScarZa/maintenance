@@ -30,7 +30,8 @@ $.getJSON('JsonData/head_repair.php',function (data) {
      
             $("div#add_repair").append("<input type='hidden' id='method' name='method' value='add_repair'>");                
             $("div#add_repair").append("<button type='submit' class='btn btn-primary' id='ARsubmit'>บันทึกใบแจ้งซ่อม</button>");
-            $("button#ARsubmit").click(function () {
+            $("button#ARsubmit").click(function(e) {
+                                        e.preventDefault();
         				$.ajax({
 					   type: "POST",
 					   url: "process/prcrepair.php",
@@ -70,7 +71,8 @@ $.getJSON('JsonData/head_repair.php',function (data) {
             $("div#add_repair").append($("<input type='hidden' id='method' name='method' value='edit_repair'>")
                                         ,$("<input type='hidden' id='repair_id' name='repair_id' value='"+data.repair_id+"'>"));                
             $("div#add_repair").append("<button type='submit' class='btn btn-warning' id='ARsubmit'>แก้ไขใบแจ้งซ่อม</button>");
-            $("button#ARsubmit").click(function () {
+            $("button#ARsubmit").click(function(e) {
+                                        e.preventDefault();
         				$.ajax({
 					   type: "POST",
 					   url: "process/prcrepair.php",

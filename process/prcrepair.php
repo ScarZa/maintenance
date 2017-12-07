@@ -33,6 +33,12 @@ if ($method == 'add_repair') {
     $repair_status = 0;
     $symptom = $_POST['symptom'];
     
+    $sql="SELECT * FROM m_repair_pd WHERE pd_id=:pd_id
+AND (repair_status!=2 or repair_status!=3)"; 
+$connDB->imp_sql($sql);
+$execute = array(':pd_id' => $pd_id);
+$chkRepair = $connDB->select($execute);
+if(count($chkRepair)==0){    
     $data = array($informer, $repair_date, $record_date, $pd_id,$vital, $repair_status,$symptom);
     $table = "m_repair_pd";
     $add_repair = $connDB->insert($table, $data);
@@ -42,6 +48,9 @@ if ($method == 'add_repair') {
     } else {
         echo "Insert complete!!!!";
     }
+}else{
+    echo "ครุภัณฑ์คอมพิวเตอร์ชิ้นนี้อยู่ระหว่างการซ่อมครับ";
+}
 }elseif ($method == 'edit_repair') {
     $repair_id= $_POST['repair_id'];
     $repair_date =insert_date($_POST['datepicker1']);
@@ -110,6 +119,42 @@ if ($method == 'add_repair') {
     $connDB->close_PDO();
     if ($record_repair == false) {
         echo "Update not complete " .$record_repair->errorInfo();
+    } else {
+        echo "Update complete!!!!";
+    }
+}elseif ($method == 'receiveRe_repair') {
+    ////////////////// Receive Repair /////////////////
+    $send_id = $_POST['send_id'];
+    $send_price = $_POST['send_price'];
+    $resend_date = insert_date($_POST['datepicker1']);
+    $resend_status = 1;
+    ////////////////// Record Repair //////////////////
+    $repair_id= $_POST['repair_id'];
+    //$receiver=$_SESSION[''];
+    $result = $_POST['result'];
+    $enrepair_dare = $resend_date;
+    $rece_pd = $_POST['rece_pd'];
+    $rece_pd_date = $enrepair_dare;
+    $cause = $_POST['cause'];
+    $repair_detail = $_POST['repair_detail'];
+    $result_recdate = date("Y-m-d H:i:s");
+    
+    $data = array($send_price, $resend_date, $resend_status);
+    $field=array("send_price","resend_date","resend_status");
+    $table = "m_sendrep";
+    $where="send_id=:send_id";
+    $execute=array(':send_id' => $send_id);
+    $send_repair=$connDB->update($table, $data, $where, $field, $execute);
+        
+    $data2 = array($result, $enrepair_dare, $rece_pd, $rece_pd_date, $cause, $repair_detail, $result_recdate);
+    $field2=array("result", "enrepair_dare","rece_pd","rece_pd_date","cause","repair_detail","result_recdate");
+    $table2 = "m_repair_pd";
+    $where2="repair_id=:repair_id";
+    $execute2=array(':repair_id' => $repair_id);
+    $receive_repair=$connDB->update($table2, $data2, $where2, $field2, $execute2);
+    $connDB->close_PDO();
+    if (($receive_repair == false) or ($send_repair == false)) {
+        echo "Update not complete " .$receive_repair->errorInfo()." & ".$send_repair->errorInfo();
     } else {
         echo "Update complete!!!!";
     }
