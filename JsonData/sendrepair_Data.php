@@ -14,8 +14,10 @@ $conn_DB->conn_PDO();
 $rslt=array();
 $result=array();
 $repair_id = isset($_GET['data'])?$_GET['data']:$_POST['data'];
-$sql="SELECT s.send_id,s.repair_id,s.send_date,s.repair_detail,c.comp_name 
+$sql="SELECT s.send_id,s.repair_id,pp.pd_id,pp.pd_number,s.send_date,s.repair_detail,c.comp_name 
 FROM m_sendrep s
+INNER JOIN m_repair_pd rp on rp.repair_id=s.repair_id
+INNER JOIN pd_product pp on pp.pd_id = rp.pd_id
 INNER JOIN se_company c on c.comp_id=s.comp_id
 WHERE s.repair_id=:repair_id";
 $execute = array(':repair_id' => $repair_id);
@@ -24,6 +26,8 @@ $result=$conn_DB->select_a($execute);
 $data= array();
 $data['send_id'] = $result['send_id'];
 $data['repair_id'] = $result['repair_id'];
+$data['pd_id'] = $result['pd_id'];
+$data['pd_number'] = $result['pd_number'];
 $data['send_date'] = DateThai1($result['send_date']);
 $data['repair_detail'] = $result['repair_detail'];
 $data['comp_name'] = $result['comp_name'];

@@ -1,5 +1,5 @@
 function RecRepair (content,id=null) {
-$.getJSON('JsonData/repair_Data.php',{data: id.data},function (data) {
+$.getJSON('JsonData/repair_Data.php',{data: id.data},function (data) { 
         $(content).empty().append("<h2 style='color: blue'>บันทึกงานซ่อมคอมพิวเตอร์(ครุภัณฑ์คอมพิวเตอร์)</h2>"+
                                     "<ol class='breadcrumb'>"+
                                     "<li><a href='index.php'><i class='fa fa-home'></i> หน้าหลัก</a></li>"+
@@ -39,8 +39,9 @@ $.getJSON('JsonData/repair_Data.php',{data: id.data},function (data) {
                                     ,$("<div class='form-group' id='cause_sel'></div>")
                                     ,$("<div class='form-group' id='re_detail'><label for='repair_detail' class='control-label'>รายละเอียดการซ่อม</label><textarea class='form-control' style='width: 100%' COLS='100%' rows='2' placeholder='อธิบายรายละเอียดการซ่อม' name='repair_detail' id='repair_detail' required></textarea></div>")
                                     ,$("<div class='form-group' id='rece_pd_sel'></div>")
-                                    ,$("<input type='hidden' class='form-control' id='repair_id' name='repair_id'>")
-                                    ,$("<input type='hidden' class='form-control' id='method' name='method'>"));
+                                    ,$("<input type='hidden' id='repair_id' name='repair_id'>")
+                                    ,$("<input type='hidden' id='pd_id' name='pd_id'>")
+                                    ,$("<input type='hidden' id='method' name='method'>"));
                     
                         $('div#do_repair').append($("<div class='form-group'><input type='radio' value='1' name='accessories' id='accessories1' required> : เปลี่ยนอุปกรณ์  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio' value='0' name='accessories' id='accessories0' checked='checked' required> : ไม่ได้เปลี่ยนอุปกรณ์</div>")
                                                     ,$("<div class='form-group' id='detail_acc_part'></div>"));
@@ -187,6 +188,7 @@ $.getJSON('JsonData/repair_Data.php',{data: id.data},function (data) {
                                 
                                 $("input#method").val('record_repair');
                                 $("input#repair_id").val(data.repair_id);
+                                $("input#pd_id").val(data.pd_id);
 
                                 $("div#add_repair").append("<button type='submit' class='btn btn-primary' id='submresult'>บันทึกใบแจ้งซ่อม</button>");
                                 $("button#submresult").click(function(e) {

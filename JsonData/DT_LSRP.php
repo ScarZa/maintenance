@@ -24,7 +24,7 @@ FROM m_repair_pd re
 INNER JOIN pd_product pp on pp.pd_id=re.pd_id
 INNER JOIN pd_place ppl on ppl.pd_id=pp.pd_id
 INNER JOIN department d on d.depId=ppl.depId
-WHERE re.repair_status=3 and re.send_repair=1 and re.result=0"; 
+WHERE re.repair_status=3 and re.send_repair=1 and re.end_process=0"; 
 $conn_DB->imp_sql($sql);
     $num_risk = $conn_DB->select();
     for($i=0;$i<count($num_risk);$i++){

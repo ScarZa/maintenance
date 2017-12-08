@@ -52,7 +52,7 @@
   modal.find('.modal-title').text('ผลการส่งซ่อมภายนอก ใบแจ้งซ่อม : ลำดับที่ ' + recipient)
   
    $.getJSON('JsonData/sendrepair_Data.php',{data: recipient},function (data) {
-        $('span#receiveRer_detail').empty().append("ใบแจ้งซ่อม : "+data.repair_id+"  &nbsp;&nbsp;ใบส่งซ่อมลำดับที่ : "+data.send_id+"<br>"
+        $('span#receiveRer_detail').empty().append("ใบแจ้งซ่อม : "+data.repair_id+"  &nbsp;&nbsp;ใบส่งซ่อมลำดับที่ : "+data.send_id+"  &nbsp;&nbsp;เลขครุภัณฑ์ : "+data.pd_number+"<br>"
                             +"ร้านที่ซ่อม : "+data.comp_name+"  &nbsp;&nbsp;วันที่ส่ง : "+data.send_date+"<br>"
                             +"อาการ : <b style='color: red;'>"+data.repair_detail+"</b><hr>");
         $('div.modal-body#modelreceiveRe').append("<form name='frmreceiveRe' id='frmreceiveRe'></form>");
@@ -64,6 +64,7 @@
                                     ,$("<div class='form-group' id='rece_pd_sel'></div>")
                                     ,$("<input type='hidden' id='send_id' name='send_id'>")
                                     ,$("<input type='hidden' id='repair_id' name='repair_id'>")
+                                    ,$("<input type='hidden' id='pd_id' name='pd_id'>")
                                     ,$("<input type='hidden' id='method' name='method'>"));
                     $("#acc_price").attr("onKeyUp","javascript:inputDigits(this);");                
                     $('#cause_sel').empty().append("<label for='cause' class='control-label'>สรุปอาการเสีย</label><select name='cause' id='cause' class='form-control'></select>");
@@ -87,6 +88,7 @@
                                 DP.GetDatepicker('#datepicker2');
                                 modal.find('.modal-body input#send_id').val(data.send_id)
                                 modal.find('.modal-body input#repair_id').val(recipient)
+                                modal.find('.modal-body input#pd_id').val(data.pd_id)
                                 modal.find('.modal-body input#method').val('receiveRe_repair')
                                 
                                 $("button#submreceiveRe").click(function(e) {

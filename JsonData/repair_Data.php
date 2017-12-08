@@ -14,7 +14,7 @@ $conn_DB->conn_PDO();
 $rslt=array();
 $result=array();
 $repair_id = isset($_GET['data'])?$_GET['data']:$_POST['data'];
-$sql="SELECT re.repair_id,re.repair_date,pp.pd_number,ppl.note,re.symptom
+$sql="SELECT re.repair_id,re.repair_date,pp.pd_id,pp.pd_number,ppl.note,re.symptom
 ,depName
 ,CASE re.vital
 WHEN '0' THEN 'ไม่เร่งด่วน'
@@ -32,6 +32,7 @@ $result=$conn_DB->select_a($execute);
 $data= array();
 $data['repair_id'] = $result['repair_id'];
 $data['repair_date'] = DateThai1($result['repair_date']);
+$data['pd_id'] = $result['pd_id'];
 $data['pd_number'] = $result['pd_number'];
 $data['note'] = $result['note'];
 $data['symptom'] = $result['symptom'];
