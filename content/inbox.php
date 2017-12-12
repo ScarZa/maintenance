@@ -82,7 +82,7 @@ WHERE re.repair_status=0";
 } if (empty($_SESSION['m_id'])) { ?>
     <li class="dropdown messages-menu">
 
-        <a href="#" onClick="return popup('login_page.html', popup, 500, 330);" title="เข้าสู่ระบบบริหารความเสี่ยง">
+        <a href="#" onClick="return popup('login_page.html', popup, 430, 380);" title="เข้าสู่ระบบบริหารความเสี่ยง">
             <img src="images/key-y.ico" width="18"> เข้าสู่ระบบ
         </a>
 
@@ -93,7 +93,7 @@ WHERE re.repair_status=0";
     $user_id = $_SESSION['m_id'];
     if (!empty($user_id)) {
 
-        $sql = "select CASE sm.ss_Status WHEN 'ADMIN' THEN 'ผู้ดูลระบบ' "
+        $sql = "select CASE sm.ss_Status WHEN 'ADMIN' THEN 'ผู้ดูแลระบบ' "
                 . "WHEN 'USER' THEN 'ผู้ใช้งานทั่วไป' "
                 . "WHEN 'MUSER' THEN 'ผู้ดูแลระบบซ่อม' END AS m_status,e.photo "
                 . "from ss_member sm inner join emppersonal e on e.empno=sm.ss_Name WHERE sm.ss_Name=:user_id";
@@ -107,7 +107,7 @@ WHERE re.repair_status=0";
             $fold = "images/";
         } else {
             $photo = $empno_photo;
-            $fold = "photo/";
+            $fold = "../../hrd1.9/photo/";
         }
     }
     ?>

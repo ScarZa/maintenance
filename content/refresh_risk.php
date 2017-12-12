@@ -14,7 +14,7 @@ $sql = "select count(re.repair_id) AS alertRepair FROM m_repair_pd re
 $conn_DB->imp_sql($sql);
 $result = $conn_DB->select_a();
 ?>
-                <a href="JavaScript:doCallAjax('countrisk');" class="dropdown-toggle" data-toggle="dropdown">
+                <a href="JavaScript:doCallAjax('alertRepair');" class="dropdown-toggle" data-toggle="dropdown">
                     <i style="color: yellow;" class="fa fa-bell-o"></i>
                   <span class="label label-danger"><?=$result['alertRepair']?></span>
                 </a>

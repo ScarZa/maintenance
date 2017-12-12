@@ -79,7 +79,9 @@ if(page!=''){
     }
     //loadPage('#index_content',page,data);  
                                     }else if(data.m_status == 'USER'){
-                                        $("#gear_side1").remove();//ไม่ให้แสดง gear    
+                                        $("#gear_side1").remove();//ไม่ให้แสดง gear   
+                                        $(".sidebar-menu").append($("<li class=''><a id='addRepairUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>แจ้งซ่อมคอมพิวเตอร์</span></a></li>"));
+                                                $("#addRepairUser").attr("onclick","loadPage('#index_content','content/add_repair.html');");
                                     }else if(data.m_status == ''){
                                             $(".sidebar-menu").append($("<li class=''><a href='#' id='knowledge'>\n\
                                 <img src='images/icon_set2/bookshelf.ico' width='20'> <span>ความรู้เกี่ยวกับความเสี่ยง</span></a></li>")
