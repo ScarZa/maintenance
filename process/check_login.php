@@ -1,17 +1,6 @@
 <?php
 session_save_path("../session/");
 session_start(); 
-include '../header2.php';?>
-<script language="JavaScript" type="text/javascript"> 
-var StayAlive = 1; // เวลาเป็นวินาทีที่ต้องการให้ WIndows เปิดออก 
-function KillMe()
-{ 
-setTimeout("self.close()",StayAlive * 1000); 
-} 
-</script>
-<body class="hold-transition skin-green fixed sidebar-mini" onLoad="KillMe();self.focus();window.opener.location.reload();">
-      <section class="content">
-<?php
  //require_once '../class/dbPDO_mng.php';
 function __autoload($class_name) {
     include_once '../class/'.$class_name.'.php';
@@ -20,53 +9,39 @@ function __autoload($class_name) {
 $user_account = md5(trim(filter_input(INPUT_POST, 'user_account',FILTER_SANITIZE_ENCODED)));
 $user_pwd = md5(trim(filter_input(INPUT_POST, 'user_pwd',FILTER_SANITIZE_ENCODED)));
 // using PDO
-?>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<div class='bs-example'>
-	  <div class='progress progress-striped active'>
-	  <div class='progress-bar' style='width: 100%'></div>
-</div>
-<div class='alert alert-dismissable alert-success'>
-	  <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-	  <a class='alert-link' target='_blank' href='#'><center>กำลังดำเนินการ</center></a> 
-</div>
-<?php
+
 $dbh=new dbPDO_mng();
 $read="../connection/conn_DB.txt";
 $dbh->para_read($read);
 $dbh->conn_PDO();
 //$dbh->getDb();
-$sql = "select * from user 
-           inner join department on user.dep_id=department.dep_id
-           inner join department_group on department.main_dep=department_group.main_dep
-           where   user_account= :user_account && user_pwd= :user_pwd";
+$sql = "select CONCAT(e1.firstname,' ',e1.lastname) as fullname, ss.ss_Name as id, ss.ss_Status as status, ss.ss_process as process, e1.depid as dep
+from ss_member ss 
+INNER JOIN emppersonal e1 on e1.empno=ss.ss_Name
+where ss.ss_Username= :user_account && ss.ss_Password= :user_pwd";
 $execute=array(':user_account' => $user_account, ':user_pwd' => $user_pwd);
 $dbh->imp_sql($sql);
 $result=$dbh->select_a($execute);
-
+if (!$result) {
+ $sql2 = "select CONCAT(e1.firstname,' ',e1.lastname) as fullname, e1.empno as id, e1.depid as dep ,'USER' as status, '6' as process
+from emppersonal e1
+inner join member m on m.Name=e1.empno
+where m.Username= :user_account && m.Password= :user_pwd";
+$execute2=array(':user_account' => $user_account, ':user_pwd' => $user_pwd);
+$dbh->imp_sql($sql2);
+$result=$dbh->select_a($execute2);   
+}
 if ($result) {
-    $_SESSION['rm_id'] = $result['user_id'];
-    $_SESSION['rm_fullname'] = $result['user_fname'].' '.$result['user_lname'];
-    $_SESSION['rm_dep'] = $result['dep_id'];
-    $_SESSION['rm_main_dep'] = $result['main_dep'];
-    $_SESSION['rm_status'] = $result['admin'];
+    $_SESSION['m_fullname'] = $result['fullname'];
+    $_SESSION['m_id'] = $result['id'];
+    $_SESSION['m_dep'] = $result['dep'];;
+    $_SESSION['m_process'] = $result['process'];
+    $_SESSION['m_status'] = $result['status'];
     
-$date = new DateTime(null, new DateTimeZone('Asia/Bangkok'));//กำหนด Time zone
-$date_login = $date->format('Y-m-d');
-$time_login = time();
-                $table = "user";
-                $data = array($date_login,$time_login);
-                $field = array("date_login","time_login");
-                $where = "user_account= :user_account && user_pwd= :user_pwd";
-                $execute = array(':user_account' => $user_account, ':user_pwd' => $user_pwd);
-                $edit_address = $dbh->update($table, $data, $where, $field, $execute);
+    echo "Login สำเร็จครับ!";
 }else{
-	echo "<script>alert('ชื่อหรือรหัสผ่านผิด กรุณาตรวจสอบอีกครั้ง!')</script>";
-    echo "<meta http-equiv='refresh' content='0;url=../login_page.php'>";
-    exit();
+	echo "ชื่อหรือรหัสผ่านผิด กรุณาตรวจสอบอีกครั้ง!";
+        exit();
 }
 
 ?>
-        </section>
-<?php include '../footer2.php';?>

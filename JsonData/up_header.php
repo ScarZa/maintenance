@@ -36,11 +36,11 @@ if($db != FALSE){
                                 
 $data= array();
 $data['logo'] = $fol.'/'.$pic;
-$data['rm_id'] = isset($_SESSION['rm_id'])?(int) $_SESSION['rm_id']:'';
-$data['rm_fullname'] = isset($_SESSION['rm_fullname'])?$_SESSION['rm_fullname']:'';
-$data['rm_dep'] = isset($_SESSION['rm_dep'])?(int) $_SESSION['rm_dep']:'';
-$data['rm_main_dep'] = isset($_SESSION['rm_main_dep'])?(int) $_SESSION['rm_main_dep']:'';
-$data['rm_status'] = isset($_SESSION['rm_status'])?$_SESSION['rm_status']:''; 
+$data['m_id'] = isset($_SESSION['m_id'])?(int) $_SESSION['m_id']:'';
+$data['m_fullname'] = isset($_SESSION['m_fullname'])?$_SESSION['m_fullname']:'';
+$data['m_dep'] = isset($_SESSION['m_dep'])?(int) $_SESSION['m_dep']:'';
+$data['m_process'] = isset($_SESSION['m_process'])?(int) $_SESSION['m_process']:'';
+$data['m_status'] = isset($_SESSION['m_status'])?$_SESSION['m_status']:''; 
 print json_encode($data);
 $conn_DB->close_PDO();
 ?>

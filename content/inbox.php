@@ -12,14 +12,14 @@ $read = "../connection/conn_DB.txt";
 $conn_DB->para_read($read);
 $conn_DB->Read_Text();
 $conn_DB->conn_PDO();
- if (!empty($_SESSION['rm_id'])) { ?>                  
+ if (!empty($_SESSION['m_id'])) { ?>                  
 <li class="dropdown messages-menu" id="inbox1">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <i class="fa fa-envelope-o"></i>
             <span class="label label-warning">
                 <?php
                 include_once '../template/plugins/funcDateThai.php';
-                $user_dep = $_SESSION['rm_dep'];
+                $user_dep = $_SESSION['m_dep'];
                 $sql = "select count(m1.mngrisk_id) AS inbox from mngrisk m1 
                 LEFT OUTER JOIN takerisk t1 ON t1.takerisk_id = m1.takerisk_id 
                 WHERE t1.res_dep = :user_dep and t1.move_status='N' and m1.mng_status='N' and t1.recycle='N'";
@@ -88,10 +88,10 @@ $conn_DB->conn_PDO();
             <li class="footer"><a href="#">ดูทั้งหมด</a></li>
         </ul>
     </li>
-    <?php if ($_SESSION['rm_status'] == 'Y') { ?>
+    <?php if ($_SESSION['m_status'] == 'ADMIN') { ?>
         <li class="dropdown notifications-menu" id="mySpan"></li>
     <?php }
-} if (empty($_SESSION['rm_id'])) { ?>
+} if (empty($_SESSION['m_id'])) { ?>
     <li class="dropdown messages-menu">
 
         <a href="#" onClick="return popup('login_page.html', popup, 300, 330);" title="เข้าสู่ระบบบริหารความเสี่ยง">
@@ -102,13 +102,13 @@ $conn_DB->conn_PDO();
 <?php
 } else {
 
-    $user_id = $_SESSION['rm_id'];
+    $user_id = $_SESSION['m_id'];
     if (!empty($user_id)) {
 
-        $sql = "select CASE admin WHEN 'Y' THEN 'คณะกรรมการ/ผู้ดูลระบบ' "
-                . "WHEN 'N' THEN 'ผู้ใช้งานทั่วไป' "
-                . "WHEN 'A' THEN 'หัวหน้าฝ่าย' END AS rm_status,photo "
-                . "from user WHERE user_id=:user_id";
+        $sql = "select CASE sm.ss_Status WHEN 'ADMIN' THEN 'ผู้ดูลระบบ' "
+                . "WHEN 'USER' THEN 'ผู้ใช้งานทั่วไป' "
+                . "WHEN 'MUSER' THEN 'ผู้ดูแลระบบซ่อม' END AS m_status,e.photo "
+                . "from ss_member sm inner join emppersonal e on e.empno=sm.ss_Name WHERE sm.ss_Name=:user_id";
         $execute = array(':user_id' => $user_id);
         $conn_DB->imp_sql($sql);
         $result = $conn_DB->select_a($execute);
@@ -127,15 +127,15 @@ $conn_DB->conn_PDO();
     <li class="dropdown user user-menu">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <img src="<?= $fold . $photo ?>" class="user-image" alt="User Image">
-            <span class="hidden-xs"><?= $_SESSION['rm_fullname'] ?></span>
+            <span class="hidden-xs"><?= $_SESSION['m_fullname'] ?></span>
         </a>
         <ul class="dropdown-menu">
             <!-- User image -->
             <li class="user-header">
                 <img src="<?= $fold . $photo ?>" class="img-circle" alt="User Image">
                 <p>
-    <?= $_SESSION['rm_fullname'] ?>
-                    <small><?= $result['rm_status'] ?></small>
+    <?= $_SESSION['m_fullname'] ?>
+                    <small><?= $result['m_status'] ?></small>
                 </p>
             </li>
             <!-- Menu Footer-->
@@ -149,7 +149,7 @@ $conn_DB->conn_PDO();
             </li>
         </ul>
     </li>
-    <?php if ($_SESSION['rm_status'] == 'Y') { ?>
+    <?php if ($_SESSION['m_status'] == 'ADMIN') { ?>
         <!-- Control Sidebar Toggle Button 
         <li>
             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>

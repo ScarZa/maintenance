@@ -12,11 +12,11 @@ echo "<div class='alert alert-dismissable alert-danger'>
 	  <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
 	  <a class='alert-link' target='_blank' href='#'><center>ออกจากระบบเรียบร้อย</center></a> 
 </div>";
-unset($_SESSION['rm_id']);
-unset($_SESSION['rm_fullname']);
-unset($_SESSION['rm_dep']);
-unset($_SESSION['rm_main_dep']);
-unset($_SESSION['rm_status']);
+unset($_SESSION['m_id']);
+unset($_SESSION['m_fullname']);
+unset($_SESSION['m_dep']);
+unset($_SESSION['m_process']);
+unset($_SESSION['m_status']);
 session_destroy();
 
  echo "<meta http-equiv='refresh' content='0;url=index.html'>";
