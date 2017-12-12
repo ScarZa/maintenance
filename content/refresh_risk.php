@@ -8,54 +8,51 @@ $conn_DB->para_read($read);
 $conn_db = $conn_DB->Read_Text();
 $conn_DB->conn_PDO();
 set_time_limit(0);
-
-$sql = "select count(takerisk_id) AS countrisk from takerisk WHERE move_status='Y' and recycle='N' and subcategory!='' group by move_status";
+include_once '../template/plugins/funcDateThai.php';
+$sql = "select count(re.repair_id) AS alertRepair FROM m_repair_pd re
+                WHERE re.repair_status=0";
 $conn_DB->imp_sql($sql);
 $result = $conn_DB->select_a();
 ?>
                 <a href="JavaScript:doCallAjax('countrisk');" class="dropdown-toggle" data-toggle="dropdown">
                     <i style="color: yellow;" class="fa fa-bell-o"></i>
-                  <span class="label label-danger"><?=$result['countrisk']?></span>
+                  <span class="label label-danger"><?=$result['alertRepair']?></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li class="header" style="color: red;"><b>คุณมี <?=$result['countrisk']?> รายการแจ้งย้าย</b></li>
+                    <li class="header" style="color: red;"><b>คุณมี <?=$result['alertRepair']?> รายการแจ้งย้าย</b></li>
                   <li>
                     <!-- inner menu: contains the actual data -->
-                    <ul class="menu"><?php  $sql2 = "select t1.takerisk_id, s1.category,t1.level_risk, s1.name from takerisk t1 
-                    inner join subcategory s1 on t1.subcategory=s1.subcategory
-                    WHERE t1.move_status='Y' and t1.recycle='N' order by t1.level_risk DESC";
+                    <ul class="menu"><?php  $sql2 = "SELECT re.repair_id,re.repair_date,pp.pd_number,ppl.note,LEFT(re.symptom,35) as symptom,depName,re.vital
+,(SELECT CONCAT(e.firstname,' ',e.lastname) FROM emppersonal e WHERE e.empno=re.informer) inform
+FROM m_repair_pd re
+INNER JOIN pd_product pp on pp.pd_id=re.pd_id
+INNER JOIN pd_place ppl on ppl.pd_id=pp.pd_id
+INNER JOIN department d on d.depId=ppl.depId
+WHERE re.repair_status=0";
                                 $conn_DB->imp_sql($sql2);
                                 $result2 = $conn_DB->select();
                                 for($i=0;$i<count($result2);$i++){ 
-                                    if($result2[$i]['category']=='1'){
+                                    if($result2[$i]['vital']=='0'){
                                        $icon = "fa fa-bed"; 
-                                    }elseif($result2[$i]['category']=='2'){
+                                       $color='success';
+                                    }elseif($result2[$i]['vital']=='1'){
                                        $icon = 'fa fa-medkit'; 
-                                    }elseif($result2[$i]['category']=='3'){
-                                       $icon = 'fa fa-heartbeat'; 
-                                    }elseif($result2[$i]['category']=='4'){
-                                       $icon = 'fa fa-bug'; 
-                                    }elseif($result2[$i]['category']=='5'){
-                                       $icon = 'fa fa-leaf'; 
-                                    }elseif($result2[$i]['category']=='6'){
-                                       $icon = 'fa fa-money'; 
-                                    }elseif($result2[$i]['category']=='7'){
-                                       $icon = 'fa fa-pie-chart'; 
-                                    }elseif($result2[$i]['category']=='8'){
-                                       $icon = 'fa fa-file-text'; 
-                                    }
-                                    if($result2[$i]['level_risk']=='A' or $result2[$i]['level_risk']=='B' or $result2[$i]['level_risk']=='C'){
-                                        $color='success';
-                                    }elseif($result2[$i]['level_risk']=='D' or $result2[$i]['level_risk']=='E' or $result2[$i]['level_risk']=='F'){
-                                        $color='yellow';
-                                    }elseif($result2[$i]['level_risk']=='G' or $result2[$i]['level_risk']=='H' or $result2[$i]['level_risk']=='I'){
-                                        $color='red';
+                                       $color='red';
                                     }
 ?>
                       <li>
-                          <a href="index.html?page=content/detail_risk.php&data=<?= base64_encode($result2[$i]['takerisk_id'])?>">
-                      <i class="<?=$icon?> text-<?= $color?>"></i>  <?= $result2[$i]['name']?> 
-                        </a>
+                          <a href="#">
+                              <?php //if (!empty($result2[$i]['take_file1'])) { ?>
+                                    <!--<div class="pull-left">
+                                        <img src="myfile/<?//= $result2[$i]['take_file1'] ?>" class="img-circle" alt="User Image">
+                                    </div>--><?php //} ?>
+                                <h4>
+                                    <i class="<?= $icon ?> text-<?= $color ?>"></i> <?= $result2[$i]['pd_number'] ?>:
+                                </h4>
+                                    <p><?= $result2[$i]['depName']."(".$result2[$i]['note'].")" ?></p>
+                                    <p><?= $result2[$i]['symptom'] ?>...</p>
+                                <small><i class="fa fa-clock-o"> <?= DateThai1($result2[$i]['repair_date']) ?></i></small>
+                            </a>
                       </li>
                                 <?php } ?>
                    </ul>

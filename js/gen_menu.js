@@ -20,20 +20,20 @@
                     $(".main-footer").append("<div id='version' class='pull-right hidden-xs'></div>").append("<strong>Copyright &copy; 2017 <a href='http://rploei.go.th'>โรงพยาบาลจิตเวชเลยราชนครินทร์</a>.</strong> All rights reserved.");       
                                 $("#version").append("<b>Version</b> 1.0");
                     $(".control-sidebar").empty().load("menu_footer.php");                                                               
-                                              if(data.m_status == 'ADMIN'){
-                                            $(".sidebar-menu").append($("<li id='ad_treeview1' class='treeview'></li>"),$("<li id='ad_treeview2' class='treeview'></li>")
+                                              if(data.m_status == 'ADMIN' || data.m_status == 'MUSER'){
+                                            $(".sidebar-menu").append($("<li id='ad_treeview1' class='treeview'></li>")
+                                                                    ,$("<li id='ad_treeview2' class='treeview'></li>")
                                                                     ,$("<li id='ad_manual'></li>"));
                                                         $("#ad_treeview1").append($("<a href='#'><img src='images/menu_items_options.ico' width='20'> <span>เมนูคณะกรรมการ</span><i class='fa fa-angle-left pull-right'></i></a>")
                                                                                 ,$("<ul id='ad_treeview-menu1' class='treeview-menu'></ul>"));
-                                                                $("#ad_treeview-menu1").append($("<li class=''><a id='addProds' href='#'><img src='images/icon_set2/pencil.ico' width='20'> <span>เพิ่มครุภัณฑ์</span></a></li>")
-                                                                    ,$("<li class=''><a id='listProds' href='#'><img src='images/icon_set2/pencil.ico' width='20'> <span>รายการครุภัณฑ์</span></a></li>")
-                                                                    ,$("<li class=''><a id='addRepair' href='#'><img src='images/icon_set2/pencil.ico' width='20'> <span>แจ้งซ่อมคอมพิวเตอร์</span></a></li>")
-                                                                    ,$("<li class=''><a id='listRepair' href='#'><img src='images/icon_set2/pencil.ico' width='20'> <span>รายการแจ้งซ่อมคอมพิวเตอร์</span></a></li>")
-                                                                    ,$("<li class=''><a id='listResult' href='#'><img src='images/icon_set2/pencil.ico' width='20'> <span>รายการซ่อมคอมพิวเตอร์</span></a></li>")
-                                                                    ,$("<li class=''><a id='listSendResult' href='#'><img src='images/icon_set2/pencil.ico' width='20'> <span>ส่งซ่อมคอมพิวเตอร์ภายนอก</span></a></li>")
-                                                                    ,$("<li class=''><a id='testTB' href='#'><img src='images/icon_set2/pencil.ico' width='20'> <span>test create table</span></a></li>")
-                                                                                            ,$("<li id='ad_report'><a href='#'>&nbsp;&nbsp;<img src='images/icon_set2/piechart.ico' width='20'> รายงานคณะกรรมการ <i class='fa fa-angle-left pull-right'></i></a></li>"));
-                                                                                    $("#checkRM").attr("onclick","loadPage('#index_content','content/check_risk.html');");        
+                                                                $("#ad_treeview-menu1").append($("<li class=''><a id='addProds' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>เพิ่มครุภัณฑ์</span></a></li>")
+                                                                                                ,$("<li class=''><a id='listProds' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>รายการครุภัณฑ์</span></a></li>")
+                                                                                                ,$("<li class=''><a id='addRepair' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>แจ้งซ่อมคอมพิวเตอร์</span></a></li>")
+                                                                                                ,$("<li class=''><a id='listRepair' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>รายการแจ้งซ่อมคอมพิวเตอร์</span></a></li>")
+                                                                                                ,$("<li class=''><a id='listResult' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>รายการซ่อมคอมพิวเตอร์</span></a></li>")
+                                                                                                ,$("<li class=''><a id='listSendResult' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>ส่งซ่อมคอมพิวเตอร์ภายนอก</span></a></li>")
+                                                                                                ,$("<li class=''><a id='testTB' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>test create table</span></a></li>")
+                                                                                                ,$("<li id='ad_report'><a href='#'>&nbsp;&nbsp;<img src='images/icon_set2/piechart.ico' width='20'> รายงานคณะกรรมการ <i class='fa fa-angle-left pull-right'></i></a></li>"));
                                                                             $("#ad_report").append("<ul id='ulad_report' class='treeview-menu'></ul>");  
                                                                                 $("#ulad_report").append($("<li><a href='#'><i class='fa fa-circle-o text-aqua'></i> รายงานที่ 1 </a></li>")
                                                                                                         ,$("<li><a href='#'><i class='fa fa-circle-o text-aqua'></i> รายงานที่ 2 </a></li>"));
@@ -46,7 +46,7 @@
                                                                         $("#testTB").attr("onclick","loadPage('#index_content','content/06.html');");
                                                         $("#ad_treeview2").append($("<a href='#'><img src='images/menu_items_options.ico' width='20'> <span>เมนูผู้ใช้ทั่วไป</span><i class='fa fa-angle-left pull-right'></i></a>")
                                                                                 ,$("<ul id='ad_treeview-menu2' class='treeview-menu'></ul>"));
-                                                                $("#ad_treeview-menu2").append($("<li class=''><a id='addRepairUser' href='#'><img src='images/icon_set2/pencil.ico' width='20'> <span>แจ้งซ่อมคอมพิวเตอร์</span></a></li>")
+                                                                $("#ad_treeview-menu2").append($("<li class=''><a id='addRepairUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>แจ้งซ่อมคอมพิวเตอร์</span></a></li>")
                                                                                             ,$("<li class=''> <a href='#'>&nbsp;&nbsp;<img src='images/icon_set2/clipboard.ico' width='20'> <span>ความเสี่ยงที่ได้รับ</span></a></li>")
                                                                                             ,$("<li class=''> <a href='#'>&nbsp;&nbsp;<img src='images/icon_set2/folder.ico' width='20'> <span>ประวัติการรายงานความเสี่ยง</span></a></li>")
                                                                                             ,$("<li id='us_report'><a href='#'>&nbsp;&nbsp;<img src='images/icon_set2/piechart.ico' width='20'> รายงานหน่วยงาน <i class='fa fa-angle-left pull-right'></i></a></li>"));
@@ -54,10 +54,8 @@
                                                                             $("#us_report").append("<ul id='ulus_report' class='treeview-menu'></ul>");  
                                                                                 $("#ulus_report").append($("<li><a href='#'><i class='fa fa-circle-o text-aqua'></i> รายงานที่ 1 </a></li>")
                                                                                                         ,$("<li><a href='#'><i class='fa fa-circle-o text-aqua'></i> รายงานที่ 2 </a></li>"));                                 
-                                                        $("#ad_manual").append($("<a id='manual' href='#'><img src='images/icon_set2/booklet.ico' width='20'> <span>คู่มือโปรแกรมความเสี่ยง</span></a>")
-                                                        ,$("<a id='addProds' href='#'><img src='images/icon_set2/pencil.ico' width='20'> <span>เพิ่มครุภัณฑ์</span></a>"));
-                                                                    $("#addProds").attr("onclick","loadPage('#index_content','content/add_prods.php');");
-                                                        $("#manual").attr("onclick","window.open('form-format/manual_risk(admin).pdf','','width=750,height=1000'); return false");
+                                                        $("#ad_manual").append($("<a id='manual' href='#'><img src='images/icon_set2/booklet.ico' width='20'> <span>คู่มือโปรแกรมความเสี่ยง</span></a>"));
+                                                         $("#manual").attr("onclick","window.open('form-format/manual_risk(admin).pdf','','width=750,height=1000'); return false");
                                         
         var page = getURL("page");
         var data = getURL("data");

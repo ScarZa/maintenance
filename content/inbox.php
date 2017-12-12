@@ -13,16 +13,15 @@ $conn_DB->para_read($read);
 $conn_DB->Read_Text();
 $conn_DB->conn_PDO();
  if (!empty($_SESSION['m_id'])) { ?>                  
-<li class="dropdown messages-menu" id="inbox1">
+<!--<li class="dropdown messages-menu" id="inbox1">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <i class="fa fa-envelope-o"></i>
             <span class="label label-warning">
                 <?php
                 include_once '../template/plugins/funcDateThai.php';
                 $user_dep = $_SESSION['m_dep'];
-                $sql = "select count(m1.mngrisk_id) AS inbox from mngrisk m1 
-                LEFT OUTER JOIN takerisk t1 ON t1.takerisk_id = m1.takerisk_id 
-                WHERE t1.res_dep = :user_dep and t1.move_status='N' and m1.mng_status='N' and t1.recycle='N'";
+                $sql = "select count(re.repair_id) AS inbox FROM m_repair_pd re
+                WHERE re.repair_status=0";
                 $execute = array(':user_dep' => $user_dep);
                 $conn_DB->imp_sql($sql);
                 $result = $conn_DB->select_a($execute);
@@ -34,44 +33,33 @@ $conn_DB->conn_PDO();
             <li class="header">คุณมีรายการรอทบทวน <?= $inbox ?> รายการ</li>
 
             <li>
-                <!-- inner menu: contains the actual data -->
+                 inner menu: contains the actual data 
                 <ul class="menu">
                     <?php
-                    $sql = "select s1.category,t1.level_risk,s1.name  as sub_name , t1.takerisk_id , t1.take_file1 , t1.take_rec_date,LEFT(t1.take_detail,35)  AS detail  from mngrisk m1 
-                LEFT OUTER JOIN takerisk t1 ON t1.takerisk_id = m1.takerisk_id 
-                LEFT OUTER JOIN subcategory s1 ON t1.subcategory = s1.subcategory 
-                WHERE t1.res_dep = :user_dep and t1.move_status='N' and m1.mng_status='N' 
-                ORDER BY t1.level_risk DESC";
+                    $sql = "SELECT re.repair_id,re.repair_date,pp.pd_number,ppl.note,re.symptom,depName,re.vital
+,(SELECT CONCAT(e.firstname,' ',e.lastname) FROM emppersonal e WHERE e.empno=re.informer) inform
+FROM m_repair_pd re
+INNER JOIN pd_product pp on pp.pd_id=re.pd_id
+INNER JOIN pd_place ppl on ppl.pd_id=pp.pd_id
+INNER JOIN department d on d.depId=ppl.depId
+WHERE re.repair_status=0";
                     $execute = array(':user_dep' => $user_dep);
                     $conn_DB->imp_sql($sql);
                     $result2 = $conn_DB->select($execute);
                     for ($i = 0; $i < count($result2); $i++) {
-                        if ($result2[$i]['category'] == '1') {
+                        if ($result2[$i]['vital'] == '0') {
                             $icon = "fa fa-bed";
-                        } elseif ($result2[$i]['category'] == '2') {
+                        } elseif ($result2[$i]['vital'] == '1') {
                             $icon = 'fa fa-medkit';
-                        } elseif ($result2[$i]['category'] == '3') {
-                            $icon = 'fa fa-heartbeat';
-                        } elseif ($result2[$i]['category'] == '4') {
-                            $icon = 'fa fa-bug';
-                        } elseif ($result2[$i]['category'] == '5') {
-                            $icon = 'fa fa-leaf';
-                        } elseif ($result2[$i]['category'] == '6') {
-                            $icon = 'fa fa-money';
-                        } elseif ($result2[$i]['category'] == '7') {
-                            $icon = 'fa fa-pie-chart';
-                        } elseif ($result2[$i]['category'] == '8') {
-                            $icon = 'fa fa-file-text';
                         }
-                        if ($result2[$i]['level_risk'] == 'A' or $result2[$i]['level_risk'] == 'B' or $result2[$i]['level_risk'] == 'C') {
+                        
+                        if ($result2[$i]['level_risk'] == 'A') {
                             $color = 'success';
                         } elseif ($result2[$i]['level_risk'] == 'D' or $result2[$i]['level_risk'] == 'E' or $result2[$i]['level_risk'] == 'F') {
                             $color = 'yellow';
-                        } elseif ($result2[$i]['level_risk'] == 'G' or $result2[$i]['level_risk'] == 'H' or $result2[$i]['level_risk'] == 'I') {
-                            $color = 'red';
                         }
                         ?> 
-                        <li><!-- start message -->
+                        <li> start message 
                             <a href="#"><?php if (!empty($result2[$i]['take_file1'])) { ?>
                                     <div class="pull-left">
                                         <img src="myfile/<?= $result2[$i]['take_file1'] ?>" class="img-circle" alt="User Image">
@@ -82,19 +70,19 @@ $conn_DB->conn_PDO();
                                 <p><?= $result2[$i]['detail'] ?>...</p>
                                 <small><i class="fa fa-clock-o"> <?= DateThai1($result2[$i]['take_rec_date']) ?></i></small>
                             </a>
-                        </li><!-- end message --><?php } ?>
+                        </li> end message <?php } ?>
                 </ul>
             </li>
             <li class="footer"><a href="#">ดูทั้งหมด</a></li>
         </ul>
-    </li>
+    </li>-->
     <?php if ($_SESSION['m_status'] == 'ADMIN') { ?>
         <li class="dropdown notifications-menu" id="mySpan"></li>
     <?php }
 } if (empty($_SESSION['m_id'])) { ?>
     <li class="dropdown messages-menu">
 
-        <a href="#" onClick="return popup('login_page.html', popup, 300, 330);" title="เข้าสู่ระบบบริหารความเสี่ยง">
+        <a href="#" onClick="return popup('login_page.html', popup, 500, 330);" title="เข้าสู่ระบบบริหารความเสี่ยง">
             <img src="images/key-y.ico" width="18"> เข้าสู่ระบบ
         </a>
 
