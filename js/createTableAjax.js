@@ -110,6 +110,8 @@ var createTableAjax = function () {
             	var container = document.getElementById (content);
             	container.appendChild(table);
             }
+            $("td:contains(เร่งด่วน)").attr("style","background-color: red;color: white");
+            $("td:contains(ไม่เร่งด่วน)").attr("style","background-color: green;color: white");
             $("#"+tid1+"").DataTable();
             $("#"+tid2+"").DataTable({
             "paging": true,
