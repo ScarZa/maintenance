@@ -24,7 +24,7 @@
                                             $(".sidebar-menu").append($("<li id='ad_treeview1' class='treeview'></li>")
                                                                     ,$("<li id='ad_treeview2' class='treeview'></li>")
                                                                     ,$("<li id='ad_manual'></li>"));
-                                                        $("#ad_treeview1").append($("<a href='#'><img src='images/menu_items_options.ico' width='20'> <span>เมนูคณะกรรมการ</span><i class='fa fa-angle-left pull-right'></i></a>")
+                                                        $("#ad_treeview1").append($("<a href='#'><img src='images/menu_items_options.ico' width='20'> <span>เมนูผู้ดูแลระบบ : (คอมฯ)</span><i class='fa fa-angle-left pull-right'></i></a>")
                                                                                 ,$("<ul id='ad_treeview-menu1' class='treeview-menu'></ul>"));
                                                                 $("#ad_treeview-menu1").append($("<li class=''><a id='addProds' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>เพิ่มครุภัณฑ์</span></a></li>")
                                                                                                 ,$("<li class=''><a id='listProds' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>รายการครุภัณฑ์</span></a></li>")

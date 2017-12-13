@@ -1,6 +1,6 @@
 var createTableAjax = function () {
     
-    this.GetNewTableAjax = function (content,jsonsource,tempdata,cols,namefunc=null,edit=true,process=true,pnamefunc=null,detail=true,dmodal=null,print=true,printpage=null,tid1=null,tid2=null,tid3=null) {
+    this.GetNewTableAjax = function (content,jsonsource,tempdata,cols,namefunc=null,edit=true,process=true,pnamefunc=null,detail=true,dmodal=null,print=true,printpage=null,red=null,orange=null,yellow=null,green=null,tid1=null,tid2=null,tid3=null) {
                 var table = document.createElement ("table");
             	//table.border = "1px";
                 if(tid1!=null){
@@ -110,8 +110,10 @@ var createTableAjax = function () {
             	var container = document.getElementById (content);
             	container.appendChild(table);
             }
-            $("td:contains(เร่งด่วน)").attr("style","background-color: red;color: white");
-            $("td:contains(ไม่เร่งด่วน)").attr("style","background-color: green;color: white");
+            $("td:contains("+red+")").attr("style","background-color: #d61b1b;color: white");
+            $("td:contains("+orange+")").attr("style","background-color: #e08002;color: white");
+            $("td:contains("+yellow+")").attr("style","background-color: #e3fc07;");
+            $("td:contains("+green+")").attr("style","background-color: #40ad57;color: white");
             $("#"+tid1+"").DataTable();
             $("#"+tid2+"").DataTable({
             "paging": true,

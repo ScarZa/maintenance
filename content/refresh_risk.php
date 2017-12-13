@@ -41,7 +41,7 @@ WHERE re.repair_status=0";
                                     }
 ?>
                       <li>
-                          <a href="#">
+                          <a href="#" data-toggle="modal" data-target="receiveModalalert" data-whatever="<?= $result2[$i]['repair_id']?>">
                               <?php //if (!empty($result2[$i]['take_file1'])) { ?>
                                     <!--<div class="pull-left">
                                         <img src="myfile/<?//= $result2[$i]['take_file1'] ?>" class="img-circle" alt="User Image">

@@ -18,7 +18,6 @@ unset($_SESSION['m_dep']);
 unset($_SESSION['m_process']);
 unset($_SESSION['m_status']);
 session_destroy();
-
- echo "<meta http-equiv='refresh' content='0;url=index.html'>";
 ?>
+    <meta http-equiv='refresh' content='0;url=index.html'>
 </section> 
