@@ -78,8 +78,9 @@ var createTableAjax = function () {
 					cellEdit.appendChild(editButton);
 					editButton.innerHTML = "<img src='images/icon_set1/file_search.ico' width='25'>";
 					editButton.setAttribute("href","#");
+                                        editButton.setAttribute("onclick",dmodal+"()");
                                         editButton.setAttribute("data-toggle","modal");
-                                        editButton.setAttribute("data-target",dmodal);
+                                        editButton.setAttribute("data-target","#"+dmodal);
                                         editButton.setAttribute("data-whatever",value[0]);
                                 }
                                 if(process==true){

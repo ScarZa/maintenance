@@ -1,4 +1,5 @@
- $("#createModal").empty().append("<div class='modal' id='receiveModal' role='dialog' aria-labelledby='exampleModalLabel'>"
+function receiveModal () {
+$("#createModal").empty().append("<div class='modal' id='receiveModal' role='dialog' aria-labelledby='exampleModalLabel'>"
                                     +"<div class='modal-dialog' role='document'><div class='modal-content'><div class='modal-header'>"
                                     +"<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>"
                                     +"<h4 class='modal-title' id='receiveModalLabel'>รับใบแจ้งซ่อม</h4></div><div class='modal-body' id='modelrepair'><span id='repair_detail'></span></div>"
@@ -45,3 +46,4 @@
         });
     });
 });
+}

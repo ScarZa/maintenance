@@ -138,7 +138,7 @@ WHERE re.repair_status=0";
         </ul>
     </li>
  <!---------------------------- Modal ---------------------------->
-<script src="js/genReceiveRepair.js" type="text/javascript"></script> 
+
     <?php if ($_SESSION['m_status'] == 'ADMIN') { ?>
         <!-- Control Sidebar Toggle Button 
         <li>

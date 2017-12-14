@@ -9,11 +9,8 @@
     var column1 = ["ลำดับ","วันที่แจ้ง","เลขครุภัณฑ์","หมายเหตุ","อาการ","งาน","ความสำคัญ","ผู้แจ้ง","รับใบแจ้ง","แก้ไข","ลบ"];
               var CTb = new createTableAjax();
               var setattrCTb = CTb.GetNewTableAjax('contentTB','JsonData/DT_LRP.php','JsonData/tempSendData.php',column1
-              ,'AddRepair',true,false,null,true,'#receiveModal',false,null,'เร่งด่วน',null,null,'ไม่เร่งด่วน','dbtb');
-              //$(function() {
-              //setattrCTb.tBody.setAttribute("style","color: red");
-                   
-//});
+              ,'AddRepair',true,false,null,true,'receiveModal',false,null,'เร่งด่วน',null,null,'ไม่เร่งด่วน','dbtb');
+              
 </script>
 <div class="row">
     <div class="col-md-12">
@@ -30,4 +27,3 @@
             </div>
     </div>
 </div>
-
