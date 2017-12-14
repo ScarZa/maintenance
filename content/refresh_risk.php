@@ -41,7 +41,7 @@ WHERE re.repair_status=0";
                                     }
 ?>
                       <li>
-                          <a href="#" data-toggle="modal" data-target="#exampleModal" data-whatever="<?= $result2[$i]['repair_id']?>">
+                          <a href="#" data-toggle="modal" data-target="#receiveModal" data-whatever="<?= $result2[$i]['repair_id']?>">
                               <?php //if (!empty($result2[$i]['take_file1'])) { ?>
                                     <!--<div class="pull-left">
                                         <img src="myfile/<?//= $result2[$i]['take_file1'] ?>" class="img-circle" alt="User Image">
@@ -57,6 +57,6 @@ WHERE re.repair_status=0";
                                 <?php } ?>
                    </ul>
                   </li>
-                  <li class="footer"><a href="#" onclick="loadPage('#index_content','content/check_risk.html')">ดูทั้งหมด</a></li>
+                  <li class="footer"><a href="#" onclick="loadPage('#index_content','content/list_repair_order.html')">ดูทั้งหมด</a></li>
                 </ul>
 <?php $conn_DB->close_PDO(); ?>
