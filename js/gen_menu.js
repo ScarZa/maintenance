@@ -15,7 +15,7 @@
                                                         ,$("<li id='home'><a href='#'><img src='images/gohome.ico' width='20'> <span>หน้าหลัก</span></a></li>"));
                                                 $("#home > a").attr("onclick","loadPage('#index_content','content/info_index.html');");        
                                     $(".content-wrapper").append("<section class='content' id='sec_content'></section>");   
-                                            $("#sec_content").append("<div id='index_content'>No Login.</div>");
+                                            $("#sec_content").append("<div id='index_content'>No Login.</div><div id='createModal'></div>");
                                         
                     $(".main-footer").append("<div id='version' class='pull-right hidden-xs'></div>").append("<strong>Copyright &copy; 2017 <a href='http://rploei.go.th'>โรงพยาบาลจิตเวชเลยราชนครินทร์</a>.</strong> All rights reserved.");       
                                 $("#version").append("<b>Version</b> 1.0");
