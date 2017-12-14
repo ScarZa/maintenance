@@ -139,14 +139,14 @@ WHERE re.repair_status=0";
     </li>
     
     <!----------------------------------- Modal Receive By Alert ------------------------->
-    <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="exampleModalLabel">New message</h4>
       </div>
-      <div class="modal-body">
+<!--      <div class="modal-body">
         <form>
           <div class="form-group">
             <label for="recipient-name" class="control-label">Recipient:</label>
@@ -157,7 +157,7 @@ WHERE re.repair_status=0";
             <textarea class="form-control" id="message-text"></textarea>
           </div>
         </form>
-      </div>
+      </div>-->
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary">Send message</button>
