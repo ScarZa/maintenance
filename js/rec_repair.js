@@ -45,15 +45,7 @@ $.getJSON('JsonData/repair_Data.php',{data: id.data},function (data) {
                     
                         $('div#do_repair').append($("<div class='form-group'><input type='radio' value='1' name='accessories' id='accessories1' required> : เปลี่ยนอุปกรณ์  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio' value='0' name='accessories' id='accessories0' checked='checked' required> : ไม่ได้เปลี่ยนอุปกรณ์</div>")
                                                     ,$("<div class='form-group' id='detail_acc_part'></div>"));
-                        $.getJSON('JsonData/detail_acc_part.php',{data: data.repair_id}, function (CD) {
-                                    var option='';
-                                    var c=1;
-                                    for (var key in CD) {
-                                              option += c+". "+CD[key].accp_name+" : "+CD[key].acc_detail+" &nbsp;&nbsp;ราคา "+CD[key].acc_price+" บาท <br>";
-                                              c++;
-                                        }
-                                        $("div#detail_acc_part").empty().html(option);
-                                }); 
+                        
                         $('div#dont_repair').append($("<div class='form-group'><input type='radio' value='1' name='send_repair' id='send_repair1' required> : ส่งซ่อมภายนอก  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio' value='0' name='send_repair' id='send_repair0' checked='checked' required> : ส่งคืนพัสดุ</div>"));
     
     ///////////////// Add Item Accessories Modal ////////////////////
@@ -87,6 +79,15 @@ $.getJSON('JsonData/repair_Data.php',{data: id.data},function (data) {
 					   success: function(result) {
                                                alert(result);
                                                 $("#frmacc").find('input:text, select, textarea').val('');
+                                                $.getJSON('JsonData/detail_acc_part.php',{data: data.repair_id}, function (CD) {
+                                    var option='';
+                                    var c=1;
+                                    for (var key in CD) {
+                                              option += c+". "+CD[key].accp_name+" : "+CD[key].acc_detail+" &nbsp;&nbsp;ราคา "+CD[key].acc_price+" บาท <br>";
+                                              c++;
+                                        }
+                                        $("div#detail_acc_part").empty().html(option);
+                                }); 
 					   }
 					 });
                     });

@@ -11,8 +11,8 @@ $read="../connection/conn_DB.txt";
 $conn_DB->para_read($read);
 $conn_DB->Read_Text();
 $db=$conn_DB->conn_PDO();
-//$empno=$_SESSION[''];
-$empno=30;
+$empno=$_SESSION['m_id'];
+//$empno=30;
 if($db != FALSE){
 //$db=$conn_DB->getDb();
 //===ชื่อกลุ่ม
@@ -28,6 +28,7 @@ if($db != FALSE){
 }                               
 $data= array();
 $data['fullname'] = $result['fullname'];
+$data['depId'] = $result['depId'];
 $data['dep'] = $result['dep'];
 $data['posi'] = $result['posi'];
 $data['empno'] = $result['empno'];

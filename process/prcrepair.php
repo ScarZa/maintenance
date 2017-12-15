@@ -23,10 +23,8 @@ function insert_date($take_date_conv) {
 
 $method = isset($_POST['method']) ? $_POST['method'] : $_GET['method'];
 if ($method == 'add_repair') {
-    //$informer = $_SESSION[''];
-    $informer = 30;
-    //$repair_date =insert_date($_POST['repair_date']);
-    $repair_date = date('Y-m-d H:i:s');
+    $informer = $_POST['informer'];
+    $repair_date = isset($_POST['repair_date'])?insert_date($_POST['repair_date']):date('Y-m-d H:i:s');
     $record_date = date('Y-m-d H:i:s');
     $pd_id = $_POST['pd_id'];
     $vital = $_POST['vital'];
@@ -72,13 +70,13 @@ if(count($chkRepair)==0){
     }
 }elseif ($method == 'receive_repair') {
     $repair_id= $_POST['repair_id'];
-    //$receiver=$_SESSION[''];
+    $receiver=$_SESSION['m_id'];
     $repairer = $_POST['repairer'];
     $receive_date =insert_date($_POST['datepicker1']);
     $repair_status = 1;
     
-    $data = array($repairer, $receive_date, $repair_status);
-    $field=array("repairer","receive_date","repair_status");
+    $data = array($repairer, $receiver, $receive_date, $repair_status);
+    $field=array("repairer","receiver","receive_date","repair_status");
     $table = "m_repair_pd";
     $where="repair_id=:repair_id";
     $execute=array(':repair_id' => $repair_id);
@@ -99,7 +97,7 @@ if(count($chkRepair)==0){
     $rece_pd_date = $enrepair_dare;
     $cause = $_POST['cause'];
     $repair_detail = $_POST['repair_detail'];
-    //$result_recorder=$_SESSION[''];
+    $result_recorder=$_SESSION['m_id'];
     $result_recdate = date("Y-m-d H:i:s");
     if($result==1){
     $end_process = 1;
@@ -124,8 +122,8 @@ if(count($chkRepair)==0){
         }else{ $end_process = 0; }  
     }
     
-    $data = array($result, $accessories, $strepair_date, $enrepair_dare, $rece_pd, $rece_pd_date, $cause, $repair_detail,$result_recdate,$repair_status,$send_repair,$end_process);
-    $field=array("result","accessories","strepair_date","enrepair_dare","rece_pd","rece_pd_date","cause","repair_detail","result_recdate","repair_status","send_repair","end_process");
+    $data = array($result, $accessories, $strepair_date, $enrepair_dare, $rece_pd, $rece_pd_date, $cause, $repair_detail,$result_recorder,$result_recdate,$repair_status,$send_repair,$end_process);
+    $field=array("result","accessories","strepair_date","enrepair_dare","rece_pd","rece_pd_date","cause","repair_detail","result_recorder","result_recdate","repair_status","send_repair","end_process");
     $table = "m_repair_pd";
     $where="repair_id=:repair_id";
     $execute=array(':repair_id' => $repair_id);
@@ -144,7 +142,7 @@ if(count($chkRepair)==0){
     $resend_status = 1;
     ////////////////// Record Repair //////////////////
     $repair_id= $_POST['repair_id'];
-    //$receiver=$_SESSION[''];
+    $result_recorder=$_SESSION['m_id'];
     $result = $_POST['result'];
     $enrepair_dare = $resend_date;
     $rece_pd = $_POST['rece_pd'];
@@ -170,8 +168,8 @@ if(count($chkRepair)==0){
     $execute=array(':send_id' => $send_id);
     $send_repair=$connDB->update($table, $data, $where, $field, $execute);
         
-    $data2 = array($result, $enrepair_dare, $rece_pd, $rece_pd_date, $cause, $repair_detail, $result_recdate, 1);
-    $field2=array("result", "enrepair_dare","rece_pd","rece_pd_date","cause","repair_detail","result_recdate","end_process");
+    $data2 = array($result, $enrepair_dare, $rece_pd, $rece_pd_date, $cause, $repair_detail, $result_recorder, $result_recdate, 1);
+    $field2=array("result", "enrepair_dare","rece_pd","rece_pd_date","cause","repair_detail","result_recorder","result_recdate","end_process");
     $table2 = "m_repair_pd";
     $where2="repair_id=:repair_id";
     $execute2=array(':repair_id' => $repair_id);

@@ -22,13 +22,14 @@ $.getJSON('JsonData/head_repair.php',function (data) {
                         ,$("<div class='form-group'>อาการเสีย : <textarea class='form-control' style='width: 100%' COLS='100%' rows='2' placeholder='ระบุอาการเสีย' name='symptom' id='symptom' required></textarea></div>")
                         ,$("<div class='form-group'><input type='radio' value='1' name='vital' id='vital' required> : เร่งด่วน  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio' value='0' name='vital' id='vital' required> : ไม่เร่งด่วน</div>"));
                 $("select#pd_id").append($("<option value=''> เลือกครุภัณฑ์ </option>"));
-                                $.getJSON('JsonData/dep_prods.php',{data: 28}, function (GD) {
+                                $.getJSON('JsonData/dep_prods.php',{data: data.depId}, function (GD) {
                                     for (var key in GD) {
                                               $("select#pd_id").append($("<option value='"+GD[key].pd_id+"'> "+GD[key].pd_number+" : "+GD[key].name+" ("+GD[key].note+") </option>"));
                                     }$(".select2").select2();
                                 });    
      
-            $("div#add_repair").append("<input type='hidden' id='method' name='method' value='add_repair'>");                
+            $("div#add_repair").append("<input type='hidden' id='method' name='method' value='add_repair'>"); 
+            $("div#add_repair").append("<input type='hidden' id='informer' name='informer' value='"+data.empno+"'>");
             $("div#add_repair").append("<button type='submit' class='btn btn-primary' id='ARsubmit'>บันทึกใบแจ้งซ่อม</button>");
             $("button#ARsubmit").click(function(e) {
                                         e.preventDefault();
@@ -49,7 +50,7 @@ $.getJSON('JsonData/head_repair.php',function (data) {
                         ,$("<div class='form-group'>อาการเสีย : <textarea class='form-control' style='width: 100%' COLS='100%' rows='2' placeholder='ระบุอาการเสีย' name='symptom' id='symptom' required></textarea></div>")
                         ,$("<div class='form-group'><input type='radio' value='1' name='vital' id='vital1' required> : เร่งด่วน  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio' value='0' name='vital' id='vital0' required> : ไม่เร่งด่วน</div>"));
                 $("select#pd_id").append($("<option value=''> เลือกครุภัณฑ์ </option>"));
-                                $.getJSON('JsonData/dep_prods.php',{data: 28}, function (GD) {
+                                $.getJSON('JsonData/dep_prods.php',{data: data.depId}, function (GD) {
                                     for (var key in GD) {
                                         if(GD[key].pd_id==data.pd_id){var select='selected';}else{var select='';}
                                               $("select#pd_id").append($("<option value='"+GD[key].pd_id+"' "+select+"> "+GD[key].pd_number+" : "+GD[key].name+" ("+GD[key].note+") </option>"));

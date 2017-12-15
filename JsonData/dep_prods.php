@@ -19,7 +19,7 @@ FROM pd_product pp
 INNER JOIN pd_place pp2 on pp2.pd_id=pp.pd_id
 INNER JOIN department d on d.depId=pp2.depId
 INNER JOIN pd_status ps on ps.pd_status_id=pp.status
-WHERE pp.group_id=10 AND d.depId = :depId";
+WHERE pp.group_id=10  AND pp.status=1 AND d.depId = :depId";
 $conn_DB->imp_sql($sql);
 $execute=array(':depId' => $data);
 $result=$conn_DB->select($execute);

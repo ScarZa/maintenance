@@ -101,7 +101,7 @@ WHERE re.repair_status=0";
         $conn_DB->imp_sql($sql);
         $result = $conn_DB->select_a($execute);
 
-        $empno_photo = $result['photo'];
+        $empno_photo = isset($result['photo'])?$result['photo']:'';
         if (empty($empno_photo)) {
             $photo = 'person.png';
             $fold = "images/";
