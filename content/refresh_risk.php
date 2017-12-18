@@ -16,7 +16,7 @@ $result = $conn_DB->select_a();
 ?>
                 <a href="JavaScript:doCallAjax('alertRepair');" class="dropdown-toggle" data-toggle="dropdown">
                     <i style="color: yellow;" class="fa fa-bell-o"></i>
-                  <span class="label label-danger"><?=$result['alertRepair']?></span>
+                  <span class="label label-warning"><?=$result['alertRepair']?></span>
                 </a>
                 <ul class="dropdown-menu">
                     <li class="header" style="color: red;"><b>คุณมี <?=$result['alertRepair']?> รายการแจ้งย้าย</b></li>

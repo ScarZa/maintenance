@@ -1,0 +1,162 @@
+            <h2 style="color: blue">รายการสรุปผลการซ่อมครุภัณฑ์คอมพิวเตอร์</h2>
+            <ol class="breadcrumb">
+              <li><a href="index.html"><i class="หน้าหลัก"></i> หน้าหลัก</a></li>
+              <li class="active"><i class="fa fa-wrench"></i> รายการซ่อม</li>
+            </ol>
+             
+<script language="Javascript" type="text/javascript">
+    //var column1 = '{"รายการความเสี่ยงที่รอ RM man มาตรวจสอบ":["เลขที่","รายการ","เกิดขึ้นเมื่อ","ได้รับเมื่อ"]}';
+    var column1 = ["ลำดับ","วันที่แจ้ง","เลขครุภัณฑ์","ความสำคัญ","วันที่รับใบซ่อม","ผู้ซ่อม","รายละเอียด","แก้ไข","ลบ"];
+              var CTb = new createTableAjax();
+              CTb.GetNewTableAjax('contentTB','JsonData/DT_LRRPC.php','JsonData/tempSendData.php',column1
+              ,'AddRepair',true,false,null,true,'detailModal',false,null,'เร่งด่วน',null,null,'ไม่เร่งด่วน','dbtb');
+              
+              CTb.GetNewTableAjax('contentTB2','JsonData/DT_LRRPF.php','JsonData/tempSendData.php',column1
+              ,'AddRepair',true,false,null,true,'receiveModal',false,null,'เร่งด่วน',null,null,'ไม่เร่งด่วน','dbtb2');
+</script>
+<div class="row">
+    <div class="col-md-12">
+            <div class="box box-success box-solid">
+                <div class="box-header with-border">
+                    <h4 class="box-title"><i class="fa fa-star"></i> รายการผลการซ่อมครุภัณฑ์คอมพิวเตอร์(สำเร็จ) </h4>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div><!-- /.box-tools -->
+                </div><!-- /.box-header -->
+                <div class="box-body">
+        <div id="contentTB" class="table-responsive"></div>
+                </div>
+            </div>
+    </div>
+    
+    <div class="col-md-12">
+            <div class="box box-danger box-solid">
+                <div class="box-header with-border">
+                    <h4 class="box-title"><i class="fa fa-star"></i> รายการผลการซ่อมครุภัณฑ์คอมพิวเตอร์(ไม่สำเร็จ) </h4>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div><!-- /.box-tools -->
+                </div><!-- /.box-header -->
+                <div class="box-body">
+        <div id="contentTB2" class="table-responsive"></div>
+                </div>
+            </div>
+    </div>
+</div>
+<!---------------------------- Modal ---------------------------->
+<div class="modal" id="detailModal" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="receiveModalLabel">รับใบแจ้งซ่อม</h4>
+      </div>
+        <div class="modal-body">
+          <span id="detail"></span>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script language="Javascript" type="text/javascript">
+    function detailModal () {
+    $('#detailModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget)
+  var recipient = button.data('whatever')
+  var modal = $(this)
+  modal.find('.modal-title').text('รายละเอียดใบแจ้งซ่อม : ลำดับที่ ' + recipient)
+  
+   $.getJSON('JsonData/repair_Data.php',{data: recipient},function (data) {
+        $('span#detail').empty().append("ผู้แจ้งซ่อม : "+data.inform+"  &nbsp;&nbsp;งาน : "+data.depName+"<br>"
+                            +"เลขครุภัณฑ์ : "+data.pd_number+"  &nbsp;&nbsp;หมายเหตุ : "+data.note+"<br>"
+                            +"อาการ : "+data.symptom+"<br>วันที่แจ้ง : "+data.repair_date+" &nbsp;&nbsp;<b style='color: red;'>"+data.vital+"</b>  &nbsp;&nbsp;วันที่รับใบแจ้ง : "+data.receive_date);
+
+    });
+})
+    }  
+</script>
+
+
+<!---------------------------- Modal ---------------------------->
+<div class="modal" id="receiveModal" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="receiveModalLabel">รับใบแจ้งซ่อม</h4>
+      </div>
+        <div class="modal-body" id="modelrepair">
+          <span id="repair_detail"></span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
+        <button type="button" class="btn btn-success" id="submresult">บันทึกผลการซ่อม</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script language="Javascript" type="text/javascript">
+    function receiveModal () {
+    $('#receiveModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget)
+  var recipient = button.data('whatever')
+  var modal = $(this)
+  modal.find('.modal-title').text('ผลการซ่อมใบแจ้งซ่อม : ลำดับที่ ' + recipient)
+  
+   $.getJSON('JsonData/repair_Data.php',{data: recipient},function (data) {
+        $('#repair_detail').empty().append("ผู้แจ้งซ่อม : "+data.inform+"  &nbsp;&nbsp;งาน : "+data.depName+"<br>"
+                            +"เลขครุภัณฑ์ : "+data.pd_number+"  &nbsp;&nbsp;หมายเหตุ : "+data.note+"<br>"
+                            +"อาการ : "+data.symptom+" <br>วันที่แจ้ง : "+data.repair_date+"  &nbsp;&nbsp;<b style='color: red;'>"+data.vital+"</b>  &nbsp;&nbsp;วันที่รับใบแจ้ง : "+data.receive_date)
+        $('div.modal-body#modelrepair').append("<form name='frmresult' id='frmresult'></form>");
+                $('#frmresult').empty().append($("<div class='form-group'><label for='datepicker1' class='control-label'>วันที่เริ่มซ่อม </label><input type='text' name='datepicker1' id='datepicker1' class='form-control' readonly required>")
+                                    ,$("<div class='form-group'><label for='datepicker1' class='control-label'>วันที่ซ่อมเสร็จ </label><input type='text' name='datepicker2' id='datepicker2' class='form-control' readonly required>")
+                                    ,$("<div class='form-group'><input type='radio' value='1' name='result' id='result1' required> : ซ่อมได้  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio' value='0' name='result' id='result0' required> : ซ่อมไม่ได้</div>")
+                                    ,$("<div class='form-group' id='cause_sel'></div>")
+                                    ,$("<div class='form-group'><label for='repair_detail' class='control-label'>รายละเอียดการซ่อม</label><textarea class='form-control' style='width: 100%' COLS='100%' rows='2' placeholder='อธิบายรายละเอียดการซ่อม' name='repair_detail' id='repair_detail' required></textarea></div>")
+                                    ,$("<div class='form-group' id='rece_pd_sel'></div>")
+                                    ,$("<input type='hidden' class='form-control' id='repair_id' name='repair_id'>")
+                                    ,$("<input type='hidden' class='form-control' id='method' name='method'>"));
+                    $('#cause_sel').empty().append("<label for='cause' class='control-label'>สรุปอาการเสีย</label><select name='cause' id='cause' class='form-control'></select>");
+                    $('#rece_pd_sel').empty().append("<label for='repairer' class='control-label'>ผู้รับการซ่อม</label><select name='rece_pd' id='rece_pd' class='form-control select2'></select>");
+                                $("select#cause").addClass("select2");
+                    $("select#cause").append($("<option value=''> เลือกสรุปอาการเสีย </option>"));
+                    $.getJSON('JsonData/symmptom_category.php', function (GD) {
+                                    for (var key in GD) {
+                                        //if(GD[key].pd_id==data.pd_id){var select='selected';}else{var select='';}
+                                              $("select#cause").append($("<option value='"+GD[key].symmptom_cid+"'> "+GD[key].symmptom_name+"</option>"));
+                                    }//$(".select2").select2();
+                                });
+                    $("select#rece_pd").append($("<option value=''> เลือกผู้รับการซ่อม </option>"));
+                    $.getJSON('JsonData/emp_Data.php', function (GD) {
+                                    for (var key in GD) {
+                                        //if(GD[key].pd_id==data.pd_id){var select='selected';}else{var select='';}
+                                              $("select#rece_pd").append($("<option value='"+GD[key].empno+"'> "+GD[key].fullname+"</option>"));
+                                    }//$(".select2").select2();
+                                });
+                                $(".select2").select2();
+                                var DP = new DatepickerThai();
+                                DP.GetDatepicker('#datepicker1');
+                                DP.GetDatepicker('#datepicker2');
+                                modal.find('.modal-body input#repair_id').val(recipient)
+                                modal.find('.modal-body input#method').val('result_repair')
+                                
+                                $("button#submresult").click(function(e) {
+                                        e.preventDefault();
+                                        modal.modal('hide');
+        				$.ajax({
+					   type: "POST",
+					   url: "process/prcrepair.php",
+                                           data: $("#frmreceive").serialize(),
+					   success: function(result) {
+                                               alert(result);
+                                                $("#index_content").empty().load('content/list_repair_order.html');
+                                                 return false;
+					   }
+					 });
+        });
+    });
+})
+    }   
+</script>
