@@ -39,8 +39,13 @@ $.getJSON('JsonData/head_repair.php',function (data) {
                                            data: $("#frmaddrepair").serialize(),
 					   success: function(result) {
 						alert(result);
+                                                $.getJSON('JsonData/DT_TRP.php',function (data) {
+                                                    if(data.req_repair !=0){
+                                                        $("#listRepair").append($("<small class='label pull-right bg-red'>"+data.req_repair+"</small>"));
+                                                    }  
                                                 $("#index_content").empty().load('content/add_repair.html');
-					   }
+					   });
+                                       }
 					 });
         });
             }else{ 

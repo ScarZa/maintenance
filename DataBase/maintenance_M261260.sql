@@ -11,7 +11,7 @@
  Target Server Version : 100113
  File Encoding         : 65001
 
- Date: 20/11/2017 15:19:37
+ Date: 26/12/2017 15:39:19
 */
 
 SET NAMES utf8mb4;
@@ -25,7 +25,20 @@ CREATE TABLE `m_acc_part`  (
   `accp_id` int(4) NOT NULL AUTO_INCREMENT,
   `accp_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`accp_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of m_acc_part
+-- ----------------------------
+INSERT INTO `m_acc_part` VALUES (1, 'harddisk');
+INSERT INTO `m_acc_part` VALUES (2, 'ram');
+INSERT INTO `m_acc_part` VALUES (3, 'bios battery');
+INSERT INTO `m_acc_part` VALUES (4, 'power supply');
+INSERT INTO `m_acc_part` VALUES (5, 'mainboard');
+INSERT INTO `m_acc_part` VALUES (6, 'CPU');
+INSERT INTO `m_acc_part` VALUES (7, 'mouse');
+INSERT INTO `m_acc_part` VALUES (8, 'keyboard');
+INSERT INTO `m_acc_part` VALUES (9, 'UPS battery');
 
 -- ----------------------------
 -- Table structure for m_accessories
@@ -65,6 +78,9 @@ CREATE TABLE `m_repair_pd`  (
   `rece_pd_date` datetime(0) DEFAULT NULL,
   `cause` int(4) DEFAULT NULL,
   `repair_detail` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `result_recorder` int(7) DEFAULT NULL,
+  `result_recdate` datetime(0) DEFAULT NULL,
+  `end_process` int(1) DEFAULT 0,
   PRIMARY KEY (`repair_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
@@ -80,7 +96,7 @@ CREATE TABLE `m_sendrep`  (
   `repair_detail` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `send_price` decimal(10, 2) DEFAULT NULL,
   `resend_date` date DEFAULT NULL,
-  `resend_status` int(1) DEFAULT NULL,
+  `resend_status` int(1) DEFAULT 0,
   PRIMARY KEY (`send_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
@@ -93,7 +109,21 @@ CREATE TABLE `m_symmptom_category`  (
   `symmptom_gid` int(3) NOT NULL,
   `symmptom_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`symmptom_cid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of m_symmptom_category
+-- ----------------------------
+INSERT INTO `m_symmptom_category` VALUES (1, 1, 'comp : harddisk error');
+INSERT INTO `m_symmptom_category` VALUES (2, 1, 'comp : ram error');
+INSERT INTO `m_symmptom_category` VALUES (3, 1, 'comp : mainboard error');
+INSERT INTO `m_symmptom_category` VALUES (4, 1, 'comp : supply error');
+INSERT INTO `m_symmptom_category` VALUES (5, 2, 'Hosxp error');
+INSERT INTO `m_symmptom_category` VALUES (6, 2, 'Program HRD&SS error');
+INSERT INTO `m_symmptom_category` VALUES (7, 2, 'Windows error');
+INSERT INTO `m_symmptom_category` VALUES (8, 2, 'driver error');
+INSERT INTO `m_symmptom_category` VALUES (9, 2, 'virus');
+INSERT INTO `m_symmptom_category` VALUES (10, 3, 'user ใช้งานไม่เป็น');
 
 -- ----------------------------
 -- Table structure for m_symptom_group
@@ -103,6 +133,13 @@ CREATE TABLE `m_symptom_group`  (
   `symp_gid` int(3) NOT NULL AUTO_INCREMENT,
   `symp_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`symp_gid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of m_symptom_group
+-- ----------------------------
+INSERT INTO `m_symptom_group` VALUES (1, 'อุปกรณ์ (hardware)');
+INSERT INTO `m_symptom_group` VALUES (2, 'โปรแกรม (software)');
+INSERT INTO `m_symptom_group` VALUES (3, 'ผู้ใช้ (peopleware)');
 
 SET FOREIGN_KEY_CHECKS = 1;

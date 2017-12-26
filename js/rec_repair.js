@@ -126,7 +126,6 @@ $.getJSON('JsonData/repair_Data.php',{data: id.data},function (data) {
                                            data: $("#frmsendre").serialize(),
 					   success: function(result) {
                                                alert(result);
-                                                //$("#frmacc").find('input:text, select, textarea').val('');
 					   }
 					 });
                     });
@@ -200,6 +199,16 @@ $.getJSON('JsonData/repair_Data.php',{data: id.data},function (data) {
                                            data: $("#frmresult").serialize(),
 					   success: function(result) {
                                                alert(result);
+                                               $.getJSON('JsonData/DT_TRP.php',function (data) {
+                                                   if(data.send_repair !=0){
+                                                        $("#listSendResult").append($("<small class='label pull-right bg-red'>"+data.send_repair+"</small>"));
+                                                    }
+                                                    if(data.list_repair !=0){
+                                                        $("#listResult").append($("<small class='label pull-right bg-yellow'>"+data.list_repair+"</small>"));
+                                                    }else{
+                                                        $("#listResult small").remove()
+                                                    }
+                                                        });  
                                                 $("#index_content").empty().load('content/list_repair_result.html');
                                                  return false;
 					   }

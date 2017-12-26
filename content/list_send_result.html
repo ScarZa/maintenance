@@ -102,6 +102,13 @@
                                            data: $("#frmreceiveRe").serialize(),
 					   success: function(result) {
                                                alert(result);
+                                               $.getJSON('JsonData/DT_TRP.php',function (data) {
+                                                    if(data.send_repair !=0){
+                                                        $("#listSendResult").append($("<small class='label pull-right bg-red'>"+data.send_repair+"</small>"));
+                                                    }else{
+                                                        $("#listSendResult small").remove();
+                                                    }
+                                                        });
                                                 $("#index_content").empty().load('content/list_send_result.html');
                                                  return false;
 					   }
