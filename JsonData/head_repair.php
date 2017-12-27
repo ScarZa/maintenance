@@ -32,6 +32,7 @@ $data['depId'] = $result['depId'];
 $data['dep'] = $result['dep'];
 $data['posi'] = $result['posi'];
 $data['empno'] = $result['empno'];
+$data['status']=$_SESSION['m_status'];
 print json_encode($data);
 $conn_DB->close_PDO();
 ?>
