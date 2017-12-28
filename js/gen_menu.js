@@ -26,8 +26,7 @@
                                                                     ,$("<li id='ad_manual'></li>"));
                                                         $("#ad_treeview1").append($("<a href='#'><img src='images/menu_items_options.ico' width='20'> <span>เมนูผู้ดูแลระบบ : (คอมฯ)</span><i class='fa fa-angle-left pull-right'></i></a>")
                                                                                 ,$("<ul id='ad_treeview-menu1' class='treeview-menu'></ul>"));
-                                                                $("#ad_treeview-menu1").append($("<li class=''><a id='addProds' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>เพิ่มครุภัณฑ์</span></a></li>")
-                                                                                                ,$("<li class=''><a id='listProds' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>รายการครุภัณฑ์</span></a></li>")
+                                                                $("#ad_treeview-menu1").append($("<li id='ad_Prods'><a href='#'>&nbsp;&nbsp;<img src='images/icon_set2/piechart.ico' width='20'> ครุภัณฑ์ <i class='fa fa-angle-left pull-right'></i></a></li>")
                                                                                                 ,$("<li class=''><a id='addRepair' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>แจ้งซ่อมคอมพิวเตอร์</span></a></li>")
                                                                                                 ,$("<li class=''><a id='listRepair' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>รายการแจ้งซ่อม</span> </a></li>")
                                                                                                 ,$("<li class=''><a id='listResult' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>รายการซ่อม</span> </a></li>")
@@ -44,7 +43,10 @@
                                                                                     if(data.send_repair !=0){
                                                                                         $("#listSendResult").append($("<small class='label pull-right bg-red'>"+data.send_repair+"</small>"));
                                                                                     }
-                                                                                    });            
+                                                                                    });    
+                                                                            $("#ad_Prods").append("<ul id='ulad_Prods' class='treeview-menu'></ul>");  
+                                                                                $("#ulad_Prods").append($("<li class=''><a id='addProds' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>เพิ่มครุภัณฑ์</span></a></li>")
+                                                                                                ,$("<li class=''><a id='listProds' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>รายการครุภัณฑ์</span></a></li>"));        
                                                                             $("#ad_report").append("<ul id='ulad_report' class='treeview-menu'></ul>");  
                                                                                 $("#ulad_report").append($("<li><a href='#'><i class='fa fa-circle-o text-aqua'></i> รายงานที่ 1 </a></li>")
                                                                                                         ,$("<li><a href='#'><i class='fa fa-circle-o text-aqua'></i> รายงานที่ 2 </a></li>"));
