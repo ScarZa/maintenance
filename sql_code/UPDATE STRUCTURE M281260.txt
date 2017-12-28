@@ -1,0 +1,2 @@
+ALTER TABLE `m_repair_pd` 
+ADD COLUMN `depid` int(7) NOT NULL AFTER `informer`;

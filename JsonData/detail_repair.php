@@ -14,7 +14,8 @@ $conn_DB->conn_PDO();
 //$rslt=array();
 $result=array();
 $data = isset($_GET['data'])?$_GET['data']:$_POST['data'];
-$sql="SELECT * FROM m_repair_pd WHERE repair_id =:repair_id";
+$sql="SELECT rp.*,concat(p1.pname,e1.firstname,' ',e1.lastname) as fullname FROM m_repair_pd rp "
+        . "inner join emppersonal e1 on e1.empno=rp.informer inner join pcode p1 on e1.pcode=p1.pcode WHERE repair_id =:repair_id";
 $conn_DB->imp_sql($sql);
 $execute=array(':repair_id' => $data);
 $result=$conn_DB->select_a($execute);

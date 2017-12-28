@@ -24,6 +24,7 @@ function insert_date($take_date_conv) {
 $method = isset($_POST['method']) ? $_POST['method'] : $_GET['method'];
 if ($method == 'add_repair') {
     $informer = $_POST['informer'];
+    $depid = $_POST['depid'];
     $repair_date = isset($_POST['repair_date'])?insert_date($_POST['repair_date']):date('Y-m-d H:i:s');
     $record_date = date('Y-m-d H:i:s');
     $pd_id = $_POST['pd_id'];
@@ -36,7 +37,7 @@ $connDB->imp_sql($sql);
 $execute = array(':pd_id' => $pd_id);
 $chkRepair = $connDB->select($execute);
 if(count($chkRepair)==0){    
-    $data = array($informer, $repair_date, $record_date, $pd_id,$vital, $repair_status,$symptom);
+    $data = array($informer, $depid, $repair_date, $record_date, $pd_id,$vital, $repair_status,$symptom);
     $table = "m_repair_pd";
     $add_repair = $connDB->insert($table, $data);
     $connDB->close_PDO();

@@ -21,6 +21,7 @@ $.getJSON('JsonData/head_repair.php',function (data) {
     var dep = data.dep;
             if(idrepair == null){
         $("#Dr_content").append($("<div class='form-group' id='inform'></div>")
+                        ,$("<div class='form-group'>งาน : <select name='depid' class='form-control select2' id='depid' required></select></div>")
                         ,$("<div class='form-group'>เครื่องที่เสีย : <select name='pd_id' class='form-control select2' id='pd_id' required></select></div>")
                         ,$("<div class='form-group'>อาการเสีย : <textarea class='form-control' style='width: 100%' COLS='100%' rows='2' placeholder='ระบุอาการเสีย' name='symptom' id='symptom' required></textarea></div>")
                         ,$("<div class='form-group'><input type='radio' value='1' name='vital' id='vital' required> : เร่งด่วน  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio' value='0' name='vital' id='vital' required> : ไม่เร่งด่วน</div>"));
@@ -36,22 +37,36 @@ $.getJSON('JsonData/head_repair.php',function (data) {
                 }else{
                     $("#inform").append("ชื่อ : <b>"+fullname+"</b>&nbsp;&nbsp; ตำแหน่ง : <b>"+posi+"</b>&nbsp;&nbsp; งาน : <b>"+dep+"</b><p>");
                 }
-                    $("select#pd_id").append($("<option value=''> เลือกครุภัณฑ์ </option>"));
-                    if(data.status=='ADMIN'){
-                                $.getJSON('JsonData/dep_prods.php', function (GD) {
+                    $.getJSON('JsonData/Dep_Data.php', function (GD) {  
+                                    var option = "$('<option value=''> เลือกงาน </option>')";
                                     for (var key in GD) {
-                                              $("select#pd_id").append($("<option value='"+GD[key].pd_id+"'> "+GD[key].pd_number+" : "+GD[key].name+" ("+GD[key].note+") </option>"));
-                                    }$(".select2").select2();
+                                        if(GD[key].depId==data.depId){var select='selected';}else{var select='';}
+                                              option += "$('<option value='"+GD[key].depId+"' "+select+"> "+GD[key].depName+" </option>'),";
+                                        }
+                                        $("select#depid").empty().append(option);
+                                        $(".select2").select2();
                                 });
-                                }else{
-                                 $.getJSON('JsonData/dep_prods.php',{data: data.depId}, function (GD) {  
-                                     for (var key in GD) {
-                                              $("select#pd_id").append($("<option value='"+GD[key].pd_id+"'> "+GD[key].pd_number+" : "+GD[key].name+" ("+GD[key].note+") </option>"));
-                                    }$(".select2").select2();
+                        $.getJSON('JsonData/dep_prods.php',{data: data.depId}, function (GD) {
+                                    var option = "$('<option value=''> เลือกครุภัณฑ์ </option>')";
+                                    for (var key in GD) {
+                                        //if(LR[key].group_id==data.detail.group_id){var select='selected';}else{var select='';}
+                                              option += "$('<option value='"+GD[key].pd_id+"'> "+GD[key].pd_number+" : "+GD[key].name+" ("+GD[key].note+") </option>'),";
+                                        }
+                                        $("select#pd_id").empty().append(option);
+                                        $(".select2").select2();
                                 });
-                                 
-                                }
-                                        
+                        $("select#depid").change(function () { 
+                                $.getJSON('JsonData/dep_prods.php',{data: $("#depid").val()}, function (GD) {
+                                    var option = "$('<option value=''> เลือกครุภัณฑ์ </option>')";
+                                    for (var key in GD) {
+                                        //if(LR[key].group_id==data.detail.group_id){var select='selected';}else{var select='';}
+                                              option += "$('<option value='"+GD[key].pd_id+"'> "+GD[key].pd_number+" : "+GD[key].name+" ("+GD[key].note+") </option>'),";
+                                        }
+                                        $("select#pd_id").empty().append(option);
+                                        $(".select2").select2();
+                                });
+                                });
+                                       
      
             $("div#add_repair").append("<input type='hidden' id='method' name='method' value='add_repair'>"); 
             if(data.status=='USER'){
@@ -82,9 +97,9 @@ $.getJSON('JsonData/head_repair.php',function (data) {
                         ,$("<div class='form-group'>เครื่องที่เสีย : <select name='pd_id' class='form-control select2' id='pd_id' required></select></div>")
                         ,$("<div class='form-group'>อาการเสีย : <textarea class='form-control' style='width: 100%' COLS='100%' rows='2' placeholder='ระบุอาการเสีย' name='symptom' id='symptom' required></textarea></div>")
                         ,$("<div class='form-group'><input type='radio' value='1' name='vital' id='vital1' required> : เร่งด่วน  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio' value='0' name='vital' id='vital0' required> : ไม่เร่งด่วน</div>"));
-                    $("#inform").append("ชื่อ : <b>"+fullname+"</b>&nbsp;&nbsp; ตำแหน่ง : <b>"+posi+"</b>&nbsp;&nbsp; งาน : <b>"+dep+"</b><p>");    
+                    $("#inform").append("ชื่อผู้แจ้ง : <b>"+data.fullname+"</b><p>");    
                     $("select#pd_id").append($("<option value=''> เลือกครุภัณฑ์ </option>"));
-                                $.getJSON('JsonData/dep_prods.php',{data: data.depId}, function (GD) {
+                                $.getJSON('JsonData/dep_prods.php',{data: data.depid}, function (GD) {
                                     for (var key in GD) {
                                         if(GD[key].pd_id==data.pd_id){var select='selected';}else{var select='';}
                                               $("select#pd_id").append($("<option value='"+GD[key].pd_id+"' "+select+"> "+GD[key].pd_number+" : "+GD[key].name+" ("+GD[key].note+") </option>"));
@@ -93,7 +108,6 @@ $.getJSON('JsonData/head_repair.php',function (data) {
                                
                                         var repair_date = data.repair_date;
                                         var rep_date = repair_date.split(' ');
-                                    console.log(rep_date[0]);
                                 var DP = new DatepickerThai();
                                 DP.GetDatepicker('#datepicker1');
                                 $("#datepicker1").datepicker("setDate",new Date(rep_date[0]));

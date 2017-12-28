@@ -15,18 +15,22 @@ $read="../connection/conn_DB.txt";
 $dbh->para_read($read);
 $dbh->conn_PDO();
 //$dbh->getDb();
-$sql = "select CONCAT(e1.firstname,' ',e1.lastname) as fullname, ss.ss_Name as id, ss.ss_Status as status, ss.ss_process as process, e1.depid as dep
+$sql = "select CONCAT(e1.firstname,' ',e1.lastname) as fullname, ss.ss_Name as id, ss.ss_Status as status, ss.ss_process as process, wh.depid as dep
 from ss_member ss 
 INNER JOIN emppersonal e1 on e1.empno=ss.ss_Name
-where ss.ss_Username= :user_account && ss.ss_Password= :user_pwd";
+INNER JOIN work_history wh ON wh.empno=e1.empno
+inner join department d1 on wh.depid=d1.depId
+where ss.ss_Username= :user_account && ss.ss_Password= :user_pwd and (wh.dateEnd_w='0000-00-00' or ISNULL(wh.dateEnd_w))";
 $execute=array(':user_account' => $user_account, ':user_pwd' => $user_pwd);
 $dbh->imp_sql($sql);
 $result=$dbh->select_a($execute);
 if (!$result) {
- $sql2 = "select CONCAT(e1.firstname,' ',e1.lastname) as fullname, e1.empno as id, e1.depid as dep ,'USER' as status, '6' as process
+ $sql2 = "select CONCAT(e1.firstname,' ',e1.lastname) as fullname, e1.empno as id, wh.depid as dep ,'USER' as status, '6' as process
 from emppersonal e1
+INNER JOIN work_history wh ON wh.empno=e1.empno
+inner join department d1 on wh.depid=d1.depId
 inner join member m on m.Name=e1.empno
-where m.Username= :user_account && m.Password= :user_pwd";
+where m.Username= :user_account && m.Password= :user_pwd and (wh.dateEnd_w='0000-00-00' or ISNULL(wh.dateEnd_w))";
 $execute2=array(':user_account' => $user_account, ':user_pwd' => $user_pwd);
 $dbh->imp_sql($sql2);
 $result=$dbh->select_a($execute2);   
