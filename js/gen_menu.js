@@ -13,12 +13,14 @@
                                 $(".info").append($("<p>โรงพยาบาลจิตเวชเลยฯ</p>"),$("<a href='#'><i class='fa fa-circle text-success'></i> ระบบแจ้งซ่อม</a>"));
                                 $(".sidebar-menu").append($("<li class='header'>เมนูหลัก</li>")
                                                         ,$("<li id='home'><a href='#'><img src='images/gohome.ico' width='20'> <span>หน้าหลัก</span></a></li>"));
-                                                $("#home > a").attr("onclick","loadPage('#index_content','content/info_index.html');");        
+                                                        
                                     $(".content-wrapper").append("<section class='content' id='sec_content'></section>");   
                                             $("#sec_content").append("<div id='index_content'></div><div id='createModal'></div>");
                                         if(data.m_status == ''){
+                                            $("#home > a").attr("onclick","loadPage('#index_content','content/NoLogon_index.html');");
                                             $("#index_content").empty().load("content/NoLogon_index.html");
                                         }else{
+                                            $("#home > a").attr("onclick","loadPage('#index_content','content/info_index.html');");
                                             $("#index_content").empty().load("content/info_index.html");    
                                         }
                     $(".main-footer").append("<div id='version' class='pull-right hidden-xs'></div>").append("<strong>Copyright &copy; 2017 <a href='http://rploei.go.th'>โรงพยาบาลจิตเวชเลยราชนครินทร์</a>.</strong> All rights reserved.");       
