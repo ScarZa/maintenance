@@ -132,7 +132,7 @@ WHERE re.repair_status=0";
                     <a href="index.php?page=content/add_user&id=<?= $conn_DB->sslEnc($user_id) ?>" class="btn btn-default btn-flat">ข้อมูลส่วนตัว</a>
                 </div>
                 <div class="pull-right">
-                    <a href="#" onclick="sendget('process/logout.php', 'index_content')" class="btn btn-default btn-flat">ออกจากระบบ</a>
+                    <a href="#" onclick="loadAjax('#index_content','process/logout.php',null,'logout','html');" class="btn btn-default btn-flat">ออกจากระบบ</a>
                 </div>
             </li>
         </ul>

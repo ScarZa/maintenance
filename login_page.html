@@ -67,8 +67,12 @@
 					   url: "process/check_login.php",
                                            data: $("#frmlogin").serialize(),
 					   success: function(result) {
-                                               alert(result);
+                                               if(result!=''){
+                                                   alert(result);
+                                                   $("#frmlogin").find('input:text, input:password').val('');
+                                               }else{
                                                KillMe();self.focus();window.opener.location.reload();
+                                           }
 					   }
 					 });
                     });

@@ -42,7 +42,7 @@ if ($result) {
     $_SESSION['m_process'] = $result['process'];
     $_SESSION['m_status'] = $result['status'];
     
-    echo "Login สำเร็จครับ!";
+    //echo "Login สำเร็จครับ!";
 }else{
 	echo "ชื่อหรือรหัสผ่านผิด กรุณาตรวจสอบอีกครั้ง!";
         exit();

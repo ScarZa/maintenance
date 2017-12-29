@@ -15,8 +15,12 @@
                                                         ,$("<li id='home'><a href='#'><img src='images/gohome.ico' width='20'> <span>หน้าหลัก</span></a></li>"));
                                                 $("#home > a").attr("onclick","loadPage('#index_content','content/info_index.html');");        
                                     $(".content-wrapper").append("<section class='content' id='sec_content'></section>");   
-                                            $("#sec_content").append("<div id='index_content'>No Login.</div><div id='createModal'></div>");
-                                        
+                                            $("#sec_content").append("<div id='index_content'></div><div id='createModal'></div>");
+                                        if(data.m_status == ''){
+                                            $("#index_content").empty().load("content/NoLogon_index.html");
+                                        }else{
+                                            $("#index_content").empty().load("content/info_index.html");    
+                                        }
                     $(".main-footer").append("<div id='version' class='pull-right hidden-xs'></div>").append("<strong>Copyright &copy; 2017 <a href='http://rploei.go.th'>โรงพยาบาลจิตเวชเลยราชนครินทร์</a>.</strong> All rights reserved.");       
                                 $("#version").append("<b>Version</b> 1.0");
                     $(".control-sidebar").empty().load("menu_footer.php");                                                               
@@ -68,11 +72,11 @@
                                                                                 $("#ulus_report").append($("<li><a href='#'><i class='fa fa-circle-o text-aqua'></i> รายงานที่ 1 </a></li>")
                                                                                                         ,$("<li><a href='#'><i class='fa fa-circle-o text-aqua'></i> รายงานที่ 2 </a></li>"));                                 
                                         
-        var page = getURL("page");
-        var data = getURL("data");
-if(page!=''){
-    $("#index_content").empty().load(page,{data: data}, function(responseTxt, statusTxt, xhr){
-        if(statusTxt == "success")
+//        var page = getURL("page");
+//        var data = getURL("data");
+//if(page!=''){
+//    $("#index_content").empty().load(page,{data: data}, function(responseTxt, statusTxt, xhr){
+//        if(statusTxt == "success")
             /*$(function(){
                 $.ajax({
   dataType: "json",
@@ -82,12 +86,12 @@ if(page!=''){
   success: success
 });
 });*/
-        if(statusTxt == "error")
-            alert("Error: " + xhr.status + ": " + xhr.statusText);
-    });
-    }else{
-    $("#index_content").empty().load("content/info_index.html");    
-    }
+//        if(statusTxt == "error")
+//            alert("Error: " + xhr.status + ": " + xhr.statusText);
+//    });
+//    }else{
+
+//    }
     //loadPage('#index_content',page,data);  
                                     }else if(data.m_status == 'USER'){
                                         $("#gear_side1").remove();//ไม่ให้แสดง gear   
