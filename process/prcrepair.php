@@ -27,17 +27,19 @@ if ($method == 'add_repair') {
     $depid = $_POST['depid'];
     $repair_date = isset($_POST['repair_date'])?insert_date($_POST['repair_date']):date('Y-m-d H:i:s');
     $record_date = date('Y-m-d H:i:s');
-    $pd_id = $_POST['pd_id'];
+    $pd_id = isset($_POST['pd_id'])?$_POST['pd_id']:'';
+    $no_pdid = isset($_POST['no_pdid'])?$_POST['no_pdid']:'';
+    $request_data = isset($_POST['request_data'])?$_POST['request_data']:'';
     $vital = $_POST['vital'];
     $repair_status = 0;
     $symptom = $_POST['symptom'];
     
-    $sql="SELECT * FROM m_repair_pd WHERE pd_id=:pd_id AND end_process = 0"; 
+    $sql="SELECT * FROM m_repair_pd WHERE pd_id=:pd_id and pd_id !='' AND end_process = 0"; 
 $connDB->imp_sql($sql);
 $execute = array(':pd_id' => $pd_id);
 $chkRepair = $connDB->select($execute);
 if(count($chkRepair)==0){    
-    $data = array($informer, $depid, $repair_date, $record_date, $pd_id,$vital, $repair_status,$symptom);
+    $data = array($informer, $depid, $repair_date, $record_date, $pd_id, $no_pdid, $request_data,$vital, $repair_status,$symptom);
     $table = "m_repair_pd";
     $add_repair = $connDB->insert($table, $data);
     $connDB->close_PDO();
@@ -53,12 +55,14 @@ if(count($chkRepair)==0){
     $repair_id= $_POST['repair_id'];
     $repair_date =insert_date($_POST['datepicker1']);
     $record_date = date('Y-m-d H:i:s');
-    $pd_id = $_POST['pd_id'];
+    $pd_id = isset($_POST['pd_id'])?$_POST['pd_id']:'';
+    $no_pdid = isset($_POST['no_pdid'])?$_POST['no_pdid']:'';
+    $request_data = isset($_POST['request_data'])?$_POST['request_data']:'';
     $vital = $_POST['vital'];
     $symptom = $_POST['symptom'];
     
-    $data = array($repair_date, $record_date, $pd_id,$vital, $symptom);
-    $field=array("repair_date","record_date","pd_id","vital","symptom");
+    $data = array($repair_date, $record_date, $pd_id, $no_pdid, $request_data,$vital, $symptom);
+    $field=array("repair_date","record_date","pd_id", "no_pdid", "request_data","vital","symptom");
     $table = "m_repair_pd";
     $where="repair_id=:repair_id";
     $execute=array(':repair_id' => $repair_id);

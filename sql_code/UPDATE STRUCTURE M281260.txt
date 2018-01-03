@@ -1,2 +1,6 @@
 ALTER TABLE `m_repair_pd` 
 ADD COLUMN `depid` int(7) NOT NULL AFTER `informer`;
+
+ALTER TABLE `m_repair_pd` 
+ADD COLUMN `no_pdid` int(7) AFTER `pd_id`,
+ADD COLUMN `request_data` int(7) AFTER `no_pdid`;

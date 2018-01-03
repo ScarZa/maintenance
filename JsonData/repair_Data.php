@@ -14,17 +14,19 @@ $conn_DB->conn_PDO();
 $rslt=array();
 $result=array();
 $repair_id = isset($_GET['data'])?$_GET['data']:$_POST['data'];
-$sql="SELECT re.repair_id,re.repair_date,pp.pd_id,pp.pd_number,ppl.note,re.symptom
-,depName
+$sql="SELECT re.repair_id,re.repair_date,pp.pd_id
+,if(re.pd_id!=0,pp.pd_number,if(re.no_pdid!=0,npd.no_pdname,if(re.request_data!=0,npd.no_pdname,''))) as pd_number,ppl.note,re.symptom
+,d.depName
 ,CASE re.vital
 WHEN '0' THEN 'ไม่เร่งด่วน'
 WHEN '1' THEN 'เร่งด่วน'
 ELSE NULL END as vital,re.receive_date
 ,(SELECT CONCAT(e.firstname,' ',e.lastname) FROM emppersonal e WHERE e.empno=re.informer) inform
 FROM m_repair_pd re
-INNER JOIN pd_product pp on pp.pd_id=re.pd_id
-INNER JOIN pd_place ppl on ppl.pd_id=pp.pd_id
-INNER JOIN department d on d.depId=ppl.depId
+LEFT OUTER JOIN pd_product pp on pp.pd_id=re.pd_id
+LEFT OUTER JOIN m_no_pd npd on npd.no_pdid=re.no_pdid or npd.no_pdid=re.request_data
+LEFT OUTER JOIN pd_place ppl on ppl.pd_id=pp.pd_id
+LEFT OUTER JOIN department d on d.depId=ppl.depId
 WHERE repair_id=:repair_id";
 $execute = array(':repair_id' => $repair_id);
 $conn_DB->imp_sql($sql);
