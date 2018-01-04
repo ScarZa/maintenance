@@ -108,10 +108,12 @@
                                         $("#gear_side1").remove();//ไม่ให้แสดง gear   
                                         $(".sidebar-menu").append($("<li class=''><a id='addRepairUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>แจ้งซ่อมคอมพิวเตอร์</span></a></li>")
                                                         ,$("<li class=''><a id='addRepairNoUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>แจ้งซ่อมคอมฯ(ไม่ใช่ครุภัณฑ์)</span></a></li>")
-                                                        ,$("<li class=''><a id='reqReportUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>ขอข้อมูล/รายงาน/พัฒนาโปรแกรม</span></a></li>"));
+                                                        ,$("<li class=''><a id='reqReportUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>ขอข้อมูล/รายงาน/พัฒนาโปรแกรม</span></a></li>")
+                                                        ,$("<li class=''><a id='reqStatusUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>สถานะคำขอ</span></a></li>"));
                                                 $("#addRepairUser").attr("onclick","loadPage('#index_content','content/add_repair.html');");
                                                 $("#addRepairNoUser").attr("onclick","loadAjax('#index_content','JsonData/tempSendData.php','NoPd','AddRepair');");
                                                 $("#reqReportUser").attr("onclick","loadAjax('#index_content','JsonData/tempSendData.php','ReqRp','AddRepair');");
+                                                $("#reqStatusUser").attr("onclick","loadPage('#index_content','content/list_user_result.html');");
                                     }else if(data.m_status == ''){
                                             $(".sidebar-menu").append($("<li class=''><a href='#' id='manual_risk'>\n\
                                 <img src='images/icon_set2/booklet.ico' width='20'> <span>คู่มือโปรแกรม</span></a></li>"));
