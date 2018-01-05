@@ -32,12 +32,12 @@
                                                                     ,$("<li id='ad_manual'></li>"));
                                                         $("#ad_treeview1").append($("<a href='#'><img src='images/menu_items_options.ico' width='20'> <span>เมนูผู้ดูแลระบบ : (คอมฯ)</span><i class='fa fa-angle-left pull-right'></i></a>")
                                                                                 ,$("<ul id='ad_treeview-menu1' class='treeview-menu'></ul>"));
-                                                                $("#ad_treeview-menu1").append($("<li id='ad_Prods'><a href='#'>&nbsp;&nbsp;<img src='images/icon_set2/piechart.ico' width='20'> ครุภัณฑ์ <i class='fa fa-angle-left pull-right'></i></a></li>")
-                                                                                                ,$("<li id='ad_request'><a href='#'>&nbsp;&nbsp;<img src='images/icon_set2/piechart.ico' width='20'> แจ้งขอรับบริการ <i class='fa fa-angle-left pull-right'></i></a></li>")
-                                                                                                ,$("<li class=''><a id='listRepair' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>รายการแจ้งซ่อม</span> </a></li>")
-                                                                                                ,$("<li class=''><a id='listResult' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>รายการซ่อม</span> </a></li>")
-                                                                                                ,$("<li class=''><a id='listSendResult' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>ส่งซ่อมภายนอก</span> </a></li>")
-                                                                                                ,$("<li class=''><a id='listResultTotal' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>สรุปผลการซ่อมคอมพิวเตอร์</span></a></li>")
+                                                                $("#ad_treeview-menu1").append($("<li id='ad_Prods'><a href='#'>&nbsp;&nbsp;<img src='images/icon_set2/dolly.ico' width='20'> ครุภัณฑ์ <i class='fa fa-angle-left pull-right'></i></a></li>")
+                                                                                                ,$("<li id='ad_request'><a href='#'>&nbsp;&nbsp;<img src='images/icon_set2/compose.ico' width='20'> แจ้งขอรับบริการ <i class='fa fa-angle-left pull-right'></i></a></li>")
+                                                                                                ,$("<li class=''><a id='listRepair' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/tools.ico' width='20'> <span>รายการแจ้งซ่อม</span> </a></li>")
+                                                                                                ,$("<li class=''><a id='listResult' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/tools.ico' width='20'> <span>รายการซ่อม</span> </a></li>")
+                                                                                                ,$("<li class=''><a id='listSendResult' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/rocket.ico' width='20'> <span>ส่งซ่อมภายนอก</span> </a></li>")
+                                                                                                ,$("<li class=''><a id='listResultTotal' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/bookshelf.ico' width='20'> <span>สรุปผลการซ่อมคอมพิวเตอร์</span></a></li>")
                                                                                                 ,$("<li id='ad_report'><a href='#'>&nbsp;&nbsp;<img src='images/icon_set2/piechart.ico' width='20'> รายงานคณะกรรมการ <i class='fa fa-angle-left pull-right'></i></a></li>"));
                                                                                     $.getJSON('JsonData/DT_TRP.php',function (data) {
                                                                                         if(data.req_repair !=0){
@@ -54,9 +54,9 @@
                                                                             $("#ad_request").append("<ul id='ulad_Request' class='treeview-menu'></ul>"); 
                                                                                 $("#ulad_Prods").append($("<li class=''><a id='addProds' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>เพิ่มครุภัณฑ์</span></a></li>")
                                                                                                 ,$("<li class=''><a id='listProds' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>รายการครุภัณฑ์</span></a></li>"));    
-                                                                                $("#ulad_Request").append($("<li class=''><a id='addRepair' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>แจ้งซ่อมคอมพิวเตอร์</span></a></li>")
-                                                                                                ,$("<li class=''><a id='addRepairNo' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>แจ้งซ่อมคอมฯ(ไม่ใช่ครุภัณฑ์)</span></a></li>")
-                                                                                                ,$("<li class=''><a id='reqReport' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>ขอข้อมูล/รายงาน/พัฒนาโปรแกรม</span></a></li>")
+                                                                                $("#ulad_Request").append($("<li class=''><a id='addRepair' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/computer.ico' width='20'> <span>แจ้งซ่อมคอมพิวเตอร์</span></a></li>")
+                                                                                                ,$("<li class=''><a id='addRepairNo' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/computer.ico' width='20'> <span>แจ้งซ่อมคอมฯ(ไม่ใช่ครุภัณฑ์)</span></a></li>")
+                                                                                                ,$("<li class=''><a id='reqReport' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/clipboard.ico' width='20'> <span>ขอข้อมูล/รายงาน/Dev.</span></a></li>")
                                                                                                 );                
                                                                             $("#ad_report").append("<ul id='ulad_report' class='treeview-menu'></ul>");  
                                                                                 $("#ulad_report").append($("<li><a href='#'><i class='fa fa-circle-o text-aqua'></i> รายงานที่ 1 </a></li>")
@@ -72,9 +72,9 @@
                                                                         $("#listResultTotal").attr("onclick","loadPage('#index_content','content/list_repair_result_total.html');");
                                                         $("#ad_treeview2").append($("<a href='#'><img src='images/menu_items_options.ico' width='20'> <span>เมนูผู้ใช้ทั่วไป</span><i class='fa fa-angle-left pull-right'></i></a>")
                                                                                 ,$("<ul id='ad_treeview-menu2' class='treeview-menu'></ul>"));
-                                                                $("#ad_treeview-menu2").append($("<li class=''><a id='addRepairUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>แจ้งซ่อมคอมพิวเตอร์</span></a></li>")
-                                                                                            ,$("<li class=''><a id='addRepairNoUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>แจ้งซ่อมคอมฯ(ไม่ใช่ครุภัณฑ์)</span></a></li>")
-                                                                                            ,$("<li class=''><a id='reqReportUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>ขอข้อมูล/รายงาน/พัฒนาโปรแกรม</span></a></li>")
+                                                                $("#ad_treeview-menu2").append($("<li class=''><a id='addRepairUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/computer.ico' width='20'> <span>แจ้งซ่อมคอมพิวเตอร์</span></a></li>")
+                                                                                            ,$("<li class=''><a id='addRepairNoUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/computer.ico' width='20'> <span>แจ้งซ่อมคอมฯ(ไม่ใช่ครุภัณฑ์)</span></a></li>")
+                                                                                            ,$("<li class=''><a id='reqReportUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/clipboard.ico' width='20'> <span>ขอข้อมูล/รายงาน/พัฒนาโปรแกรม</span></a></li>")
                                                                                             ,$("<li id='us_report'><a href='#'>&nbsp;&nbsp;<img src='images/icon_set2/piechart.ico' width='20'> รายงานหน่วยงาน <i class='fa fa-angle-left pull-right'></i></a></li>"));
                                                                                     $("#addRepairUser").attr("onclick","loadPage('#index_content','content/add_repair.html');");
                                                                                     $("#addRepairNoUser").attr("onclick","loadAjax('#index_content','JsonData/tempSendData.php','NoPd','AddRepair');");
@@ -106,10 +106,10 @@
     //loadPage('#index_content',page,data);  
                                     }else if(data.m_status == 'USER'){
                                         $("#gear_side1").remove();//ไม่ให้แสดง gear   
-                                        $(".sidebar-menu").append($("<li class=''><a id='addRepairUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>แจ้งซ่อมคอมพิวเตอร์</span></a></li>")
-                                                        ,$("<li class=''><a id='addRepairNoUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>แจ้งซ่อมคอมฯ(ไม่ใช่ครุภัณฑ์)</span></a></li>")
-                                                        ,$("<li class=''><a id='reqReportUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>ขอข้อมูล/รายงาน/พัฒนาโปรแกรม</span></a></li>")
-                                                        ,$("<li class=''><a id='reqStatusUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>สถานะคำขอ</span></a></li>"));
+                                        $(".sidebar-menu").append($("<li class=''><a id='addRepairUser' href='#'><img src='images/icon_set2/computer.ico' width='20'> <span>แจ้งซ่อมคอมพิวเตอร์</span></a></li>")
+                                                        ,$("<li class=''><a id='addRepairNoUser' href='#'><img src='images/icon_set2/computer.ico' width='20'> <span>แจ้งซ่อมคอมฯ(ไม่ใช่ครุภัณฑ์)</span></a></li>")
+                                                        ,$("<li class=''><a id='reqReportUser' href='#'><img src='images/icon_set2/clipboard.ico' width='20'> <span>ขอข้อมูล/รายงาน/Dev.</span></a></li>")
+                                                        ,$("<li class=''><a id='reqStatusUser' href='#'><img src='images/icon_set2/eye.ico' width='20'> <span>สถานะคำขอ</span></a></li>"));
                                                 $("#addRepairUser").attr("onclick","loadPage('#index_content','content/add_repair.html');");
                                                 $("#addRepairNoUser").attr("onclick","loadAjax('#index_content','JsonData/tempSendData.php','NoPd','AddRepair');");
                                                 $("#reqReportUser").attr("onclick","loadAjax('#index_content','JsonData/tempSendData.php','ReqRp','AddRepair');");

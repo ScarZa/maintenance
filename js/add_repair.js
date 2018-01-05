@@ -20,7 +20,7 @@ $.getJSON('JsonData/head_repair.php',function (data) {
     var posi = data.posi;
     var dep = data.dep;
             if(idrepair == null){
-        $("h2").prepend("<img src='images/icon_set2/pencil.ico' width='40'> ");
+        $("h2").prepend("<img src='images/icon_set2/computer.ico' width='40'> ");
         $("h2").append(" : ซ่อมงานคอมพิวเตอร์");        
         $("#Dr_content").append($("<div class='form-group' id='inform'></div>")
                         ,$("<div class='form-group'>งาน : <select name='depid' class='form-control select2' id='depid' required></select></div>")
@@ -93,7 +93,7 @@ $.getJSON('JsonData/head_repair.php',function (data) {
 					 });
         });
             }else if(idrepair.data == 'NoPd'){
-        $("h2").prepend("<img src='images/icon_set2/pencil.ico' width='40'> ");        
+        $("h2").prepend("<img src='images/icon_set2/computer.ico' width='40'> ");        
         $("h2").append(" : ซ่อมงานคอมพิวเตอร์(ที่ไม่ใช่ครุภัณฑ์)");         
         $("#Dr_content").append($("<div class='form-group' id='inform'></div>")
                         ,$("<div class='form-group'>งาน : <select name='depid' class='form-control select2' id='depid' required></select></div>")
@@ -155,7 +155,7 @@ $.getJSON('JsonData/head_repair.php',function (data) {
 					 });
         });
             }else if(idrepair.data == 'ReqRp'){
-        $("h2").prepend("<img src='images/icon_set2/pencil.ico' width='40'> ");        
+        $("h2").prepend("<img src='images/icon_set2/clipboard.ico' width='40'> ");        
         $("h2").append(" : ขอข้อมูล/รายงาน/พัฒนาโปรแกรม");         
         $("#Dr_content").append($("<div class='form-group' id='inform'></div>")
                         ,$("<div class='form-group'>งาน : <select name='depid' class='form-control select2' id='depid' required></select></div>")

@@ -3,7 +3,6 @@
         $.getJSON('JsonData/dashboard.php',function (data) {
            var years = data.fyear;
         $("#sum_rm").html(data.total);
-        $("#sum_rmD").text(data.review);
         $("#sum_rmD2").text(data.assessment);
         $("#sum_rmY").text(data.Y);
         $("#sum_rmR").text(data.R);
@@ -15,7 +14,7 @@
 $.getJSON('JsonData/month.php',function (data) { 
     var month = data.month
     var year = data.year; 
-    var title1 = "จำนวนความเสี่ยงในแต่ละหมวดแยกรายเดือน";
+    var title1 = "จำนวนการแจ้งซ่อมจำแนกตามกลุ่มสาเหตุการเสีย แยกรายเดือน";
     var title2 = "ความเสี่ยงแยกตามด้านในปีงบประมาณ "+year;
     var title3 = "ความเสี่ยงแยกระดับความรุนแรงในปีงบประมาณ "+year;
     var subtitle = "รายเดือน";
@@ -36,12 +35,12 @@ $.getJSON('JsonData/month.php',function (data) {
 </script>
           <!-- Small boxes (Stat box) -->
           <div class="row">
-              <div class="col-lg-2 col-xs-6">
+              <div class="col-lg-3 col-xs-6">
               <!-- small box -->
               <div class="small-box bg-purple">
                 <div class="inner">
                     <h3 id="sum_rm"></h3>
-                  <p>ความเสี่ยงทั้งหมด</p>
+                  <p>แจ้งซ่อมทั้งหมด</p>
                 </div>
                 <div class="icon">
                   <i class="fa fa-bomb"></i>
@@ -49,33 +48,7 @@ $.getJSON('JsonData/month.php',function (data) {
                 <a href="#" class="small-box-footer">ดูรายละเอียด <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div>
-            <div class="col-lg-2 col-xs-6">
-              <!-- small box -->
-              <div class="small-box bg-aqua">
-                <div class="inner">
-                    <h3 id="sum_rmD"></h3>
-                  <p>รอทบทวน</p>
-                </div>
-                <div class="icon">
-                  <i class="fa fa-question-circle"></i>
-                </div>
-                <a href="#" class="small-box-footer">ดูรายละเอียด <i class="fa fa-arrow-circle-right"></i></a>
-              </div>
-            </div><!-- ./col -->
-            <div class="col-lg-2 col-xs-6">
-              <!-- small box -->
-              <div class="small-box bg-gray">
-                <div class="inner">
-                    <h3 id="sum_rmD2"></h3>
-                  <p>รอประเมิน</p>
-                </div>
-                <div class="icon">
-                  <i class="fa fa-question-circle"></i>
-                </div>
-                <a href="#" class="small-box-footer">ดูรายละเอียด <i class="fa fa-arrow-circle-right"></i></a>
-              </div>
-            </div><!-- ./col -->
-            <div class="col-lg-2 col-xs-6">
+            <div class="col-lg-3 col-xs-6">
               <!-- small box -->
               <div class="small-box bg-yellow">
                 <div class="inner">
@@ -88,12 +61,12 @@ $.getJSON('JsonData/month.php',function (data) {
                 <a href="#" class="small-box-footer">ดูรายละเอียด <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div><!-- ./col -->
-            <div class="col-lg-2 col-xs-6">
+            <div class="col-lg-3 col-xs-6">
               <!-- small box -->
               <div class="small-box bg-red">
                 <div class="inner">
                     <h3 id="sum_rmR"></h3>
-                  <p>ทบทวนซ้ำ</p>
+                  <p>ซ่อมไม่ได้</p>
                 </div>
                 <div class="icon">
                   <i class="fa fa-times-circle"></i>
@@ -101,12 +74,12 @@ $.getJSON('JsonData/month.php',function (data) {
                 <a href="#" class="small-box-footer">ดูรายละเอียด <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div><!-- ./col -->
-            <div class="col-lg-2 col-xs-6">
+            <div class="col-lg-3 col-xs-6">
               <!-- small box -->
               <div class="small-box bg-green">
                 <div class="inner">
                     <h3 id="sum_rmG"><sup style="font-size: 20px"></sup></h3>
-                  <p>ผ่านประเมิน</p>
+                  <p>ซ่อมสำเร็จ</p>
                 </div>
                 <div class="icon">
                   <i class="fa fa-check-circle"></i>
@@ -125,7 +98,7 @@ $.getJSON('JsonData/month.php',function (data) {
                     </div><!-- /.box-tools -->
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                    <center>รายงานความเสี่ยง : ทั้งหมด&nbsp;&nbsp;ปีงบประมาณ : <b id="year"></b></center>
+                    <center>รายงานการแจ้งซ่อม : ทั้งหมด&nbsp;&nbsp;ปีงบประมาณ : <b id="year"></b></center>
                     <div class="col-lg-12"><div id="container1" style="width: 100%; height: 100%; margin: 0 auto"></div></div>
                     <div class="col-lg-7"><div id="container2" style="width: 100%; height: 100%; margin: 0 auto"></div></div>
                     <div class="col-lg-5"><div id="container3" style="width: 100%; height: 100%; margin: 0 auto"></div></div>
@@ -173,7 +146,7 @@ var column1 = '["เดือน","จำนวนเรื่อง"]';
     <div class="col-md-4">
             <div class="box box-primary box-solid">
                 <div class="box-header with-border">
-                    <h4 class="box-title"><i class="fa fa-star"></i> ผู้เขียนความเสี่ยงสูงสุด TOP 10 </h4>
+                    <h4 class="box-title"><i class="fa fa-star"></i> ผู้เขียนแจ้งสูงสุด TOP 10 </h4>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                     </div><!-- /.box-tools -->

@@ -25,7 +25,7 @@ $conn_DB->para_read($read);
 $conn_db = $conn_DB->Read_Text();
 $conn_DB->conn_PDO();
 set_time_limit(0);
-$num_category = "select count(category) as count_cate from category";
+$num_category = "select count(symp_gid) as count_cate from m_symptom_group";
 $conn_DB->imp_sql($num_category);
 $count_cate = $conn_DB->select_a();
 $count_categ = $count_cate['count_cate'];
@@ -34,7 +34,9 @@ $series = array();
 
 $I = 10;
 for ($c = 1; $c <= $count_categ; $c++) {
-    $sql_name = "select name from category where category='$c'";
+    $sql_name = "SELECT symp_name as name
+FROM m_symptom_group
+WHERE symp_gid='$c'";
     $conn_DB->imp_sql($sql_name);
     $cat_name = $conn_DB->select_a();
 $countnum = array();
@@ -51,13 +53,15 @@ $cc=0;
             $month_start = "$year-$i-01";
             $month_end = "$year-$i-31";
         }
-            $sql = "select count(takerisk_id) as number_risk from takerisk t1  
-                    LEFT OUTER JOIN category c1 on c1.category = t1.category
-                    where  t1.category='$c' and t1.take_date between '$month_start' and '$month_end' 
-                    and t1.move_status='N' order by number_risk DESC";
+           $sql = "select count(re.repair_id) as number_repair
+from m_repair_pd re  
+LEFT OUTER JOIN m_symmptom_category sc on sc.symmptom_cid=re.cause
+LEFT OUTER JOIN m_symptom_group sg on sg.symp_gid=sc.symmptom_gid
+where  sg.symp_gid='$c' and re.repair_date between '$month_start' and '$month_end' 
+order by number_repair DESC";
             $conn_DB->imp_sql($sql);
             $rs = $conn_DB->select_a();
-            $countnum[$cc]= (int) $rs['number_risk'];
+            $countnum[$cc]= (int) $rs['number_repair'];
         $I++;$cc++;
     }
     $series['name'] = $cat_name['name'];
