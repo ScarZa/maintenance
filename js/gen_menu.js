@@ -52,8 +52,8 @@
                                                                                     });    
                                                                             $("#ad_Prods").append("<ul id='ulad_Prods' class='treeview-menu'></ul>");  
                                                                             $("#ad_request").append("<ul id='ulad_Request' class='treeview-menu'></ul>"); 
-                                                                                $("#ulad_Prods").append($("<li class=''><a id='addProds' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>เพิ่มครุภัณฑ์</span></a></li>")
-                                                                                                ,$("<li class=''><a id='listProds' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/pencil.ico' width='20'> <span>รายการครุภัณฑ์</span></a></li>"));    
+                                                                                $("#ulad_Prods").append($("<li class=''><a id='addProds' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/dolly.ico' width='20'> <span>เพิ่มครุภัณฑ์</span></a></li>")
+                                                                                                ,$("<li class=''><a id='listProds' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/dolly.ico' width='20'> <span>รายการครุภัณฑ์</span></a></li>"));    
                                                                                 $("#ulad_Request").append($("<li class=''><a id='addRepair' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/computer.ico' width='20'> <span>แจ้งซ่อมคอมพิวเตอร์</span></a></li>")
                                                                                                 ,$("<li class=''><a id='addRepairNo' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/computer.ico' width='20'> <span>แจ้งซ่อมคอมฯ(ไม่ใช่ครุภัณฑ์)</span></a></li>")
                                                                                                 ,$("<li class=''><a id='reqReport' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/clipboard.ico' width='20'> <span>ขอข้อมูล/รายงาน/Dev.</span></a></li>")

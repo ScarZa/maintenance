@@ -75,6 +75,22 @@
 });
 }
         </script>
+        <script type="text/javascript">
+            function DeleteData(pagesend,table=null,field=null,id=null,pageresend='content/info_index.html',datatype='json',method='POST') {
+                if(confirm('กรุณายืนยันการลบอีกครั้ง !!!')){
+                $.ajax({
+                    url: pagesend,
+                    method: method,
+                    data: {table: table, field: field, id: id},
+                    dataType: datatype,
+                    success: function(result){ 
+                        alert(result);
+                        $("#index_content").empty().load(pageresend);
+                    }
+                });
+            }
+}
+        </script>
         <style type="text/css">
             .black-ribbon {   position: fixed;   z-index: 9999;   width: 70px; }
             @media only all and (min-width: 768px) { .black-ribbon { width: auto; } }

@@ -3,7 +3,7 @@ function AddProds (content,id=null) {
 //        var cate = "";
         $(content).empty().append("<h2 style='color: blue'>เพิ่มครุภัณฑ์</h2>"+
                                     "<ol class='breadcrumb'>"+
-                                    "<li><a href='index.php'><i class='fa fa-home'></i> หน้าหลัก</a></li>"+
+                                    "<li><a href='index.html'><i class='fa fa-home'></i> หน้าหลัก</a></li>"+
                                     "<li class='active'><i class='fa fa-envelope'></i> เพิ่มครุภัณฑ์</li>"+
                                     "</ol><form action='' name='frmaddprods' id='frmaddprods' method='post'>"+
                                     "<div class='row'>"+
@@ -21,6 +21,7 @@ function AddProds (content,id=null) {
                                     "<div class='col-md-6'><div class='box box-primary box-solid'><div class='box-header with-border'>"+
                                     "<h4 class='box-title'> ข้อมูลสถานที่ครุภัณฑ์ </h4></div><div class='box-body'><div id='DPP_content'></div>"+
                                     "</div></div></div></div></div></div></div><div class='col-md-12' id='DR_content'></div></div></form>");
+                            $("h2").prepend("<img src='images/icon_set2/dolly.ico' width='40'> ");
             var idProds = id;
             if(idProds == null){
         $("#DP_content").append($("<div class='form-group'>หมวดครุภัณฑ์ : <select name='pdgroup' class='form-control select2' id='pdgroup' required></select>")

@@ -1,6 +1,6 @@
 var createTableAjax = function () {
     
-    this.GetNewTableAjax = function (content,jsonsource,tempdata,cols,namefunc=null,edit=true,process=true,pnamefunc=null,detail=true,dmodal=null,print=true,printpage=null,red=null,orange=null,yellow=null,green=null,tid1=null,tid2=null,tid3=null) {
+    this.GetNewTableAjax = function (content,jsonsource,tempdata,cols,namefunc=null,deltable=null,delfield=null,resend=null,edit=true,process=true,pnamefunc=null,detail=true,dmodal=null,print=true,printpage=null,red=null,orange=null,yellow=null,green=null,tid1=null,tid2=null,tid3=null) {
                 var table = document.createElement ("table");
             	//table.border = "1px";
                 if(tid1!=null){
@@ -105,7 +105,7 @@ var createTableAjax = function () {
 					cellDel.appendChild(delButton);
 					delButton.innerHTML = "<img src='images/icon_set1/file_delete.ico' width='25'>";
 					delButton.setAttribute("href","#");
-					//delButton.setAttribute("onclick","del_local('"+//val+"')");
+					delButton.setAttribute("onclick","DeleteData('JsonData/DeleteFile.php','"+deltable+"','"+delfield+"','"+value[0]+"','"+resend+"','html');");
                                     }
             }
             	var container = document.getElementById (content);
