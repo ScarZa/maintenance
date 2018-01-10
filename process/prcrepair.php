@@ -42,10 +42,48 @@ if(count($chkRepair)==0){
     $data = array($informer, $depid, $repair_date, $record_date, $pd_id, $no_pdid, $request_data,$vital, $repair_status,$symptom);
     $table = "m_repair_pd";
     $add_repair = $connDB->insert($table, $data);
+    
+    $sql="SELECT re.repair_date
+,if(re.pd_id!=0,pp.pd_number,if(re.no_pdid!=0,npd.no_pdname,if(re.request_data!=0,npd.no_pdname,''))) as pd_number
+,IFNULL(ppl.note,'-') note,re.symptom,d.depName
+,CASE re.vital
+WHEN '0' THEN 'ไม่เร่งด่วน'
+WHEN '1' THEN 'เร่งด่วน'
+ELSE NULL END as vital
+,(SELECT CONCAT(e.firstname,' ',e.lastname) FROM emppersonal e WHERE e.empno=re.informer) inform
+FROM m_repair_pd re
+LEFT OUTER JOIN pd_product pp on pp.pd_id=re.pd_id
+LEFT OUTER JOIN m_no_pd npd on npd.no_pdid=re.no_pdid or npd.no_pdid=re.request_data
+LEFT OUTER JOIN pd_place ppl on ppl.pd_id=pp.pd_id
+LEFT OUTER JOIN department d on d.depId=re.depid
+WHERE re.repair_id= :repair_id"; 
+$connDB->imp_sql($sql);
+$execute = array(':repair_id' => $add_repair);
+$LineText = $connDB->select_a($execute);
     $connDB->close_PDO();
     if ($add_repair == false) {
         echo "Insert not complete " .$add_repair->errorInfo();
     } else {
+$token = 'x1VF2stU29Kx1IAB7Sy77eZc9BverLH5ytiC149N3To';
+$text = "แจ้งซ่อม : ".$LineText['repair_date']." ".$LineText['pd_number']." ".$LineText['symptom']." ".$LineText['depName']." ".$LineText['inform']." ".$LineText['vital'];
+				$chOne = curl_init();
+				curl_setopt( $chOne, CURLOPT_URL, "https://notify-api.line.me/api/notify");
+				curl_setopt( $chOne, CURLOPT_SSL_VERIFYHOST, 0);
+				curl_setopt( $chOne, CURLOPT_SSL_VERIFYPEER, 0);
+				curl_setopt( $chOne, CURLOPT_POST, 1);
+				curl_setopt( $chOne, CURLOPT_POSTFIELDS, $text);
+
+				curl_setopt( $chOne, CURLOPT_FOLLOWLOCATION, 1);
+				$headers = array( 'Content-type: application/x-www-form-urlencoded', 'Authorization: Bearer '.$token, );
+				curl_setopt($chOne, CURLOPT_HTTPHEADER, $headers);
+				curl_setopt( $chOne, CURLOPT_RETURNTRANSFER, 1);
+				$result = curl_exec( $chOne );
+				if(curl_error($chOne)) { echo 'Line Notify error:' . curl_error($chOne);
+			}
+			else { $result_ = json_decode($result, true);
+			}
+			curl_close( $chOne );
+        /////////////////////
         echo "Insert complete!!!!";
     }
 }else{

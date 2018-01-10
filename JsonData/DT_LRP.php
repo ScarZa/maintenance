@@ -26,7 +26,7 @@ FROM m_repair_pd re
 LEFT OUTER JOIN pd_product pp on pp.pd_id=re.pd_id
 LEFT OUTER JOIN m_no_pd npd on npd.no_pdid=re.no_pdid or npd.no_pdid=re.request_data
 LEFT OUTER JOIN pd_place ppl on ppl.pd_id=pp.pd_id
-LEFT OUTER JOIN department d on d.depId=ppl.depId
+LEFT OUTER JOIN department d on d.depId=re.depid
 WHERE re.repair_status=0;"; 
 $conn_DB->imp_sql($sql);
     $num_risk = $conn_DB->select();
