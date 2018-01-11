@@ -16,10 +16,17 @@ $("#createModal").empty().append("<div class='modal' id='receiveModal' role='dia
                             +"รายละเอียดอาการ : "+data.symptom+"<br>วันที่แจ้ง : "+data.repair_date+"  &nbsp;&nbsp;<b style='color: red;'>"+data.vital+"</b>");
         $('div#modelrepair').append("<form name='frmreceive' id='frmreceive'></form>");
                 $('#frmreceive').empty().append($("<div class='form-group'><label for='datepicker1' class='control-label'>วันที่ลงทะเบียน </label><input type='text' name='datepicker1' id='datepicker1' class='form-control' readonly required>")
+                                    ,$("<div class='form-group'><label for='length' class='control-label'>คาดการณ์ระยะเวลาซ่อม</label><select name='length' id='length' class='form-control select2'></select></div>")
                                     ,$("<div class='form-group' id='repairer_sel'></div>")
                                     ,$("<input type='hidden' class='form-control' id='repair_id' name='repair_id'>")
                                     ,$("<input type='hidden' class='form-control' id='method' name='method'>"));
                     $('#repairer_sel').empty().append("<label for='repairer' class='control-label'>เลือกผู้ซ่อม</label><select name='repairer' id='repairer' class='form-control select2'></select>");
+                    $("select#length").append($("<option value=''> เลือกระยะเวลา </option>")
+                                             ,$("<option value='1' selected> 1 วัน </option>")
+                                             ,$("<option value='3'> 3 วัน </option>")
+                                             ,$("<option value='7'> 7 วัน </option>")
+                                             ,$("<option value='15'> 15 วัน </option>")
+                                             ,$("<option value='30'> 1 เดือน </option>"));
                     $.getJSON('JsonData/dep_com.php', function (GD) {
                                     for (var key in GD) {
                                         //if(GD[key].pd_id==data.pd_id){var select='selected';}else{var select='';}

@@ -60,30 +60,37 @@ WHERE re.repair_id= :repair_id";
 $connDB->imp_sql($sql);
 $execute = array(':repair_id' => $add_repair);
 $LineText = $connDB->select_a($execute);
+        //////////////////// Line Notify //////////////////////////////
+define('LINE_API',"https://notify-api.line.me/api/notify");
+function notify_message($message,$token){
+ $queryData = array('message' => $message);
+ $queryData = http_build_query($queryData,'','&');
+ $headerOptions = array( 
+         'http'=>array(
+            'method'=>'POST',
+            'header'=> "Content-Type: application/x-www-form-urlencoded\r\n"
+                      ."Authorization: Bearer ".$token."\r\n"
+                      ."Content-Length: ".strlen($queryData)."\r\n",
+            'content' => $queryData
+         ),
+ );
+ $context = stream_context_create($headerOptions);
+ $result = file_get_contents(LINE_API,FALSE,$context);
+ $res = json_decode($result);
+ return $res;
+} 
+$token = 'token key';
+$text = "แจ้งซ่อม : ".$LineText['repair_date']." ".$LineText['pd_number']." ".$LineText['symptom']." ".$LineText['depName']." ".$LineText['inform']." ".$LineText['vital'];
+ 
+$res = notify_message($text,$token);
+//print_r($res);
+
+/////////////////////
+        
     $connDB->close_PDO();
     if ($add_repair == false) {
         echo "Insert not complete " .$add_repair->errorInfo();
     } else {
-$token = 'x1VF2stU29Kx1IAB7Sy77eZc9BverLH5ytiC149N3To';
-$text = "แจ้งซ่อม : ".$LineText['repair_date']." ".$LineText['pd_number']." ".$LineText['symptom']." ".$LineText['depName']." ".$LineText['inform']." ".$LineText['vital'];
-				$chOne = curl_init();
-				curl_setopt( $chOne, CURLOPT_URL, "https://notify-api.line.me/api/notify");
-				curl_setopt( $chOne, CURLOPT_SSL_VERIFYHOST, 0);
-				curl_setopt( $chOne, CURLOPT_SSL_VERIFYPEER, 0);
-				curl_setopt( $chOne, CURLOPT_POST, 1);
-				curl_setopt( $chOne, CURLOPT_POSTFIELDS, $text);
-
-				curl_setopt( $chOne, CURLOPT_FOLLOWLOCATION, 1);
-				$headers = array( 'Content-type: application/x-www-form-urlencoded', 'Authorization: Bearer '.$token, );
-				curl_setopt($chOne, CURLOPT_HTTPHEADER, $headers);
-				curl_setopt( $chOne, CURLOPT_RETURNTRANSFER, 1);
-				$result = curl_exec( $chOne );
-				if(curl_error($chOne)) { echo 'Line Notify error:' . curl_error($chOne);
-			}
-			else { $result_ = json_decode($result, true);
-			}
-			curl_close( $chOne );
-        /////////////////////
         echo "Insert complete!!!!";
     }
 }else{
@@ -115,11 +122,12 @@ $text = "แจ้งซ่อม : ".$LineText['repair_date']." ".$LineText['pd
     $repair_id= $_POST['repair_id'];
     $receiver=$_SESSION['m_id'];
     $repairer = $_POST['repairer'];
+    $length = $_POST['length'];
     $receive_date =insert_date($_POST['datepicker1']);
     $repair_status = 1;
     
-    $data = array($repairer, $receiver, $receive_date, $repair_status);
-    $field=array("repairer","receiver","receive_date","repair_status");
+    $data = array($repairer, $length, $receiver, $receive_date, $repair_status);
+    $field=array("repairer","length","receiver","receive_date","repair_status");
     $table = "m_repair_pd";
     $where="repair_id=:repair_id";
     $execute=array(':repair_id' => $repair_id);

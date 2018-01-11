@@ -36,10 +36,10 @@ WHERE re.repair_status=0";
                                 $result2 = $conn_DB->select();
                                 for($i=0;$i<count($result2);$i++){ 
                                     if($result2[$i]['vital']=='0'){
-                                       $icon = "fa fa-bed"; 
+                                       $icon = "fa fa-send fa-2x"; 
                                        $color='success';
                                     }elseif($result2[$i]['vital']=='1'){
-                                       $icon = 'fa fa-medkit'; 
+                                       $icon = 'fa fa-flash fa-2x'; 
                                        $color='red';
                                     }
 ?>
@@ -49,9 +49,9 @@ WHERE re.repair_status=0";
                                     <!--<div class="pull-left">
                                         <img src="myfile/<?//= $result2[$i]['take_file1'] ?>" class="img-circle" alt="User Image">
                                     </div>--><?php //} ?>
-                                <h4>
+                                <h5>
                                     <i class="<?= $icon ?> text-<?= $color ?>"></i> <?= $result2[$i]['pd_number'] ?>:
-                                </h4>
+                                </h5>
                                     <p><?= $result2[$i]['depName']."(".$result2[$i]['note'].")" ?></p>
                                     <p><?= $result2[$i]['symptom'] ?>...</p>
                                 <small><i class="fa fa-clock-o"> <?= DateThai1($result2[$i]['repair_date']) ?></i></small>

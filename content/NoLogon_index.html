@@ -1,1 +1,91 @@
-<h3>No Login page.</h3>
+<script language="Javascript" type="text/javascript">
+    $(function(){
+        $.getJSON('JsonData/dashboard.php',function (data) {
+           var years = data.fyear;
+        $("#sum_rm").html(data.total);
+        $("#sum_rmD2").text(data.assessment);
+        $("#sum_rmY").text(data.Y);
+        $("#sum_rmR").text(data.R);
+        $("#sum_rmG").text(data.G);
+        
+        $("#year").text(years);
+        $(".seyear").text(data.date_start+" ถึง "+data.date_end);
+});
+$.getJSON('JsonData/month.php',function (data) { 
+    var month = data.month
+    var year = data.year; 
+    var title1 = "จำนวนการแจ้งซ่อมจำแนกตามกลุ่มสาเหตุการเสีย แยกรายเดือน";
+    var title2 = "ความเสี่ยงแยกตามด้านในปีงบประมาณ "+year;
+    var title3 = "ความเสี่ยงแยกระดับความรุนแรงในปีงบประมาณ "+year;
+    var subtitle = "รายเดือน";
+    var unit = "ครั้ง";
+    
+    var CCharts =  new AJAXCharts('container1','line',title1,unit,month,'JsonData/DC_line1.php',subtitle);
+    $(CCharts.GetCL()); 
+    
+    var PieCharts =  new AJAXCharts('container2','pie',title2,unit,'','JsonData/DC_pie1.php','');
+    $(PieCharts.GetPie()); 
+    
+    var PieCharts =  new AJAXCharts('container3','pie',title3,unit,'','JsonData/DC_pie2.php','');
+    $(PieCharts.GetPie());     
+    });
+    $("#useronline").load("JsonData/user_online.php");
+    });
+    
+</script>
+          <!-- Small boxes (Stat box) -->
+          <div class="row">
+              <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-purple">
+                <div class="inner">
+                    <h3 id="sum_rm"></h3>
+                  <p>แจ้งซ่อมทั้งหมด</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-exclamation-circle"></i>
+                </div>
+                <a href="#" class="small-box-footer">ดูรายละเอียด <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-yellow">
+                <div class="inner">
+                    <h3 id="sum_rmY"></h3>
+                  <p>กำลังดำเนินการ</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-wrench"></i>
+                </div>
+                <a href="#" class="small-box-footer">ดูรายละเอียด <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-red">
+                <div class="inner">
+                    <h3 id="sum_rmR"></h3>
+                  <p>ซ่อมไม่ได้</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-times-circle"></i>
+                </div>
+                <a href="#" class="small-box-footer">ดูรายละเอียด <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-green">
+                <div class="inner">
+                    <h3 id="sum_rmG"><sup style="font-size: 20px"></sup></h3>
+                  <p>ซ่อมสำเร็จ</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-check-circle"></i>
+                </div>
+                <a href="#" class="small-box-footer">ดูรายละเอียด <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+          </div><!-- /.row -->
+          <div class="row">
