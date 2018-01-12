@@ -2,7 +2,7 @@ function RecRepair (content,id=null) {
 $.getJSON('JsonData/repair_Data.php',{data: id.data},function (data) { 
         $(content).empty().append("<h2 style='color: blue'>บันทึกงานซ่อมคอมพิวเตอร์(ครุภัณฑ์คอมพิวเตอร์)</h2>"+
                                     "<ol class='breadcrumb'>"+
-                                    "<li><a href='index.php'><i class='fa fa-home'></i> หน้าหลัก</a></li>"+
+                                    "<li><a href='index.html'><i class='fa fa-home'></i> หน้าหลัก</a></li>"+
                                     "<li class='active'><i class='fa fa-envelope'></i> บันทึกงานซ่อมคอมพิวเตอร์</li>"+
                                     "</ol><form name='frmresult' id='frmresult'>"+
                                     "<div class='row'>"+
@@ -31,8 +31,12 @@ $.getJSON('JsonData/repair_Data.php',{data: id.data},function (data) {
                                     +"<h4 class='modal-title' id='sendreModalLabel'>ส่งซ่อมภายนอก</h4></div><div class='modal-body' id='modelsendre-body'></div>"
                                     +"<div class='modal-footer'><button type='button' class='btn btn-danger' id='sendredismiss'>ปิด</button><button type='button' class='btn btn-success' id='submsendre'>บันทึกส่งซ่อมภายนอก</button></div></div></div></div>");
                             ///////////////// End Send Repair Modal ////////////////////
-        $('div#Rr_content').append($("<div class='form-group'><label for='datepicker1' class='control-label'>วันที่เริ่มซ่อม </label><input type='text' name='datepicker1' id='datepicker1' class='form-control' readonly required></div>")
-                                    ,$("<div class='form-group'><label for='datepicker1' class='control-label'>วันที่ซ่อมเสร็จ </label><input type='text' name='datepicker2' id='datepicker2' class='form-control' readonly required></div>")
+        $('div#Rr_content').append($("<div class='row'><div class='col-md-3 col-xs-12'><div class='form-group'><label for='datepicker1' class='control-label'>วันที่เริ่มซ่อม </label><input type='text' name='datepicker1' id='datepicker1' class='form-control' readonly required></div></div>"
+                                    +"<div class='col-md-1 col-xs-12'><div class='form-group'><label for='H-begin' class='control-label'>ชั่วโมง </label><select name='H-begin' id='H-begin' class='select2 form-control'></select></div></div>"
+                                    +"<div class='col-md-1 col-xs-12'><div class='form-group'><label for='M-begin' class='control-label'>นาที </label><select name='M-begin' id='M-begin' class='form-control select2'></select></div></div></div>")
+                                    ,$("<div class='row'><div class='col-md-3 col-xs-12'><div class='form-group'><label for='datepicker1' class='control-label'>วันที่ซ่อมเสร็จ </label><input type='text' name='datepicker2' id='datepicker2' class='form-control' readonly required></div></div>"
+                                    +"<div class='col-md-1 col-xs-12'><div class='form-group'><label for='H-end' class='control-label'>ชั่วโมง </label><select name='H-end' id='H-end' class='select2 form-control'></select></div></div>"
+                                    +"<div class='col-md-1 col-xs-12'><div class='form-group'><label for='M-end' class='control-label'>นาที </label><select name='M-end' id='M-end' class='select2 form-control'></select></div></div></div>")
                                     ,$("<div class='form-group'><input type='radio' value='1' name='result' id='result1' checked='checked' required> : ซ่อมได้  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio' value='0' name='result' id='result0' required> : ซ่อมไม่ได้</div><hr>")
                                     ,$("<div class='form-group' id='do_repair'></div>")
                                     ,$("<div class='form-group' id='dont_repair'></div>")
@@ -42,7 +46,38 @@ $.getJSON('JsonData/repair_Data.php',{data: id.data},function (data) {
                                     ,$("<input type='hidden' id='repair_id' name='repair_id'>")
                                     ,$("<input type='hidden' id='pd_id' name='pd_id'>")
                                     ,$("<input type='hidden' id='method' name='method'>"));
-                    
+                                MakeHour("#H-begin");    
+                                MakeHour("#H-end");
+                                MakeMinute("#M-begin");
+                                MakeMinute("#M-end");
+            function MakeHour (content) {
+            for (var i = 0; i <= 23; i++) {
+//                                    if (i == takeTime.substring (0, 2)) {
+//        var selected = 'selected';
+//    } else {
+//        var selected = '';
+//    }
+                                    if (i < 10) {
+        $(content).append($("<option value='0"+i+"'>0"+i+"</option>"));
+    } else {
+        $(content).append($("<option value='"+i+"'>"+i+"</option>"));
+    }
+                                }
+        }                        
+            function MakeMinute (content) {        
+                                for (var i = 0; i <= 59; i++) {
+//                                    if (i == takeTime.substring (3, 5)) {
+//        var selected = 'selected';
+//    } else {
+//        var selected = '';
+//    }
+                                    if (i < 10) {
+        $(content).append($("<option value='0"+i+"'>0"+i+"</option>"));
+    } else {
+        $(content).append($("<option value='"+i+"'>"+i+"</option>"));
+    }
+                                }
+                            }                 
                         $('div#do_repair').append($("<div class='form-group'><input type='radio' value='1' name='accessories' id='accessories1' required> : เปลี่ยนอุปกรณ์  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio' value='0' name='accessories' id='accessories0' checked='checked' required> : ไม่ได้เปลี่ยนอุปกรณ์</div>")
                                                     ,$("<div class='form-group' id='detail_acc_part'></div>"));
                         
@@ -192,7 +227,16 @@ $.getJSON('JsonData/repair_Data.php',{data: id.data},function (data) {
 
                                 $("div#add_repair").append("<button type='submit' class='btn btn-primary' id='submresult'>บันทึกใบแจ้งซ่อม</button>");
                                 $("button#submresult").click(function(e) {
-                                        e.preventDefault();
+                                        if($("#cause").val()==''){
+                                            alert("กรุณาสรุปอาการเสียด้วยครับ!!!");
+                                            $("#cause").focus();
+                                        }else if($("#repair_detail").val()==''){
+                                            alert("กรุณาอธิบายรายละเอียดการซ่อมด้วยครับ!!!");
+                                            $("#repair_detail").focus();
+                                        }else if($("#rece_pd").val()==''){
+                                            alert("กรุณาเลือกผู้รับด้วยครับ!!!");
+                                            $("#rece_pd").focus();
+                                        }else{
         				$.ajax({
 					   type: "POST",
 					   url: "process/prcrepair.php",
@@ -213,6 +257,8 @@ $.getJSON('JsonData/repair_Data.php',{data: id.data},function (data) {
                                                  return false;
 					   }
 					 });
+                                     }
+                                     e.preventDefault();
         });
 
         });

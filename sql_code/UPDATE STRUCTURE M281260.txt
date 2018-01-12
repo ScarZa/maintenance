@@ -7,3 +7,7 @@ ADD COLUMN `request_data` int(7) AFTER `no_pdid`;
 
 ALTER TABLE `m_repair_pd` 
 ADD COLUMN `length` int(2) AFTER `repairer`;
+
+ALTER TABLE `m_repair_pd` 
+ADD COLUMN `strepair_time` time(0) AFTER `strepair_date`,
+ADD COLUMN `enrepair_time` time(0) AFTER `enrepair_dare`;

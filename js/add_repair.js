@@ -2,7 +2,7 @@ function AddRepair (content,id=null) {
 $.getJSON('JsonData/head_repair.php',function (data) {
         $(content).empty().append("<h2 style='color: blue'>แจ้งขอรับบริการงานคอมพิวเตอร์</h2>"+
                                     "<ol class='breadcrumb'>"+
-                                    "<li><a href='index.php'><i class='fa fa-home'></i> หน้าหลัก</a></li>"+
+                                    "<li><a href='index.html'><i class='fa fa-home'></i> หน้าหลัก</a></li>"+
                                     "<li class='active'><i class='fa fa-envelope'></i> แจ้งขอรับบริการงานคอมพิวเตอร์</li>"+
                                     "</ol><form action='' name='frmaddrepair' id='frmaddrepair' method='post'>"+
                                     "<div class='row'>"+
@@ -26,7 +26,7 @@ $.getJSON('JsonData/head_repair.php',function (data) {
                         ,$("<div class='form-group'>งาน : <select name='depid' class='form-control select2' id='depid' required></select></div>")
                         ,$("<div class='form-group'>เครื่องที่เสีย : <select name='pd_id' class='form-control select2' id='pd_id' required></select></div>")
                         ,$("<div class='form-group'>อาการเสีย : <textarea class='form-control' style='width: 100%' COLS='100%' rows='2' placeholder='ระบุอาการเสีย' name='symptom' id='symptom' required></textarea></div>")
-                        ,$("<div class='form-group'><input type='radio' value='1' name='vital' id='vital' required> : เร่งด่วน  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio' value='0' name='vital' id='vital' required> : ไม่เร่งด่วน</div>"));
+                        ,$("<div class='form-group'><input type='radio' value='1' name='vital' id='vital' required> : เร่งด่วน  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio' value='0' name='vital' id='vital' checked required> : ไม่เร่งด่วน</div>"));
                 
                 if(data.status=='ADMIN'){
                     $("#inform").append("ผู้แจ้ง : <select name='informer' class='form-control select2' id='informer' required></select>");
@@ -76,7 +76,13 @@ $.getJSON('JsonData/head_repair.php',function (data) {
             }
             $("div#add_repair").append("<button type='submit' class='btn btn-primary' id='ARsubmit'>บันทึกใบแจ้งซ่อม</button>");
             $("button#ARsubmit").click(function(e) {
-                                        e.preventDefault();
+                                        if($("#pd_id").val()==''){
+                                            alert("กรุณาเลือกครุภัณฑ์ด้วยครับ!!!");
+                                            $("#pd_id").focus();
+                                        }else if($("#symptom").val()==''){
+                                            alert("กรุณาระบุรายละเอียดด้วยครับ!!!");
+                                            $("#symptom").focus();
+                                        }else{
         				$.ajax({
 					   type: "POST",
 					   url: "process/prcrepair.php",
@@ -91,6 +97,8 @@ $.getJSON('JsonData/head_repair.php',function (data) {
 					   });
                                        }
 					 });
+                                     }
+                                         e.preventDefault();
         });
             }else if(idrepair.data == 'NoPd'){
         $("h2").prepend("<img src='images/icon_set2/computer.ico' width='40'> ");        
@@ -99,7 +107,7 @@ $.getJSON('JsonData/head_repair.php',function (data) {
                         ,$("<div class='form-group'>งาน : <select name='depid' class='form-control select2' id='depid' required></select></div>")
                         ,$("<div class='form-group'>อาการเสีย : <select name='no_pdid' class='form-control select2' id='no_pdid' required></select></div>")
                         ,$("<div class='form-group'>อธิบายอาการเสีย : <textarea class='form-control' style='width: 100%' COLS='100%' rows='2' placeholder='ระบุอาการเสีย' name='symptom' id='symptom' required></textarea></div>")
-                        ,$("<div class='form-group'><input type='radio' value='1' name='vital' id='vital' required> : เร่งด่วน  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio' value='0' name='vital' id='vital' required> : ไม่เร่งด่วน</div>"));
+                        ,$("<div class='form-group'><input type='radio' value='1' name='vital' id='vital' required> : เร่งด่วน  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio' value='0' name='vital' id='vital' checked required> : ไม่เร่งด่วน</div>"));
                 
                 if(data.status=='ADMIN'){
                     $("#inform").append("ผู้แจ้ง : <select name='informer' class='form-control select2' id='informer' required></select>");
@@ -138,7 +146,13 @@ $.getJSON('JsonData/head_repair.php',function (data) {
             }
             $("div#add_repair").append("<button type='submit' class='btn btn-primary' id='ARsubmit'>บันทึกใบแจ้งซ่อม</button>");
             $("button#ARsubmit").click(function(e) {
-                                        e.preventDefault();
+                                    if($("#no_pdid").val()==''){
+                                            alert("กรุณาเลือกอาการเสียด้วยครับ!!!");
+                                            $("#no_pdid").focus();
+                                        }else if($("#symptom").val()==''){
+                                            alert("กรุณาระบุรายละเอียดด้วยครับ!!!");
+                                            $("#symptom").focus();
+                                        }else{
         				$.ajax({
 					   type: "POST",
 					   url: "process/prcrepair.php",
@@ -153,6 +167,8 @@ $.getJSON('JsonData/head_repair.php',function (data) {
 					   });
                                        }
 					 });
+                                     }
+                                                                             e.preventDefault();
         });
             }else if(idrepair.data == 'ReqRp'){
         $("h2").prepend("<img src='images/icon_set2/clipboard.ico' width='40'> ");        
@@ -161,7 +177,7 @@ $.getJSON('JsonData/head_repair.php',function (data) {
                         ,$("<div class='form-group'>งาน : <select name='depid' class='form-control select2' id='depid' required></select></div>")
                         ,$("<div class='form-group'>สิ่งที่ต้องการ : <select name='request_data' class='form-control select2' id='request_data' required></select></div>")
                         ,$("<div class='form-group'>อธิบายความต้องการ : <textarea class='form-control' style='width: 100%' COLS='100%' rows='2' placeholder='ระบุความต้องการ' name='symptom' id='symptom' required></textarea></div>")
-                        ,$("<div class='form-group'><input type='radio' value='1' name='vital' id='vital' required> : เร่งด่วน  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio' value='0' name='vital' id='vital' required> : ไม่เร่งด่วน</div>"));
+                        ,$("<div class='form-group'><input type='radio' value='1' name='vital' id='vital' required> : เร่งด่วน  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio' value='0' name='vital' id='vital' checked required> : ไม่เร่งด่วน</div>"));
                 
                 if(data.status=='ADMIN'){
                     $("#inform").append("ผู้แจ้ง : <select name='informer' class='form-control select2' id='informer' required></select>");
@@ -199,7 +215,13 @@ $.getJSON('JsonData/head_repair.php',function (data) {
             }
             $("div#add_repair").append("<button type='submit' class='btn btn-primary' id='ARsubmit'>บันทึกใบแจ้งซ่อม</button>");
             $("button#ARsubmit").click(function(e) {
-                                        e.preventDefault();
+                                        if($("#request_data").val()==''){
+                                            alert("กรุณาเลือกสิ่งที่ต้องการด้วยครับ!!!");
+                                            $("#request_data").focus();
+                                        }else if($("#symptom").val()==''){
+                                            alert("กรุณาระบุรายละเอียดด้วยครับ!!!");
+                                            $("#symptom").focus();
+                                        }else{
         				$.ajax({
 					   type: "POST",
 					   url: "process/prcrepair.php",
@@ -214,6 +236,8 @@ $.getJSON('JsonData/head_repair.php',function (data) {
 					   });
                                        }
 					 });
+                                     }
+                                     e.preventDefault();
         });
             }else{ 
                 $.getJSON('JsonData/detail_repair.php',{data: idrepair.data}, function (data) {

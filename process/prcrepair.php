@@ -143,7 +143,13 @@ $res = notify_message($text,$token);
     $result = $_POST['result'];
     $accessories = $_POST['accessories'];
     $strepair_date =insert_date($_POST['datepicker1']);
+    $take_hours = isset($_POST['H-begin']) ? $_POST['H-begin'] : '';
+    $take_minutes = isset($_POST['M-begin']) ? $_POST['M-begin'] : '';
+    $strepair_time = $take_hours . ":" . $take_minutes;
     $enrepair_dare =insert_date($_POST['datepicker2']);
+    $take_houre = isset($_POST['H-end']) ? $_POST['H-end'] : '';
+    $take_minutee = isset($_POST['M-end']) ? $_POST['M-end'] : '';
+    $enrepair_time = $take_houre . ":" . $take_minutee;
     $rece_pd = $_POST['rece_pd'];
     $rece_pd_date = $enrepair_dare;
     $cause = $_POST['cause'];
@@ -173,8 +179,8 @@ $res = notify_message($text,$token);
         }else{ $end_process = 0; }  
     }
     
-    $data = array($result, $accessories, $strepair_date, $enrepair_dare, $rece_pd, $rece_pd_date, $cause, $repair_detail,$result_recorder,$result_recdate,$repair_status,$send_repair,$end_process);
-    $field=array("result","accessories","strepair_date","enrepair_dare","rece_pd","rece_pd_date","cause","repair_detail","result_recorder","result_recdate","repair_status","send_repair","end_process");
+    $data = array($result, $accessories, $strepair_date,$strepair_time, $enrepair_dare,$enrepair_time, $rece_pd, $rece_pd_date, $cause, $repair_detail,$result_recorder,$result_recdate,$repair_status,$send_repair,$end_process);
+    $field=array("result","accessories","strepair_date","strepair_time","enrepair_dare","enrepair_time","rece_pd","rece_pd_date","cause","repair_detail","result_recorder","result_recdate","repair_status","send_repair","end_process");
     $table = "m_repair_pd";
     $where="repair_id=:repair_id";
     $execute=array(':repair_id' => $repair_id);
