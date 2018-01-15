@@ -1,7 +1,7 @@
 <?php 
 session_save_path("../session/");
 session_start(); 
-if (empty($_SESSION['rm_id'])) {
+if (empty($_SESSION['m_id'])) {
     echo "<meta http-equiv='refresh' content='0;url=index.php'/>";
     exit();
 }

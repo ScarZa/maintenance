@@ -11,9 +11,9 @@ $connDB_backup->Read_Text();
 $conn=$connDB_backup->conn_PDO();
 //////////backup
 $backup=new BackupPDO();
-$backup->backup_tables($conn,'RISK');
+$backup->backup_tables($conn,'HRD');
 $connDB_backup->close_PDO();
 echo "<script>alert('การสำรองข้อมูลสำเสร็จแล้วจ้า!')</script>";
-echo "<meta http-equiv='refresh' content='0;url=index.php'/>";
+echo "<meta http-equiv='refresh' content='0;url=index.html'/>";
 //include_once '../footer.php';
 ?>

@@ -1,4 +1,10 @@
-            $.getJSON('JsonData/up_header.php',function (data) {
+            $.getJSON('JsonData/up_header.php',function (data) { 
+                if(data.conn=='Connect_DB_false'){
+                    $(".content-wrapper").append("<section class='content' id='sec_content'></section>");   
+                                            $("#sec_content").append("<div id='index_content'></div>");
+                                            $("#index_content").html("<center><h4><a href='#'>Please connect Database!!!!</a></h4></center>");
+                                                $("a").attr("onclick","return popup('content/set_conn_db.php?method="+data.check+"&host=main', popup, 400, 600);");
+                }else{
               $("head").prepend($("<title></title>").text("ระบบแจ้งซ่อม")
                                 ,$("<link rel='SHORTCUT ICON' href='"+data.logo+"'>"));  
               if(data.m_status == 'ADMIN'){
@@ -70,7 +76,7 @@
                                                                                 ,$("<ul id='ad_treeview-menu2' class='treeview-menu'></ul>"));
                                                                 $("#ad_treeview-menu2").append($("<li class=''><a id='addRepairUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/computer.ico' width='20'> <span>แจ้งซ่อมคอมพิวเตอร์</span></a></li>")
                                                                                             ,$("<li class=''><a id='addRepairNoUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/computer.ico' width='20'> <span>แจ้งซ่อมคอมฯ(ไม่ใช่ครุภัณฑ์)</span></a></li>")
-                                                                                            ,$("<li class=''><a id='reqReportUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/clipboard.ico' width='20'> <span>ขอข้อมูล/รายงาน/พัฒนาโปรแกรม</span></a></li>")
+                                                                                            ,$("<li class=''><a id='reqReportUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/clipboard.ico' width='20'> <span>ขอข้อมูล/รายงาน/Dev.</span></a></li>")
                                                                                             ,$("<li id='us_report'><a href='#'>&nbsp;&nbsp;<img src='images/icon_set2/piechart.ico' width='20'> รายงานหน่วยงาน <i class='fa fa-angle-left pull-right'></i></a></li>"));
                                                                                     $("#addRepairUser").attr("onclick","loadPage('#index_content','content/add_repair.html');");
                                                                                     $("#addRepairNoUser").attr("onclick","loadAjax('#index_content','JsonData/tempSendData.php','NoPd','AddRepair');");
@@ -121,4 +127,6 @@
                                         }
                                 $(".sidebar-menu").append("<li class=''><a id='about' href='#'><img src='images/Paper Mario.ico' width='20'> <span>เกี่ยวกับ</span></a></li>");
                                             $("#about").attr("onclick","loadPage('#index_content','content/about.html')");        
-    });                     
+ }   
+ });               
+            

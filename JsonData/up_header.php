@@ -12,7 +12,7 @@ $read="../connection/conn_DB.txt";
 $conn_DB->para_read($read);
 $conn_DB->Read_Text();
 $db=$conn_DB->conn_PDO();
-
+$data= array();
 if($db != FALSE){
 //$db=$conn_DB->getDb();
 //===ชื่อกลุ่ม
@@ -28,19 +28,18 @@ if($db != FALSE){
                                     $pic = 'agency.ico';
                                     $fol = "images";
                                 }
-}else {
-                                    $pic = 'agency.ico';
-                                    $fol = "images";
-                                }
-    
-                                
-$data= array();
+
 $data['logo'] = $fol.'/'.$pic;
 $data['m_id'] = isset($_SESSION['m_id'])?(int) $_SESSION['m_id']:'';
 $data['m_fullname'] = isset($_SESSION['m_fullname'])?$_SESSION['m_fullname']:'';
 $data['m_dep'] = isset($_SESSION['m_dep'])?(int) $_SESSION['m_dep']:'';
 $data['m_process'] = isset($_SESSION['m_process'])?(int) $_SESSION['m_process']:'';
 $data['m_status'] = isset($_SESSION['m_status'])?$_SESSION['m_status']:''; 
-print json_encode($data);
+print json_encode($data);                       
+}else {
+    $data['check']=  md5(trim('check'));
+    $data['conn']='Connect_DB_false';
+   print json_encode($data);
+                                }
 $conn_DB->close_PDO();
 ?>

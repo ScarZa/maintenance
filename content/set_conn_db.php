@@ -4,15 +4,15 @@ if($_REQUEST['method']!=$check){
     echo "<meta http-equiv='refresh' content='0;url=index.php'/>";
     exit();
 }
-include_once 'header.php';
+include_once '../header2.php';
 $host= filter_input(INPUT_GET, 'host');
 /*function __autoload($class_name) {
     include 'class/'.strtolower($class_name).'.php';
 }*/
-include_once 'class/TablePDO.php';
+include_once '../class/TablePDO.php';
 $conn_DB= new TablePDO();
 if ($host=='main'){
-$read="connection/conn_DB.txt";    
+$read="../connection/conn_DB.txt";    
 }
 $conn_DB->para_read($read);
 $conn_db=$conn_DB->Read_Text();
@@ -25,11 +25,11 @@ $conn_db=$conn_DB->Read_Text();
 ?>
 
 <body>
-    <form role="form" action='process/prcconn_db.php' enctype="multipart/form-data" method='post'>
+    <form role="form" action='../process/prcconn_db.php' enctype="multipart/form-data" method='post'>
           <div class="col-lg-12">
               <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><img src='images/phonebook.ico' width='25'>
+                    <h3 class="panel-title"><img src='../images/phonebook.ico' width='25'>
                         <?php if ($host=='main'){?> ตั้งค่าเพื่อ Connect Main Database <?php }?></h3>
                     </div>
                   <div class="panel-body">

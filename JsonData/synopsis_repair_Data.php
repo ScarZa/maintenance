@@ -35,7 +35,7 @@ LEFT OUTER JOIN pd_place ppl on ppl.pd_id=pp.pd_id
 LEFT OUTER JOIN m_no_pd npd on npd.no_pdid=re.no_pdid or npd.no_pdid=re.request_data
 LEFT OUTER JOIN m_symmptom_category syc on syc.symmptom_cid=re.cause
 LEFT OUTER JOIN m_symptom_group syg on syg.symp_gid=syc.symmptom_gid
-LEFT OUTER JOIN department d on d.depId=ppl.depId
+LEFT OUTER JOIN department d on d.depId=re.depid
 WHERE repair_id=:repair_id";
 $execute = array(':repair_id' => $repair_id);
 $conn_DB->imp_sql($sql);

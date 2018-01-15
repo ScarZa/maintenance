@@ -118,7 +118,7 @@ $db=$conn_DB->conn_PDO();
               <?php $check = md5(trim('check'));?>
               <div class="form-group">
                 <label class="control-sidebar-subheading">
-                    <a href="#" onClick="return popup('set_conn_db.php?method=<?= $check ?>&host=main', popup, 400, 600);" title="Config Database">
+                    <a href="#" onClick="return popup('content/set_conn_db.php?method=<?= $check ?>&host=main', popup, 400, 600);" title="Config Database">
                         <img src="images/icon_set2/gear.ico" width="25">&nbsp;&nbsp; Connect Database Main </a>
                 </label>
               </div><!-- /.form-group -->
@@ -136,6 +136,15 @@ $db=$conn_DB->conn_PDO();
               </div>
               <div class="form-group">
                 <label class="control-sidebar-subheading">
+                    <!--<a href="index.php?page=content/add_hos">
+                        <img src="images/icon_set2/dolly.ico" width="25">&nbsp;&nbsp; ครุภัณฑ์ </a>-->
+                    <a href='#'><img src='images/icon_set2/dolly.ico' width='25'> ครุภัณฑ์ </a><br>
+                    <a href='#' onclick="loadPage('#index_content','content/add_prods.html');">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src='images/icon_set2/dolly.ico' width='20'> <span>เพิ่มครุภัณฑ์</span></a><br>
+                            <a href='#' onclick="loadPage('#index_content','content/list_prods.html');">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src='images/icon_set2/dolly.ico' width='20'> <span>รายการครุภัณฑ์</span></a>
+                </label>
+              </div>
+              <div class="form-group">
+                <label class="control-sidebar-subheading">
                     <a href="#" onclick="confirm('กรุณายืนยันการสำรองข้อมูลอีกครั้ง !!!');loadPage('#index_content','content/backup.php');">
                         <img src="images/backup-restore.ico" width="25">&nbsp;&nbsp; backup </a>
                 </label>
@@ -148,8 +157,8 @@ $db=$conn_DB->conn_PDO();
               </div>
               <div class="form-group">
                 <label class="control-sidebar-subheading">
-                    <a href="#" onClick="return popup('about.php', popup, 500, 600);" title="ทีมพัฒนา">
-                    <img src="images/Paper Mario.ico" width="25">&nbsp;&nbsp; ทีมพัฒนา</a>
+                    <a href="#" onClick="loadPage('#index_content','content/about.html')" title="ผู้พัฒนา">
+                    <img src="images/Paper Mario.ico" width="25">&nbsp;&nbsp; ผู้พัฒนา</a>
                 </label>
               </div>
               <div class="form-group">
