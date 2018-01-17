@@ -124,7 +124,7 @@ $db=$conn_DB->conn_PDO();
               </div><!-- /.form-group -->
               <div class="form-group">
                 <label class="control-sidebar-subheading">
-                    <a href="index.php?page=content/add_user">
+                    <a href="#" onclick="loadPage('#index_content','content/add_user.html');">
                         <img src="images/icon_set2/gear.ico" width="25">&nbsp;&nbsp; ตั้งค่าผู้ใช้งาน </a>
                 </label>
               </div><!-- /.form-group -->

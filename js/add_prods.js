@@ -43,7 +43,7 @@ function AddProds (content,id=null) {
                                 $("select#pdgroup").change(function () {
                                     
                                 $.getJSON('JsonData/cate_Data.php',{data: $("#pdgroup").val()}, function (CD) {
-                                    var option;
+                                    var option="$('<option value=''> เลือกประเภทครุภัณฑ์ </option>'),";
                                     for (var key in CD) {
                                         //if(LR[key].group_id==data.detail.group_id){var select='selected';}else{var select='';}
                                               option += "$('<option value='"+CD[key].category_id+"'> "+CD[key].category_name+" </option>'),";
@@ -136,7 +136,48 @@ function AddProds (content,id=null) {
                             DP.GetDatepicker('#datepicker4');
             $("div#add_pd").append("<input type='hidden' id='method' name='method' value='add_prods'>");                
             $("div#add_pd").append("<div class='col-md-12' align='center'><button type='submit' class='btn btn-primary' id='APsubmit'>บันทึก</button></div>");
-            $("button#APsubmit").click(function () {
+            $("button#APsubmit").click(function (e) {
+                                    if($("#pdgroup").val()==''){
+                                            alert("กรุณาเลือกหมวดครุภัณฑ์ด้วยครับ!!!");
+                                            $("#pdgroup").focus();
+                                            e.preventDefault();
+                                        }else if($("#pdcate").val()==''){
+                                            alert("กรุณาเลือกประเภทครุภัณฑ์ด้วยครับ!!!");
+                                            $("#pdcate").focus();
+                                            e.preventDefault();
+                                        }else if($("#pd_number").val()==''){
+                                            alert("กรุณาระบุเลขครุภัณฑ์ด้วยครับ!!!");
+                                            $("#pd_number").focus();
+                                            e.preventDefault();
+                                        }else if($("#name").val()==''){
+                                            alert("กรุณาระบุชื่อครุภัณฑ์ด้วยครับ");
+                                            $("#name").focus();
+                                            e.preventDefault();
+                                        }else if($("#pd_status").val()==''){
+                                            alert("กรุณาเลือกสถานะการใช้งานด้วยครับ");
+                                            $("#pd_status").focus();
+                                            e.preventDefault();
+                                        }else if($("#com_id").val()==''){
+                                            alert("กรุณาเลือกผู้ขายด้วยครับ");
+                                            $("#com_id").focus();
+                                            e.preventDefault();
+                                        }else if($("#price").val()==''){
+                                            alert("กรุณาระบุราคาซื้อด้วยครับ");
+                                            $("#price").focus();
+                                            e.preventDefault();
+                                        }else if($("#montype_id").val()==''){
+                                            alert("กรุณาเลือกชนิดเงินด้วยครับ");
+                                            $("#montype_id").focus();
+                                            e.preventDefault();
+                                        }else if($("#mon_id").val()==''){
+                                            alert("กรุณาเลือกวิธีซื้อด้วยครับ");
+                                            $("#mon_id").focus();
+                                            e.preventDefault();
+                                        }else if($("#ct_number").val()==''){
+                                            alert("กรุณาระบุเลขที่สัญญาด้วยครับ");
+                                            $("#ct_number").focus();
+                                            e.preventDefault();
+                                        }else{
         				$.ajax({
 					   type: "POST",
 					   url: "process/prcprods.php",
@@ -167,7 +208,8 @@ function AddProds (content,id=null) {
 						alert(result);
                                                 $("#index_content").empty().load('content/add_prods.html');
 					   }
-					 });
+					 });e.preventDefault();
+                                     }
         });
             }else{ 
                 $.getJSON('JsonData/detail_prods.php',{data: idProds.data}, function (data) {
@@ -308,7 +350,48 @@ function AddProds (content,id=null) {
             $("div#add_pd").append($("<input type='hidden' id='method' name='method' value='edit_prods'>")
                                     ,$("<input type='hidden' id='pd_id' name='pd_id' value='"+data.pd_id+"'>"));                
             $("div#add_pd").append("<div class='col-md-12' align='center'><button type='submit' class='btn btn-warning' id='APsubmit'>แก้ไข</button></div>");
-            $("button#APsubmit").click(function () {
+            $("button#APsubmit").click(function (e) {
+                                        if($("#pdgroup").val()==''){
+                                            alert("กรุณาเลือกหมวดครุภัณฑ์ด้วยครับ!!!");
+                                            $("#pdgroup").focus();
+                                            e.preventDefault();
+                                        }else if($("#pdcate").val()==''){
+                                            alert("กรุณาเลือกประเภทครุภัณฑ์ด้วยครับ!!!");
+                                            $("#pdcate").focus();
+                                            e.preventDefault();
+                                        }else if($("#pd_number").val()==''){
+                                            alert("กรุณาระบุเลขครุภัณฑ์ด้วยครับ!!!");
+                                            $("#pd_number").focus();
+                                            e.preventDefault();
+                                        }else if($("#name").val()==''){
+                                            alert("กรุณาระบุชื่อครุภัณฑ์ด้วยครับ");
+                                            $("#name").focus();
+                                            e.preventDefault();
+                                        }else if($("#pd_status").val()==''){
+                                            alert("กรุณาเลือกสถานะการใช้งานด้วยครับ");
+                                            $("#pd_status").focus();
+                                            e.preventDefault();
+                                        }else if($("#com_id").val()==''){
+                                            alert("กรุณาเลือกผู้ขายด้วยครับ");
+                                            $("#com_id").focus();
+                                            e.preventDefault();
+                                        }else if($("#price").val()==''){
+                                            alert("กรุณาระบุราคาซื้อด้วยครับ");
+                                            $("#price").focus();
+                                            e.preventDefault();
+                                        }else if($("#montype_id").val()==''){
+                                            alert("กรุณาเลือกชนิดเงินด้วยครับ");
+                                            $("#montype_id").focus();
+                                            e.preventDefault();
+                                        }else if($("#mon_id").val()==''){
+                                            alert("กรุณาเลือกวิธีซื้อด้วยครับ");
+                                            $("#mon_id").focus();
+                                            e.preventDefault();
+                                        }else if($("#ct_number").val()==''){
+                                            alert("กรุณาระบุเลขที่สัญญาด้วยครับ");
+                                            $("#ct_number").focus();
+                                            e.preventDefault();
+                                        }else{
         				$.ajax({
 					   type: "POST",
 					   url: "process/prcprods.php",
@@ -317,7 +400,8 @@ function AddProds (content,id=null) {
 						alert(result);
                                                 $("#index_content").empty().load('content/list_prods.html');
 					   }
-					 });
+					 });e.preventDefault();
+                                     }
                 });
                 });
             }

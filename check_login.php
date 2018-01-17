@@ -5,7 +5,7 @@ function __autoload($class_name) {
     include_once 'class/'.$class_name.'.php';
 }
 
-$user_account = md5(trim(filter_input(INPUT_POST, 'user_account',FILTER_SANITIZE_ENCODED)));
+$user_account = md5(trim(filter_input(INPUT_POST, 'user_account',FILTER_SANITIZE_STRING)));
 $user_pwd = md5(trim(filter_input(INPUT_POST, 'user_pwd',FILTER_SANITIZE_ENCODED)));
 $action= filter_input(INPUT_POST, 'action',FILTER_SANITIZE_STRING);
 // using PDO
