@@ -26,7 +26,8 @@ var createTableAjax = function () {
             	var tBody = document.createElement ("tbody");
             	table.appendChild (tBody);
                 tBody.setAttribute("style","text-align: center");
-                $.getJSON(jsonsource, function (dataTB) {
+                var jsonsub=jsonsource.split("?");
+                $.getJSON(jsonsub[0],{data: jsonsub[1]}, function (dataTB) {
                 var value=[];
                     if (dataTB != null && dataTB.length > 0) {
                 for (var i = 0; i < dataTB.length; i++) {

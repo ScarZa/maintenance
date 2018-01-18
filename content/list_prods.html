@@ -1,30 +1,6 @@
-            <h2 style="color: blue"><img src='images/icon_set2/dolly.ico' width='40'> รายการครุภัณฑ์</h2>
-            <ol class="breadcrumb">
-              <li><a href="index.html"><i class="หน้าหลัก"></i> หน้าหลัก</a></li>
-              <li class="active"><i class="fa fa-wrench"></i> รายการครุภัณฑ์</li>
-            </ol>
-             
-<script language="Javascript" type="text/javascript">
-    //var column1 = '{"รายการความเสี่ยงที่รอ RM man มาตรวจสอบ":["เลขที่","รายการ","เกิดขึ้นเมื่อ","ได้รับเมื่อ"]}';
-    var column1 = ["id","เลขครุภัณฑ์","ชื่อ","งาน","ติดตั้งเมื่อ","วันที่ย้าย","หมายเหตุ","สถานะ","แก้ไข","ลบ"];
-              var CTb = new createTableAjax();
-              CTb.GetNewTableAjax('contentTB','JsonData/DT_LP.php','JsonData/tempSendData.php',column1
-              ,'AddProds','pd_product','pd_id','content/list_prods.html',true,false,null,false,null,false,null,'ส่งคืน',null,null,'ปรกติ','dbtb');
-              //CTb.GetNewTableAjax('tableDiv','JsonData/DT_LP.php','content/testSendDatat.php',column1,'dbtab');
-              
+<script src="js/list_prods.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+       ListProds('#index_content');
+    });
 </script>
-<div class="row">
-    <div class="col-md-12">
-            <div class="box box-primary box-solid">
-                <div class="box-header with-border">
-                    <h4 class="box-title"><i class="fa fa-star"></i> รายการครุภัณฑ์ </h4>
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                    </div><!-- /.box-tools -->
-                </div><!-- /.box-header -->
-                <div class="box-body">
-        <div id="contentTB" class="table-responsive"></div>
-                </div>
-            </div>
-    </div>
-</div>

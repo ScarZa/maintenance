@@ -14,12 +14,19 @@ $conn_DB->conn_PDO();
 set_time_limit(0);
 $rslt = array();
 $series = array();
+$data = isset($_GET['data'])?$_GET['data']:'';
+if(empty($data)){
+    $code='';
+} else {
+    $code="WHERE pp.group_id=".$data;
+}
 $sql="SELECT pp.pd_id,pp.pd_number,pp.name,d.depName,pp2.lnstalldate,pp2.movingdate,pp2.note,ps.pd_status
 FROM pd_product pp
 INNER JOIN pd_place pp2 on pp2.pd_id=pp.pd_id
 INNER JOIN department d on d.depId=pp2.depId
-INNER JOIN pd_status ps on ps.pd_status_id=pp.status"; 
-$conn_DB->imp_sql($sql);
+INNER JOIN pd_status ps on ps.pd_status_id=pp.status
+".$code; 
+    $conn_DB->imp_sql($sql);
     $num_risk = $conn_DB->select();
     for($i=0;$i<count($num_risk);$i++){
     $series['pd_id'] = $num_risk[$i]['pd_id'];

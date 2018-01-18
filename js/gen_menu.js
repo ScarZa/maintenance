@@ -1,4 +1,4 @@
-            $.getJSON('JsonData/up_header.php',function (data) { console.log(data.m_status+'/'+data.m_process);
+            $.getJSON('JsonData/up_header.php',function (data) {
                 if(data.conn=='Connect_DB_false'){
                     $(".content-wrapper").append("<section class='content' id='sec_content'></section>");   
                                             $("#sec_content").append("<div id='index_content'></div>");
