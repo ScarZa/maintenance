@@ -43,11 +43,11 @@ function AddUser (content,id=null) {
                                 }); 
                 $("select#ss_Status").append($("<option value=''> เลือกระดับการใช้งาน </option>")
                                             ,$("<option value='ADMIN'> ผู้ดูแลระบบสูงสุด </option>")
-                                            ,$("<option value='SUSER'> ผู้ดูแลระบบซ่อม </option>"));
+                                            ,$("<option value='MUSER'> ผู้ดูแลระบบซ่อม </option>"));
                                     
             $("div#DUS_content").append("<input type='hidden' id='method' name='method' value='add_user'>");                
             $("div#DUS_content").append("<div class='col-md-12' align='center'><button type='submit' class='btn btn-primary' id='USsubmit'>บันทึก</button></div>");
-            $("button#USsubmit").click(function (e) {
+            $("button#USsubmit").click(function (e) { 
                                     if($("#ss_Name").val()==''){
                                             alert("กรุณาเลือกผู้ใช้ด้วยครับ!!!");
                                             $("#ss_Name").focus();
@@ -99,11 +99,11 @@ function AddUser (content,id=null) {
                                 }); 
                 $("select#ss_Status").append($("<option value=''> เลือกระดับการใช้งาน </option>")
                                             ,$("<option value='ADMIN'> ผู้ดูแลระบบสูงสุด </option>")
-                                            ,$("<option value='SUSER'> ผู้ดูแลระบบซ่อม </option>"));
+                                            ,$("<option value='MUSER'> ผู้ดูแลระบบซ่อม </option>"));
                                             if(data.ss_Status=='ADMIN'){
                                                 $("option[value^=ADMIN]").attr("selected","selected");
-                                            }else if(data.ss_Status=='SUSER'){
-                                                $("option[value^=SUSER]").attr("selected","selected");
+                                            }else if(data.ss_Status=='MUSER'){
+                                                $("option[value^=MUSER]").attr("selected","selected");
                                             }
                  $("input#ss_user_name").attr("value",data.ss_user_name);                   
             $("div#DUS_content").append("<input type='hidden' id='method' name='method' value='edit_user'>");       

@@ -11,3 +11,6 @@ ADD COLUMN `length` int(2) AFTER `repairer`;
 ALTER TABLE `m_repair_pd` 
 ADD COLUMN `strepair_time` time(0) AFTER `strepair_date`,
 ADD COLUMN `enrepair_time` time(0) AFTER `enrepair_dare`;
+
+ALTER TABLE `ss_member` 
+MODIFY COLUMN `ss_Status` enum('ADMIN','SUSER','NUSER','MUSER') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL AFTER `ss_Name`;

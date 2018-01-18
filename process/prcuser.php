@@ -30,7 +30,7 @@ if ($method == 'add_user') {
     $ss_Status = $_POST['ss_Status'];
     if($ss_Status=='ADMIN'){
         $ss_process = 0;
-    }elseif ($ss_Status=='SUSER') {
+    }elseif ($ss_Status=='MUSER') {
         $ss_process=6;
     }
     
@@ -52,7 +52,7 @@ if ($method == 'add_user') {
     $ss_Status = $_POST['ss_Status'];
     if($ss_Status=='ADMIN'){
         $ss_process = 0;
-    }elseif ($ss_Status=='SUSER') {
+    }elseif ($ss_Status=='MUSER') {
         $ss_process=6;
     }
     $table = "ss_member";

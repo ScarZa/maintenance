@@ -6,7 +6,7 @@ function __autoload($class_name) {
     include_once '../class/'.$class_name.'.php';
 }
 
-$user_account = md5(trim(filter_input(INPUT_POST, 'user_account',FILTER_SANITIZE_ENCODED)));
+$user_account = md5(trim(filter_input(INPUT_POST, 'user_account',FILTER_SANITIZE_STRING)));
 $user_pwd = md5(trim(filter_input(INPUT_POST, 'user_pwd',FILTER_SANITIZE_ENCODED)));
 // using PDO
 
@@ -20,7 +20,7 @@ from ss_member ss
 INNER JOIN emppersonal e1 on e1.empno=ss.ss_Name
 INNER JOIN work_history wh ON wh.empno=e1.empno
 inner join department d1 on wh.depid=d1.depId
-where ss.ss_Username= :user_account && ss.ss_Password= :user_pwd and (wh.dateEnd_w='0000-00-00' or ISNULL(wh.dateEnd_w))";
+where ss.ss_Username= :user_account && ss.ss_Password= :user_pwd and (ss.ss_process=0 or ss.ss_process=6) and (wh.dateEnd_w='0000-00-00' or ISNULL(wh.dateEnd_w))";
 $execute=array(':user_account' => $user_account, ':user_pwd' => $user_pwd);
 $dbh->imp_sql($sql);
 $result=$dbh->select_a($execute);

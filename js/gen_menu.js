@@ -1,4 +1,4 @@
-            $.getJSON('JsonData/up_header.php',function (data) { 
+            $.getJSON('JsonData/up_header.php',function (data) { console.log(data.m_status+'/'+data.m_process);
                 if(data.conn=='Connect_DB_false'){
                     $(".content-wrapper").append("<section class='content' id='sec_content'></section>");   
                                             $("#sec_content").append("<div id='index_content'></div>");
@@ -7,7 +7,7 @@
                 }else{
               $("head").prepend($("<title></title>").text("ระบบแจ้งซ่อม")
                                 ,$("<link rel='SHORTCUT ICON' href='"+data.logo+"'>"));  
-              if(data.m_status == 'ADMIN'){
+              if(data.m_status == 'ADMIN' || data.m_status == 'MUSER'){
                   var onload="bodyOnload();";
               }else{
                 var onload="";
@@ -33,6 +33,7 @@
                                 $("#version").append("<b>Version</b> 1.0");
                     $(".control-sidebar").empty().load("menu_footer.php");                                                               
                                               if(data.m_status == 'ADMIN' || data.m_status == 'MUSER'){
+                                                  if(data.m_status == 'MUSER'){$("#gear_side1").remove();}
                                             $(".sidebar-menu").append($("<li id='ad_treeview1' class='treeview'></li>")
                                                                     ,$("<li id='ad_treeview2' class='treeview'></li>")
                                                                     ,$("<li id='ad_manual'></li>"));

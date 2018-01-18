@@ -76,7 +76,7 @@ WHERE re.repair_status=0";
             <li class="footer"><a href="#">ดูทั้งหมด</a></li>
         </ul>
     </li>-->
-    <?php if ($_SESSION['m_status'] == 'ADMIN') { ?>
+    <?php if ($_SESSION['m_status'] == 'ADMIN' or $_SESSION['m_status'] == 'MUSER') { ?>
         <li class="dropdown notifications-menu" id="mySpan"></li>
     <?php }
 } if (empty($_SESSION['m_id'])) { ?>
