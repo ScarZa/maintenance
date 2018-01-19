@@ -16,15 +16,15 @@ function ListProds (content,id=null) {
                             $("a#office").addClass("btn btn-success").attr("onclick","ListProds('"+content+"','2')");
                             $("a#total").addClass("btn btn-success").attr("onclick","ListProds('"+content+"','0')");
             var idProds = id;
-                    var column1 = ["id","เลขครุภัณฑ์","ชื่อ","งาน","ติดตั้งเมื่อ","วันที่ย้าย","หมายเหตุ","สถานะ","แก้ไข","ลบ"];
+                    var column1 = ["id","เลขครุภัณฑ์","ชื่อ","งาน","ติดตั้งเมื่อ","วันที่ย้าย","หมายเหตุ","สถานะ","ประวัติการซ่อม","แก้ไข","ลบ"];
                     var CTb = new createTableAjax();
                 if(idProds == '0'){
                     CTb.GetNewTableAjax('contentTB','JsonData/DT_LP.php','JsonData/tempSendData.php',column1
-                    ,'AddProds','pd_product','pd_id','content/list_prods.html',true,false,null,false,null,false,null,'ส่งคืน',null,null,'ปรกติ','dbtb');
+                    ,'AddProds','pd_product','pd_id','content/list_prods.html',true,true,'HisRepair',false,null,false,null,'ส่งคืน',null,null,'ปรกติ','dbtb');
             }
             else{ 
                     CTb.GetNewTableAjax('contentTB','JsonData/DT_LP.php?'+idProds,'JsonData/tempSendData.php',column1
-                    ,'AddProds','pd_product','pd_id','content/list_prods.html',true,false,null,false,null,false,null,'ส่งคืน',null,null,'ปรกติ','dbtb');
+                    ,'AddProds','pd_product','pd_id','content/list_prods.html',true,true,'HisRepair',false,null,false,null,'ส่งคืน',null,null,'ปรกติ','dbtb');
         }
             
         }
