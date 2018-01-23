@@ -15,7 +15,7 @@ $read="../connection/conn_DB.txt";
 $dbh->para_read($read);
 $dbh->conn_PDO();
 //$dbh->getDb();
-$sql = "select CONCAT(e1.firstname,' ',e1.lastname) as fullname, ss.ss_Name as id, ss.ss_Status as status, ss.ss_process as process, wh.depid as dep
+$sql = "select CONCAT(e1.firstname,' ',e1.lastname) as fullname, ss.ss_Name as id, ss.ss_Status as status, ss.ss_process as process, wh.depid as dep,ss.ss_UserID
 from ss_member ss 
 INNER JOIN emppersonal e1 on e1.empno=ss.ss_Name
 INNER JOIN work_history wh ON wh.empno=e1.empno
@@ -25,7 +25,7 @@ $execute=array(':user_account' => $user_account, ':user_pwd' => $user_pwd);
 $dbh->imp_sql($sql);
 $result=$dbh->select_a($execute);
 if (!$result) {
- $sql2 = "select CONCAT(e1.firstname,' ',e1.lastname) as fullname, e1.empno as id, wh.depid as dep ,'USER' as status, '6' as process
+ $sql2 = "select CONCAT(e1.firstname,' ',e1.lastname) as fullname, e1.empno as id, wh.depid as dep ,'USER' as status, '6' as process,'0' as ss_UserID
 from emppersonal e1
 INNER JOIN work_history wh ON wh.empno=e1.empno
 inner join department d1 on wh.depid=d1.depId
@@ -38,6 +38,7 @@ $result=$dbh->select_a($execute2);
 if ($result) {
     $_SESSION['m_fullname'] = $result['fullname'];
     $_SESSION['m_id'] = $result['id'];
+    $_SESSION['UserID'] = $result['ss_UserID'];
     $_SESSION['m_dep'] = $result['dep'];;
     $_SESSION['m_process'] = $result['process'];
     $_SESSION['m_status'] = $result['status'];

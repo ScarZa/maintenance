@@ -15,7 +15,7 @@ set_time_limit(0);
 $rslt = array();
 $series = array();
 $data = isset($_GET['data'])?$_GET['data']:'';
-$sql="SELECT re.pd_id,re.strepair_date,re.enrepair_dare,DATEDIFF(re.enrepair_dare,re.strepair_date) day
+$sql="SELECT re.repair_id,re.strepair_date,re.enrepair_dare,DATEDIFF(re.enrepair_dare,re.strepair_date) day
 ,SUBSTR(TIMEDIFF(re.enrepair_time,re.strepair_time),1,5) time
 ,(SELECT CONCAT(e.firstname,' ',e.lastname) FROM emppersonal e WHERE e.empno=re.informer) inform
 ,sc.symmptom_name
@@ -27,7 +27,7 @@ $execute = array(':pd_id' => $data);
     $conn_DB->imp_sql($sql);
     $num_risk = $conn_DB->select($execute);
     for($i=0;$i<count($num_risk);$i++){
-    $series['pd_id']= $num_risk[$i]['pd_id'];
+    $series['repair_id']= $num_risk[$i]['repair_id'];
     $series['strepair_date'] = DateThai1($num_risk[$i]['strepair_date']);
     $series['enrepair_dare'] = DateThai1($num_risk[$i]['enrepair_dare']);
     $series['time']= $num_risk[$i]['day'].' วัน '.$num_risk[$i]['time'].' ชม.';

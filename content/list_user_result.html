@@ -6,10 +6,10 @@
              
 <script language="Javascript" type="text/javascript">
     //var column1 = '{"รายการความเสี่ยงที่รอ RM man มาตรวจสอบ":["เลขที่","รายการ","เกิดขึ้นเมื่อ","ได้รับเมื่อ"]}';
-    var column1 = ["ลำดับ","วันที่แจ้ง","เครื่อง/อาการ/ขอข้อมูล","ผู้แจ้งซ่อม","วันที่รับใบซ่อม","ผู้ซ่อม","สถานะ","รายละเอียด"];
+    var column1 = ["ใบแจ้ง","วันที่แจ้ง","เครื่อง/อาการ/ขอข้อมูล","ผู้แจ้งซ่อม","วันที่รับใบซ่อม","ผู้ซ่อม","สถานะ","รายละเอียด"];
               var CTb = new createTableAjax();
               CTb.GetNewTableAjax('contentTB','JsonData/DT_LUR.php','JsonData/tempSendData.php',column1
-              ,null,null,null,null,false,false,null,true,'detailModal',false,null,'ซ่อมไม่ได้','อยู่ระหว่างดำเนินการ',null,'ซ่อมสำเร็จ','dbtb');
+              ,null,null,null,null,false,false,null,true,'HisModal',false,null,'ซ่อมไม่ได้','อยู่ระหว่างดำเนินการ',null,'ซ่อมสำเร็จ','dbtb');
 </script>
 <div class="row">
     <div class="col-md-12">
@@ -26,62 +26,3 @@
             </div>
     </div>
 </div>
-<!---------------------------- Modal ---------------------------->
-<div class="modal" id="detailModal" role="dialog" aria-labelledby="exampleModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="receiveModalLabel">รับใบแจ้งซ่อม</h4>
-      </div>
-        <div class="modal-body">
-          <span id="detail"></span>
-      </div>
-      <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
-      </div>
-    </div>
-  </div>
-</div>
-<script language="Javascript" type="text/javascript">
-    function detailModal () {
-    $('#detailModal').on('show.bs.modal', function (event) {
-  var button = $(event.relatedTarget)
-  var recipient = button.data('whatever')
-  var modal = $(this)
-  modal.find('.modal-title').text('รายละเอียดใบแจ้งซ่อม : ลำดับที่ ' + recipient)
-  
-   $.getJSON('JsonData/synopsis_repair_Data.php',{data: recipient},function (data) {
-        $('span#detail').empty().append("ผู้แจ้งซ่อม : "+data.inform+"  &nbsp;&nbsp;งาน : "+data.depName+"<br>"
-                            +"เลขครุภัณฑ์ : "+data.pd_number+"  &nbsp;&nbsp;หมายเหตุ : "+data.note+"<br>"
-                            +"อาการ : "+data.symptom+"<br>วันที่แจ้ง : "+data.repair_date+" &nbsp;&nbsp;<b style='color: red;'>"+data.vital+"</b><br><hr>"
-                            +"วันที่รับใบแจ้ง : "+data.receive_date+"&nbsp;&nbsp;ผู้รับใบแจ้งซ่อม : "+data.receiver+"<br><hr>"
-                            +"วันที่เริ่มซ่อม : "+data.strepair_date+"&nbsp;&nbsp;วันที่ซ่อมเสร็จ : "+data.enrepair_dare+"&nbsp;&nbsp;ผู้ซ่อม : "+data.repairer+"<br>"
-                            +"สรุปสาเหตุการเสีย : "+data.symp_name+"&nbsp;&nbsp;เกิดจาก &nbsp;&nbsp;"+data.symmptom_name+"<br>"
-                            +"รายละเอียดการซ่อม : "+data.repair_detail+"<br><span id='acc'></span><span id='send'></span>"
-                            +"ผู้รับครื่อง : "+data.rece_pd+"<br>"
-                            +"วันที่บันทึกการซ่อม : "+data.result_recdate+"&nbsp;&nbsp;ผู้บันทึก : "+data.result_recorder);
-                    if(data.accessories==1){
-                        $.getJSON('JsonData/detail_acc_part.php',{data: data.repair_id}, function (CD) {
-                                    var option='อุปกรณ์ที่เปลี่ยน :<br>';
-                                    var c=1;
-                                    for (var key in CD) {
-                                              option += c+". "+CD[key].accp_name+" : "+CD[key].acc_detail+" &nbsp;&nbsp;ราคา "+CD[key].acc_price+" บาท <br>";
-                                              c++;
-                                        }
-                                        $("span#acc").empty().html(option);
-                                });
-                    }
-                    if(data.send_repair==1){
-                        $.getJSON('JsonData/send_repair_Data.php',{data: data.repair_id}, function (CD) {
-                                    var option='ส่งซ่อมภายนอก :<br>';
-                                        option += "ส่งร้าน "+CD.comp_name+"<br>วันที่ส่ง "+CD.send_date+" &nbsp;&nbsp;วันที่รับคืน "+CD.resend_date+"<br>";
-                                        option += "รายละเอียดการซ่อม "+CD.repair_detail+"<br>ค่าซ่อม "+CD.send_price+" บาท<br>";
-                                         $("span#send").empty().html(option);
-                                });
-                    }
-
-    });
-})
-    }  
-</script>

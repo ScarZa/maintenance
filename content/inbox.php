@@ -128,12 +128,18 @@ WHERE re.repair_status=0";
             </li>
             <!-- Menu Footer-->
             <li class="user-footer">
+            <?php if($_SESSION['m_status']=='USER'){?>
+                <div align="center">
+                    <a href="#" onclick="loadAjax('#index_content','process/logout.php',null,'logout','html');" class="btn btn-default btn-flat">ออกจากระบบ</a>
+                </div>
+            <?php }else{ ?>
                 <div class="pull-left">
-                    <a href="index.php?page=content/add_user&id=<?= $conn_DB->sslEnc($user_id) ?>" class="btn btn-default btn-flat">ข้อมูลส่วนตัว</a>
+                    <a href="#" onclick="loadAjax('#index_content','JsonData/tempSendData.php','<?= $_SESSION['UserID']?>','AddUser');" class="btn btn-default btn-flat">ข้อมูลส่วนตัว</a>
                 </div>
                 <div class="pull-right">
                     <a href="#" onclick="loadAjax('#index_content','process/logout.php',null,'logout','html');" class="btn btn-default btn-flat">ออกจากระบบ</a>
                 </div>
+            <?php }?>
             </li>
         </ul>
     </li>
