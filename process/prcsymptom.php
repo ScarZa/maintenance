@@ -47,33 +47,35 @@ if ($method == 'add_sympG') {
     } else {
         echo "บันทึกรายการอาการเสียเรียบร้อยครับ!!!!";
     }
-}elseif ($method == 'edit_user') {
-    $ss_UserID = $_POST['ss_UserID'];
-    $ss_user_name = filter_input(INPUT_POST, 'ss_user_name',FILTER_SANITIZE_STRING);
-    $ss_Username = md5(trim($ss_user_name));
-    $ss_Password = isset($_POST['password'])?md5(trim(filter_input(INPUT_POST, 'password',FILTER_SANITIZE_ENCODED))):'';
-    $ss_Name = $_POST['ss_Name'];
-    $ss_Status = $_POST['ss_Status'];
-    if($ss_Status=='ADMIN'){
-        $ss_process = 0;
-    }elseif ($ss_Status=='MUSER') {
-        $ss_process=6;
-    }
-    $table = "ss_member";
-    $where="ss_UserID=:ss_UserID";
-    $execute=array(':ss_UserID' => $ss_UserID);
+}elseif ($method == 'edit_sympG') {
+    $symp_name = $_POST['symp_name'];
+    $symp_gid = $_POST['symp_gid'];
     
-    if(empty($ss_Password)){
-    $data = array($ss_Username, $ss_user_name, $ss_Name,$ss_Status, $ss_process);
-    $field=array("ss_Username","ss_user_name","ss_Name", "ss_Status", "ss_process");
-    $edit_user=$connDB->update($table, $data, $where, $field, $execute);    
-    }else{
-    $data = array($ss_Username, $ss_Password, $ss_user_name, $ss_Name,$ss_Status, $ss_process);
-    $edit_user=$connDB->update($table, $data, $where, null, $execute);
-    }
-    if ($edit_user == false) {
-        echo "Update not complete " .$edit_user->errorInfo();
+    $table = "m_symptom_group";
+    $where = "symp_gid=:symp_gid";
+    $execute=array(':symp_gid' => $symp_gid);
+    $data = array($symp_name);
+    $field=array("symp_name");
+    $edit_sympG=$connDB->update($table, $data, $where, $field, $execute);    
+    if ($edit_sympG == false) {
+        echo "Update not complete " .$edit_sympG->errorInfo();
     } else {
-        echo "Update complete!!!!";
+        echo "แก้ไขหมวดอาการเสียเรียบร้อยครับ!!!!";
+    }
+}elseif ($method == 'edit_sympC') {
+    $symmptom_cid = $_POST['symmptom_cid'];
+    $symmptom_gid = $_POST['symmptom_gid'];
+    $symmptom_name = $_POST['symmptom_name'];
+    
+    $table = "m_symmptom_category";
+    $where = "symmptom_cid=:symmptom_cid";
+    $execute=array(':symmptom_cid' => $symmptom_cid);
+    $data = array($symmptom_gid,$symmptom_name);
+    $field=array("symmptom_gid","symmptom_name");
+    $edit_sympC=$connDB->update($table, $data, $where, $field, $execute);    
+    if ($edit_sympC == false) {
+        echo "Update not complete " .$edit_sympC->errorInfo();
+    } else {
+        echo "แก้ไขรายการอาการเสียเรียบร้อยครับ!!!!";
     }
 }
