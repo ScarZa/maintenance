@@ -130,17 +130,29 @@ $db=$conn_DB->conn_PDO();
               </div><!-- /.form-group -->
               <div class="form-group">
                 <label class="control-sidebar-subheading">
+                    <a href="#" onclick="loadPage('#index_content','content/add_acc.html');">
+                        <img src="images/icon_set2/gear.ico" width="25">&nbsp;&nbsp; ตั้งค่าอุปกรณ์ </a>
+                </label>
+              </div>
+              <div class="form-group">
+                <label class="control-sidebar-subheading">
                     <a href="#" onclick="loadPage('#index_content','content/add_symptom.html');">
                         <img src="images/icon_set2/gear.ico" width="25">&nbsp;&nbsp; ตั้งค่าสรุปอาการเสีย </a>
                 </label>
               </div>
               <div class="form-group">
                 <label class="control-sidebar-subheading">
+                    <a href="#" onclick="loadPage('#index_content','content/add_NOPD.html');">
+                        <img src="images/icon_set2/gear.ico" width="25">&nbsp;&nbsp; ตั้งค่าความต้องการ<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (ไม่ใช่ครุภัณฑ์/ขอข้อมูล) </a>
+                </label>
+              </div>
+              <div class="form-group">
+                <label class="control-sidebar-subheading">
                     <!--<a href="index.php?page=content/add_hos">
                         <img src="images/icon_set2/dolly.ico" width="25">&nbsp;&nbsp; ครุภัณฑ์ </a>-->
-                    <a href='#'><img src='images/icon_set2/dolly.ico' width='25'> ครุภัณฑ์ </a><br>
-                    <a href='#' onclick="loadPage('#index_content','content/add_prods.html');">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src='images/icon_set2/dolly.ico' width='20'> <span>เพิ่มครุภัณฑ์</span></a><br>
-                            <a href='#' onclick="loadPage('#index_content','content/list_prods.html');">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src='images/icon_set2/dolly.ico' width='20'> <span>รายการครุภัณฑ์</span></a>
+                    <a href='#'><img src='images/icon_set2/dolly.ico' width='25'> ครุภัณฑ์ </a><p>
+                    <a href='#' onclick="loadPage('#index_content','content/add_prods.html');">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src='images/icon_set2/dolly.ico' width='20'> <span>เพิ่มครุภัณฑ์</span></a></p>
+                    <a href='#' onclick="loadPage('#index_content','content/list_prods.html');">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src='images/icon_set2/dolly.ico' width='20'> <span>รายการครุภัณฑ์</span></a>
                 </label>
               </div>
               <div class="form-group">

@@ -82,7 +82,7 @@ WHERE re.repair_status=0";
 } if (empty($_SESSION['m_id'])) { ?>
     <li class="dropdown messages-menu">
 
-        <a href="#" onClick="return popup('login_page.html', popup, 430, 380);" title="เข้าสู่ระบบบริหารความเสี่ยง">
+        <a href="#" onClick="return popup('login_page.html', popup, 430, 380);" title="เข้าสู่ระบบแจ้งซ่อม">
             <img src="images/key-y.ico" width="18"> เข้าสู่ระบบ
         </a>
 

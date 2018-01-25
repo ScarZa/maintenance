@@ -9,7 +9,13 @@ $read = "../connection/conn_DB.txt";
 $conn_DB->para_read($read);
 $conn_db = $conn_DB->Read_Text();
 $conn_DB->conn_PDO();
-$sql = "SELECT * FROM m_acc_part";
+$data = isset($_GET['data'])?$_GET['data']:'';
+if(empty($data)){
+    $code='';
+} else {
+    $code="WHERE accp_id=".$data;
+}
+$sql = "SELECT * FROM m_acc_part ".$code;
 
     $conn_DB->imp_sql($sql);
     $dep = $conn_DB->select();
