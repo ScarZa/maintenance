@@ -142,6 +142,12 @@ $db=$conn_DB->conn_PDO();
               </div>
               <div class="form-group">
                 <label class="control-sidebar-subheading">
+                    <a href="#" onclick="loadPage('#index_content','content/add_store.html');">
+                        <img src="images/icon_set2/gear.ico" width="25">&nbsp;&nbsp; ตั้งค่าร้านค้า </a>
+                </label>
+              </div>
+              <div class="form-group">
+                <label class="control-sidebar-subheading">
                     <a href="#" onclick="loadPage('#index_content','content/add_NOPD.html');">
                         <img src="images/icon_set2/gear.ico" width="25">&nbsp;&nbsp; ตั้งค่าความต้องการ<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (ไม่ใช่ครุภัณฑ์/ขอข้อมูล) </a>
                 </label>
