@@ -121,7 +121,7 @@
                                             $(".sidebar-menu").append($("<li class=''><a href='#' id='manual_maintenance'>\n\
                                 <img src='images/icon_set2/booklet.ico' width='20'> <span>คู่มือโปรแกรม</span></a></li>"));
                                                                         
-                                                    $("#manual_maintenance").attr("onclick","window.open('form-format/manual_maintenance.pdf','','width=750,height=1000'); return false");
+                                                    $("#manual_maintenance").attr("onclick","window.open('manual/manual_maintenance.pdf','','width=750,height=1000'); return false");
                                                     $("#gear_side").append("<li class='dropdown messages-menu'><a id='login' href='#' title='เข้าสู่ระบบบริหารความเสี่ยง'><img src='images/key-y.ico' width='18'> เข้าสู่ระบบ</a></li>");
                                                             $("#login").attr("onclick","return popup('login_page.html', popup, 300, 500);");
                                             $("#gear_side1").remove();//ไม่ให้แสดง gear         
