@@ -18,7 +18,7 @@ function AddUser (content,id=null) {
                                     "<div class='col-md-12'><div class='box box-primary box-solid'><div class='box-header with-border'>"+
                                     "<h4 class='box-title'> ผู้ใช้งานระบบ </h4></div><div class='box-body'><div id='DSP_content'></div></div></div></div></div>"+
                                     "</div></div></div></div>");
-                            $("h2").prepend("<img src='images/icon_set2/dolly.ico' width='40'> ");
+                            $("h2").prepend("<img src='images/icon_set2/gear.ico' width='40'> ");
                             
                                     var column1 = ["id.","ชื่อ-นามสกุล","งาน","ระดับการใช้งาน","ชื่อผู้ใช้","แก้ไข","ลบ"];
               var CTb = new createTableAjax();

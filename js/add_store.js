@@ -19,7 +19,7 @@ function AddStore (content,id=null) {
                                     "<div class='col-md-12'><div class='box box-primary box-solid'><div class='box-header with-border'>"+
                                     "<h4 class='box-title'> สรุปรายการร้านซ่อม </h4></div><div class='box-body'><div id='SYMP_content'></div></div></div></div></div>"+
                                     "</div></div></div></div>");
-                            $("h2").prepend("<img src='images/icon_set2/dolly.ico' width='40'> ");
+                            $("h2").prepend("<img src='images/icon_set2/gear.ico' width='40'> ");
                             
                                     var column1 = ["id.","ชื่อร้าน","หมายเลขโทรศัพท์","หมายเลขโทรศัพท์มือถือ","หมายเลขโทรสาร","รายละเอียด","แก้ไข","ลบ"];
               var CTb = new createTableAjax();

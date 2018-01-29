@@ -13,13 +13,13 @@ $dbconfig["hostname"]= trim($conn_db[0]) ;
 $db=$conn_DB->conn_PDO();
 ?>
 <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-          <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+<!--          <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>-->
           <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
           <!-- Home tab content -->
-          <div class="tab-pane" id="control-sidebar-home-tab">
+<!--          <div class="tab-pane" id="control-sidebar-home-tab">
             <h3 class="control-sidebar-heading">Recent Activity</h3>
             <ul class="control-sidebar-menu">
               <li>
@@ -58,7 +58,7 @@ $db=$conn_DB->conn_PDO();
                   </div>
                 </a>
               </li>
-            </ul><!-- /.control-sidebar-menu -->
+            </ul> /.control-sidebar-menu 
 
             <h3 class="control-sidebar-heading">Tasks Progress</h3>
             <ul class="control-sidebar-menu">
@@ -106,9 +106,9 @@ $db=$conn_DB->conn_PDO();
                   </div>
                 </a>
               </li>
-            </ul><!-- /.control-sidebar-menu -->
+            </ul> /.control-sidebar-menu 
 
-          </div><!-- /.tab-pane -->
+          </div> /.tab-pane -->
           <!-- Stats tab content -->
           <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div><!-- /.tab-pane -->
           <!-- Settings tab content -->
@@ -118,7 +118,7 @@ $db=$conn_DB->conn_PDO();
               <?php $check = md5(trim('check'));?>
               <div class="form-group">
                 <label class="control-sidebar-subheading">
-                    <a href="#" onClick="return popup('content/set_conn_db.php?method=<?= $check ?>&host=main', popup, 400, 600);" title="Config Database">
+                    <a href="#" onClick="return popup('content/set_conn_db.php?method=<?= $check ?>&host=main', popup, 400, 600);">
                         <img src="images/icon_set2/gear.ico" width="25">&nbsp;&nbsp; Connect Database Main </a>
                 </label>
               </div><!-- /.form-group -->

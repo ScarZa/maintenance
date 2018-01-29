@@ -29,7 +29,7 @@ $conn_db=$conn_DB->Read_Text();
           <div class="col-lg-12">
               <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><img src='../images/phonebook.ico' width='25'>
+                    <h3 class="panel-title"><img src='../images/icon_set2/gear.ico' width='25'>
                         <?php if ($host=='main'){?> ตั้งค่าเพื่อ Connect Main Database <?php }?></h3>
                     </div>
                   <div class="panel-body">
