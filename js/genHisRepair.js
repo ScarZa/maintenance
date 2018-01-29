@@ -14,7 +14,7 @@ $("#createModal").empty().append("<div class='modal' id='HisModal' role='dialog'
                             +"เลขครุภัณฑ์/สาเหตุ : "+data.pd_number+"  &nbsp;&nbsp;หมายเหตุ : "+data.note+"<br>"
                             +"อาการ : "+data.symptom+"<br>วันที่แจ้ง : "+data.repair_date+" &nbsp;&nbsp;<b style='color: red;'>"+data.vital+"</b><br><hr>"
                             +"วันที่รับใบแจ้ง : "+data.receive_date+"&nbsp;&nbsp;ผู้รับใบแจ้งซ่อม : "+data.receiver+"<br><hr>"
-                            +"วันที่เริ่ม : "+data.strepair_date+"&nbsp;&nbsp;วันที่เสร็จ : "+data.enrepair_dare+"&nbsp;&nbsp;ผู้ซ่อม : "+data.repairer+"<br>"
+                            +"วันที่เริ่ม : "+data.strepair_date+"&nbsp;&nbsp;วันที่เสร็จ : "+data.enrepair_dare+"&nbsp;&nbsp;รวมเวลาซ่อม : "+data.total_day+"&nbsp;วัน "+data.total_time+"&nbsp;ชม.<br>ผู้ซ่อม : "+data.repairer+"<br>"
                             +"สรุปสาเหตุการเสีย : "+data.symp_name+"&nbsp;&nbsp;เกิดจาก &nbsp;&nbsp;"+data.symmptom_name+"<br>"
                             +"รายละเอียดการซ่อม : "+data.repair_detail+"<br><span id='acc'></span><span id='send'></span>"
                             +"ผู้รับครื่อง : "+data.rece_pd+"<br>"

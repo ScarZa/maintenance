@@ -43,7 +43,7 @@
                                                                                                 ,$("<li class=''><a id='listResult' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/tools.ico' width='20'> <span>รายการซ่อม</span> </a></li>")
                                                                                                 ,$("<li class=''><a id='listSendResult' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/rocket.ico' width='20'> <span>ส่งซ่อมภายนอก</span> </a></li>")
                                                                                                 ,$("<li class=''><a id='listResultTotal' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/bookshelf.ico' width='20'> <span>สรุปผลการซ่อมคอมพิวเตอร์</span></a></li>")
-                                                                                                ,$("<li id='ad_report'><a href='#'>&nbsp;&nbsp;<img src='images/icon_set2/piechart.ico' width='20'> รายงานผู้ดูแลระบบ <i class='fa fa-angle-left pull-right'></i></a></li>")
+                                                                                                //,$("<li id='ad_report'><a href='#'>&nbsp;&nbsp;<img src='images/icon_set2/piechart.ico' width='20'> รายงานผู้ดูแลระบบ <i class='fa fa-angle-left pull-right'></i></a></li>")
                                                                                                 ,$("<li id='ad_Prods'><a href='#'>&nbsp;&nbsp;<img src='images/icon_set2/dolly.ico' width='20'> ครุภัณฑ์ <i class='fa fa-angle-left pull-right'></i></a></li>")
                                                                                                 );
                                                                                     $.getJSON('JsonData/DT_TRP.php',function (data) {
@@ -78,7 +78,8 @@
                                                                 $("#ad_treeview-menu2").append($("<li class=''><a id='addRepairUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/computer.ico' width='20'> <span>แจ้งซ่อมคอมพิวเตอร์</span></a></li>")
                                                                                             ,$("<li class=''><a id='addRepairNoUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/computer.ico' width='20'> <span>แจ้งซ่อมคอมฯ(ไม่ใช่ครุภัณฑ์)</span></a></li>")
                                                                                             ,$("<li class=''><a id='reqReportUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/clipboard.ico' width='20'> <span>ขอข้อมูล/รายงาน/Dev.</span></a></li>")
-                                                                                            ,$("<li id='us_report'><a href='#'>&nbsp;&nbsp;<img src='images/icon_set2/piechart.ico' width='20'> รายงานผู้ใช้ทั่วไป <i class='fa fa-angle-left pull-right'></i></a></li>"));
+                                                                                            //,$("<li id='us_report'><a href='#'>&nbsp;&nbsp;<img src='images/icon_set2/piechart.ico' width='20'> รายงานผู้ใช้ทั่วไป <i class='fa fa-angle-left pull-right'></i></a></li>")
+                                                                                            );
                                                                                     $("#addRepairUser").attr("onclick","loadPage('#index_content','content/add_repair.html');");
                                                                                     $("#addRepairNoUser").attr("onclick","loadAjax('#index_content','JsonData/tempSendData.php','NoPd','AddRepair');");
                                                                                     $("#reqReportUser").attr("onclick","loadAjax('#index_content','JsonData/tempSendData.php','ReqRp','AddRepair');");

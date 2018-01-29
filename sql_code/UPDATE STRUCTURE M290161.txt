@@ -1,0 +1,2 @@
+ALTER TABLE `ss_member` 
+MODIFY COLUMN `ss_Status` enum('ADMIN','SUSER','NUSER','MUSER') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL AFTER `ss_Name`;

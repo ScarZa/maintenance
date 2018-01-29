@@ -26,6 +26,8 @@ ELSE NULL END as vital
 ,re.receive_date
 ,(SELECT CONCAT(e.firstname,' ',e.lastname) FROM emppersonal e WHERE e.empno=re.receiver) receiver
 ,re.strepair_date,re.enrepair_dare
+,DATEDIFF(re.enrepair_dare,re.strepair_date) total_day
+,TIMEDIFF(re.enrepair_time,re.strepair_time) total_time
 ,(SELECT CONCAT(e.firstname,' ',e.lastname) FROM emppersonal e WHERE e.empno=re.repairer) repairer
 ,(SELECT CONCAT(e.firstname,' ',e.lastname) FROM emppersonal e WHERE e.empno=re.rece_pd) rece_pd
 ,(SELECT CONCAT(e.firstname,' ',e.lastname) FROM emppersonal e WHERE e.empno=re.result_recorder) result_recorder
@@ -59,7 +61,8 @@ $data['receiver'] = $result['receiver'];
 $data['repairer'] = $result['repairer'];
 $data['rece_pd'] = $result['rece_pd'];
 $data['result_recorder'] = $result['result_recorder'];
-
+$data['total_day'] = $result['total_day'];
+$data['total_time'] = substr($result['total_time'], 0,5);
 $data['receive_date'] = isset($result['receive_date'])?DateThai1($result['receive_date']):'';
 $data['result_recdate'] = isset($result['result_recdate'])?DateThai1($result['result_recdate']):'';
 $data['strepair_date'] = isset($result['strepair_date'])?DateThai1($result['strepair_date']):'';
