@@ -50,3 +50,4 @@ if ($method == 'add_acc') {
         echo "แก้ไขอุปกรณ์เรียบร้อยครับ!!!!";
     }
 }
+$connDB->close_PDO();

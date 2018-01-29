@@ -154,6 +154,12 @@ $db=$conn_DB->conn_PDO();
               </div>
               <div class="form-group">
                 <label class="control-sidebar-subheading">
+                    <a href="#" onclick="loadAjax('#index_content','JsonData/tempSendData.php','4','AddNotify');">
+                        <img src="images/icon_set2/gear.ico" width="25">&nbsp;&nbsp; ตั้งค่า NOTIFY </a>
+                </label>
+              </div>
+              <div class="form-group">
+                <label class="control-sidebar-subheading">
                     <!--<a href="index.php?page=content/add_hos">
                         <img src="images/icon_set2/dolly.ico" width="25">&nbsp;&nbsp; ครุภัณฑ์ </a>-->
                     <a href='#'><img src='images/icon_set2/dolly.ico' width='25'> ครุภัณฑ์ </a><p>

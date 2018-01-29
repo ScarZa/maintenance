@@ -60,3 +60,4 @@ if ($method == 'add_store') {
         echo "แก้ไขร้านเรียบร้อยครับ!!!!";
     }
 }
+$connDB->close_PDO();

@@ -79,3 +79,4 @@ if ($method == 'add_sympG') {
         echo "แก้ไขรายการอาการเสียเรียบร้อยครับ!!!!";
     }
 }
+$connDB->close_PDO();

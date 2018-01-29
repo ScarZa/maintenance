@@ -52,3 +52,4 @@ if ($method == 'add_nopd') {
         echo "แก้ไขรายการความต้องการเรียบร้อยครับ!!!!";
     }
 }
+$connDB->close_PDO();

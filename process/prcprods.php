@@ -108,3 +108,4 @@ if ($method == 'add_prods') {
         echo "Update complete!!!!";
     }
 }
+$connDB->close_PDO();

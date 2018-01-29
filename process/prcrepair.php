@@ -79,7 +79,7 @@ function notify_message($message,$token){
  $res = json_decode($result);
  return $res;
 } 
-$token = 'token key';
+$token = $_SESSION['m_tokenkey'];
 $text = "แจ้งซ่อม : ".$LineText['repair_date']." ".$LineText['pd_number']." ".$LineText['symptom']." ".$LineText['depName']." ".$LineText['inform']." ".$LineText['vital'];
  
 $res = notify_message($text,$token);
@@ -238,3 +238,4 @@ $res = notify_message($text,$token);
         echo "Update complete!!!!";
     }
 }
+$connDB->close_PDO();

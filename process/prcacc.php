@@ -77,3 +77,4 @@ if ($method == 'add_acc') {
         echo "Update complete!!!!";
     }
 }
+$connDB->close_PDO();

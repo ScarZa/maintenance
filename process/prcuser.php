@@ -73,3 +73,4 @@ if ($method == 'add_user') {
         echo "Update complete!!!!";
     }
 }
+$connDB->close_PDO();
