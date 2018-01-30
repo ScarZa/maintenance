@@ -30,6 +30,8 @@ if($db != FALSE){
                                 }
 
 $data['logo'] = $fol.'/'.$pic;
+$data['hos_name'] = $resultComm['name'];
+$data['hos_name2'] = $resultComm['name2'];
 $data['m_id'] = isset($_SESSION['m_id'])?(int) $_SESSION['m_id']:'';
 $data['m_fullname'] = isset($_SESSION['m_fullname'])?$_SESSION['m_fullname']:'';
 $data['m_dep'] = isset($_SESSION['m_dep'])?(int) $_SESSION['m_dep']:'';

@@ -16,7 +16,7 @@
                                     $("#gear_side").empty().load("content/inbox.php");//โหลด inbox.php เข้ามา
                         $(".sidebar").append($("<ul class='sidebar-menu'></ul>"));
                                 $(".image").append("<img src='"+data.logo+"' class='img-circle' alt='User Image'>");
-                                $(".info").append($("<p>โรงพยาบาลจิตเวชเลยฯ</p>"),$("<a href='#'><i class='fa fa-circle text-success'></i> ระบบแจ้งซ่อม</a>"));
+                                $(".info").append($("<p>"+data.hos_name2+"</p>"),$("<a href='#'><i class='fa fa-circle text-success'></i> ระบบแจ้งซ่อม</a>"));
                                 $(".sidebar-menu").append($("<li class='header'>เมนูหลัก</li>")
                                                         ,$("<li id='home'><a href='#'><img src='images/gohome.ico' width='20'> <span>หน้าหลัก</span></a></li>"));
                                                         
