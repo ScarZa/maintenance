@@ -9,7 +9,7 @@ $read = "../connection/conn_DB.txt";
 $conn_DB->para_read($read);
 $conn_db = $conn_DB->Read_Text();
 $conn_DB->conn_PDO();
-$sql = "SELECT empno,concat(firstname,' ',lastname) as fullname FROM emppersonal WHERE emp_status=1";
+$sql = "SELECT empno,concat(firstname,' ',lastname) as fullname FROM emppersonal WHERE status=1";
 
     $conn_DB->imp_sql($sql);
     $dep = $conn_DB->select();
