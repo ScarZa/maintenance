@@ -26,9 +26,10 @@ if ($method == 'add_sendRepair') {
     $repair_id = $_POST['repair_id'];
     $comp_id = $_POST['comp_id'];
     $send_date = insert_date($_POST['datepicker3']);
+    $acc_part = $_POST['acc_part'];
     $repair_detail = $_POST['repair_detail'];
     
-    $data = array($repair_id, $comp_id, $send_date, $repair_detail);
+    $data = array($repair_id, $comp_id, $send_date, $repair_detail,$acc_part);
     $table = "m_sendrep";
     $add_sendrep = $connDB->insert($table, $data);
     $connDB->close_PDO();

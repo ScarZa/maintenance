@@ -1,0 +1,2 @@
+ALTER TABLE `m_sendrep` 
+ADD COLUMN `acc_part` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci AFTER `repair_detail`;

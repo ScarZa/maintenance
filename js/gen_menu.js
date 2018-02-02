@@ -29,7 +29,7 @@
                                             $("#home > a").attr("onclick","loadPage('#index_content','content/info_index.html');");
                                             $("#index_content").empty().load("content/info_index.html");    
                                         }
-                    $(".main-footer").append("<div id='version' class='pull-right hidden-xs'></div>").append("<strong>Copyright &copy; 2017 <a href='http://rploei.go.th'>โรงพยาบาลจิตเวชเลยราชนครินทร์</a>.</strong> All rights reserved.");       
+                    $(".main-footer").append("<div id='version' class='pull-right hidden-xs'></div>").append("<strong>Copyright &copy; 2018 <a href='http://rploei.go.th'>โรงพยาบาลจิตเวชเลยราชนครินทร์</a>.</strong> All rights reserved.");       
                                 $("#version").append("<b>Version</b> 1.0");
                     $(".control-sidebar").empty().load("menu_footer.php");                                                               
                                               if(data.m_status == 'ADMIN' || data.m_status == 'MUSER'){
@@ -123,7 +123,7 @@
                                 <img src='images/icon_set2/booklet.ico' width='20'> <span>คู่มือโปรแกรม</span></a></li>"));
                                                                         
                                                     $("#manual_maintenance").attr("onclick","window.open('manual/manual_maintenance.pdf','','width=750,height=1000'); return false");
-                                                    $("#gear_side").append("<li class='dropdown messages-menu'><a id='login' href='#' title='เข้าสู่ระบบบริหารความเสี่ยง'><img src='images/key-y.ico' width='18'> เข้าสู่ระบบ</a></li>");
+                                                    $("#gear_side").append("<li class='dropdown messages-menu'><a id='login' href='#' title='เข้าสู่ระบบแจ้งซ่อม'><img src='images/key-y.ico' width='18'> เข้าสู่ระบบ</a></li>");
                                                             $("#login").attr("onclick","return popup('login_page.html', popup, 300, 500);");
                                             $("#gear_side1").remove();//ไม่ให้แสดง gear         
                                         }

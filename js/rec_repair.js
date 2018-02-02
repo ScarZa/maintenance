@@ -134,6 +134,7 @@ $.getJSON('JsonData/repair_Data.php',{data: id.data},function (data) {
     /////////////////// Add Item Repair Modal ////////////////////
     $('div.modal-body#modelsendre-body').append("<form name='frmsendre' id='frmsendre'></form>");
             $('#frmsendre').empty().append($("<div class='form-group'><label for='datepicker3' class='control-label'>วันที่ส่งซ่อม</label><input type='text' name='datepicker3' id='datepicker3' class='form-control' readonly required></div>")
+                                        ,$("<div class='form-group'><label for='acc_part' class='control-label'>อุปกรณ์ที่ส่งซ่อม</label><input type='text' name='acc_part' id='acc_part' class='form-control' required></div>")
                                         ,$("<div class='form-group' id='comp_sel'></div>")
                                         ,$("<div class='form-group'><label for='repair_detail' class='control-label'>รายละเอียดอาการเสียที่ส่ง</label><textarea class='form-control' style='width: 100%' COLS='100%' rows='2' placeholder='อธิบายรายละเอียดของอาการเสีย' name='repair_detail' id='repair_detail' required></textarea></div>")
                                         ,$("<input type='hidden' class='form-control' id='repair_id' name='repair_id'>")
@@ -227,13 +228,13 @@ $.getJSON('JsonData/repair_Data.php',{data: id.data},function (data) {
 
                                 $("div#add_repair").append("<button type='submit' class='btn btn-primary' id='submresult'>บันทึกใบแจ้งซ่อม</button>");
                                 $("button#submresult").click(function(e) {
-                                        if($("#cause").val()==''){
+                                        if($("#cause").val()=='' && $('#cause_sel').is(":visible")){
                                             alert("กรุณาสรุปอาการเสียด้วยครับ!!!");
                                             $("#cause").focus();
-                                        }else if($("#repair_detail").val()==''){
+                                        }else if($("#repair_detail").val()=='' && $('#re_detail').is(":visible")){
                                             alert("กรุณาอธิบายรายละเอียดการซ่อมด้วยครับ!!!");
                                             $("#repair_detail").focus();
-                                        }else if($("#rece_pd").val()==''){
+                                        }else if($("#rece_pd").val()=='' && $('#rece_pd_sel').is(":visible")){
                                             alert("กรุณาเลือกผู้รับด้วยครับ!!!");
                                             $("#rece_pd").focus();
                                         }else{
