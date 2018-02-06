@@ -15,7 +15,8 @@ class TablePDO extends EnDeCode {
         $field = $this->listfield('');
         $code_color = array("0" => "default", "1" => "success", "2" => "warning", "3" => "danger", "4" => "info");
         echo "<div class='table-responsive'>";
-        echo "<table id='example1' class='table table-bordered table-hover'>";
+        //echo "<table id='example1' class='table table-bordered table-hover'>";
+        echo "<table border='1' cellspacing='' cellpadding='' frame='below' class='divider'>";
         echo "<thead><tr align='center' bgcolor='#898888'>";
         echo "<th align='center' width='5%'>ลำดับ</th>";
         foreach ($this->column as $key => $value) {
@@ -46,12 +47,13 @@ class TablePDO extends EnDeCode {
             echo "</tr>";
         }
         echo "</tbody>";
-        echo "<tfoot><tr align='center' bgcolor='#898888'>";
-        echo "<th align='center' width='5%'>ลำดับ</th>";
-        foreach ($this->column as $key => $value) {
-            echo "<th align='center'>$value</th>";
-        }
-        echo "</tr></tfoot></table></div>";
+//        echo "<tfoot><tr align='center' bgcolor='#898888'>";
+//        echo "<th align='center' width='5%'>ลำดับ</th>";
+//        foreach ($this->column as $key => $value) {
+//            echo "<th align='center'>$value</th>";
+//        }
+//        echo "</tr></tfoot>";
+        echo "</table></div>";
     }
 //1.1 ตารางแบบธรรมดาไม่แบ่งหน้า
     public function createPDO_TBNoDivide() {
@@ -97,7 +99,8 @@ class TablePDO extends EnDeCode {
         foreach ($this->column as $key => $value) {
             echo "<th align='center'>$value</th>";
         }
-        echo "</tr></tfoot></table></div>";
+        echo "</tr></tfoot>";
+        echo "</table></div>";
     }
 
 //2. ตารางแบบจัดการกับข้อมูลได้

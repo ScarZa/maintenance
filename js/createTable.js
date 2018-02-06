@@ -1,10 +1,10 @@
 var createTable = function (column,level_col='1', tid=null,responsive=true) {
-    this.column = column;
+    //this.column = column;
     this.level_col = level_col;
     this.tid = tid;
     this.responsive = responsive;
 
-    this.columnOBJ = JSON.parse(this.column);
+    //this.columnOBJ = JSON.parse(this.column);
     //this.dataOBJ = JSON.parse(this.data);
     if(this.responsive == true){
         var resp = 'table-responsive';
@@ -18,8 +18,8 @@ var createTable = function (column,level_col='1', tid=null,responsive=true) {
                 
         if(this.level_col=='2'){
             head += "<tr style='text-align: center'><th  style='text-align: center;vertical-align: middle;' width='5%' rowspan='2'>ลำดับ</th>";
-        for (var key in this.columnOBJ) {
-            colspan = this.columnOBJ[key].length;
+        for (var key in column) {
+            colspan = column[key].length;
 
             if (colspan == 0) {
                 head += "<th style='text-align: center;vertical-align: middle;' rowspan='2'>" + key + "</th>";
@@ -28,8 +28,8 @@ var createTable = function (column,level_col='1', tid=null,responsive=true) {
             }
         }
         head += "</tr><tr>";
-        for (var key in this.columnOBJ) {
-            var value = this.columnOBJ[key];
+        for (var key in this.column) {
+            var value = this.column[key];
             for (var keys in value) {
 
                 head += "<th style='text-align: center'>" + value[keys] + "</th>";
@@ -37,8 +37,8 @@ var createTable = function (column,level_col='1', tid=null,responsive=true) {
         }
     }else if(this.level_col=='1'){
         head += "<tr style='text-align: center'><th  style='text-align: center;vertical-align: middle;' width='5%'>ลำดับ</th>";
-        for (var key in this.columnOBJ) {
-            var value = this.columnOBJ[key];
+        for (var key in column) {
+            var value = column[key];
             //for (var keys in value) {
 
                 head += "<th style='text-align: center'>" + value + "</th>";
@@ -74,13 +74,13 @@ var createTable = function (column,level_col='1', tid=null,responsive=true) {
     }
 
     this.GetTableAjax = function (locate, content,detail=false ) {
-        this.locate = locate;
-
+        //this.locate = locate;
         var table = this.GetHead();
         table += "<tbody>";
         var order = 1;
-        var count_col=this.columnOBJ.length;
-        $.getJSON(this.locate, function (dataTB) {
+        var count_col=column.length;
+        var jsonsub=locate.split("?");
+        $.getJSON(jsonsub[0],{data: jsonsub[1]}, function (dataTB) {
             if (dataTB != null && dataTB.length > 0) {
                 for (var i = 0; i < dataTB.length; i++) {
                     table += "<tr class='tr_c'>";

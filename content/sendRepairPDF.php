@@ -6,11 +6,11 @@ function __autoload($class_name) {
 }
 
 set_time_limit(0);
-$connDB = new EnDeCode();
+$connDB = new TablePDO();
 $read = "../connection/conn_DB.txt";
 $connDB->para_read($read);
 $connDB->Read_Text();
-$connDB->conn_PDO();print_r($connDB)?>
+$connDB->conn_PDO();?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,17 +20,19 @@ $connDB->conn_PDO();print_r($connDB)?>
 <meta name="author" content="">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
 <title>ระบบแจ้งซ่อม</title>
-<LINK REL="SHORTCUT ICON" HREF="images/logo.png">
+<LINK REL="SHORTCUT ICON" HREF="../images/logo.png">
 <!-- Bootstrap core CSS -->
-<link href="option/css/bootstrap.css" rel="stylesheet">
+<link href="../template/plugins/css/bootstrap.css" rel="stylesheet">
 <!--<link href="option/css2/templatemo_style.css" rel="stylesheet">-->
 <!-- Add custom CSS here -->
-<link href="option/css/sb-admin.css" rel="stylesheet">
-<link rel="stylesheet" href="option/font-awesome/css/font-awesome.min.css">
+<link href="../template/plugins/css/sb-admin.css" rel="stylesheet">
+<link rel="stylesheet" href="../template/plugins/font-awesome/css/font-awesome.min.css">
 <!-- Page Specific CSS -->
-<link rel="stylesheet" href="option/css/morris-0.4.3.min.css">
-<link rel="stylesheet" href="option/css/stylelist.css">
-<script src="option/js/excellentexport.js"></script>
+<link rel="stylesheet" href="../template/plugins/css/morris-0.4.3.min.css">
+<link rel="stylesheet" href="../template/plugins/css/stylelist.css">
+<!--<script src="../template/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+<script src="../template/plugins/DataTables/jquery.dataTables.min.js"></script>
+<script src="../template/plugins/DataTables/dataTables.bootstrap.min.js"></script>-->
 <style type="text/css">
 body {
 	margin-top: 50px;
@@ -40,8 +42,6 @@ body {
 <?php
 include_once ('../template/plugins/funcDateThai.php');
 include '../template/plugins/function_date.php';
-$method=$_GET['method'];
-    $empno=$_GET['empno'];
     $id=$_GET['id'];
     $sql_hos=  "SELECT CONCAT(p.pname,e.firstname,' ',e.lastname) as fullname,h.name as name 
 FROM hospital h
@@ -49,13 +49,31 @@ INNER JOIN emppersonal e on e.empno=h.manager
 INNER JOIN pcode p on p.pcode=e.pcode";
     $connDB->imp_sql($sql_hos);
     $hospital=$connDB->select_a();
+    
+    $sql_send=  "SELECT CONCAT(e.firstname,' ',e.lastname)fullname,sc.comp_name,p.posname
+FROM m_sendrep ms
+INNER JOIN m_repair_pd re on re.repair_id=ms.repair_id
+INNER JOIN se_company sc on sc.comp_id=ms.comp_id
+INNER JOIN emppersonal e on e.empno=re.repairer
+INNER JOIN work_history wh ON wh.empno=e.empno
+INNER JOIN posid p on p.posId=wh.posid
+WHERE (wh.dateEnd_w='0000-00-00' or ISNULL(wh.dateEnd_w)) and re.repair_id=$id";
+    $connDB->imp_sql($sql_send);
+    $sendre=$connDB->select_a();
+    
  ?>
+<!--<script src="../js/createTable.js" type="text/javascript"></script>
+<script language="Javascript" type="text/javascript">
+    var column = ["รายการ","อาการเสีย","หมายเลขครุภัณฑ์","จำนวน","สถานที่ติดตั้งครุภัณฑ์"];
+    var CTB = new createTable(column);
+        CTB.GetTableAjax("../JsonData/send_Data.php?<?=$id?>","contentTB");
+</script>-->
 <body>
     <?php
 require_once('../template/plugins/library/mpdf60/mpdf.php'); //ที่อยู่ของไฟล์ mpdf.php ในเครื่องเรานะครับ
 ob_start(); // ทำการเก็บค่า html นะครับ*/
 ?>
-<div class="col-lg-12"><h3 valign="bottom" align="center">ใบส่งซ่อม/จัดทำพัสดุ</h3></div><br>
+<div class="col-lg-12"><h3 valign="bottom" align="center">ใบส่งซ่อม</h3></div>
 <div class="col-lg-12">
     <b>ฝ่ายพัสดุ</b> &nbsp;&nbsp;&nbsp;<?=$hospital['name']?><br>
     <b>ใบส่งซ่อมเลขที่</b> .............../...............
@@ -64,8 +82,23 @@ ob_start(); // ทำการเก็บค่า html นะครับ*/
 </div><hr>
 <div class="col-lg-12" align="let">
     <b>เรียน</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ผู้อำนวยการ<?=$hospital['name']?><br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ด้วยฝ่ายมีความประสงค์ขอซ่อม / จัดทำ( ) พัสดุ อาคารสิ่งก่อสร้างดังนี้<br>
-    <div class="col-lg-12" id="contentTB">ใช้สร้างตาราง</div>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ด้วยฝ่ายมีความประสงค์ขอซ่อม มีรายการดังนี้<br>
+<!--    <div class="col-lg-12" id="contentTB">ใช้สร้างตาราง</div>-->
+    <div class="col-lg-12"><?php
+        $sql="SELECT se.acc_part, se.repair_detail,pd.pd_number,COUNT(se.send_id)amount,d.depName
+FROM m_repair_pd re
+INNER JOIN m_sendrep se on se.repair_id=re.repair_id
+INNER JOIN pd_product pd on pd.pd_id=re.pd_id
+INNER JOIN pd_place pp on pp.pd_id=pd.pd_id
+INNER JOIN department d on d.depId=pp.depId
+WHERE re.repair_id=$id";
+                    $connDB->imp_sql($sql);
+        $connDB->select();
+$column=array("รายการ","อาการเสีย","หมายเลขครุภัณฑ์","จำนวน","สถานที่ติดตั้งครุภัณฑ์");
+$connDB->imp_columm($column);  
+$connDB->createPDO_TB();
+?>
+</div>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             จึงเรียนมาเพื่อโปรดพิจารณา อนุมัติและดำเนินการต่อไปด้วย
 </div><br>
@@ -73,58 +106,56 @@ ob_start(); // ทำการเก็บค่า html นะครับ*/
                                  <div class="col-lg-12">
                                      <table border="0" width="100%">
                                          <tr>
-                                             <td width='30%'>&nbsp;</td>
-                                             <td width='70%' align="center">
-                                     ........................................<br><br>
-                                     ( <?=$exponent['fullname']?> )<br><br><br>
-                                     ........................................<br><br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                (.................................................) พยาน<br><br><br>
-                                             </td>
+                                             <td width='50%' align="center">
+                                                 ลงชื่อ........................................ผู้อนุมัติ<br><br>
+                                     ( ........................................ )<br><br>
+                                     ตำแหน่ง........................................<br><br></td>
+                                             <td width='50%' align="center">
+                                     ลงชื่อ........................................ผู้ส่งซ่อม<br><br>
+                                     ( <?=$sendre['fullname']?> )<br><br>
+                                     ตำแหน่ง <?=$sendre['posname']?> <br><br></td>
                                          </tr>
-                                         <tr>
-                                             <td colspan="2" align="">
-                                        ความเห็นของหัวหน้าฝ่าย / งาน<br>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&nbsp;)
-                                        &nbsp;เหตุผลสมควร จึงไม่ถือว่ามาสายหรือขาดราชการ<br>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&nbsp;)
-                                        &nbsp;เหตุผลไม่สมควร<br>
-                                        </td>
-                                        </tr>
-                                        <tr>
-                                            <td width='30%'>&nbsp;</td>
-                                             <td width='70%' align="center"><br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                ลงชื่อ.............................................หัวหน้าฝ่าย/งาน<br><br>
-                                     (.................................................)<br><br>
-                                         ........../............/............
-                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2" align=""><br>
-                                                    ความเห็นของผู้อำนวยการ<?=$hospital['name']?><p>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&nbsp;)
-                                        &nbsp;เหตุผลสมควร จึงไม่ถือว่ามาสายหรือขาดราชการ<br>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&nbsp;)
-                                        &nbsp;เหตุผลไม่สมควร<br>
-                                        </td>
-                                        </tr>
-                                        <tr>
-                                            <td width='30%'>&nbsp;</td>
-                                             <td width='70%' align="center"><br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                ลงชื่อ.............................................ผู้อำนวยการฯ<br><br>
-                                     (.................................................)<br><br>
-                                         ........../............/............
-                                             </td>
-                                        </tr>
                                      </table>
                                  </div>
+                                 </div><hr>
+    <div class="col-lg-12" style="text-align: center"><b>บันทึกการซ่อม</b></div> 
+    <table width='100%' border='1' cellspacing='' cellpadding='' frame='below' class='divider'> 
+        <tr>
+            <td width='50%' style="text-align: center">ส่วนการรับ</td>
+            <td width='50%' style="text-align: center">รายละเอียดการซ่อม</td>
+        </tr>
+        <tr>
+            <td width='50%' valign="top"><br>&nbsp; ส่ง <?=$sendre['comp_name']?><br><br>&nbsp; วันที่ส่ง...............................<br><br>&nbsp; คาดว่าจะแล้วเสร็จ/ได้รับพัสดุภายใน ............. วัน</td>
+            <td width='50%' valign="top"><br>&nbsp; วันที่แล้วเสร็จ...............................<br><br>&nbsp; รายละเอียดการซ่อม ................................................<br><br>
+            &nbsp; .............................................................................<br><br>&nbsp; ค่าซ่อม ...................................................บาท</td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                                                 <br><br>ลงชื่อ........................................<br><br>
+                                     ( ........................................ )<br><br>
+                                     ตำแหน่ง........................................<br><br></td>
+        </tr>
+    </table><hr>
+    <div class="col-lg-12" style="text-align: center"><b>บันทึกหน่วยซ่อมบำรุง</b></div>
+    <div class="col-lg-12">
+                                     <table border="0" width="100%">
+                                         <tr>
+                                             <td width='50%' align="center">
+                                                 ( &nbsp; ) ซ่อม / จัดทำแล้วสามารถใช้งานได้<br><br>( &nbsp; ) ................................................ <br><br>
+                                                 ลงชื่อ........................................ผู้อนุมัติ<br><br>
+                                     ( ........................................ )<br><br>
+                                     ตำแหน่ง........................................<br><br></td>
+                                             <td width='50%' align="center">
+                                                 ( &nbsp; ) ได้รับมอบรายการซ่อมเรียบร้อยแล้ว<br><br>( &nbsp; ) ................................................... <br><br>
+                                     ลงชื่อ........................................ผู้ส่งซ่อม<br><br>
+                                     ( ........................................ )<br><br>
+                                     ตำแหน่ง........................................<br><br></td>
+                                         </tr>
+                                     </table>
                                  </div>
-<div align="right">F-AD-020</div>
+    
+<div align="right"></div>
 <?php 
-$time_re=  date('Y_m_d');
-$reg_date=$work['reg_date'];
 $html = ob_get_contents();
 ob_clean();
 $pdf = new mPDF('tha2','A4','11','');
@@ -133,8 +164,9 @@ $pdf->autoLangToFont = true;
 $pdf->SetDisplayMode('fullpage');
 
 $pdf->WriteHTML($html, 2);
-$pdf->Output("../MyPDF/explanation$empno.pdf");
-echo "<meta http-equiv='refresh' content='0;url=../MyPDF/explanation$empno.pdf' />";
+$pdf->Output("../MyPDF/SendRepair.pdf");
+echo "<meta http-equiv='refresh' content='0;url=../MyPDF/SendRepair.pdf' />";
 ?>
+<script src="../template/plugins/jquery-ui-1.11.4.custom/jquery-ui-1.11.4.custom.js"></script>
 </body>
 </html>

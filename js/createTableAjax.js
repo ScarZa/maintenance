@@ -1,6 +1,6 @@
 var createTableAjax = function () {
     
-    this.GetNewTableAjax = function (content,jsonsource,tempdata,cols,namefunc=null,deltable=null,delfield=null,resend=null,edit=true,process=true,pnamefunc=null,detail=true,dmodal=null,print=true,printpage=null,red=null,orange=null,yellow=null,green=null,tid1=null,tid2=null,tid3=null) {
+    this.GetNewTableAjax = function (content,jsonsource,tempdata,cols,namefunc=null,deltable=null,delfield=null,resend=null,edit=false,process=false,pnamefunc=null,detail=false,dmodal=null,print=false,printpage=null,red=null,orange=null,yellow=null,green=null,tid1=null,tid2=null,tid3=null) {
                 var table = document.createElement ("table");
             	//table.border = "1px";
                 if(tid1!=null){
