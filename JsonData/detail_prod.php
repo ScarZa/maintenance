@@ -39,6 +39,7 @@ $data['name'] = $result['name'];
 $data['brand'] = $result['brand'];
 $data['serial'] = $result['serial'];
 $data['pd_status'] = $result['pd_status'];
+$data['comp_name'] = $result['comp_name'];
 $data['price'] = $result['price'];
 $data['money'] = $result['money'];
 $data['mon_name'] = $result['mon_name'];
