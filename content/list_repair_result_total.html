@@ -6,7 +6,7 @@
              
 <script language="Javascript" type="text/javascript">
     //var column1 = '{"รายการความเสี่ยงที่รอ RM man มาตรวจสอบ":["เลขที่","รายการ","เกิดขึ้นเมื่อ","ได้รับเมื่อ"]}';
-    var column1 = ["ใบแจ้ง","วันที่แจ้ง","เลขครุภัณฑ์","ความสำคัญ","วันที่รับใบซ่อม","ผู้ซ่อม","รายละเอียด"];
+    var column1 = ["ใบแจ้ง","วันที่แจ้ง","เลขครุภัณฑ์","เครื่อง","ความสำคัญ","วันที่รับใบซ่อม","ผู้ซ่อม","รายละเอียด"];
               var CTb = new createTableAjax();
               CTb.GetNewTableAjax('contentTB','JsonData/DT_LRRPC.php','JsonData/tempSendData.php',column1
               ,null,null,null,null,false,false,null,true,'HisModal',false,null,'เร่งด่วน',null,null,'ไม่เร่งด่วน','dbtb');

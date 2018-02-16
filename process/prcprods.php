@@ -46,9 +46,15 @@ if ($method == 'add_prods') {
     $movingdate = insert_date($_POST['datepicker4']);
     $rp_person = $_POST['rp_person'];
     $note = $_POST['note'];
-    
+    $newname = new upload_resizeimage("file", "../PD_imgs", "PDimage".date("dmYHis"));
+    $img = $newname->upload();
+    if($img != FALSE){
     $data = array($pd_number, $number[0], $lnumber[1], $pd_status,$name, $brand,'', $com_id, $price, $montype_id
-        , $yearbuy, $mon_id, $ct_number, $pdgroup, $pdcate, $date_stinsur, $regis_date, $nbmoth_insur, $serial);
+        , $yearbuy, $mon_id, $ct_number, $pdgroup, $pdcate, $date_stinsur, $regis_date, $nbmoth_insur, $serial, $img);
+    } else {
+    $data = array($pd_number, $number[0], $lnumber[1], $pd_status,$name, $brand,'', $com_id, $price, $montype_id
+        , $yearbuy, $mon_id, $ct_number, $pdgroup, $pdcate, $date_stinsur, $regis_date, $nbmoth_insur, $serial);    
+    }
     $table = "pd_product";
     $add_prods = $connDB->insert($table, $data);
     $data2 = array($add_prods,$dep_id,$lnstalldate,$movingdate,$rp_person,$note);
@@ -86,10 +92,28 @@ if ($method == 'add_prods') {
     $rp_person = $_POST['rp_person'];
     $note = $_POST['note'];
     
+    if (isset($_FILES["file"]["type"])) {
+    $del_photo="select photo_pd from pd_product where pd_id=:pd_id";
+                $connDB->imp_sql($del_photo);
+                $execute=array(':pd_id' => $pd_id);
+                $result=$connDB->select_a($execute);
+                if(!empty($result['photo_pd'])){
+                $location="../PD_imgs/".$result['photo_pd'];
+                include '../function/delet_file.php';
+                fulldelete($location);}
+}
+    $newname = new upload_resizeimage("file", "../PD_imgs", "PDimage".$pd_id);
+    $img = $newname->upload();
+    //print_r($newname);
+    if($img != FALSE){
     $data = array($pd_number, $number[0], $lnumber[1], $pd_status,$name, $brand,'', $com_id, $price, $montype_id
-        , $yearbuy, $mon_id, $ct_number, $pdgroup, $pdcate, $date_stinsur, $regis_date, $nbmoth_insur, $serial);
+        , $yearbuy, $mon_id, $ct_number, $pdgroup, $pdcate, $date_stinsur, $regis_date, $nbmoth_insur, $serial, $img);
     //$field=array("pd_number","head_no","number","status","name","brand","size","com_id","price","montype_id"
         //,"yearbuy","mon_id","ct_number","group_id","category_id","date_stinsur","regis_date","nbmoth_insur","serial");
+    } else {
+    $data = array($pd_number, $number[0], $lnumber[1], $pd_status,$name, $brand,'', $com_id, $price, $montype_id
+        , $yearbuy, $mon_id, $ct_number, $pdgroup, $pdcate, $date_stinsur, $regis_date, $nbmoth_insur, $serial);    
+    }
     $table = "pd_product";
     $where="pd_id=:pd_id";
     $execute=array(':pd_id' => $pd_id);

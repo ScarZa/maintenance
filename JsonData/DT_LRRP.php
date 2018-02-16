@@ -16,7 +16,7 @@ $rslt = array();
 $series = array();
 $sql="SELECT re.repair_id,re.repair_date
 ,if(re.pd_id!=0,pp.pd_number,if(re.no_pdid!=0,npd.no_pdname,if(re.request_data!=0,npd.no_pdname,''))) as pd_number
-,CASE re.vital
+,pp.name,CASE re.vital
 WHEN '0' THEN 'ไม่เร่งด่วน'
 WHEN '1' THEN 'เร่งด่วน'
 ELSE NULL END as vital
@@ -34,6 +34,7 @@ $conn_DB->imp_sql($sql);
     $series['repair_id'] = $num_risk[$i]['repair_id'];
     $series['repair_date'] = isset($num_risk[$i]['repair_date'])?DateThai1($num_risk[$i]['repair_date']):'';
     $series['pd_number']= $num_risk[$i]['pd_number'];
+    $series['name']= $num_risk[$i]['name'];
     $series['vital']= $num_risk[$i]['vital'];
     $series['receive_date'] = isset($num_risk[$i]['receive_date'])?DateThai1($num_risk[$i]['receive_date']):'';
     $series['repairer'] = isset($num_risk[$i]['repairer'])?$num_risk[$i]['repairer']:'';

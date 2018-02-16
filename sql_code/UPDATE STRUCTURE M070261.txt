@@ -1,0 +1,2 @@
+ALTER TABLE `pd_product` 
+ADD COLUMN `photo_pd` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci AFTER `serial`

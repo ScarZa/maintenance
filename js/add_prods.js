@@ -31,7 +31,9 @@ function AddProds (content,id=null) {
                         ,$("<div class='form-group'>ชื่อครุภัณฑ์ : <INPUT TYPE='text' NAME='name' id='name' class='form-control' placeholder='เช่น printer brother MFC-J5910DW'></div>")
                         ,$("<div class='form-group'>ยี่ห้อ : <INPUT TYPE='text' NAME='brand' id='brand' class='form-control'></div>")
                         ,$("<div class='form-group'>หมายเลขเครื่อง : <INPUT TYPE='text' NAME='serial' id='serial' class='form-control'></div>")
-                        ,$("<div class='form-group'>สถานะการใช้งาน : <select name='pd_status' class='form-control select2' id='pd_status' required></select>"));
+                        ,$("<div class='form-group'>สถานะการใช้งาน : <select name='pd_status' class='form-control select2' id='pd_status' required></select>")
+                        ,$("<div id='image_preview'><img id='previewing' src='images/icon_set2/image.ico' width='50' /></div>")
+                        ,$("<div class='form-group'>สถานะการใช้งาน : <input type='file' name='file' id='file' class='form-control' /></div></div><h4 id='loading' >loading..</h4><div id='message'></div>"));
                 $("select#pdgroup").append($("<option value=''> เลือกหมวดครุภัณฑ์ </option>"));
                                 $.getJSON('JsonData/group_Data.php', function (GD) {
                                     for (var key in GD) {
@@ -135,8 +137,11 @@ function AddProds (content,id=null) {
                             DP.GetDatepicker('#datepicker3');
                             DP.GetDatepicker('#datepicker4');
             $("div#add_pd").append("<input type='hidden' id='method' name='method' value='add_prods'>");                
-            $("div#add_pd").append("<div class='col-md-12' align='center'><button type='submit' class='btn btn-primary' id='APsubmit'>บันทึก</button></div>");
-            $("button#APsubmit").click(function (e) {
+            $("div#add_pd").append("<div class='col-md-12' align='center'><input id='APsubmit' type='submit' value='บันทึก' class='btn btn-primary' /></div>");
+            $('#loading').hide();
+            $("#frmaddprods").on('submit', (function (e) {
+                $("#message").empty();
+                $('#loading').show();
                                     if($("#pdgroup").val()==''){
                                             alert("กรุณาเลือกหมวดครุภัณฑ์ด้วยครับ!!!");
                                             $("#pdgroup").focus();
@@ -202,7 +207,10 @@ function AddProds (content,id=null) {
 //                                                ,movingdate:$("#datepicker4").val()
 //                                                ,rp_person:$("#rp_person").val()
 //                                                ,note:$("#note").val()
-                                            data: $("#frmaddprods").serialize(),
+                                            data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+                                            contentType: false, // The content type used when sending data to the server.
+                                            cache: false, // To unable request pages to be cached
+                                            processData: false,
                                                 //,data0:'add_prods'},
 					   success: function(result) {
 						alert(result);
@@ -210,7 +218,34 @@ function AddProds (content,id=null) {
 					   }
 					 });e.preventDefault();
                                      }
-        });
+                                     
+        }));
+        $(function () {
+                $("#file").change(function () {
+                    $("#message").empty(); // To remove the previous error message
+                    var file = this.files[0];
+                    var imagefile = file.type;
+                    var match = ["image/jpeg", "image/png", "image/jpg"];
+                    if (!((imagefile == match[0]) || (imagefile == match[1]) || (imagefile == match[2])))
+                    {
+                        $('#previewing').attr('src', 'noimage.png');
+                        $("#message").html("<p id='error'>Please Select A valid Image File</p>" + "<h4>Note</h4>" + "<span id='error_message'>Only jpeg, jpg and png Images type allowed</span>");
+                        return false;
+                    } else
+                    {
+                        var reader = new FileReader();
+                        reader.onload = imageIsLoaded;
+                        reader.readAsDataURL(this.files[0]);
+                    }
+                });
+            });
+            function imageIsLoaded(e) {
+                $("#file").css("color", "green");
+                $('#image_preview').css("display", "block");
+                $('#previewing').attr('src', e.target.result);
+                $('#previewing').attr('width', '150px');
+                //$('#previewing').attr('height', '230px');
+            }
             }else{ 
                 $.getJSON('JsonData/detail_prods.php',{data: idProds.data}, function (data) {
                      $("#DP_content").append($("<div class='form-group'>หมวดครุภัณฑ์ : <select name='pdgroup' class='form-control select2' id='pdgroup' required></select>")
@@ -220,7 +255,14 @@ function AddProds (content,id=null) {
                         ,$("<div class='form-group'>ชื่อครุภัณฑ์ : <INPUT TYPE='text' NAME='name' id='name' class='form-control' placeholder='เช่น printer brother MFC-J5910DW'></div>")
                         ,$("<div class='form-group'>ยี่ห้อ : <INPUT TYPE='text' NAME='brand' id='brand' class='form-control'></div>")
                         ,$("<div class='form-group'>หมายเลขเครื่อง : <INPUT TYPE='text' NAME='serial' id='serial' class='form-control'></div>")
-                        ,$("<div class='form-group'>สถานะการใช้งาน : <select name='pd_status' class='form-control select2' id='pd_status' required></select>"));
+                        ,$("<div class='form-group'>สถานะการใช้งาน : <select name='pd_status' class='form-control select2' id='pd_status' required></select>")
+                        ,$("<div id='image_preview'><img id='previewing' width='50' /></div>")
+                        ,$("<div class='form-group'>สถานะการใช้งาน : <input type='file' name='file' id='file' class='form-control' /></div></div><h4 id='loading' >loading..</h4><div id='message'></div>"));
+                        if(data.photo_pd == '' || data.photo_pd === null){
+                $('#previewing').empty().attr('src', 'images/icon_set2/image.ico');
+            }else{
+                $('#previewing').empty().attr('src', 'PD_imgs/'+data.photo_pd);
+            }
                 $("select#pdgroup").append($("<option value=''> เลือกหมวดครุภัณฑ์ </option>"));
                                 $.getJSON('JsonData/group_Data.php', function (GD) {
                                     for (var key in GD) {
@@ -349,8 +391,11 @@ function AddProds (content,id=null) {
                             
             $("div#add_pd").append($("<input type='hidden' id='method' name='method' value='edit_prods'>")
                                     ,$("<input type='hidden' id='pd_id' name='pd_id' value='"+data.pd_id+"'>"));                
-            $("div#add_pd").append("<div class='col-md-12' align='center'><button type='submit' class='btn btn-warning' id='APsubmit'>แก้ไข</button></div>");
-            $("button#APsubmit").click(function (e) {
+            $("div#add_pd").append("<div class='col-md-12' align='center'><input id='APsubmit' type='submit' value='แก้ไข' class='btn btn-warning' /></div>");
+            $('#loading').hide();
+                $("#frmaddprods").on('submit', (function (e) {
+                $("#message").empty();
+                $('#loading').show();
                                         if($("#pdgroup").val()==''){
                                             alert("กรุณาเลือกหมวดครุภัณฑ์ด้วยครับ!!!");
                                             $("#pdgroup").focus();
@@ -395,14 +440,43 @@ function AddProds (content,id=null) {
         				$.ajax({
 					   type: "POST",
 					   url: "process/prcprods.php",
-                                            data: $("#frmaddprods").serialize(),
+                                           data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+                                           contentType: false, // The content type used when sending data to the server.
+                                           cache: false, // To unable request pages to be cached
+                                           processData: false,
 					   success: function(result) {
 						alert(result);
                                                 $("#index_content").empty().load('content/list_prods.html');
 					   }
 					 });e.preventDefault();
                                      }
+                }));
+                        $(function () {
+                $("#file").change(function () {
+                    $("#message").empty(); // To remove the previous error message
+                    var file = this.files[0];
+                    var imagefile = file.type;
+                    var match = ["image/jpeg", "image/png", "image/jpg"];
+                    if (!((imagefile == match[0]) || (imagefile == match[1]) || (imagefile == match[2])))
+                    {
+                        $('#previewing').attr('src', 'noimage.png');
+                        $("#message").html("<p id='error'>Please Select A valid Image File</p>" + "<h4>Note</h4>" + "<span id='error_message'>Only jpeg, jpg and png Images type allowed</span>");
+                        return false;
+                    } else
+                    {
+                        var reader = new FileReader();
+                        reader.onload = imageIsLoaded;
+                        reader.readAsDataURL(this.files[0]);
+                    }
                 });
+            });
+            function imageIsLoaded(e) {
+                $("#file").css("color", "green");
+                $('#image_preview').css("display", "block");
+                $('#previewing').attr('src', e.target.result);
+                $('#previewing').attr('width', '150px');
+                //$('#previewing').attr('height', '230px');
+            }
                 });
             }
         }

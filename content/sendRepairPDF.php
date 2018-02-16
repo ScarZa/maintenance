@@ -50,9 +50,21 @@ INNER JOIN pcode p on p.pcode=e.pcode";
     $connDB->imp_sql($sql_hos);
     $hospital=$connDB->select_a();
     
-    $sql_send=  "SELECT CONCAT(e.firstname,' ',e.lastname)fullname,sc.comp_name,p.posname
+    $sql_send=  "SELECT CONCAT(e.firstname,' ',e.lastname)fullname,re.repair_id,sc.comp_name,p.posname,d.depName,pd.name,pd.pd_number,re.symptom,re.repair_date
+,(SELECT CONCAT(e.firstname,' ',e.lastname) FROM emppersonal e WHERE e.empno=re.informer)informer
+,(SELECT p.posname FROM m_repair_pd re
+INNER JOIN emppersonal e on e.empno=re.informer
+INNER JOIN work_history wh ON wh.empno=e.empno 
+INNER JOIN posid p on p.posId=wh.posid
+WHERE (wh.dateEnd_w='0000-00-00' or ISNULL(wh.dateEnd_w)) and re.repair_id=$id)posi_inform
+,CASE re.vital
+WHEN '0' THEN 'ไม่เร่งด่วน'
+WHEN '1' THEN 'เร่งด่วน'
+ELSE NULL END as vital
 FROM m_sendrep ms
 INNER JOIN m_repair_pd re on re.repair_id=ms.repair_id
+INNER JOIN pd_product pd on pd.pd_id=re.pd_id
+INNER JOIN department d on d.depId=re.depid
 INNER JOIN se_company sc on sc.comp_id=ms.comp_id
 INNER JOIN emppersonal e on e.empno=re.repairer
 INNER JOIN work_history wh ON wh.empno=e.empno
@@ -73,6 +85,52 @@ WHERE (wh.dateEnd_w='0000-00-00' or ISNULL(wh.dateEnd_w)) and re.repair_id=$id";
 require_once('../template/plugins/library/mpdf60/mpdf.php'); //ที่อยู่ของไฟล์ mpdf.php ในเครื่องเรานะครับ
 ob_start(); // ทำการเก็บค่า html นะครับ*/
 ?>
+    <div class="col-lg-12"><h3 valign="bottom" align="center">ใบแจ้งซ่อม<br><?=$hospital['name']?></h3></div>
+            <div align="right">เลขรับ <?=$sendre['repair_id']?><br>วันที่ <?= DateThai2(date("Y-m-d"))?></div>
+            <div class="col-lg-12">
+                 <br>
+                <table width='100%' border='1' cellspacing='' cellpadding='' frame='below' class='divider'> 
+                    <tr>
+                        <td height="35" width='20%'>&nbsp;&nbsp;หน่วยงาน</td>
+                        <td height="35" width='80%'>&nbsp;&nbsp;<?=$sendre['depName']?></td>
+                    </tr>
+                    <tr>
+                        <td height="35" width='20%'>&nbsp;&nbsp;ต้องการแจ้งซ่อม</td>
+                        <td height="35" width='80%'>&nbsp;&nbsp;<?=$sendre['name']?></td>
+                    </tr>
+                    <tr>
+                        <td height="35">&nbsp;&nbsp;หมายเลขครุภัณฑ์</td>
+                        <td height="35">&nbsp;&nbsp;<?=$sendre['pd_number']?></td>
+                    </tr>
+                    <tr>
+                        <td height="35">&nbsp;&nbsp;อาการเสีย</td>
+                        <td height="35">&nbsp;&nbsp;<?=$sendre['symptom']?></td>
+                    </tr>
+                    <tr>
+                        <td height="35">&nbsp;&nbsp;ความต้องการ</td>
+                        <td height="35">&nbsp;&nbsp;<?=$sendre['vital']?></td>
+                    </tr>
+                    <tr>
+                        <td height="35">&nbsp;&nbsp;วันที่แจ้ง</td>
+                        <td height="35">&nbsp;&nbsp;<?= DateThai2($sendre['repair_date'])?></td>
+                    </tr>
+                </table>
+            </div><br><br><br>
+            <table border="0" width="100%">
+                                         <tr>
+                                             <td width='50%' align="center">&nbsp;</td>
+                                             <td width='50%' align="center">
+                                     ลงชื่อ........................................ผู้แจ้งซ่อม<br><br>
+                                     ( <?=$sendre['informer']?> )<br><br>
+                                     ตำแหน่ง <?=$sendre['posi_inform']?> <br><br></td>
+                                         </tr>
+                                     </table>
+<?php
+$html = ob_get_contents();
+ob_clean();
+
+ob_start(); // ทำการเก็บค่า html นะครับ*/
+?>
 <div class="col-lg-12"><h3 valign="bottom" align="center">ใบส่งซ่อม</h3></div>
 <div class="col-lg-12">
     <b>ฝ่ายพัสดุ</b> &nbsp;&nbsp;&nbsp;<?=$hospital['name']?><br>
@@ -80,7 +138,7 @@ ob_start(); // ทำการเก็บค่า html นะครับ*/
     วันที่ <?= DateThai2(date("Y-m-d"))?><br>
     <b>เรื่อง</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ขออนุมัติซ่อม...................................................................................................
 </div><hr>
-<div class="col-lg-12" align="let">
+<div class="col-lg-12" align="left">
     <b>เรียน</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ผู้อำนวยการ<?=$hospital['name']?><br>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ด้วยฝ่ายมีความประสงค์ขอซ่อม มีรายการดังนี้<br>
 <!--    <div class="col-lg-12" id="contentTB">ใช้สร้างตาราง</div>-->
@@ -156,14 +214,17 @@ $connDB->createPDO_TB();
     
 <div align="right"></div>
 <?php 
-$html = ob_get_contents();
+$html2 = ob_get_contents();
 ob_clean();
+
 $pdf = new mPDF('tha2','A4','11','');
 $pdf->autoScriptToLang = true;
 $pdf->autoLangToFont = true;
 $pdf->SetDisplayMode('fullpage');
 
 $pdf->WriteHTML($html, 2);
+$pdf->AddPage();
+$pdf->WriteHTML($html2,2);
 $pdf->Output("../MyPDF/SendRepair.pdf");
 echo "<meta http-equiv='refresh' content='0;url=../MyPDF/SendRepair.pdf' />";
 ?>
