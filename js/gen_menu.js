@@ -33,7 +33,7 @@
                                 $("#version").append("<b>Version</b> 1.1");
                     $(".control-sidebar").empty().load("menu_footer.php");                                                               
                                               if(data.m_status == 'ADMIN' || data.m_status == 'MUSER'){
-                                                  if(data.m_status == 'MUSER'){$("#gear_side1").remove();}
+                                                  if(data.m_status == 'MUSER' || data.m_status == 'SUSER' || data.m_status == 'USUSER'){$("#gear_side1").remove();}
                                             $(".sidebar-menu").append($("<li id='ad_treeview1' class='treeview'></li>")
                                                                     ,$("<li id='ad_treeview2' class='treeview'></li>")
                                                                     ,$("<li id='ad_manual'></li>"));
@@ -108,7 +108,7 @@
 
 //    }
     //loadPage('#index_content',page,data);  
-                                    }else if(data.m_status == 'USER'){
+                                    }else if(data.m_status == 'USER' || data.m_status == 'SUSER' || data.m_status == 'USUSER'){
                                         $("#gear_side1").remove();//ไม่ให้แสดง gear   
                                         $(".sidebar-menu").append($("<li class=''><a id='addRepairUser' href='#'><img src='images/icon_set2/computer.ico' width='20'> <span>แจ้งซ่อมคอมพิวเตอร์</span></a></li>")
                                                         ,$("<li class=''><a id='addRepairNoUser' href='#'><img src='images/icon_set2/computer.ico' width='20'> <span>แจ้งซ่อมคอมฯ(ไม่ใช่ครุภัณฑ์)</span></a></li>")
@@ -118,6 +118,16 @@
                                                 $("#addRepairNoUser").attr("onclick","loadAjax('#index_content','JsonData/tempSendData.php','NoPd','AddRepair');");
                                                 $("#reqReportUser").attr("onclick","loadAjax('#index_content','JsonData/tempSendData.php','ReqRp','AddRepair');");
                                                 $("#reqStatusUser").attr("onclick","loadPage('#index_content','content/list_user_result.html');");
+                                                
+                                                if(data.m_status == 'SUSER' || data.m_status == 'USUSER'){
+                                                    $(".sidebar-menu").append($("<li id='ad_Prods'><a href='#'><img src='images/icon_set2/dolly.ico' width='20'> ครุภัณฑ์ <i class='fa fa-angle-left pull-right'></i></a></li>"));
+                                                        $("#ad_Prods").append("<ul id='ulad_Prods' class='treeview-menu'></ul>");
+                                                            $("#ulad_Prods").append($("<li class=''><a id='addProds' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/dolly.ico' width='20'> <span>เพิ่มครุภัณฑ์</span></a></li>")
+                                                                        ,$("<li class=''><a id='listProds' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/dolly.ico' width='20'> <span>รายการครุภัณฑ์</span></a></li>"));
+                                                                        $("#addProds").attr("onclick","loadPage('#index_content','content/add_prods.html');");
+                                                                        $("#listProds").attr("onclick","loadPage('#index_content','content/list_depprods.html');");
+                                                }
+                                                
                                     }else if(data.m_status == ''){
                                             $(".sidebar-menu").append($("<li class=''><a href='#' id='manual_maintenance'>\n\
                                 <img src='images/icon_set2/booklet.ico' width='20'> <span>คู่มือโปรแกรม</span></a></li>"));

@@ -27,7 +27,7 @@ if ($method == 'add_sendRepair') {
     $comp_id = $_POST['comp_id'];
     $send_date = insert_date($_POST['datepicker3']);
     $acc_part = $_POST['acc_part'];
-    $repair_detail = $_POST['repair_detail'];
+    $repair_detail = $_POST['modalrepair_detail'];
     
     $data = array($repair_id, $comp_id, $send_date, $repair_detail,$acc_part);
     $table = "m_sendrep";

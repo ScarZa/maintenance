@@ -1,12 +1,12 @@
 <script language="Javascript" type="text/javascript">
     $(function(){
-        $.getJSON('JsonData/dashboard.php',function (data) {
+        $.getJSON('JsonData/dashboard.php',function (data) { 
            var years = data.fyear;
-        $("#sum_rm").html(data.total);
-        $("#sum_rmD2").text(data.assessment);
-        $("#sum_rmY").text(data.Y);
-        $("#sum_rmR").text(data.R);
-        $("#sum_rmG").text(data.G);
+        $("#sum_rm").empty().html(data.total);
+        $("#sum_rmD2").empty().text(data.assessment);
+        $("#sum_rmY").empty().text(data.Y);
+        $("#sum_rmR").empty().text(data.R);
+        $("#sum_rmG").empty().text(data.G);
         
         $("#year").text(years);
         $(".seyear").text(data.date_start+" ถึง "+data.date_end);
@@ -29,7 +29,47 @@ $.getJSON('JsonData/month.php',function (data) {
     var PieCharts =  new AJAXCharts('container3','pie',title3,unit,'','JsonData/DC_pie2.php','');
     $(PieCharts.GetPie());     
     });
-    $("#useronline").load("JsonData/user_online.php");
+    
+    var option = "$('<option value=''> เลือกปีงบประมาณ </option>')";
+    //var i = 2561;
+                                    for (var i=2561;i<2566;i++) { 
+                                            option += "$('<option value='"+i+"'> "+i+" </option>'),";
+                                        }
+                                        $("select#yearS").empty().append(option);
+                                        
+            $("select#yearS").change(function () { 
+                $.getJSON('JsonData/dashboard.php',{data: $("#yearS").val()},function (data) { 
+                    var years = data.fyear;
+                        $("#sum_rm").empty().html(data.total);
+                        $("#sum_rmD2").empty().text(data.assessment);
+                        $("#sum_rmY").empty().text(data.Y);
+                        $("#sum_rmR").empty().text(data.R);
+                        $("#sum_rmG").empty().text(data.G);
+        
+                        $("#year").empty().text(years);
+                        $(".seyear").empty().text(data.date_start+" ถึง "+data.date_end);
+                });
+                $.getJSON('JsonData/month.php',function (data) { 
+    var month = data.month
+    var year = data.year; 
+    var title1 = "จำนวนการแจ้งซ่อมจำแนกตามกลุ่มสาเหตุการเสีย แยกรายเดือน";
+    var title2 = "ความเสี่ยงแยกตามด้านในปีงบประมาณ "+year;
+    var title3 = "ความเสี่ยงแยกระดับความรุนแรงในปีงบประมาณ "+year;
+    var subtitle = "รายเดือน";
+    var unit = "ครั้ง";
+    
+    var CCharts =  new AJAXCharts('container1','line',title1,unit,month,'JsonData/DC_line1.php?'+$("#yearS").val(),subtitle);
+    $(CCharts.GetCL()); 
+    
+    var PieCharts =  new AJAXCharts('container2','pie',title2,unit,'','JsonData/DC_pie1.php','');
+    $(PieCharts.GetPie()); 
+    
+    var PieCharts =  new AJAXCharts('container3','pie',title3,unit,'','JsonData/DC_pie2.php','');
+    $(PieCharts.GetPie());     
+    });
+                                });                            
+                                        
+    //$("#useronline").load("JsonData/user_online.php");
     });
     
 </script>
@@ -98,6 +138,7 @@ $.getJSON('JsonData/month.php',function (data) {
                     </div><!-- /.box-tools -->
                 </div><!-- /.box-header -->
                 <div class="box-body">
+                    <div class='col-md-3 col-md-offset-9 form-group'><select name='yearS' class='form-control' id='yearS'></select></div>
                     <center>รายงานการแจ้งซ่อม : ทั้งหมด&nbsp;&nbsp;ปีงบประมาณ : <b id="year"></b></center>
                     <div class="col-lg-12"><div id="container1" style="width: 100%; height: 100%; margin: 0 auto"></div></div>
                     <div class="col-lg-7"><div id="container2" style="width: 100%; height: 100%; margin: 0 auto"></div></div>

@@ -25,7 +25,7 @@ $execute=array(':user_account' => $user_account, ':user_pwd' => $user_pwd);
 $dbh->imp_sql($sql);
 $result=$dbh->select_a($execute);
 if (!$result) {
- $sql2 = "select CONCAT(e1.firstname,' ',e1.lastname) as fullname, e1.empno as id, wh.depid as dep ,'USER' as status, '6' as process,'0' as ss_UserID
+ $sql2 = "select CONCAT(e1.firstname,' ',e1.lastname) as fullname, e1.empno as id, wh.depid as dep ,m.Status as status, '6' as process,'0' as ss_UserID
 from emppersonal e1
 INNER JOIN work_history wh ON wh.empno=e1.empno
 inner join department d1 on wh.depid=d1.depId
@@ -44,7 +44,11 @@ $tokenkey=$dbh->select_a();
     $_SESSION['UserID'] = $result['ss_UserID'];
     $_SESSION['m_dep'] = $result['dep'];;
     $_SESSION['m_process'] = $result['process'];
+    if($result['status']=='SUSER' || $result['status']=='USUSER' || $result['status']=='MUSER' || $result['status']=='ADMIN'){
     $_SESSION['m_status'] = $result['status'];
+    } else {
+        $_SESSION['m_status'] = 'USER';
+    }
     $_SESSION['m_tokenkey'] = $tokenkey['notify_tokenkey'];
     //echo "Login สำเร็จครับ!";
 }else{

@@ -74,14 +74,15 @@ var createTableAjax = function () {
                                         editButton.setAttribute("onclick","window.open('"+printpage+"?id="+value[0]+"', '', 'width=820,height=1000');return false;");
                                 }                                           
                                 if(detail==true){
+                                     var modalsub=dmodal.split("?");
                                         var cellEdit = row.insertCell (-1);
 					editButton = document.createElement("a");
 					cellEdit.appendChild(editButton);
 					editButton.innerHTML = "<img src='images/icon_set1/file_search.ico' width='25'>";
 					editButton.setAttribute("href","#");
-                                        editButton.setAttribute("onclick",dmodal+"()");
+                                        editButton.setAttribute("onclick",modalsub[0]+"("+modalsub[1]+")");
                                         editButton.setAttribute("data-toggle","modal");
-                                        editButton.setAttribute("data-target","#"+dmodal);
+                                        editButton.setAttribute("data-target","#"+modalsub[0]);
                                         editButton.setAttribute("data-whatever",value[0]);
                                 }
                                 if(process==true){

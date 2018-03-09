@@ -14,7 +14,7 @@ $.getJSON('JsonData/repair_Data.php',{data: id.data},function (data) {
                                     "ผู้แจ้งซ่อม : "+data.inform+"  &nbsp;&nbsp;งาน : "+data.depName+"<br>"
                             +"เลขครุภัณฑ์ : "+data.pd_number+"  &nbsp;&nbsp;หมายเหตุ : "+data.note+"<br>"
                             +"อาการ : "+data.symptom+" <br>วันที่แจ้ง : "+data.repair_date+"  &nbsp;&nbsp;<b style='color: red;'>"+data.vital+"</b>  &nbsp;&nbsp;วันที่รับใบแจ้ง : "+data.receive_date+
-                                    "<div class='box box-primary box-solid'><div class='box-header with-border'>"+
+                                    "<div id='block_litle'></div><p><div class='box box-primary box-solid'><div class='box-header with-border'>"+
                                     "<h4 class='box-title'> รายละเอียดการซ่อม </h4></div><div class='box-body'><div id='Rr_content'></div></div></div></div>"+
                                     "</div></div></div></form>"
                             ///////////////// Accessories Modal ////////////////////
@@ -30,6 +30,10 @@ $.getJSON('JsonData/repair_Data.php',{data: id.data},function (data) {
                                     +"<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>"
                                     +"<h4 class='modal-title' id='sendreModalLabel'>ส่งซ่อมภายนอก</h4></div><div class='modal-body' id='modelsendre-body'></div>"
                                     +"<div class='modal-footer'><button type='button' class='btn btn-danger' id='sendredismiss'>ปิด</button><button type='button' class='btn btn-success' id='submsendre'>บันทึกส่งซ่อมภายนอก</button></div></div></div></div>");
+                            if(data.request_data!=0){
+                                $("#block_litle").prepend("<a href='#'><i class='fa fa-plus'></i> บันทึกการพัฒนา</a>");
+                                    $("#block_litle > a").attr("onclick","loadAjax('#index_content','JsonData/tempSendData.php',"+data.repair_id+",'ListDev');").addClass('btn btn-success');
+                            }
                             ///////////////// End Send Repair Modal ////////////////////
         $('div#Rr_content').append($("<div class='row'><div class='col-md-3 col-xs-12'><div class='form-group'><label for='datepicker1' class='control-label'>วันที่เริ่มซ่อม </label><input type='text' name='datepicker1' id='datepicker1' class='form-control' readonly required></div></div>"
                                     +"<div class='col-md-1 col-xs-12'><div class='form-group'><label for='H-begin' class='control-label'>ชั่วโมง </label><select name='H-begin' id='H-begin' class='select2 form-control'></select></div></div>"
@@ -50,34 +54,7 @@ $.getJSON('JsonData/repair_Data.php',{data: id.data},function (data) {
                                 MakeHour("#H-end");
                                 MakeMinute("#M-begin");
                                 MakeMinute("#M-end");
-            function MakeHour (content) {
-            for (var i = 0; i <= 23; i++) {
-//                                    if (i == takeTime.substring (0, 2)) {
-//        var selected = 'selected';
-//    } else {
-//        var selected = '';
-//    }
-                                    if (i < 10) {
-        $(content).append($("<option value='0"+i+"'>0"+i+"</option>"));
-    } else {
-        $(content).append($("<option value='"+i+"'>"+i+"</option>"));
-    }
-                                }
-        }                        
-            function MakeMinute (content) {        
-                                for (var i = 0; i <= 59; i++) {
-//                                    if (i == takeTime.substring (3, 5)) {
-//        var selected = 'selected';
-//    } else {
-//        var selected = '';
-//    }
-                                    if (i < 10) {
-        $(content).append($("<option value='0"+i+"'>0"+i+"</option>"));
-    } else {
-        $(content).append($("<option value='"+i+"'>"+i+"</option>"));
-    }
-                                }
-                            }                 
+                
                         $('div#do_repair').append($("<div class='form-group'><input type='radio' value='1' name='accessories' id='accessories1' required> : เปลี่ยนอุปกรณ์  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio' value='0' name='accessories' id='accessories0' checked='checked' required> : ไม่ได้เปลี่ยนอุปกรณ์</div>")
                                                     ,$("<div class='form-group' id='detail_acc_part'></div>"));
                         
@@ -136,7 +113,7 @@ $.getJSON('JsonData/repair_Data.php',{data: id.data},function (data) {
             $('#frmsendre').empty().append($("<div class='form-group'><label for='datepicker3' class='control-label'>วันที่ส่งซ่อม</label><input type='text' name='datepicker3' id='datepicker3' class='form-control' readonly required></div>")
                                         ,$("<div class='form-group'><label for='acc_part' class='control-label'>อุปกรณ์ที่ส่งซ่อม</label><input type='text' name='acc_part' id='acc_part' class='form-control' required></div>")
                                         ,$("<div class='form-group' id='comp_sel'></div>")
-                                        ,$("<div class='form-group'><label for='repair_detail' class='control-label'>รายละเอียดอาการเสียที่ส่ง</label><textarea class='form-control' style='width: 100%' COLS='100%' rows='2' placeholder='อธิบายรายละเอียดของอาการเสีย' name='repair_detail' id='repair_detail' required></textarea></div>")
+                                        ,$("<div class='form-group'><label for='modalrepair_detail' class='control-label'>รายละเอียดอาการเสียที่ส่ง</label><textarea class='form-control' style='width: 100%' COLS='100%' rows='2' placeholder='อธิบายรายละเอียดของอาการเสีย' name='modalrepair_detail' id='modalrepair_detail' required></textarea></div>")
                                         ,$("<input type='hidden' class='form-control' id='repair_id' name='repair_id'>")
                                         ,$("<input type='hidden' class='form-control' id='submethod2' name='method'>"));
                             //$("#acc_price").attr("onKeyUp","javascript:inputDigits(this);");            
@@ -154,16 +131,52 @@ $.getJSON('JsonData/repair_Data.php',{data: id.data},function (data) {
                     $("#sendreModal").find('.modal-body input#repair_id').val(data.repair_id);
                     $("#sendreModal").find('.modal-body input#submethod2').val('add_sendRepair');   
                     $("button#submsendre").click(function(e) {
-                                        e.preventDefault();
-                                         $("#sendreModal").modal('hide');
+//                                        if($("#acc_part").val()==''){
+//                                            alert("กรุณาระบุชื่ออุปกรณ์ด้วยครับ!!!");
+//                                            $("#acc_part").focus();
+//                                        }else 
+                                            if($("#comp_id").val()==''){
+                                            alert("กรุณาเลือกร้านด้วยครับ!!!");
+                                            $("#comp_id").focus();
+                                        }else if($("#modalrepair_detail").val()==''){
+                                            alert("กรุณาระบุรายละเอียดด้วยครับ!!!");
+                                            $("#modalrepair_detail").focus();
+                                        }else{
+                                        
         				$.ajax({
 					   type: "POST",
 					   url: "process/prcsendrep.php",
                                            data: $("#frmsendre").serialize(),
 					   success: function(result) {
+                                               //alert(result);
+                                               $("#sendreModal").modal('hide');
+                                         $.ajax({
+					   type: "POST",
+					   url: "process/prcrepair.php",
+                                           data: $("#frmresult").serialize(),
+					   success: function(result) {
                                                alert(result);
+                                               $.getJSON('JsonData/DT_TRP.php',function (data) {
+                                                   if(data.send_repair !=0){
+                                                        $("#listSendResult").append($("<small class='label pull-right bg-red'>"+data.send_repair+"</small>"));
+                                                    }
+                                                    if(data.list_repair !=0){
+                                                        $("#listResult").append($("<small class='label pull-right bg-yellow'>"+data.list_repair+"</small>"));
+                                                    }else{
+                                                        $("#listResult small").remove()
+                                                    }
+                                                        });  
+                                                $("#index_content").empty().load('content/list_repair_result.html');
+                                                 return false;
 					   }
 					 });
+					   }
+					 });
+                                         
+                                        
+                                         
+                                     } 
+                                     e.preventDefault();
                     });
                     $("button#sendredismiss").click(function(e) {
                                         e.preventDefault();

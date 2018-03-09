@@ -13,25 +13,25 @@ $dbconfig["hostname"]= trim($conn_db[0]) ;
 $db=$conn_DB->conn_PDO();
 ?>
 <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-<!--          <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>-->
+          <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-rocket"></i></a></li>
           <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
           <!-- Home tab content -->
-<!--          <div class="tab-pane" id="control-sidebar-home-tab">
-            <h3 class="control-sidebar-heading">Recent Activity</h3>
+         <div class="tab-pane" id="control-sidebar-home-tab">
+            <h3 class="control-sidebar-heading">Develop</h3>
             <ul class="control-sidebar-menu">
               <li>
-                <a href="index.php">
-                  <i class="menu-icon fa fa-home bg-red"></i>
+                <a href="#" onclick="loadPage('#index_content','content/list_dev.html');">
+                  <i class="menu-icon fa fa-coffee bg-red"></i>
                   <div class="menu-info">
-                    <h4 class="control-sidebar-subheading">Home</h4>
-                    <p>หน้าหลัก</p>
+                    <h4 class="control-sidebar-subheading">Program</h4>
+                    <p>การพัฒนาโปรแกรม/ทำรายงาน</p>
                   </div>
                 </a>
               </li>
-              <li>
+<!--              <li>
                 <a href="index.php?page=content/add_person">
                   <i class="menu-icon fa fa-user bg-yellow"></i>
                   <div class="menu-info">
@@ -57,58 +57,10 @@ $db=$conn_DB->conn_PDO();
                     <p>Execution time 5 seconds</p>
                   </div>
                 </a>
-              </li>
-            </ul> /.control-sidebar-menu 
+              </li>-->
+            </ul> 
 
-            <h3 class="control-sidebar-heading">Tasks Progress</h3>
-            <ul class="control-sidebar-menu">
-              <li>
-                <a href="javascript::;">
-                  <h4 class="control-sidebar-subheading">
-                    Custom Template Design
-                    <span class="label label-danger pull-right">70%</span>
-                  </h4>
-                  <div class="progress progress-xxs">
-                    <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a href="javascript::;">
-                  <h4 class="control-sidebar-subheading">
-                    Update Resume
-                    <span class="label label-success pull-right">95%</span>
-                  </h4>
-                  <div class="progress progress-xxs">
-                    <div class="progress-bar progress-bar-success" style="width: 95%"></div>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a href="javascript::;">
-                  <h4 class="control-sidebar-subheading">
-                    Laravel Integration
-                    <span class="label label-warning pull-right">50%</span>
-                  </h4>
-                  <div class="progress progress-xxs">
-                    <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a href="javascript::;">
-                  <h4 class="control-sidebar-subheading">
-                    Back End Framework
-                    <span class="label label-primary pull-right">68%</span>
-                  </h4>
-                  <div class="progress progress-xxs">
-                    <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
-                  </div>
-                </a>
-              </li>
-            </ul> /.control-sidebar-menu 
-
-          </div> /.tab-pane -->
+          </div> <!-/.tab-pane ->
           <!-- Stats tab content -->
           <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div><!-- /.tab-pane -->
           <!-- Settings tab content -->

@@ -93,10 +93,12 @@ WHERE re.repair_status=0";
     $user_id = $_SESSION['m_id'];
     if (!empty($user_id)) {
 
-        $sql = "select CASE sm.ss_Status WHEN 'ADMIN' THEN 'ผู้ดูแลระบบ' "
-                . "WHEN 'USER' THEN 'ผู้ใช้งานทั่วไป' "
-                . "WHEN 'MUSER' THEN 'ผู้ดูแลระบบซ่อม' END AS m_status,e.photo "
-                . "from ss_member sm inner join emppersonal e on e.empno=sm.ss_Name WHERE sm.ss_Name=:user_id";
+        $sql = "select CASE sm.ss_Status 
+WHEN 'ADMIN' THEN 'ผู้ดูแลระบบ' 
+WHEN 'MUSER' THEN 'ผู้ดูแลระบบซ่อม' 
+ELSE 'ผู้ใช้งานทั่วไป' END AS m_status,e.photo 
+from emppersonal e
+LEFT OUTER JOIN ss_member sm on e.empno=sm.ss_Name WHERE e.empno=:user_id";
         $execute = array(':user_id' => $user_id);
         $conn_DB->imp_sql($sql);
         $result = $conn_DB->select_a($execute);
@@ -128,7 +130,7 @@ WHERE re.repair_status=0";
             </li>
             <!-- Menu Footer-->
             <li class="user-footer">
-            <?php if($_SESSION['m_status']=='USER'){?>
+            <?php if($_SESSION['m_status']=='USER' || $_SESSION['m_status']=='SUSER' || $_SESSION['m_status']=='USUSER'){?>
                 <div align="center">
                     <a href="#" onclick="loadAjax('#index_content','process/logout.php',null,'logout','html');" class="btn btn-default btn-flat">ออกจากระบบ</a>
                 </div>
