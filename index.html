@@ -55,35 +55,45 @@
 </script>
 <script type="text/javascript">
             function loadAjax(content,pagesend,data=null,getfunc=null,datatype='json',method='POST') { 
+                var subgetfunc=getfunc.split("?");
                 $.ajax({
   url: pagesend,
   method: method,
   data: {data: data},
   dataType: datatype, 
   success: function(result){ 
-      if(getfunc=='AddProds'){
+      if(subgetfunc[0]=='AddProds'){
     AddProds(content,result);
-      }else if(getfunc=='AddUser'){
+      }else if(subgetfunc[0]=='AddUser'){
     AddUser(content,result);
-      }else if(getfunc=='AddSymptom'){
+      }else if(subgetfunc[0]=='AddSymptom'){
     AddSymptom(content,result);
-      }else if(getfunc=='AddNOPD'){
+      }else if(subgetfunc[0]=='AddNOPD'){
     AddNOPD(content,result);
-      }else if(getfunc=='AddAcc'){
+      }else if(subgetfunc[0]=='AddAcc'){
     AddAcc(content,result);
-      }else if(getfunc=='AddStore'){
+      }else if(subgetfunc[0]=='AddStore'){
     AddStore(content,result);
-      }else if(getfunc=='AddNotify'){
+      }else if(subgetfunc[0]=='AddNotify'){
     AddNotify(content,result);
-      }else if(getfunc=='AddRepair'){
+      }else if(subgetfunc[0]=='AddRepair'){
     AddRepair(content,result);
-      }else if(getfunc=='RecRepair'){
+      }else if(subgetfunc[0]=='AddPM'){
+    AddPM(content,result);
+        if(subgetfunc[1]=='AddP'){
+            AddP(result);
+            AddM();
+        }else if(subgetfunc[1]=='AddM'){
+            AddP();
+            AddM(result);
+        }
+      }else if(subgetfunc[0]=='RecRepair'){
     RecRepair(content,result);
-      }else if(getfunc=='HisRepair'){
+      }else if(subgetfunc[0]=='HisRepair'){
     HisRepair(content,result);
-      }else if(getfunc=='ListDev'){
+      }else if(subgetfunc[0]=='ListDev'){
     ListDev(content,result);
-      }else if(getfunc=='logout'){ 
+      }else if(subgetfunc[0]=='logout'){ 
           alert(result);
     loadPage(content,'content/NoLogon_index.html');location.reload();
       }
@@ -135,7 +145,7 @@
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini" style="color: yellow"><b>M</b>-V1</span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg" style="color: yellow"><b>Maintenance</b> V.1.1</span>
+          <span class="logo-lg" style="color: yellow"><b>Maintenance</b> V.1.2</span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
@@ -184,6 +194,7 @@
     <script src="js/add_store.js" type="text/javascript"></script>
     <script src="js/add_notify.js" type="text/javascript"></script>
     <script src="js/add_repair.js" type="text/javascript"></script>
+    <script src="js/add_PM.js" type="text/javascript"></script>
     <script src="js/rec_repair.js" type="text/javascript"></script>
     <script src="js/his_repair.js" type="text/javascript"></script>
     <script src="js/genReceiveRepair.js" type="text/javascript"></script> 
