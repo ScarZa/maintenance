@@ -30,7 +30,7 @@
                                             $("#index_content").empty().load("content/info_index.html");    
                                         }
                     $(".main-footer").append("<div id='version' class='pull-right hidden-xs'></div>").append("<strong>Copyright &copy; 2018 <a href='http://rploei.go.th'>โรงพยาบาลจิตเวชเลยราชนครินทร์</a>.</strong> All rights reserved.");       
-                                $("#version").append("<b>Version</b> 1.2");
+                                $("#version").append("<b>Version</b> 1.2.1");
                     $(".control-sidebar").empty().load("menu_footer.php");                                                               
                                               if(data.m_status == 'ADMIN' || data.m_status == 'MUSER'){
                                                   if(data.m_status == 'MUSER' || data.m_status == 'SUSER' || data.m_status == 'USUSER'){$("#gear_side1").remove();}

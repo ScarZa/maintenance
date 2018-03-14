@@ -11,23 +11,30 @@ function AddSymptom (content,id=null) {
                                     "<div class='box box-primary box-solid'>"+
                                     "<div class='box-header with-border'>"+
                                     "<h4 class='box-title'> เพิ่มข้อมูลสรุปอาการเสีย </h4></div>"+
-                                    "<div class='box-body' id='add_user'><div class='col-md-12'><div class='col-md-6'>"+
+                                    "<div class='box-body' id='add_user'><div class='col-md-12'><div class='col-md-5'>"+
                                     "<div class='box box-primary box-solid'><div class='box-header with-border'>"+
                                     "<h4 class='box-title'> หมวดสรุปอาการเสีย </h4></div><div class='box-body'><form action='' name='frmaddsg' id='frmaddsg' method='post'>"+
                                     "<div class='col-md-12' id='SG_content'></div></form></div></div></div>"+
-                                    "<div class='col-md-6'>"+
+                                    "<div class='col-md-7'>"+
                                     "<div class='box box-primary box-solid'><div class='box-header with-border'>"+
                                     "<h4 class='box-title'> รายการสรุปอาการเสีย </h4></div><div class='box-body'><form action='' name='frmaddsc' id='frmaddsc' method='post'>"+
                                     "<div class='col-md-12' id='SC_content'></div></form></div></div></div>"+
                                     "<div class='col-md-12'><div class='box box-primary box-solid'><div class='box-header with-border'>"+
-                                    "<h4 class='box-title'> สรุปอาการเสีย </h4></div><div class='box-body'><div id='SYMP_content'></div></div></div></div></div>"+
+                                    "<h4 class='box-title'> สรุปอาการเสีย </h4></div><div class='box-body'><div class='col-md-5' id='SYMPG_content'></div><div class='col-md-7' id='SYMPC_content'></div></div></div></div></div>"+
                                     "</div></div></div></div>");
                             $("h2").prepend("<img src='images/icon_set2/gear.ico' width='40'> ");
                             
-                                    var column1 = ["id.","หมวดสรุปอาการเสีย","รายการสรุปอาการเสีย","แก้ไข","ลบ"];
-              var CTb = new createTableAjax();
-              CTb.GetNewTableAjax('SYMP_content','JsonData/DT_Symptom.php','JsonData/tempSendData.php',column1
-              ,'AddSymptom','m_symmptom_category','symmptom_cid','content/add_symptom.html',true,false,null,false,null,false,null,null,null,null,null,'dbtb');                    
+                            if(id==null){
+                                AddSympG();AddSympC();
+                            }
+                            
+        }
+        
+function AddSympG (id=null) {
+     var column1 = ["id.","หมวดสรุปอาการเสีย","แก้ไข","ลบ"];
+              var CTb1 = new createTableAjax();
+              CTb1.GetNewTableAjax('SYMPG_content','JsonData/DT_SymptomG.php','JsonData/tempSendData.php',column1
+              ,'AddSymptom?AddSympG','m_symptom_group','symp_gid','content/add_symptom.html',true,false,null,false,null,false,null,null,null,null,null,'dbtb1');                    
                                 
 
             var idsymp = id;
@@ -53,8 +60,44 @@ function AddSymptom (content,id=null) {
 					 });e.preventDefault();
                                      }
         });
-        
-                $("#SC_content").append($("<div class='form-group'>หมวดสรุปอาการเสีย : <select name='symmptom_gid' class='form-control select2' id='symmptom_gid' required></select></div>")
+            }else{
+                $.getJSON('JsonData/symmptom_group.php',{data: idsymp.data}, function (data) { 
+        $("#SG_content").append($("<div class='form-group'>หมวดสรุปอาการเสีย : <INPUT TYPE='text' NAME='symp_name' id='symp_name' class='form-control' placeholder='ระบุหมวดสรุปอาการเสีย' required></div>"));
+             
+                    $("#symp_name").val(data[0].symp_name);
+            $("div#SG_content").append($("<input type='hidden' id='method' name='method' value='edit_sympG'>")
+                                        ,$("<input type='hidden' id='symp_gid' name='symp_gid' value='"+data[0].symp_gid+"'>"));                
+            $("div#SG_content").append("<div class='col-md-12' align='center'><button type='submit' class='btn btn-warning' id='SGsubmit'>แก้ไข</button></div>");
+            $("button#SGsubmit").click(function (e) { 
+                                    if($("#symp_name").val()==''){
+                                            alert("กรุณาระบุหมวดสรุปอาการเสียด้วยครับ!!!");
+                                            $("#symp_name").focus();
+                                            e.preventDefault();
+                                        }else{
+        				$.ajax({
+					   type: "POST",
+					   url: "process/prcsymptom.php",
+                                           data: $("#frmaddsg").serialize(),
+					   success: function(result) {
+						alert(result);
+                                                $("#index_content").empty().load('content/add_symptom.html');
+					   }
+					 });e.preventDefault();
+                                     }
+        });
+            });
+}
+}
+function AddSympC (id=null) {
+    var column1 = ["id.","หมวดสรุปอาการเสีย","รายการสรุปอาการเสีย","แก้ไข","ลบ"];
+              var CTb2 = new createTableAjax();
+              CTb2.GetNewTableAjax('SYMPC_content','JsonData/DT_SymptomC.php','JsonData/tempSendData.php',column1
+              ,'AddSymptom?AddSympC','m_symmptom_category','symmptom_cid','content/add_symptom.html',true,false,null,false,null,false,null,null,null,null,null,'dbtb2');                    
+                                
+
+            var idsymp = id;
+            if(idsymp == null){
+                 $("#SC_content").append($("<div class='form-group'>หมวดสรุปอาการเสีย : <select name='symmptom_gid' class='form-control select2' id='symmptom_gid' required></select></div>")
                                         ,$("<div class='form-group'>รายการสรุปอาการเสีย : <INPUT TYPE='text' NAME='symmptom_name' id='symmptom_name' class='form-control' placeholder='ระบุรายการสรุปอาการเสีย' required></div>"));
                                 $.getJSON('JsonData/symmptom_group.php', function (GD) {
                                      var option="<option value=''> เลือกหมวด </option>";
@@ -88,33 +131,9 @@ function AddSymptom (content,id=null) {
                                      }
         });
 
-            }else{ 
-                $.getJSON('JsonData/symmptom_category.php',{data: idsymp.data}, function (data) { 
-        $("#SG_content").append($("<div class='form-group'>หมวดสรุปอาการเสีย : <INPUT TYPE='text' NAME='symp_name' id='symp_name' class='form-control' placeholder='ระบุหมวดสรุปอาการเสีย' required></div>"));
-             
-                    $("#symp_name").val(data[0].symp_name);
-            $("div#SG_content").append($("<input type='hidden' id='method' name='method' value='edit_sympG'>")
-                                        ,$("<input type='hidden' id='symp_gid' name='symp_gid' value='"+data[0].symp_gid+"'>"));                
-            $("div#SG_content").append("<div class='col-md-12' align='center'><button type='submit' class='btn btn-warning' id='SGsubmit'>แก้ไข</button></div>");
-            $("button#SGsubmit").click(function (e) { 
-                                    if($("#symp_name").val()==''){
-                                            alert("กรุณาระบุหมวดสรุปอาการเสียด้วยครับ!!!");
-                                            $("#symp_name").focus();
-                                            e.preventDefault();
-                                        }else{
-        				$.ajax({
-					   type: "POST",
-					   url: "process/prcsymptom.php",
-                                           data: $("#frmaddsg").serialize(),
-					   success: function(result) {
-						alert(result);
-                                                $("#index_content").empty().load('content/add_symptom.html');
-					   }
-					 });e.preventDefault();
-                                     }
-        });
-        
-                $("#SC_content").append($("<div class='form-group'>หมวดสรุปอาการเสีย : <select name='symmptom_gid' class='form-control select2' id='symmptom_gid' required></select></div>")
+            }else{
+                $.getJSON('JsonData/symmptom_category.php',{data: idsymp.data}, function (data) {
+                    $("#SC_content").append($("<div class='form-group'>หมวดสรุปอาการเสีย : <select name='symmptom_gid' class='form-control select2' id='symmptom_gid' required></select></div>")
                                         ,$("<div class='form-group'>รายการสรุปอาการเสีย : <INPUT TYPE='text' NAME='symmptom_name' id='symmptom_name' class='form-control' placeholder='ระบุรายการสรุปอาการเสีย' required></div>"));
                                 $.getJSON('JsonData/symmptom_group.php', function (GD) {
                                      var option="<option value=''> เลือกหมวด </option>";
@@ -152,5 +171,6 @@ function AddSymptom (content,id=null) {
                                      }
         });
                 });
+                }
             }
-        }
+

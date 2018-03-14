@@ -14,16 +14,14 @@ $conn_DB->conn_PDO();
 set_time_limit(0);
 $rslt = array();
 $series = array();
-$sql="SELECT sc.symmptom_cid,sg.symp_name,sc.symmptom_name
-FROM m_symmptom_category sc
-INNER JOIN m_symptom_group sg on sg.symp_gid=sc.symmptom_gid
-ORDER BY sg.symp_gid"; 
+$sql="SELECT symp_gid,symp_name
+FROM m_symptom_group
+ORDER BY symp_gid"; 
 $conn_DB->imp_sql($sql);
     $num_risk = $conn_DB->select();
     for($i=0;$i<count($num_risk);$i++){
-    $series['ID'] = $num_risk[$i]['symmptom_cid'];
+    $series['ID'] = $num_risk[$i]['symp_gid'];
     $series['symp_name'] = $num_risk[$i]['symp_name'];
-    $series['symmptom_name']= $num_risk[$i]['symmptom_name'];
     
     array_push($rslt, $series);    
     }

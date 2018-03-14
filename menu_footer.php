@@ -31,16 +31,16 @@ $db=$conn_DB->conn_PDO();
                   </div>
                 </a>
               </li>
-<!--              <li>
-                <a href="index.php?page=content/add_person">
-                  <i class="menu-icon fa fa-user bg-yellow"></i>
+              <li>
+                <a href="#" onclick="loadPage('#index_content','content/add_PM.html');">
+                  <i class="menu-icon fa fa-fire bg-yellow"></i>
                   <div class="menu-info">
                     <h4 class="control-sidebar-subheading">Manage</h4>
-                    <p>จัดการสมาชิก</p>
+                    <p>จัดการโปรแกรมและโมดูล</p>
                   </div>
                 </a>
               </li>
-              <li>
+<!--              <li>
                 <a href="javascript::;">
                   <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
                   <div class="menu-info">

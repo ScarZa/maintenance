@@ -11,11 +11,11 @@ $conn_db = $conn_DB->Read_Text();
 $conn_DB->conn_PDO();
 $data = isset($_GET['data'])?$_GET['data']:''; 
 if(!empty($data)){
-    $code = "where pg_id = $data";
+    $code = "inner join dev_module dm on dm.pg_id=dp.pg_id where module_id = $data";
 } else {
     $code = "";
 }
-$sql = "SELECT * FROM dev_program $code";
+$sql = "SELECT * FROM dev_program dp $code";
 
     $conn_DB->imp_sql($sql);
     $dep = $conn_DB->select();
