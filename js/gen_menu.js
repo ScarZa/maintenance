@@ -1,4 +1,4 @@
-            $.getJSON('JsonData/up_header.php',function (data) {
+            $.getJSON('JsonData/up_header.php',function (data) { 
                 if(data.conn=='Connect_DB_false'){
                     $(".content-wrapper").append("<section class='content' id='sec_content'></section>");   
                                             $("#sec_content").append("<div id='index_content'></div>");
@@ -7,7 +7,7 @@
                 }else{
               $("head").prepend($("<title></title>").text("ระบบแจ้งซ่อม")
                                 ,$("<link rel='SHORTCUT ICON' href='"+data.logo+"'>"));  
-              if(data.m_status == 'ADMIN' || data.m_status == 'MUSER'){
+              if((data.m_status == 'ADMIN' && data.m_process == 0) || data.m_status == 'MUSER'){
                   var onload="bodyOnload();";
               }else{
                 var onload="";
@@ -32,7 +32,7 @@
                     $(".main-footer").append("<div id='version' class='pull-right hidden-xs'></div>").append("<strong>Copyright &copy; 2018 <a href='http://rploei.go.th'>โรงพยาบาลจิตเวชเลยราชนครินทร์</a>.</strong> All rights reserved.");       
                                 $("#version").append("<b>Version</b> 1.2.1");
                     $(".control-sidebar").empty().load("menu_footer.php");                                                               
-                                              if(data.m_status == 'ADMIN' || data.m_status == 'MUSER'){
+                                              if((data.m_status == 'ADMIN' && data.m_process == 0) || data.m_status == 'MUSER'){
                                                   if(data.m_status == 'MUSER' || data.m_status == 'SUSER' || data.m_status == 'USUSER'){$("#gear_side1").remove();}
                                             $(".sidebar-menu").append($("<li id='ad_treeview1' class='treeview'></li>")
                                                                     ,$("<li id='ad_treeview2' class='treeview'></li>")
@@ -108,7 +108,7 @@
 
 //    }
     //loadPage('#index_content',page,data);  
-                                    }else if(data.m_status == 'USER' || data.m_status == 'SUSER' || data.m_status == 'USUSER'){
+                                    }else if((data.m_status == 'ADMIN' && data.m_process == 6) || data.m_status == 'USER' || data.m_status == 'SUSER' || data.m_status == 'USUSER'){
                                         $("#gear_side1").remove();//ไม่ให้แสดง gear   
                                         $(".sidebar-menu").append($("<li class=''><a id='addRepairUser' href='#'><img src='images/icon_set2/computer.ico' width='20'> <span>แจ้งซ่อมคอมพิวเตอร์</span></a></li>")
                                                         ,$("<li class=''><a id='addRepairNoUser' href='#'><img src='images/icon_set2/computer.ico' width='20'> <span>แจ้งซ่อมคอมฯ(ไม่ใช่ครุภัณฑ์)</span></a></li>")

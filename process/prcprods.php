@@ -92,7 +92,7 @@ if ($method == 'add_prods') {
     $rp_person = $_POST['rp_person'];
     $note = $_POST['note'];
     
-    if (isset($_FILES["file"]["type"])) {
+    if (!empty($_FILES["file"]["type"])) {
     $del_photo="select photo_pd from pd_product where pd_id=:pd_id";
                 $connDB->imp_sql($del_photo);
                 $execute=array(':pd_id' => $pd_id);

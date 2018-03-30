@@ -130,11 +130,11 @@ LEFT OUTER JOIN ss_member sm on e.empno=sm.ss_Name WHERE e.empno=:user_id";
             </li>
             <!-- Menu Footer-->
             <li class="user-footer">
-            <?php if($_SESSION['m_status']=='USER' || $_SESSION['m_status']=='SUSER' || $_SESSION['m_status']=='USUSER'){?>
+            <?php if($_SESSION['m_status']=='USER' || $_SESSION['m_status']=='SUSER' || $_SESSION['m_status']=='USUSER' || ($_SESSION['m_status']=='ADMIN' && $_SESSION['m_process']==6)){?>
                 <div align="center">
                     <a href="#" onclick="loadAjax('#index_content','process/logout.php',null,'logout','html');" class="btn btn-default btn-flat">ออกจากระบบ</a>
                 </div>
-            <?php }else{ ?>
+            <?php }elseif($_SESSION['m_status']=='ADMIN' && $_SESSION['m_process']==0){ ?>
                 <div class="pull-left">
                     <a href="#" onclick="loadAjax('#index_content','JsonData/tempSendData.php','<?= $_SESSION['UserID']?>','AddUser');" class="btn btn-default btn-flat">ข้อมูลส่วนตัว</a>
                 </div>

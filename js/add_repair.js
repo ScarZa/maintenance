@@ -28,7 +28,7 @@ $.getJSON('JsonData/head_repair.php',function (data) {
                         ,$("<div class='form-group'>อาการเสีย : <textarea class='form-control' style='width: 100%' COLS='100%' rows='2' placeholder='ระบุอาการเสีย' name='symptom' id='symptom' required></textarea></div>")
                         ,$("<div class='form-group'><input type='radio' value='1' name='vital' id='vital' required> : เร่งด่วน  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio' value='0' name='vital' id='vital' checked required> : ไม่เร่งด่วน</div>"));
                 
-                if(data.status=='ADMIN'){
+                if(data.status=='ADMIN' && data.m_process == 0){
                     $("#inform").append("ผู้แจ้ง : <select name='informer' class='form-control select2' id='informer' required></select>");
                     $("select#informer").append($("<option value=''> เลือกผู้แจ้ง </option>"));
                                 $.getJSON('JsonData/emp_Data.php', function (GD) {
@@ -109,7 +109,7 @@ $.getJSON('JsonData/head_repair.php',function (data) {
                         ,$("<div class='form-group'>อธิบายอาการเสีย : <textarea class='form-control' style='width: 100%' COLS='100%' rows='2' placeholder='ระบุอาการเสีย' name='symptom' id='symptom' required></textarea></div>")
                         ,$("<div class='form-group'><input type='radio' value='1' name='vital' id='vital' required> : เร่งด่วน  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio' value='0' name='vital' id='vital' checked required> : ไม่เร่งด่วน</div>"));
                 
-                if(data.status=='ADMIN'){
+                if(data.status=='ADMIN' && data.m_process == 0){
                     $("#inform").append("ผู้แจ้ง : <select name='informer' class='form-control select2' id='informer' required></select>");
                     $("select#informer").append($("<option value=''> เลือกผู้แจ้ง </option>"));
                                 $.getJSON('JsonData/emp_Data.php', function (GD) {
@@ -179,7 +179,7 @@ $.getJSON('JsonData/head_repair.php',function (data) {
                         ,$("<div class='form-group'>อธิบายความต้องการ : <textarea class='form-control' style='width: 100%' COLS='100%' rows='2' placeholder='ระบุความต้องการ' name='symptom' id='symptom' required></textarea></div>")
                         ,$("<div class='form-group'><input type='radio' value='1' name='vital' id='vital' required> : เร่งด่วน  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio' value='0' name='vital' id='vital' checked required> : ไม่เร่งด่วน</div>"));
                 
-                if(data.status=='ADMIN'){
+                if(data.status=='ADMIN' && data.m_process == 0){
                     $("#inform").append("ผู้แจ้ง : <select name='informer' class='form-control select2' id='informer' required></select>");
                     $("select#informer").append($("<option value=''> เลือกผู้แจ้ง </option>"));
                                 $.getJSON('JsonData/emp_Data.php', function (GD) {
