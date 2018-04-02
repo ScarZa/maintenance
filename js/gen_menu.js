@@ -7,11 +7,11 @@
                 }else{
               $("head").prepend($("<title></title>").text("ระบบแจ้งซ่อม")
                                 ,$("<link rel='SHORTCUT ICON' href='"+data.logo+"'>"));  
-              if((data.m_status == 'ADMIN' && data.m_process == 0) || data.m_status == 'MUSER'){
-                  var onload="bodyOnload();";
-              }else{
-                var onload="";
-            }
+//              if((data.m_status == 'ADMIN' && data.m_process == 0) || data.m_status == 'MUSER'){
+//                  var onload="bodyOnload();";
+//              }else{
+//                var onload="";
+//            }
         $("body").attr("Onload",onload);
                                     $("#gear_side").empty().load("content/inbox.php");//โหลด inbox.php เข้ามา
                         $(".sidebar").append($("<ul class='sidebar-menu'></ul>"));

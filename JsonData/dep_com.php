@@ -16,7 +16,7 @@ $result=array();
 $sql="SELECT CONCAT(e.firstname,' ',e.lastname) fullname,e.empno FROM emppersonal e
 INNER JOIN work_history wh ON wh.empno=e.empno
 inner join ss_member m on m.ss_Name=e.empno
-WHERE (m.ss_process=0 or m.ss_process=6) and (wh.dateEnd_w='0000-00-00' or ISNULL(wh.dateEnd_w)) ORDER BY e.empno DESC";
+WHERE (m.ss_process=0 or m.ss_process=6) and (wh.dateEnd_w='0000-00-00' or ISNULL(wh.dateEnd_w)) group by e.empno ORDER BY e.empno DESC";
 $conn_DB->imp_sql($sql);
 $result=$conn_DB->select();
 print json_encode($result);
