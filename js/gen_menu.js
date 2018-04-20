@@ -46,17 +46,17 @@
                                                                                                 //,$("<li id='ad_report'><a href='#'>&nbsp;&nbsp;<img src='images/icon_set2/piechart.ico' width='20'> รายงานผู้ดูแลระบบ <i class='fa fa-angle-left pull-right'></i></a></li>")
                                                                                                 ,$("<li id='ad_Prods'><a href='#'>&nbsp;&nbsp;<img src='images/icon_set2/dolly.ico' width='20'> ครุภัณฑ์ <i class='fa fa-angle-left pull-right'></i></a></li>")
                                                                                                 );
-                                                                                    $.getJSON('JsonData/DT_TRP.php',function (data) {
+                                                                                    setInterval(function(){$.getJSON('JsonData/DT_TRP.php',function (data) {
                                                                                         if(data.req_repair !=0){
-                                                                                        $("#listRepair").append($("<small class='label pull-right bg-red'>"+data.req_repair+"</small>"));
+                                                                                             $("#listRepair").append($("<small class='label pull-right bg-red'>"+data.req_repair+"</small>"));
                                                                                     }
                                                                                     if(data.list_repair !=0){
-                                                                                        $("#listResult").append($("<small class='label pull-right bg-yellow'>"+data.list_repair+"</small>"));
+                                                                                            $("#listResult").append($("<small class='label pull-right bg-yellow'>"+data.list_repair+"</small>"));
                                                                                         }
                                                                                     if(data.send_repair !=0){
-                                                                                        $("#listSendResult").append($("<small class='label pull-right bg-red'>"+data.send_repair+"</small>"));
+                                                                                            $("#listSendResult").append($("<small class='label pull-right bg-red'>"+data.send_repair+"</small>"));
                                                                                     }
-                                                                                    });    
+                                                                                    });  }, 1000);  
                                                                             $("#ad_Prods").append("<ul id='ulad_Prods' class='treeview-menu'></ul>");  
                                                                             $("#ad_request").append("<ul id='ulad_Request' class='treeview-menu'></ul>"); 
                                                                                 $("#ulad_Prods").append($("<li class=''><a id='addProds' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/dolly.ico' width='20'> <span>เพิ่มครุภัณฑ์</span></a></li>")
