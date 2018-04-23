@@ -68,8 +68,8 @@ function photoPDModal() {
                     $("#message").empty(); // To remove the previous error message
                     var file = this.files[0];
                     var imagefile = file.type;
-                    var match = ["image/jpeg", "image/png", "image/jpg"];
-                    if (!((imagefile == match[0]) || (imagefile == match[1]) || (imagefile == match[2])))
+                    var match = ["image/jpeg", "image/png", "image/jpg","image/JPEG", "image/PNG", "image/JPG"];
+                    if (!((imagefile == match[0]) || (imagefile == match[1]) || (imagefile == match[2] || imagefile == match[3]) || (imagefile == match[4]) || (imagefile == match[5])))
                     {
                         $('#previewing').attr('src', 'noimage.png');
                         $("#message").html("<p id='error'>Please Select A valid Image File</p>" + "<h4>Note</h4>" + "<span id='error_message'>Only jpeg, jpg and png Images type allowed</span>");
