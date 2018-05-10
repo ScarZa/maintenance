@@ -47,7 +47,7 @@ if ($method == 'add_user') {
     $ss_UserID = $_POST['ss_UserID'];
     $ss_user_name = filter_input(INPUT_POST, 'ss_user_name',FILTER_SANITIZE_STRING);
     $ss_Username = md5(trim($ss_user_name));
-    $ss_Password = isset($_POST['password'])?md5(trim(filter_input(INPUT_POST, 'password',FILTER_SANITIZE_ENCODED))):'';
+    $ss_Password = $_POST['password']!=''?md5(trim(filter_input(INPUT_POST, 'password',FILTER_SANITIZE_ENCODED))):'';
     $ss_Name = $_POST['ss_Name'];
     $ss_Status = $_POST['ss_Status'];
     if($ss_Status=='ADMIN'){
