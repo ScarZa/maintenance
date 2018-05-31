@@ -15,7 +15,7 @@ if(!empty($data)){
 } else {
     $code = "";
 }
-$sql = "SELECT * FROM m_symmptom_category $code";
+$sql = "SELECT * FROM m_symmptom_category $code order by symmptom_name";
 
     $conn_DB->imp_sql($sql);
     $dep = $conn_DB->select();
