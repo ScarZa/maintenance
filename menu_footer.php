@@ -40,6 +40,16 @@ $db=$conn_DB->conn_PDO();
                   </div>
                 </a>
               </li>
+              <li>
+                <a href="#" onClick="return popup('content/fullcalendar1.php', popup, 820, 700);">
+                  <i class="menu-icon fa fa-calendar bg-green"></i>
+                  <div class="menu-info">
+                    <h4 class="control-sidebar-subheading">Calendar</h4>
+                    <p>ปฏิทินการซ่อม</p>
+                  </div>
+                </a>
+              </li>
+              
 <!--              <li>
                 <a href="javascript::;">
                   <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>

@@ -1,3 +1,4 @@
+<?php @session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +16,7 @@
                     },
                     editable: true,
                     theme: true,
-                    events: "data_events.php?gData=1",
+                    events: "data_events2.php?gData=1",
                     loading: function(bool) {
                         if (bool)
                             $('#loading').show();
@@ -49,18 +50,20 @@
  </div>
 <br>
 <div align="center">
-<a style="background-color:orange; color: white">ลาป่วย</a> 
-<a style="background-color:violet; color: white">ลากิจ</a>
-<a style="background-color:green; color: white">ลาพักผ่อน</a>
-<a style="background-color:red; color: white">ลาคลอด</a>
-<a style="background-color:yellow">ลาบวช</a>
-<a style="background-color:brown; color: white">ลาเลี้ยงดูบุตร</a>
+<?php
+include '../connection/connect_calendra.php';
+$leave=  mysqli_query($db,"SELECT nameLa FROM typevacation ORDER BY idla ASC") or die(mysqli_error($db));
+$code_color=array("1"=>"#416cbb","2"=>"#d92727","3"=>"#1e6c06","4"=>"purple","5"=>"#00a6ba","6"=>"orange","7"=>"#4e5252");
+$i=1;
+while ($row = mysqli_fetch_array($leave)) {  ?>
+<a style="background-color:<?= $code_color[$i]?>; color: white"><?= $row['nameLa']?></a> 
+<?php $i++; }?>
 </div>
     
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>    
+<script src="js/fullcalendar-2.1.1/lib/jquery.min.js"></script>    
 <script type="text/javascript" src="js/fullcalendar-2.1.1/lib/moment.min.js"></script>
 <script type="text/javascript" src="js/fullcalendar-2.1.1/fullcalendar.min.js"></script>
 <script type="text/javascript" src="js/fullcalendar-2.1.1/lang/th.js"></script>
-<script type="text/javascript" src="script.js"></script>            
+<script type="text/javascript" src="script2.js"></script>            
 </body>
 </html>
