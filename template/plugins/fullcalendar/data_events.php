@@ -33,6 +33,10 @@ GROUP BY sm.ss_Name ORDER BY sm.ss_Name ASC";
     //$sql_leave="SELECT COUNT(idla) as count_leave FROM typevacation";
     $dbh->imp_sql($sql_leave);
     $result=$dbh->select();
+    $sql= "SELECT url FROM hospital";
+    //$sql_leave="SELECT COUNT(idla) as count_leave FROM typevacation";
+    $dbh->imp_sql($sql);
+    $URL=$dbh->select_a();
     $color='';
     for($I=0;$I< count($qr);$I++){
         for($i=0;$i<count($result);$i++){ 
@@ -44,7 +48,7 @@ GROUP BY sm.ss_Name ORDER BY sm.ss_Name ASC";
         $event_array[$I]['title']=$qr[$I]['pd_number'];  
         $event_array[$I]['start']=$qr[$I]['strepair_date'].' '.$qr[$I]['strepair_time'];  
         $event_array[$I]['end']=$qr[$I]['enrepair_dare'].' '.$qr[$I]['enrepair_time'];    
-        $event_array[$I]['url']=''; 
+        $event_array[$I]['url']=$URL['url'].'maintenance/content/hisDiv.php?id='.$qr[$I]['repair_id']; 
         $event_array[$I]['color']=$color;
         $event_array[$I]['allDay']=false;  
         //$i_event++;  
