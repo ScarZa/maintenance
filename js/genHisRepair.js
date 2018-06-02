@@ -51,7 +51,7 @@ $(content).empty().append(
                                     "<div class='box-header with-border'>"+
                                     "<h4 class='box-title'> เพิ่มโปรแกรมและโมดูล </h4></div>"+
                                     "<div class='box-body' id='HisModal'>"
-                                    +"<h4 id='hisModalLabel'>รับใบแจ้งซ่อม</h4><hr><div id='modelhis'><span id='his_detail'></span></div>"
+                                    +"<div id='modelhis'><span id='his_detail'></span></div>"
                                     +"</div></div>");
   var idrep = id;console.log(idrep);console.log(content);
   
