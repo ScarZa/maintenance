@@ -14,9 +14,10 @@ if($_GET['gData']){
     $event_array=array();  
     //$i_event=0; 
     $code_color=array("0"=>"#416cbb","1"=>"#d92727","2"=>"#1e6c06","3"=>"purple","4"=>"#00a6ba","5"=>"orange","6"=>"#4e5252");
-   $q="SELECT dh.dev_id,CONCAT(dm.module_name,' : ',dh.dev_detail)dev_detail,dh.dev_date,dh.dev_stime,dh.dev_etime,dh.developer
+   $q="SELECT dh.dev_id,CONCAT(dp.pg_name,'(', dm.module_name,') : ',dh.dev_detail)dev_detail,dh.dev_date,dh.dev_stime,dh.dev_etime,dh.developer
 FROM dev_history dh
 INNER JOIN dev_module dm on dm.module_id = dh.module_id
+INNER JOIN dev_program dp on dp.pg_id=dm.pg_id
 WHERE date(dh.dev_date)>='".$_GET['start']."'    
 AND date(dh.dev_date)<='".$_GET['end']."' ORDER by dh.dev_id";
     $dbh->imp_sql($q);
