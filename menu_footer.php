@@ -44,8 +44,17 @@ $db=$conn_DB->conn_PDO();
                 <a href="#" onClick="return popup('content/fullcalendar1.php', popup, 820, 700);">
                   <i class="menu-icon fa fa-calendar bg-green"></i>
                   <div class="menu-info">
-                    <h4 class="control-sidebar-subheading">Calendar</h4>
+                    <h4 class="control-sidebar-subheading">Maintenance Calendar</h4>
                     <p>ปฏิทินการซ่อม</p>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="#" onClick="return popup('content/fullcalendar2.php', popup, 820, 700);">
+                  <i class="menu-icon fa fa-calendar bg-blue"></i>
+                  <div class="menu-info">
+                    <h4 class="control-sidebar-subheading">Devlop Calendar</h4>
+                    <p>ปฏิทินการพัฒนา</p>
                   </div>
                 </a>
               </li>

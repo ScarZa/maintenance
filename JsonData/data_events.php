@@ -1,12 +1,12 @@
 <?php  
 function __autoload($class_name) {
-    include_once '../../../class/'.$class_name.'.php';
+    include_once '../class/'.$class_name.'.php';
 }
 header("Content-type:application/json; charset=UTF-8");            
 header("Cache-Control: no-store, no-cache, must-revalidate");           
 header("Cache-Control: post-check=0, pre-check=0", false);      
 $dbh=new dbPDO_mng();
-$read="../../../connection/conn_DB.txt";
+$read="../connection/conn_DB.txt";
 $dbh->para_read($read);
 $dbh->conn_PDO();
  // เชื่อมต่อกับฐานข้อมูล      

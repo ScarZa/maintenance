@@ -23,7 +23,7 @@ function __autoload($class_name) {
                     },
                     editable: true,
                     theme: true,
-                    events: "../JsonData/data_events.php?gData=1",
+                    events: "../JsonData/data_events2.php?gData=1",
                     loading: function(bool) {
                         if (bool)
                             $('#loading').show();
@@ -50,7 +50,7 @@ function __autoload($class_name) {
     </style>
 </head>
 <body>
-<center><h2>ปฏิทินการซ่อม (งานคอมพิวเตอร์)</h2></center>
+<center><h2>ปฏิทินการพัฒนาโปรแกรม/รายงาน/ข้อมูล (งานคอมพิวเตอร์)</h2></center>
 <div style="margin:auto;width:800px;">
  <div id='calendar'></div>
  </div>
@@ -70,7 +70,7 @@ $result=$dbh->select();
 $code_color=array("1"=>"#416cbb","2"=>"#d92727","3"=>"#1e6c06","4"=>"purple","5"=>"#00a6ba","6"=>"orange","7"=>"#4e5252");
 $i=1;
 for($I=0;$I<count($result);$I++){  ?>
-&nbsp;<a class="btn-sm" style="background-color:<?= $code_color[$i]?>; color: white"> <?= $result[$I]['fullname']?> </a>&nbsp;
+    &nbsp;<a class="btn-sm" style="background-color:<?= $code_color[$i]?>; color: white"> <?= $result[$I]['fullname']?> </a>&nbsp;
 <?php $i++; }?>
 </div>
     
@@ -78,6 +78,6 @@ for($I=0;$I<count($result);$I++){  ?>
 <script type="text/javascript" src="../template/plugins/fullcalendar/js/fullcalendar-2.1.1/lib/moment.min.js"></script>
 <script type="text/javascript" src="../template/plugins/fullcalendar/js/fullcalendar-2.1.1/fullcalendar.min.js"></script>
 <script type="text/javascript" src="../template/plugins/fullcalendar/js/fullcalendar-2.1.1/lang/th.js"></script>
-<script type="text/javascript" src="../js/script.js"></script>            
+<script type="text/javascript" src="../js/script2.js"></script>            
 </body>
 </html>

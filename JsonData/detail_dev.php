@@ -17,6 +17,7 @@ $result=array();
 $data = isset($_GET['data'])?$_GET['data']:$_POST['data']; 
 
 $sql="SELECT dp.pg_name,dm.module_name,dh.dev_date,SUBSTR(dh.dev_stime,1,5)dev_stime,SUBSTR(dh.dev_etime,1,5)dev_etime
+,SUBSTR(TIMEDIFF(dh.dev_etime,dh.dev_stime),1,5) total_time
 ,dh.dev_detail,CONCAT(e.firstname,' ',e.lastname)as fullname
 FROM dev_history dh
 INNER JOIN dev_module dm on dm.module_id=dh.module_id
@@ -32,6 +33,7 @@ $result=$conn_DB->select_a($execute);
     $series['dev_date'] = DateThai2($result['dev_date']);
     $series['dev_stime'] = $result['dev_stime'];
     $series['dev_etime'] = $result['dev_etime'];
+    $series['total_time'] = $result['total_time'];
     $series['fullname']= $result['fullname'];
         
 print json_encode($series);

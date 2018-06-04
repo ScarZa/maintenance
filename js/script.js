@@ -7,7 +7,7 @@ $(function(){
             right: 'month,agendaWeek,agendaDay',  
         },    
         events: {  
-            url: '../template/plugins/fullcalendar/data_events.php?gData=1',  
+            url: '../JsonData/data_events.php?gData=1',  
             error: function() {  
   
             }  

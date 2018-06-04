@@ -1,35 +1,55 @@
-<?php @session_start(); ?>
 <?php  
+function __autoload($class_name) {
+    include_once '../class/'.$class_name.'.php';
+}
 header("Content-type:application/json; charset=UTF-8");            
 header("Cache-Control: no-store, no-cache, must-revalidate");           
 header("Cache-Control: post-check=0, pre-check=0", false);      
-include_once '../connection/connect_calendra.php'; // เรียกใช้งานไฟล์เชื่อมต่อกับฐานข้อมูล  
+$dbh=new dbPDO_mng();
+$read="../connection/conn_DB.txt";
+$dbh->para_read($read);
+$dbh->conn_PDO();
  // เชื่อมต่อกับฐานข้อมูล      
-if($_GET['gData']){
+if($_GET['gData']){  
     $event_array=array();  
-    $i_event=0;  
-    $q="SELECT * FROM tbl_event 
-         WHERE date(event_start)>='".$_GET['start']."' AND date(event_end)<='".$_GET['end']."' 
-         and empno='".$_SESSION['user']."' and process!='3' and process!='2' ORDER by event_id";    
-    $qr=mysqli_query($db,$q) or die(mysqli_error($db)); 
+    //$i_event=0; 
+    $code_color=array("0"=>"#416cbb","1"=>"#d92727","2"=>"#1e6c06","3"=>"purple","4"=>"#00a6ba","5"=>"orange","6"=>"#4e5252");
+   $q="SELECT dh.dev_id,CONCAT(dm.module_name,' : ',dh.dev_detail)dev_detail,dh.dev_date,dh.dev_stime,dh.dev_etime,dh.developer
+FROM dev_history dh
+INNER JOIN dev_module dm on dm.module_id = dh.module_id
+WHERE date(dh.dev_date)>='".$_GET['start']."'    
+AND date(dh.dev_date)<='".$_GET['end']."' ORDER by dh.dev_id";
+    $dbh->imp_sql($q);
+    $qr=$dbh->select();
     
-    $code_color=array("0"=>"#d92727","1"=>"#416cbb","2"=>"#1e6c06","3"=>"#00a6ba","4"=>"purple","5"=>"orange","6"=>"#4e5252");
-    $event= array("0"=>"ลา","1"=>"ไปราชการ","2"=>"","3"=>"","4"=>"ขึ้นเวร","5"=>"อื่นๆ");
-    while($rs=mysqli_fetch_array($qr)){  
-        for($i=0;$i< count($event);$i++){
-        if ($rs['process'] == "$i") {  
+    $sql_leave= "SELECT sm.ss_Name FROM  ss_member sm 
+WHERE sm.ss_Status='MUSER' or (sm.ss_Status='ADMIN' and sm.ss_process=0) 
+GROUP BY sm.ss_Name ORDER BY sm.ss_Name ASC";
+    //$sql_leave="SELECT COUNT(idla) as count_leave FROM typevacation";
+    $dbh->imp_sql($sql_leave);
+    $result=$dbh->select();
+    $sql= "SELECT url FROM hospital";
+    //$sql_leave="SELECT COUNT(idla) as count_leave FROM typevacation";
+    $dbh->imp_sql($sql);
+    $URL=$dbh->select_a();
+    $color='';
+    for($I=0;$I< count($qr);$I++){
+        for($i=0;$i<count($result);$i++){ 
+        if ($qr[$I]['developer'] == $result[$i]['ss_Name']) {  
             $color = "$code_color[$i]";  
             }}
-        $event_array[$i_event]['id']=$rs['event_id'];  
-        $event_array[$i_event]['title']=$rs['event_title'];  
-        $event_array[$i_event]['start']=$rs['event_start'];  
-        $event_array[$i_event]['end']=$rs['event_end'];  
-        $event_array[$i_event]['url']=$rs['event_url']; 
-        $event_array[$i_event]['color']=$color;
-        $event_array[$i_event]['allDay']=($rs['event_allDay']=="true")?true:false;  
-        $i_event++;  
+        
+        $event_array[$I]['id']=$qr[$I]['dev_id'];  
+        $event_array[$I]['title']=$qr[$I]['dev_detail'];  
+        $event_array[$I]['start']=$qr[$I]['dev_date'].' '.$qr[$I]['dev_stime'];  
+        $event_array[$I]['end']=$qr[$I]['dev_date'].' '.$qr[$I]['dev_etime'];    
+        $event_array[$I]['url']=$URL['url'].'maintenance/content/devDiv.php?id='.$qr[$I]['dev_id']; 
+        $event_array[$I]['color']=$color;
+        $event_array[$I]['allDay']=false;  
+        //$i_event++;  
     }    
 }  
+//print_r($event_array);
 $json= json_encode($event_array);    
 if(isset($_GET['callback']) && $_GET['callback']!=""){    
 echo $_GET['callback']."(".$json.");";        

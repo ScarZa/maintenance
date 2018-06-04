@@ -53,10 +53,10 @@ $(content).empty().append(
                                     "<div class='box-body' id='HisModal'>"
                                     +"<div id='modelhis'><span id='his_detail'></span></div>"
                                     +"</div></div>");
-  var idrep = id;console.log(idrep);console.log(content);
+  var idrep = id;
   
   $('h4').text('รายละเอียดใบแจ้ง : ลำดับที่ ' + idrep)
-   $.getJSON('../JsonData/synopsis_repair_Data.php',{data: idrep},function (data) { console.log(data);
+   $.getJSON('../JsonData/synopsis_repair_Data.php',{data: idrep},function (data) {
         $('span#his_detail').empty().append("ผู้แจ้งซ่อม : "+data.inform+"  &nbsp;&nbsp;งาน : "+data.depName+"<br>"
                             +"เลขครุภัณฑ์/สาเหตุ : "+data.pd_number+"  &nbsp;&nbsp;หมายเหตุ : "+data.note+"<br>"
                             +"อาการ : "+data.symptom+"<br>วันที่แจ้ง : "+data.repair_date+" &nbsp;&nbsp;<b style='color: red;'>"+data.vital+"</b><br><hr>"
