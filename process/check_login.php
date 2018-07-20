@@ -25,7 +25,7 @@ $execute=array(':user_account' => $user_account, ':user_pwd' => $user_pwd);
 $dbh->imp_sql($sql);
 $result=$dbh->select_a($execute);
 if (!$result) {
- $sql2 = "select CONCAT(e1.firstname,' ',e1.lastname) as fullname, e1.empno as id, wh.depid as dep ,m.Status as status, '6' as process,'0' as ss_UserID
+ $sql2 = "select CONCAT(e1.firstname,' ',e1.lastname) as fullname, e1.empno as id, wh.depid as dep ,'USER' as status, '6' as process,'0' as ss_UserID
 from emppersonal e1
 INNER JOIN work_history wh ON wh.empno=e1.empno
 inner join department d1 on wh.depid=d1.depId

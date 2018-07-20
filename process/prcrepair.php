@@ -61,28 +61,14 @@ $connDB->imp_sql($sql);
 $execute = array(':repair_id' => $add_repair);
 $LineText = $connDB->select_a($execute);
         //////////////////// Line Notify //////////////////////////////
-define('LINE_API',"https://notify-api.line.me/api/notify");
-function notify_message($message,$token){
- $queryData = array('message' => $message);
- $queryData = http_build_query($queryData,'','&');
- $headerOptions = array( 
-         'http'=>array(
-            'method'=>'POST',
-            'header'=> "Content-Type: application/x-www-form-urlencoded\r\n"
-                      ."Authorization: Bearer ".$token."\r\n"
-                      ."Content-Length: ".strlen($queryData)."\r\n",
-            'content' => $queryData
-         ),
- );
- $context = stream_context_create($headerOptions);
- $result = file_get_contents(LINE_API,FALSE,$context);
- $res = json_decode($result);
- return $res;
-} 
+if(!empty($_SESSION['m_tokenkey'])){  
+include_once '../function/LineNotify.php';  
+include_once '../template/plugins/funcDateThai.php';
 $token = $_SESSION['m_tokenkey'];
-$text = "แจ้งซ่อม : ".$LineText['repair_date']." ".$LineText['pd_number']." ".$LineText['symptom']." ".$LineText['depName']." ".$LineText['inform']." ".$LineText['vital'];
+$text = "แจ้งซ่อม : ".DateThai1($LineText['repair_date'])." เวลา ".substr($LineText['repair_date'], 11,5)." น.\n".$LineText['pd_number']." ".$LineText['symptom']." ".$LineText['depName']." ".$LineText['inform']." ".$LineText['vital'];
  
 $res = notify_message($text,$token);
+}
 //print_r($res);
 
 /////////////////////
