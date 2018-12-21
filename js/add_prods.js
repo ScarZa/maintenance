@@ -100,7 +100,7 @@ function AddProds (content,id=null) {
                 $("select#yearbuy").append($("<option value=''> เลือกปีที่ซื้อ </option>"));
                                 var d = new Date();
                                 var yearT = (d.getFullYear()+543);
-                                     for (var i = yearT;i >= yearT-15;i--) {
+                                     for (var i = (yearT+1);i >= (yearT+1)-15;i--) {
                                         //if(LR[key].group_id==data.detail.group_id){var select='selected';}else{var select='';}
                                               $("select#yearbuy").append($("<option value='"+i+"'> "+i+" </option>"));
                                     }$(".select2").select2();
@@ -339,7 +339,7 @@ function AddProds (content,id=null) {
                 $("select#yearbuy").append($("<option value=''> เลือกปีที่ซื้อ </option>"));
                                 var d = new Date();
                                 var yearT = (d.getFullYear()+543);
-                                     for (var i = yearT;i >= yearT-15;i--) {
+                                     for (var i = (yearT+1);i >= (yearT+1)-15;i--) {
                                         if(i==data.yearbuy){var select='selected';}else{var select='';}
                                               $("select#yearbuy").append($("<option value='"+i+"' "+select+"> "+i+" </option>"));
                                     }$(".select2").select2();

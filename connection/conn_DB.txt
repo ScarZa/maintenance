@@ -1,6 +1,6 @@
+localhost
+root
 
-
-
-
-
-
+hrd
+3306
+utf8

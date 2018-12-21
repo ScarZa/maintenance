@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+        <title>Maintenance Service</title>
+        <!-- <link href="template/plugins/jscam/css/bootstrap.min.css" rel="stylesheet"> -->
+        <link rel='stylesheet' href='template/bootstrap/css/bootstrap.min.css'>
+        <!-- <link href="template/plugins/jscam/css/style.css" rel="stylesheet"> -->
+        <link rel="stylesheet" href="template/dist/css/AdminLTE.css">
+        <!-- <style type="text/css">
+            .glyphicon {
+                font-size: 55px;
+            }</style> -->
+    </head>
+            
+        <div class="container" id="QR-Code">
+            <div class="box box-primary box-solid">
+                <div class="box-header with-border">
+                    <!-- <div class="navbar-form navbar-right"> -->
+                            <div class="col-md-12 col-xs-12">
+                            <div class="form-group">
+                        <select class="form-control" id="camera-select"></select>
+                        </div>
+                        <div class="form-group">
+                            <input id="image-url" type="text" class="form-control" placeholder="Image url">
+                        </div>
+                        <div class="form-group">
+                            <button title="Decode Image" class="btn btn-default" id="decode-img" type="button" data-toggle="tooltip"> <span class="glyphicon glyphicon-upload"></span> </button>&nbsp;&nbsp;
+                            <button title="Image shoot" class="btn btn-info disabled" id="grab-img" type="button" data-toggle="tooltip"> <span class="glyphicon glyphicon-picture"></span> </button>&nbsp;&nbsp;
+                            <button title="Play" class="btn btn-success" id="play" type="button" data-toggle="tooltip"> <span class="glyphicon glyphicon-play"></span> </button>&nbsp;&nbsp;
+                            <button title="Pause" class="btn btn-warning" id="pause" type="button" data-toggle="tooltip"> <span class="glyphicon glyphicon-pause"></span> </button>&nbsp;&nbsp;
+                            <button title="Stop streams" class="btn btn-danger" id="stop" type="button" data-toggle="tooltip"> <span class="glyphicon glyphicon-stop"></span> </button>
+                         </div>
+                    </div>
+                </div>
+                <div class="box-body text-center">
+                    <div class="col-md-6 col-xs-12">
+                        <div class="well" style="width: 100%;height: 100%;position: relative;display: inline-block;">
+                            <canvas class="col-md-6 col-xs-12" width="100%" height="" id="webcodecam-canvas"></canvas>
+                            <div class="scanner-laser laser-rightBottom" style="opacity: 0.5;"></div>
+                            <div class="scanner-laser laser-rightTop" style="opacity: 0.5;"></div>
+                            <div class="scanner-laser laser-leftBottom" style="opacity: 0.5;"></div>
+                            <div class="scanner-laser laser-leftTop" style="opacity: 0.5;"></div>
+                        </div>
+                        <a href="#" id="Toggleedit-cam"><i class="glyphicon glyphicon-equalizer"></i> ปรับแต่งกล้อง</a>
+                        <div class="well" id="edit-cam" style="width: 100%;display: none;">
+                            <label id="zoom-value" width="100">Zoom: 2</label>
+                            <input id="zoom" onchange="Page.changeZoom();" type="range" min="10" max="30" value="20">
+                            <label id="brightness-value" width="100">Brightness: 0</label>
+                            <input id="brightness" onchange="Page.changeBrightness();" type="range" min="0" max="128" value="0">
+                            <label id="contrast-value" width="100">Contrast: 0</label>
+                            <input id="contrast" onchange="Page.changeContrast();" type="range" min="0" max="64" value="0">
+                            <label id="threshold-value" width="100">Threshold: 0</label>
+                            <input id="threshold" onchange="Page.changeThreshold();" type="range" min="0" max="512" value="0">
+                            <label id="sharpness-value" width="100"> Sharpness: off </label>
+                            <input id="sharpness" onchange="Page.changeSharpness();" type="checkbox">
+                            <label id="grayscale-value" width="100"> grayscale: off </label>
+                            <input id="grayscale" onchange="Page.changeGrayscale();" type="checkbox">
+                            <br>
+                            <label id="flipVertical-value" width="100"> Flip Vertical: off </label>
+                            <input id="flipVertical" onchange="Page.changeVertical();" type="checkbox">
+                            <label id="flipHorizontal-value" width="100"> Flip Horizontal: off </label>
+                            <input id="flipHorizontal" onchange="Page.changeHorizontal();" type="checkbox">
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-6 col-xs-12"> -->
+                        <div class="thumbnail" id="result">
+                            <div class="well" style="width: 100%;overflow: hidden;">
+                                <img width="100%" height="" id="scanned-img" src="">
+                            </div>
+                            <div class="caption">
+                                <h3>ผลการ scan QR code</h3>
+                                <span id="scanned-QR"></span>
+                                
+                            </div>
+                            <div class="input-group">
+                                <input type="text" id="scanned-QRval" class="form-control" placeholder="ใส่ ID ด้วยครับ" value="" readonly>
+                                <span class="input-group-btn">
+                                  <button class="btn btn-warning" type="button" id="show-event">Go!</button>
+                                </span>
+                              </div><br>
+                            <div class="form-group" id="btn-show"></div>
+                        </div>
+                       
+                    <!-- </div> -->
+                </div>
+            </div>
+        </div>
+        <div id='createModal'></div>
+        
+        <script src="template/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+        <script src="template/bootstrap/js/bootstrap.min.js"></script>
+        <script src="template/plugins/jquery-ui-1.11.4.custom/jquery-ui-1.11.4.custom.js"></script>
+        <!-- My Script-->
+        <script src="js/photoPD.js" type="text/javascript"></script>
+        <script src="js/add_repairQR.js" type="text/javascript"></script>
+        <!-- End My Script-->
+        <script type="text/javascript">
+            $(function () { 
+                $( "a#Toggleedit-cam" ).click(function() {
+  $( "div#edit-cam" ).toggle();
+});
+                $("#show-event").click(function () { 
+                    if($("#scanned-QRval").val()==''){
+                        alert("กรุณาใส่ ID ด้วยครับ!!!");
+                        $("#btn-show").hide();
+                    }else{
+                        $("#btn-show").show();
+                        $("#btn-show").empty().append($("<a href='#' id='show-detial' class='btn btn-primary btn-block btn-flat'><i class='glyphicon glyphicon-book'></i> รายละเอียด</a>")
+                                        ,$(" <a href='#' id='show-repair' class='btn btn-danger btn-block btn-flat'><i class='glyphicon glyphicon-cog'></i> แจ้งซ่อม</a>"));
+
+                        $("#show-detial").attr("onclick","photoPDModal()").attr("data-toggle","modal")
+                                        .attr("data-target","#photoPDModal").attr("data-whatever",$("#scanned-QRval").val()); 
+                        $("#show-repair").attr("onclick","AddRepairQR ('#QR-Code',"+$("#scanned-QRval").val()+")")                               
+                    }
+                });
+            });
+        </script>
+        <script language="JavaScript" type="text/javascript">
+            var StayAlive = 1; // เวลาเป็นวินาทีที่ต้องการให้ WIndows เปิดออก 
+            function KillMe()
+            {
+                setTimeout("self.close()", StayAlive * 1000);
+            }
+        </script>
+        <script type="text/javascript" src="template/plugins/jscam/js/filereader.js"></script>
+        <!-- Using jquery version: -->
+        <!--
+            <script type="text/javascript" src="js/jquery.js"></script>
+            <script type="text/javascript" src="js/qrcodelib.js"></script>
+            <script type="text/javascript" src="js/webcodecamjquery.js"></script>
+            <script type="text/javascript" src="js/mainjquery.js"></script>
+        -->
+        <script type="text/javascript" src="template/plugins/jscam/js/qrcodelib.js"></script>
+        <script type="text/javascript" src="template/plugins/jscam/js/webcodecamjs.js"></script>
+        <script type="text/javascript" src="template/plugins/jscam/js/main.js"></script>
+        </body>
+</html>

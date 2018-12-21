@@ -7,18 +7,24 @@ function __autoload($class_name) {
 }
 include '../template/plugins/function_date.php';
 if (empty($_GET['data'])) {
-                        if($date >= $bdate and $date <= $edate){
-                          $year = $Yy;
-                        $years = $year + 543;      
-                            }else{
-                        $year = date('Y');
-                        $years = $year + 543;
-                        
-                            }
-                    } else {
-                        $year = $_GET['data'] - 543;
-                        $years = $year + 543;
-                    }
+    if($date >= $bdate and $date <= $edate){
+                            $y= $Yy;
+                            $Y= date("Y");
+                            $year = $Yy;
+                            $years = $year + 543;
+                           }else{
+                           $y = date("Y");
+                           $Y = date("Y") - 1;
+                           $year = date('Y');
+                           $years = $year + 543;
+                           }
+                       } else {
+                           $YeaR=$_GET['data'];
+                           $y = $_GET['data'] - 543;
+                           $Y = $y - 1;
+                           $year = $_GET['data'] - 543;
+                           $years = $year + 543;
+                       }
 $conn_DB = new EnDeCode();
 $read = "../connection/conn_DB.txt";
 $conn_DB->para_read($read);

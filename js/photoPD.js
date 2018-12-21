@@ -1,5 +1,5 @@
-function photoPDModal() {
-    $("#createModal").empty().append("<div class='modal' id='photoPDModal' role='dialog' aria-labelledby='exampleModalLabel'>"
+function photoPDModal(divModal = '#createModal') {
+    $(divModal).empty().append("<div class='modal' id='photoPDModal' role='dialog' aria-labelledby='exampleModalLabel'>"
             + "<div class='modal-dialog' role='document'><div class='modal-content'><div class='modal-header'>"
             + "<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>"
             + "<h4 class='modal-title' id='photoPDModalLabel'>รับใบแจ้งซ่อม</h4></div><div class='modal-body' id='modelphotoPD'><div class='block'><img id='PDimage' width='180' /></div><span id='photoPD_detail'></span></div>"
@@ -8,7 +8,6 @@ function photoPDModal() {
         var button = $(event.relatedTarget)
         var recipient = button.data('whatever')
         var modal = $(this)
-
 
         $.getJSON('JsonData/detail_prod.php', {data: recipient}, function (data) {
             if(data.photo_pd == '' || data.photo_pd === null){

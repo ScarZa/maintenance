@@ -134,8 +134,11 @@ $db=$conn_DB->conn_PDO();
                     <!--<a href="index.php?page=content/add_hos">
                         <img src="images/icon_set2/dolly.ico" width="25">&nbsp;&nbsp; ครุภัณฑ์ </a>-->
                     <a href='#'><img src='images/icon_set2/dolly.ico' width='25'> ครุภัณฑ์ </a><p>
-                    <a href='#' onclick="loadPage('#index_content','content/add_prods.html');">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src='images/icon_set2/dolly.ico' width='20'> <span>เพิ่มครุภัณฑ์</span></a></p>
-                    <a href='#' onclick="loadPage('#index_content','content/list_prods.html');">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src='images/icon_set2/dolly.ico' width='20'> <span>รายการครุภัณฑ์</span></a>
+                    <a href='#' onclick="loadPage('#index_content','content/add_prods.html');">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src='images/icon_set2/dolly.ico' width='20'> <span>เพิ่มครุภัณฑ์</span></a></p><p>
+                    <a href='#' onclick="AddPDCate('#index_content');">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src='images/icon_set2/dolly.ico' width='20'> <span>ประเภทครุภัณฑ์</span></a></p><p>
+                    <a href='#' onclick="return popup('content/genQRcode(old).html', popup, 820, 700);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src='images/icon_set2/dolly.ico' width='20'> <span>สร้าง QR code(sticker)</span></a></p>
+                    <a href='#' onclick="return popup('content/genQRcode.html', popup, 820, 700);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src='images/icon_set2/dolly.ico' width='20'> <span>สร้าง QR code(A4)</span></a></p>
+                    
                 </label>
               </div>
               <div class="form-group">

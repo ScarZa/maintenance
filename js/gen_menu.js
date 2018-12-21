@@ -30,13 +30,15 @@
                                             $("#index_content").empty().load("content/info_index.html");    
                                         }
                     $(".main-footer").append("<div id='version' class='pull-right hidden-xs'></div>").append("<strong>Copyright &copy; 2018 <a href='http://rploei.go.th'>โรงพยาบาลจิตเวชเลยราชนครินทร์</a>.</strong> All rights reserved.");       
-                                $("#version").append("<b>Version</b> 1.2.1");
+                                $("#version").append("<b>Version</b> 1.3.1");
                     $(".control-sidebar").empty().load("menu_footer.php");                                                               
                                               if((data.m_status == 'ADMIN' && data.m_process == 0) || data.m_status == 'MUSER'){
                                                   if(data.m_status == 'MUSER' || data.m_status == 'SUSER' || data.m_status == 'USUSER'){$("#gear_side1").remove();}
                                             $(".sidebar-menu").append($("<li id='ad_treeview1' class='treeview'></li>")
                                                                     ,$("<li id='ad_treeview2' class='treeview'></li>")
+                                                                    ,$("<li><a href='#' id='QRCode'><img src='images/qr_code.png' width='20'> ใช้ QR code </a></li>")
                                                                     ,$("<li id='ad_manual'></li>"));
+                                                        $("a#QRCode").attr("onclick","popup('readQRCode.html', popup, 400, 600);")
                                                         $("#ad_treeview1").append($("<a href='#'><img src='images/menu_items_options.ico' width='20'> <span>เมนูผู้ดูแลระบบ : (คอมฯ)</span><i class='fa fa-angle-left pull-right'></i></a>")
                                                                                 ,$("<ul id='ad_treeview-menu1' class='treeview-menu'></ul>"));
                                                                 $("#ad_treeview-menu1").append($("<li class=''><a id='listRepair' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/tools.ico' width='20'> <span>รายการแจ้งซ่อม</span> </a></li>")
@@ -60,12 +62,15 @@
                                                                             $("#ad_Prods").append("<ul id='ulad_Prods' class='treeview-menu'></ul>");  
                                                                             $("#ad_request").append("<ul id='ulad_Request' class='treeview-menu'></ul>"); 
                                                                                 $("#ulad_Prods").append($("<li class=''><a id='addProds' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/dolly.ico' width='20'> <span>เพิ่มครุภัณฑ์</span></a></li>")
-                                                                                                ,$("<li class=''><a id='listProds' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/dolly.ico' width='20'> <span>รายการครุภัณฑ์</span></a></li>"));    
+                                                                                                ,$("<li class=''><a id='listProds' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/dolly.ico' width='20'> <span>รายการครุภัณฑ์</span></a></li>")
+                                                                                                //,$("<li class=''><a id='add_cate' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/dolly.ico' width='20'> <span>ประเภทครุภัณฑ์</span></a></li>")
+                                                                                            );    
                                                                             $("#ad_report").append("<ul id='ulad_report' class='treeview-menu'></ul>");  
                                                                                 $("#ulad_report").append($("<li><a href='#'><i class='fa fa-circle-o text-aqua'></i> รายงานที่ 1 </a></li>")
                                                                                                         ,$("<li><a href='#'><i class='fa fa-circle-o text-aqua'></i> รายงานที่ 2 </a></li>"));
                                                                         $("#addProds").attr("onclick","loadPage('#index_content','content/add_prods.html');");
                                                                         $("#listProds").attr("onclick","loadPage('#index_content','content/list_prods.html');");
+                                                                        //$("#add_cate").attr("onclick","AddPDCate('#index_content');");
                                                                         $("#addRepair").attr("onclick","loadPage('#index_content','content/add_repair.html');");
                                                                         $("#addRepairNo").attr("onclick","loadAjax('#index_content','JsonData/tempSendData.php','NoPd','AddRepair');");
                                                                         $("#reqReport").attr("onclick","loadAjax('#index_content','JsonData/tempSendData.php','ReqRp','AddRepair');");
@@ -113,7 +118,9 @@
                                         $(".sidebar-menu").append($("<li class=''><a id='addRepairUser' href='#'><img src='images/icon_set2/computer.ico' width='20'> <span>แจ้งซ่อมคอมพิวเตอร์</span></a></li>")
                                                         ,$("<li class=''><a id='addRepairNoUser' href='#'><img src='images/icon_set2/computer.ico' width='20'> <span>แจ้งซ่อมคอมฯ(ไม่ใช่ครุภัณฑ์)</span></a></li>")
                                                         ,$("<li class=''><a id='reqReportUser' href='#'><img src='images/icon_set2/clipboard.ico' width='20'> <span>ขอข้อมูล/รายงาน/Dev.</span></a></li>")
-                                                        ,$("<li class=''><a id='reqStatusUser' href='#'><img src='images/icon_set2/eye.ico' width='20'> <span>สถานะคำขอ</span></a></li>"));
+                                                        ,$("<li class=''><a id='reqStatusUser' href='#'><img src='images/icon_set2/eye.ico' width='20'> <span>สถานะคำขอ</span></a></li>")
+                                                        ,$("<li><a href='#' id='QRCode'><img src='images/qr_code.png' width='20'> ใช้ QR code </a></li>"));
+                                            $("a#QRCode").attr("onclick","popup('readQRCode.html', popup, 400, 600);")
                                                 $("#addRepairUser").attr("onclick","loadPage('#index_content','content/add_repair.html');");
                                                 $("#addRepairNoUser").attr("onclick","loadAjax('#index_content','JsonData/tempSendData.php','NoPd','AddRepair');");
                                                 $("#reqReportUser").attr("onclick","loadAjax('#index_content','JsonData/tempSendData.php','ReqRp','AddRepair');");
@@ -127,7 +134,7 @@
                                                                         $("#addProds").attr("onclick","loadPage('#index_content','content/add_prods.html');");
                                                                         $("#listProds").attr("onclick","loadPage('#index_content','content/list_depprods.html');");
                                                 }
-                                                
+                                                                                                
                                     }else if(data.m_status == ''){
                                             $(".sidebar-menu").append($("<li class=''><a href='#' id='manual_maintenance'>\n\
                                 <img src='images/icon_set2/booklet.ico' width='20'> <span>คู่มือโปรแกรม</span></a></li>"));

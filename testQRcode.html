@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset='utf-8' />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <link rel='stylesheet' href='template/bootstrap/css/bootstrap.min.css'>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="template/plugins/font-awesome-4.6.3/css/font-awesome.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="template/dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+             folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="template/dist/css/skins/_all-skins.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="template/plugins/select2/select2.min.css">
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link rel="stylesheet" href="template/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+    <!--date picker-->
+    <link rel="stylesheet" href="template/plugins/jquery-ui-1.11.4.custom/jquery-ui-1.11.4.custom.css" />
+    <link rel="stylesheet" href="template/plugins/jquery-ui-1.11.4.custom/SpecialDateSheet.css" />
+
+    <script src="template/plugins/json2/json2.js" type="text/javascript"></script><!-- JSON2 -->
+
+    <style type="text/css">
+        .qr-code-generator {
+            width: 500px;
+            margin: 0 auto;
+        }
+
+        .qr-code-generator * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        #qrcode {
+            width: 128px;
+            height: 128px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        #qrcode a {
+            font-size: 0.8em;
+        }
+
+        .qr-url,
+        .qr-size {
+            padding: 0.5em;
+            border: 1px solid #ddd;
+            border-radius: 2px;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .qr-url {
+            width: 79%;
+        }
+
+        .qr-size {
+            width: 20%;
+        }
+
+        .generate-qr-code {
+            display: block;
+            width: 100%;
+            margin: 0.5em 0 0;
+            padding: 0.25em;
+            font-size: 1.2em;
+            border: none;
+            cursor: pointer;
+            background-color: #e5554e;
+            color: #fff;
+        }
+    </style>
+    <style type="text/css">
+        @media print {
+            header, aside,.navbar,.main-sidebar,.qr-code-generator,#div_print {
+  display: none;
+}
+}
+    </style>
+    <style type="text/css">
+        .blockQR {
+            width: 60px;
+            height: 60px;
+            margin: 2px;
+            background: #FFFFFF;
+            float: left;
+        }
+    </style>
+</head>
+
+<body class="hold-transition skin-red-light fixed sidebar-mini">
+    <!--               <img src="images/black_ribbon_bottom_right.png" class="black-ribbon stick-bottom stick-right"/>-->
+    <div class="wrapper">
+        <header class="main-header">
+            <!-- Logo -->
+            <a href="index.html" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini" style="color: yellow"><b>M</b>-V1</span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg" style="color: yellow"><b>Maintenance</b> V.1.2.1</span>
+            </a>
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar navbar-static-top" role="navigation">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <div class="navbar-custom-menu">
+                    <ul class='nav navbar-nav' id='gear_side'></ul>
+                    <ul class='nav navbar-nav' id="gear_side1">
+                        <li>
+                            <a href="#" data-toggle="control-sidebar" id="seting"><i class="fa fa-gears"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- <aside class="main-sidebar"> -->
+            <!-- sidebar: style can be found in sidebar.less -->
+            <!-- <section class="sidebar"> -->
+                <!-- Sidebar user panel -->
+                <!-- <div class="user-panel">
+                    <div class="pull-left image"></div>
+                    <div class="pull-left info"></div>
+                </div>
+            </section>
+        </aside>-->
+        <div class='content-wrapper'><br>
+
+            <div class="qr-code-generator">
+                <a href='#' class="btn btn-success" id="plus-btn"><i class='fa fa-plus-circle'></i> เพิ่มครุภัณฑ์</a>
+                <a href='#' class="btn btn-danger" id="minus-btn"><i class='fa fa-minus-circle'></i> ลบครุภัณฑ์</a>
+                <p>
+                    <form id="frmgenQR">
+                        <div id="qr-input">
+                            <select name="gn-val[]" class='form-control select2' id="gn-val[]" required></select>
+                        </div><p><p>
+                        <input type="number" class="qr-size" value="60" min="20" max="500"><b> : ขนาด</b>
+                        <input type="button" class="generate-qr-code" value="Generate QRCode" id="gn-btn" />
+                    </form><p><p>
+                    <span id='div_print'></span>
+            </div><p>
+            <div id="QRCode" class="col-lg-12"></div>
+        </div>
+        <!-- <footer class='main-footer'></footer>
+        <aside class='control-sidebar control-sidebar-dark'>
+        </aside>
+        <div class='control-sidebar-bg'></div> -->
+    </div>
+    <!-- jQuery 2.1.4 -->
+    <script src="template/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="template/plugins/select2/select2.full.min.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="template/bootstrap/js/bootstrap.min.js"></script>
+    <script src="template/plugins/jquery-ui-1.11.4.custom/jquery-ui-1.11.4.custom.js"></script>
+    <script src="js/DatepickerThai.js" type="text/javascript"></script>
+    <!-- Morris.js charts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="template/plugins/morris/morris.min.js"></script>
+    <!-- Sparkline -->
+    <script src="template/plugins/sparkline/jquery.sparkline.min.js"></script>
+    <!-- jvectormap -->
+    <script src="template/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="template/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="template/plugins/knob/jquery.knob.js"></script>
+    <!-- Bootstrap WYSIHTML5 -->
+    <script src="template/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+    <!-- Slimscroll -->
+    <script src="template/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="template/plugins/fastclick/fastclick.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="template/dist/js/app.min.js"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) 
+        <script src="template/dist/js/pages/dashboard.js"></script>-->
+    <!-- AdminLTE for demo purposes -->
+    <script src="template/dist/js/demo.js"></script>
+    <!-- My JS script-->
+    <script src="js/QRcode.js"></script>
+    <!-- End My JS script-->
+    <script type="text/javascript">
+    function DataProds(content) {
+    $.getJSON('JsonData/data_prods.php', function (GD) {
+                        var option="<option value=''> เลือกหมวดครุภัณฑ์ </option>";
+                        for (var key in GD) {
+                            option += "$('<option value='"+GD[key].pd_id+"'> " + GD[key].pd_number + " : " + GD[key].name + " (" + GD[key].note + ") </option>'),";
+                        } 
+                        $(content).empty().append(option);
+                        $(".select2").select2();
+                    });
+                }
+                DataProds("select"); 
+
+        $('#plus-btn').click(function () {
+            $("#qr-input").append("<select name='gn-val[]' class='form-control select2' id='gn-val[]' required></select>")
+            DataProds("select"); 
+        });
+        $('#minus-btn').click(function () {
+            $("div >select:last").select2('destroy').remove();
+         });
+
+        $(window).load(function () {
+            
+            $('#gn-btn').click(function () {
+                $("#div_print").show();
+                $("#QRCode").show();
+                $("#div_print").empty().append($(" <button id='clear' class='btn btn-danger'>clear data</button> <button id='print' class='btn btn-primary'>พิมพ์ข้อมูล</button>"))
+                var val = $("#frmgenQR").serializeArray();
+                var count = Math.ceil(val.length/3);
+                $("#QRCode").empty().append("<table width='100%' border=1><tbody></tbody></table>");
+                //$.each(val, function (key, vals) {
+                    var I=0;
+                    for(var i=1;i<=count;i++){
+                        $("tbody").append("<tr id='row"+i+"'></tr>");
+                        for (var ii=0;ii<=2;ii++) {
+                    
+                    if (val[I].value != '') {
+                        $("tr#row"+i).append("<td width='33%' valign='middle' align='center'><span class='blockQR' align='center' valign='top' id='qr-example" + I + "'></span><span align='center' id='qr-label" + I + "'></span><td>");
+                        $('#qr-example' + I).empty().qrcode({ width: $('.qr-size').val(), height: $('.qr-size').val(), text: val[I].value });
+                        $.getJSON('JsonData/detail_prodsQR.php', { data: val[I].value ,data2:I }, function (data) {
+                            $("#qr-label" + data.count).append(data.pd_number+"<br>"+data.name+"<br>"+data.depName);
+                        });
+                    } else {
+                        alert("โปรดใส่เลขครุภัณฑ์ใน list ที่" + (I + 1) + " ด้วยครับ !");
+                    }
+                    if(I == val.length-1){
+    break;
+}
+                    I++;
+                }
+                
+                }
+                //});
+                $("button#print").click(function (e) {
+                        e.preventDefault();
+                        window.print()
+                    });
+
+                    $("button#clear").click(function (e) {
+                        e.preventDefault();
+                        $("#div_print").hide();
+                        $("#QRCode").hide();
+                    });
+            });
+            
+        });
+        
+    </script>
+
+</body>
+
+</html>

@@ -18,6 +18,9 @@ $sql="SELECT * FROM pd_product pd INNER JOIN pd_place pp on pp.pd_id=pd.pd_id WH
 $conn_DB->imp_sql($sql);
 $execute=array(':pd_id' => $data);
 $result=$conn_DB->select_a($execute);
+if(isset($_GET['data2'])){
+    $result['count'] = $_GET['data2'];    
+}
 print json_encode($result);
 $conn_DB->close_PDO();
 ?>
