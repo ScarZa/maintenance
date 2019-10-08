@@ -36,11 +36,12 @@
         <link rel="stylesheet" href="template/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
 
         <!-------------------------- My scripts -------------------------->    
-        <script language="Javascript" type="text/javascript" src="js/sendGetPost.js"></script>
-        <script src="js/createTable.js" type="text/javascript"></script>
-        <script src="js/createTableAjax.js" type="text/javascript"></script>
-        <script src="js/AJAXCharts.js" type="text/javascript"></script>
-        <script src="js/base64EnDecode.js" type="text/javascript"></script>
+        <script language="Javascript" type="text/javascript" src="MyTools/sendGetPost.js"></script>
+        <script src="MyTools/createTable.js" type="text/javascript"></script>
+        <script src="MyTools/createTableAjax.js" type="text/javascript"></script>
+        <script src="MyTools/AJAXCharts.js" type="text/javascript"></script>
+        <script src="MyTools/base64EnDecode.js" type="text/javascript"></script>
+        <script src="MyTools/reportLayout.js" type="text/javascript"></script>
         <!-------------------------- End My scripts -------------------------->        
 
         <script src="template/plugins/json2/json2.js" type="text/javascript"></script><!-- JSON2 -->
@@ -126,6 +127,26 @@
                     });
             }
             }
+
+            function SubURL() {
+                var SubUrl = new $.Deferred();
+                    $.when($.getJSON('JsonData/URL.php')).done( function (data) { 
+                        var url = data.url.split("/");
+                        SubUrl.resolve(url);
+                    });
+                   return SubUrl;
+                }
+            function ShowQueryCookie(name) {
+                alert( $.cookie(name) );
+            }
+            function GetjQueryCookie(name,value) { 
+                var subUrl = SubURL();
+                    $.when(subUrl).done(function(data) { return $.cookie(name, value, { path: data[1]+'/Cookies', domain: data[0] });})
+            }
+            function RemovejQueryCookie(name) { 
+                var subUrl = SubURL();
+                    $.when(subUrl).done(function(data) { return $.removeCookie(name, { path: data[1]+'/Cookies', domain: data[0] });})
+            }
         </script>
         <style type="text/css">
             .black-ribbon {   position: fixed;   z-index: 9999;   width: 70px; }
@@ -194,6 +215,7 @@
         </div>
         <!-- jQuery 2.1.4 -->
         <script src="template/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+        <script src="template/plugins/jQuery/jquery.cookie.js"></script>
         <!-------------------------- My scripts -------------------------->       
         <script src="js/gen_menu.js" type="text/javascript"></script>
         <script src="js/refresh_repair.js" type="text/javascript"></script>
@@ -215,9 +237,11 @@
         <script src="js/rec_dev.js" type="text/javascript"></script> 
         <script src="js/detail_dev.js" type="text/javascript"></script>
         <script src="js/add_prog.js" type="text/javascript"></script>
-        <script src="js/add_module.js" type="text/javascript"></script>
+        <script src="js/report_symptom_group.js" type="text/javascript"></script>
+        <!-- <script src="js/add_module.js" type="text/javascript"></script> -->
         <script src="js/list_dev.js" type="text/javascript"></script>
         <script src="js/add_pdcate.js" type="text/javascript"></script>
+        <script src="js/paneldetail_M.js" type="text/javascript"></script>
         <script src="js/QRcode.js"></script>
         <!------------------------ End My scripts ------------------------>     
         <script type="text/javascript">
@@ -253,7 +277,7 @@
         <!-- Bootstrap 3.3.5 -->
         <script src="template/bootstrap/js/bootstrap.min.js"></script>
         <script src="template/plugins/jquery-ui-1.11.4.custom/jquery-ui-1.11.4.custom.js"></script>
-        <script src="js/DatepickerThai.js" type="text/javascript"></script>
+        <script src="MyTools/DatepickerThai.js" type="text/javascript"></script>
         <!-- Morris.js charts -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
         <script src="template/plugins/morris/morris.min.js"></script>

@@ -45,7 +45,7 @@
                                                                                                 ,$("<li class=''><a id='listResult' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/tools.ico' width='20'> <span>รายการซ่อม</span> </a></li>")
                                                                                                 ,$("<li class=''><a id='listSendResult' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/rocket.ico' width='20'> <span>ส่งซ่อมภายนอก</span> </a></li>")
                                                                                                 ,$("<li class=''><a id='listResultTotal' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/bookshelf.ico' width='20'> <span>สรุปผลการซ่อมคอมพิวเตอร์</span></a></li>")
-                                                                                                //,$("<li id='ad_report'><a href='#'>&nbsp;&nbsp;<img src='images/icon_set2/piechart.ico' width='20'> รายงานผู้ดูแลระบบ <i class='fa fa-angle-left pull-right'></i></a></li>")
+                                                                                                ,$("<li id='ad_report'><a href='#'>&nbsp;&nbsp;<img src='images/icon_set2/piechart.ico' width='20'> รายงานผู้ดูแลระบบ <i class='fa fa-angle-left pull-right'></i></a></li>")
                                                                                                 ,$("<li id='ad_Prods'><a href='#'>&nbsp;&nbsp;<img src='images/icon_set2/dolly.ico' width='20'> ครุภัณฑ์ <i class='fa fa-angle-left pull-right'></i></a></li>")
                                                                                                 );
                                                                                     setInterval(function(){$.getJSON('JsonData/DT_TRP.php',function (data) {
@@ -125,7 +125,7 @@
                                                 $("#addRepairNoUser").attr("onclick","loadAjax('#index_content','JsonData/tempSendData.php','NoPd','AddRepair');");
                                                 $("#reqReportUser").attr("onclick","loadAjax('#index_content','JsonData/tempSendData.php','ReqRp','AddRepair');");
                                                 $("#reqStatusUser").attr("onclick","loadPage('#index_content','content/list_user_result.html');");
-                                                
+                                                console.log(data.m_status);
                                                 if(data.m_status == 'SUSER' || data.m_status == 'USUSER'){
                                                     $(".sidebar-menu").append($("<li id='ad_Prods'><a href='#'><img src='images/icon_set2/dolly.ico' width='20'> ครุภัณฑ์ <i class='fa fa-angle-left pull-right'></i></a></li>"));
                                                         $("#ad_Prods").append("<ul id='ulad_Prods' class='treeview-menu'></ul>");
