@@ -14,7 +14,8 @@ $conn_DB->conn_PDO();
 set_time_limit(0);
 $rslt = array();
 $series = array();
-if (empty($_GET['data'])) {
+$data = isset($_POST['data1'])?$_POST['data1']:(isset($_GET['data1'])?$_GET['data1']:'');
+if (empty($data)) {
     if($date >= $bdate and $date <= $edate){
                             $y= $Yy;
                             $Y= date("Y");
@@ -27,10 +28,10 @@ if (empty($_GET['data'])) {
                            $years = $year + 543;
                            }
                        } else {
-                           $YeaR=$_GET['data'];
-                           $y = $_GET['data'] - 543;
+                           $YeaR=$data;
+                           $y = $data - 543;
                            $Y = $y - 1;
-                           $year = $_GET['data'] - 543;
+                           $year = $data - 543;
                            $years = $year + 543;
                        }
                        $date_start = "$Y-10-01";

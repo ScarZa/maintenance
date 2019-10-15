@@ -14,7 +14,7 @@ $conn_DB->conn_PDO();
 set_time_limit(0);
 $rslt = array();
 $series = array();
-$data = isset($_GET['data'])?$_GET['data']:'';
+$data = isset($_POST['data1'])?$_POST['data1']:(isset($_GET['data1'])?$_GET['data1']:'');
 //if(empty($data)){
 //    $code='';
 //} else {

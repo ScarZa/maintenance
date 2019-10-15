@@ -1,5 +1,10 @@
 var ReportLayout = function(content){
-    this.content = content;
+    if(/^[a-zA-Z0-9-_]*$/.test(content) == false){
+        var Mycontent=content.split("#");
+        this.content = Mycontent[1];
+    }else{
+        this.content = content;
+    }
     this.GetRL= function (){
             var layout = "<h2 style='color: blue'></h2>"+
             "<ol class='breadcrumb'>"+

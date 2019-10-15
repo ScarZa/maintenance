@@ -27,7 +27,26 @@ var createTableAjax = function () {
             	table.appendChild (tBody);
                 tBody.setAttribute("style","text-align: center");
                 var jsonsub=jsonsource.split("?");
-                $.getJSON(jsonsub[0],{data: jsonsub[1]}, function (dataTB) {
+                var form = new FormData();
+                $.each( jsonsub, function( key, value ) {
+                    if(key!=0){
+                        form.append("data"+key, value);
+                    }
+                  });
+                var settings = {
+                    type: "POST",
+                    url: jsonsub[0],
+                    async: true,
+                    crossDomain: true,
+                    data:form,
+                    contentType: false,
+                    cache: false,
+                    processData: false
+                  }
+                $.when($.ajax(settings)).then( function (dataTB, textStatus, xhr) {
+                    if(xhr.readyState==3){
+                        $('#' + content + '').html("กำลังโหลดจ้า.... ^_^ ");
+                    } 
                 var value=[];
                     if (dataTB != null && dataTB.length > 0) {
                 for (var i = 0; i < dataTB.length; i++) {

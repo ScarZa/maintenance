@@ -1,14 +1,14 @@
-function SymptomGroup (content,id=null) {
+function SymptomGroup01 (content,id=null) {
     var RL = new ReportLayout(content);
     RL.GetRL();
     
-    $("li#page").text(" รายงานการแจ้งซ่อมทั้งหมด")
+    $("li#page").text(" รายงานการแจ้งซ่อม แยกสรุปอาการเสีย")
     $("h2").prepend("<img src='images/icon_set2/gear.ico' width='40'> ")
-    $("h2,h4.box-title").append(" รายงานการแจ้งซ่อม แยกรายเดือน");
+    $("h2,h4.box-title").append(" รายงานการแจ้งซ่อม");
     //$("li:nth-child(2)").remove();
-    $("li#prev").remove();
+    //$("li#prev").remove();
     $("#sel_year").append($("<select name='yearS' class='form-control' id='yearS'></select>"))
-    //$("#back").append("ทดสอบ").attr("onclick","loadPage('#index_content','content/risk_report(admin).html');");
+    $("#back").append(" รายงานการแจ้งซ่อม แยกรายเดือน").attr("onclick","SymptomGroup('index_content');");
     
     
 
@@ -21,7 +21,11 @@ function SymptomGroup (content,id=null) {
                                               
     // //var column1 = '{"รายการความเสี่ยงที่รอ RM man มาตรวจสอบ":["เลขที่","รายการ","เกิดขึ้นเมื่อ","ได้รับเมื่อ"]}';
     var column1 = ["เลขที่","สรปสาเหตุอาการเสีย","จำนวน","รายละเอียด"];
-
+    var title1 = "จำนวนการแจ้งซ่อมจำแนกตามกลุ่มสาเหตุการเสีย แยกสาเหตุ";
+    var title2 = "ความเสี่ยงแยกตามด้านในปีงบประมาณ "+year;
+    var title3 = "ความเสี่ยงแยกระดับความรุนแรงในปีงบประมาณ "+year;
+    var subtitle = "รายเดือน";
+    var unit = "ครั้ง";
     var idsymp = id;
     if(idsymp == null){
         $.getJSON('JsonData/month.php',function (data) { 
@@ -33,7 +37,7 @@ function SymptomGroup (content,id=null) {
                 year = data.year;
             }
             $("#Budget").empty().append("ปีงบประมาณ : "+year);
-            var title1 = "จำนวนการแจ้งซ่อมจำแนกตามกลุ่มสาเหตุการเสีย แยกรายเดือน";
+            var title1 = "จำนวนการแจ้งซ่อมจำแนกตามกลุ่มสาเหตุการเสีย แยกสาเหตุ";
             var title2 = "ความเสี่ยงแยกตามด้านในปีงบประมาณ "+year;
             var title3 = "ความเสี่ยงแยกระดับความรุนแรงในปีงบประมาณ "+year;
             var subtitle = "รายเดือน";
@@ -56,16 +60,15 @@ function SymptomGroup (content,id=null) {
                      
                       //CTb.GetNewTableAjax('JsonData/DT_CR.php','contentTB','content/detail_risk.php');
                       CTb.GetNewTableAjax('contentTB','JsonData/DT_RG.php?'+year,'JsonData/tempSendData.php',column1
-                      ,null,null,null,null,false,true,'SymptomGroup01',false,null,false,null,null,null,null,null);
+                      ,null,null,null,null,false,true,'DepRisk',false,null,false,null,null,null,null,null);
             $("select#yearS").change(function () {
                 //RemovejQueryCookie('year');
                 GetjQueryCookie('year',$("#yearS").val())
                 var CCharts =  new AJAXCharts('contentGr','line',title1,unit,month,'JsonData/DC_line1.php?'+$("#yearS").val(),subtitle);
             $(CCharts.GetCL()); 
                           $("#Budget").empty().append("ปีงบประมาณ : "+$("#yearS").val());
-                          $("#contentTB").empty();
-                          CTb.GetNewTableAjax('contentTB','JsonData/DT_RG.php?'+$("#yearS").val(),'JsonData/tempSendData.php',column1
-                      ,null,null,null,null,false,true,'SymptomGroup01',false,null,false,null,null,null,null,null);
+                          CTb.GetNewTableAjax('contentTB','JsonData/DT_DR.php?'+$("#yearS").val(),'JsonData/tempSendData.php',column1
+                      ,null,null,null,null,false,true,'DepRisk',false,null,false,null,null,null,null,null);
                       });
     
         });
@@ -73,18 +76,17 @@ function SymptomGroup (content,id=null) {
        
        
           }else{ 
-            $("#Budget").empty().append("ปีงบประมาณ : "+idsymp);     
+            $("#Budget").empty().append("ปีงบประมาณ : "+$.cookie('year'));     
             var option = "$('<option value=''> เลือกปีงบประมาณ </option>')";
-            for (var i=2557;i<2566;i++) { 
+            for (var i=2561;i<2566;i++) { 
                 if(idsymp==i){ var select = 'selected';}else{ var select = '';}
                                                     option += "$('<option value='"+i+"' "+select+"> "+i+" </option>'),";
                                                 }
                                                 $("select#yearS").empty().append(option);
-                                              
-                $.getJSON('JsonData/graph_dep.php',{data:idsymp},function (data) { 
-            var dep = data.dep
-            
-            var CCharts =  new AJAXCharts('contentGr','column',title1,unit,dep,'JsonData/DC_columnDepRep.php?'+idsymp,subtitle);
+            var year = $.cookie('year');                                  
+                $.getJSON('JsonData/graph_sympG01.php',{data:year,data2:idsymp.data},function (data) { 
+            var symp = data.symmptom;
+            var CCharts =  new AJAXCharts('contentGr','column',title1,unit,symp,'JsonData/DC_columnSympG.php?'+year+'?'+idsymp.data,subtitle);
             $(CCharts.GetCL());
             });  
             
@@ -95,20 +97,21 @@ function SymptomGroup (content,id=null) {
             //var column1 = '{"รายการความเสี่ยงที่รอ RM man มาตรวจสอบ":["เลขที่","รายการ","เกิดขึ้นเมื่อ","ได้รับเมื่อ"]}';
                      
                       //CTb.GetNewTableAjax('JsonData/DT_CR.php','contentTB','content/detail_risk.php');
-                      CTb.GetNewTableAjax('contentTB','JsonData/DT_DR.php?'+idsymp,'JsonData/tempSendData.php',column1
-                      ,null,null,null,null,false,true,'SymptomGroup01',false,null,false,null,null,null,null,null);
+                      CTb.GetNewTableAjax('contentTB','JsonData/DT_RSy.php?'+year+'?'+idsymp.data,'JsonData/tempSendData.php',column1
+                      ,null,null,null,null,false,true,'DepRisk',false,null,false,null,null,null,null,null);
             $("select#yearS").change(function () {
                 //RemovejQueryCookie('year');
                 GetjQueryCookie('year',$("#yearS").val())
-                $.getJSON('JsonData/graph_dep.php',{data:$("#yearS").val()},function (data) { 
-            var dep = data.dep
+                $.getJSON('JsonData/graph_sympG01.php',{data:$("#yearS").val(),data2:idsymp.data},function (data) { 
+                    var symp = data.symmptom;
             
-            var CCharts =  new AJAXCharts('contentGr','column',title1,unit,dep,'JsonData/DC_columnDepRep.php?'+$("#yearS").val(),subtitle);
+            var CCharts =  new AJAXCharts('contentGr','column',title1,unit,symp,'JsonData/DC_columnSympG.php?'+$("#yearS").val()+'?'+idsymp.data,subtitle);
             $(CCharts.GetCL());
             }); 
                           $("#Budget").empty().append("ปีงบประมาณ : "+$("#yearS").val());
-                          CTb.GetNewTableAjax('contentTB','JsonData/DT_DR.php?'+$("#yearS").val(),'JsonData/tempSendData.php',column1
-                      ,null,null,null,null,false,true,'SymptomGroup01',false,null,false,null,null,null,null,null);
+                          $("#contentTB").empty();
+                          CTb.GetNewTableAjax('contentTB','JsonData/DT_RSy.php?'+$("#yearS").val()+'?'+idsymp.data,'JsonData/tempSendData.php',column1
+                      ,null,null,null,null,false,true,'DepRisk',false,null,false,null,null,null,null,null);
                       });
           }
         }

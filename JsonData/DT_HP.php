@@ -14,7 +14,7 @@ $conn_DB->conn_PDO();
 set_time_limit(0);
 $rslt = array();
 $series = array();
-$data = isset($_GET['data'])?$_GET['data']:'';
+$data = isset($_POST['data1'])?$_POST['data1']:(isset($_GET['data1'])?$_GET['data1']:'');
 $sql="SELECT re.repair_id,re.strepair_date,re.enrepair_dare,DATEDIFF(re.enrepair_dare,re.strepair_date) day
 ,SUBSTR(TIMEDIFF(re.enrepair_time,re.strepair_time),1,5) time
 ,(SELECT CONCAT(e.firstname,' ',e.lastname) FROM emppersonal e WHERE e.empno=re.informer) inform

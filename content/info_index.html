@@ -39,6 +39,9 @@ $.getJSON('JsonData/month.php',function (data) {
                                         $("select#yearS").empty().append(option);
                                         
             $("select#yearS").change(function () { 
+              
+              GetjQueryCookie('year',$("#yearS").val());
+
                 $.getJSON('JsonData/dashboard.php',{data: $("#yearS").val()},function (data) { 
                     var years = data.fyear;
                         $("#sum_rm").empty().html(data.total);
