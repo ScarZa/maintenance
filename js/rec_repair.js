@@ -155,7 +155,7 @@ $.getJSON('JsonData/repair_Data.php',{data: id.data},function (data) {
 					   url: "process/prcrepair.php",
                                            data: $("#frmresult").serialize(),
 					   success: function(result) {
-                                               alert(result);
+                                               alert(result.messege);
                                                $.getJSON('JsonData/DT_TRP.php',function (data) {
                                                    if(data.send_repair !=0){
                                                         $("#listSendResult").append($("<small class='label pull-right bg-red'>"+data.send_repair+"</small>"));
@@ -256,7 +256,7 @@ $.getJSON('JsonData/repair_Data.php',{data: id.data},function (data) {
 					   url: "process/prcrepair.php",
                                            data: $("#frmresult").serialize(),
 					   success: function(result) {
-                                               alert(result);
+                                               alert(result.messege);
                                                $.getJSON('JsonData/DT_TRP.php',function (data) {
                                                    if(data.send_repair !=0){
                                                         $("#listSendResult").append($("<small class='label pull-right bg-red'>"+data.send_repair+"</small>"));

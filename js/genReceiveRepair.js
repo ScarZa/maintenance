@@ -38,6 +38,7 @@ $("#createModal").empty().append("<div class='modal' id='receiveModal' role='dia
                                 modal.find('input#repair_id').val(recipient)
                                 modal.find('input#method').val('receive_repair')
                                 
+
                                 $("button#submrepair").click(function(e) {
                                         e.preventDefault();
                                         modal.modal('hide');
@@ -46,7 +47,33 @@ $("#createModal").empty().append("<div class='modal' id='receiveModal' role='dia
 					   url: "process/prcrepair.php",
                                            data: $("#frmreceive").serialize(),
 					   success: function(result) {
-                                               alert(result);
+                                               alert(result.messege);
+                            //////////// Firebase ////////
+                                               db.collection("counter").where("proname", "==", 'maintenance')
+                                               .get()
+                                               .then(function(querySnapshot) {
+                                                   querySnapshot.forEach(function(doc) {
+                                                       // doc.data() is never undefined for query doc snapshots
+                                                       var maintenance_count = doc.data().num_count - 1;
+                                               db.collection('counter').doc(doc.id).update({num_count:maintenance_count})
+                                                   });
+                                               })
+                                               .catch(function(error) {
+                                                   console.log("Error getting documents: ", error);
+                                               });
+
+                                               db.collection("repair_detail").where("repair_id", "==", recipient+'')
+                                               .get()
+                                               .then(function(querySnapshot) {
+                                                   querySnapshot.forEach(function(doc) { console.log(doc.id);
+                                                        db.collection('repair_detail').doc(doc.id).delete();
+                                                   });
+                                               })
+                                               .catch(function(error) {
+                                                   console.log("Error getting documents: ", error);
+                                               });
+                                               
+                            //////////// End Firebase ////////                   
                                                $.getJSON('JsonData/DT_TRP.php',function (data) {
                                                 if(data.req_repair !=0){
                                                         $("#listRepair").append($("<small class='label pull-right bg-red'>"+data.req_repair+"</small>"));

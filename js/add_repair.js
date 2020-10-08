@@ -91,7 +91,35 @@ function AddRepair(content, id = null) {
                         url: "process/prcrepair.php",
                         data: $("#frmaddrepair").serialize(),
                         success: function (result) {
-                            alert(result);
+                            alert(result.messege);
+                            if(result.id){
+                            //////////// Firebase ////////
+                            $.getJSON('JsonData/detail_rep.php',{data: result.id}, function (data) {
+                                db.collection('repair_detail').add({
+                                    repair_id:data[0].repair_id,
+                                    repair_date:data[0].repair_date,
+                                    pd_number:data[0].pd_number,
+                                    note:data[0].note,
+                                    symptom:data[0].symptom,
+                                    depName:data[0].depName,
+                                    vital:data[0].vital,
+                                    repair_status:'0'
+                                });
+                            });
+                            db.collection("counter").where("proname", "==", 'maintenance')
+                                               .get()
+                                               .then(function(querySnapshot) {
+                                                   querySnapshot.forEach(function(doc) {
+                                                       // doc.data() is never undefined for query doc snapshots
+                                                       var maintenance_count = doc.data().num_count + 1;
+                                               db.collection('counter').doc(doc.id).update({num_count:maintenance_count})
+                                                   });
+                                               })
+                                               .catch(function(error) {
+                                                   console.log("Error getting documents: ", error);
+                                               });
+                            //////////// End Firebase ////////  
+                        }                 
                             $.getJSON('JsonData/DT_TRP.php', function (data) {
                                 if (data.req_repair != 0) {
                                     $("#listRepair").append($("<small class='label pull-right bg-red'>" + data.req_repair + "</small>"));
@@ -161,7 +189,35 @@ function AddRepair(content, id = null) {
                         url: "process/prcrepair.php",
                         data: $("#frmaddrepair").serialize(),
                         success: function (result) {
-                            alert(result);
+                            alert(result.messege);
+                            if(result.id){
+                            //////////// Firebase ////////
+                            $.getJSON('JsonData/detail_rep.php',{data: result.id}, function (data) {
+                                db.collection('repair_detail').add({
+                                    repair_id:data[0].repair_id,
+                                    repair_date:data[0].repair_date,
+                                    pd_number:data[0].pd_number,
+                                    note:data[0].note,
+                                    symptom:data[0].symptom,
+                                    depName:data[0].depName,
+                                    vital:data[0].vital,
+                                    repair_status:'0'
+                                });
+                            });
+                            db.collection("counter").where("proname", "==", 'maintenance')
+                                               .get()
+                                               .then(function(querySnapshot) {
+                                                   querySnapshot.forEach(function(doc) {
+                                                       // doc.data() is never undefined for query doc snapshots
+                                                       var maintenance_count = doc.data().num_count + 1;
+                                               db.collection('counter').doc(doc.id).update({num_count:maintenance_count})
+                                                   });
+                                               })
+                                               .catch(function(error) {
+                                                   console.log("Error getting documents: ", error);
+                                               });
+                            //////////// End Firebase ////////  
+                        }
                             $.getJSON('JsonData/DT_TRP.php', function (data) {
                                 if (data.req_repair != 0) {
                                     $("#listRepair").append($("<small class='label pull-right bg-red'>" + data.req_repair + "</small>"));
@@ -230,7 +286,35 @@ function AddRepair(content, id = null) {
                         url: "process/prcrepair.php",
                         data: $("#frmaddrepair").serialize(),
                         success: function (result) {
-                            alert(result);
+                            alert(result.messege);
+                            if(result.id){
+                            //////////// Firebase ////////
+                            $.getJSON('JsonData/detail_rep.php',{data: result.id}, function (data) {
+                                db.collection('repair_detail').add({
+                                    repair_id:data[0].repair_id,
+                                    repair_date:data[0].repair_date,
+                                    pd_number:data[0].pd_number,
+                                    note:data[0].note,
+                                    symptom:data[0].symptom,
+                                    depName:data[0].depName,
+                                    vital:data[0].vital,
+                                    repair_status:'0'
+                                });
+                            });
+                            db.collection("counter").where("proname", "==", 'maintenance')
+                                               .get()
+                                               .then(function(querySnapshot) {
+                                                   querySnapshot.forEach(function(doc) {
+                                                       // doc.data() is never undefined for query doc snapshots
+                                                       var maintenance_count = doc.data().num_count + 1;
+                                               db.collection('counter').doc(doc.id).update({num_count:maintenance_count})
+                                                   });
+                                               })
+                                               .catch(function(error) {
+                                                   console.log("Error getting documents: ", error);
+                                               });
+                            //////////// End Firebase ////////  
+                        }
                             $.getJSON('JsonData/DT_TRP.php', function (data) {
                                 if (data.req_repair != 0) {
                                     $("#listRepair").append($("<small class='label pull-right bg-red'>" + data.req_repair + "</small>"));
@@ -305,7 +389,36 @@ function AddRepair(content, id = null) {
                         url: "process/prcrepair.php",
                         data: $("#frmaddrepair").serialize(),
                         success: function (result) {
-                            alert(result);
+                            alert(result.messege);
+                            if(result.id){
+                            //////////// Firebase ////////
+                            $.getJSON('JsonData/detail_rep.php',{data: result.id}, function (data) {
+                                const db_add = firebase.firestore();
+                                db_add.collection('repair_detail').add({
+                                    repair_id:data[0].repair_id,
+                                    repair_date:data[0].repair_date,
+                                    pd_number:data[0].pd_number,
+                                    note:data[0].note,
+                                    symptom:data[0].symptom,
+                                    depName:data[0].depName,
+                                    vital:data[0].vital,
+                                    repair_status:'0'
+                                });
+                            });
+                            db.collection("counter").where("proname", "==", 'maintenance')
+                                               .get()
+                                               .then(function(querySnapshot) {
+                                                   querySnapshot.forEach(function(doc) {
+                                                       // doc.data() is never undefined for query doc snapshots
+                                                       var maintenance_count = doc.data().num_count + 1;
+                                               db.collection('counter').doc(doc.id).update({num_count:maintenance_count})
+                                                   });
+                                               })
+                                               .catch(function(error) {
+                                                   console.log("Error getting documents: ", error);
+                                               });
+                            //////////// End Firebase ////////  
+                        }
                             $("#index_content").empty().load('content/list_repair_order.html');
                         }
                     });

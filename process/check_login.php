@@ -38,7 +38,10 @@ $result=$dbh->select_a($execute2);
 if ($result) {
 $sql3 = "SELECT notify_tokenkey FROM notify where notify_id=4";
 $dbh->imp_sql($sql3);
-$tokenkey=$dbh->select_a();    
+$tokenkey=$dbh->select_a();  
+$sql4 = "SELECT notify_tokenkey FROM notify where notify_id=5";
+$dbh->imp_sql($sql4);
+$tokenkey2=$dbh->select_a();    
     $_SESSION['m_fullname'] = $result['fullname'];
     $_SESSION['m_id'] = $result['id'];
     $_SESSION['UserID'] = $result['ss_UserID'];
@@ -50,6 +53,7 @@ $tokenkey=$dbh->select_a();
         $_SESSION['m_status'] = 'USER';
     }
     $_SESSION['m_tokenkey'] = $tokenkey['notify_tokenkey'];
+    $_SESSION['m_tokenkey2'] = $tokenkey2['notify_tokenkey'];
     //echo "Login สำเร็จครับ!";
 }else{
 	echo "ชื่อหรือรหัสผ่านผิด กรุณาตรวจสอบอีกครั้ง!";

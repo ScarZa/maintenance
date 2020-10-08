@@ -121,10 +121,10 @@ $connDB->imp_sql($sql);
 $execute = array(':repairT_id' => $add_repair);
 $LineText = $connDB->select_a($execute);
         //////////////////// Line Notify //////////////////////////////
-if(!empty($_SESSION['m_tokenkey'])){  
+if(!empty($_SESSION['m_tokenkey2'])){  
 include_once '../function/LineNotify.php';  
 include_once '../template/plugins/funcDateThai.php';
-$token = $_SESSION['m_tokenkey'];
+$token = $_SESSION['m_tokenkey2'];
 $text = "แจ้งซ่อม : ".DateThai1($LineText['repair_date'])." เวลา ".substr($LineText['repair_date'], 11,5)." น.\n".$LineText['pd_number']." ".$LineText['symptom']." ".$LineText['depName']." ".$LineText['inform']." ".$LineText['vital'];
  
 $res = notify_message($text,$token);

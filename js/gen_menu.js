@@ -128,10 +128,11 @@
                                                                 
                                                         $("#ad_treeview3").append($("<a href='#'><img src='images/menu_items_options.ico' width='20'> <span>เมนูผู้ใช้ทั่วไป</span><i class='fa fa-angle-left pull-right'></i></a>")
                                                             , $("<ul id='ad_treeview-menu3' class='treeview-menu'></ul>")
+                                                            
                                                         );
                                                   
-                                                  $("#ad_treeview-menu3").append($("<li class='treeview'><a href='#'>&nbsp;&nbsp;<img src='images/icon_set2/computer.ico' width='20'> แจ้งซ่อมงานคอมฯ<span class='pull-right-container'><i class='fa fa-angle-left pull-right'></i></span></a><ul class='treeview-menu' id='ad_treeview-menu31'></ul></li>")
-                                                      ,$("<li class='treeview'><a href='#'>&nbsp;&nbsp;<img src='images/icon_set2/tools.ico' width='20'> แจ้งซ่อมงานช่าง<span class='pull-right-container'><i class='fa fa-angle-left pull-right'></i></span></a><ul class='treeview-menu' id='ad_treeview-menu32'></ul></li>")
+                                                  $("#ad_treeview-menu3").append($("<li class=''><a href='#'>&nbsp;&nbsp;<img src='images/icon_set2/computer.ico' width='20'> แจ้งซ่อมงานคอมฯ<i class='fa fa-angle-left pull-right'></i></a><ul class='treeview-menu' id='ad_treeview-menu31'></ul></li>")
+                                                      , $("<li class=''><a href='#'>&nbsp;&nbsp;<img src='images/icon_set2/tools.ico' width='20'> แจ้งซ่อมงานช่าง<i class='fa fa-angle-left pull-right'></i></a><ul class='treeview-menu' id='ad_treeview-menu32'></ul></li>")
                                                   );
                                                                 $("#ad_treeview-menu31").append($("<li class=''><a id='addRepairUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/computer.ico' width='18'> <span>แจ้งซ่อมคอมพิวเตอร์</span></a></li>")
                                                                                             ,$("<li class=''><a id='addRepairNoUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/computer.ico' width='18'> <span>แจ้งซ่อมคอมฯ(ไม่ใช่ครุภัณฑ์)</span></a></li>")
