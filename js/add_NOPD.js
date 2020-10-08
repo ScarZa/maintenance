@@ -32,7 +32,7 @@ function AddNOPD (content,id=null) {
                  $("#SC_content").append($("<div class='form-group'>หมวดความต้องการ : <select name='no_pdtype' class='form-control select2' id='no_pdtype' required></select></div>")
                                         ,$("<div class='form-group'>รายการความต้องการ : <INPUT TYPE='text' NAME='no_pdname' id='no_pdname' class='form-control' placeholder='ระบุรายการความต้องการ' required></div>"));
                                      var option="<option value=''> เลือกหมวด </option>";
-                                              option += "$('<option value='1'> แจ้งซ่อมคอมฯ(ไม่ใช่ครุภัณฑ์) </option>'),$('<option value='2'> ขอข้อมูล/รายงาน/Dev. </option>')";
+                                              option += "$('<option value='1'> แจ้งซ่อมคอมฯ(ไม่ใช่ครุภัณฑ์) </option>'),$('<option value='2'> ขอข้อมูล/รายงาน/Dev. </option>'),$('<option value='3'> แจ้งซ่อมงานช่าง(ไม่ใช่ครุภัณฑ์) </option>')";
                                         $("select#no_pdtype").empty().append(option);
                                         
             $("div#SC_content").append("<input type='hidden' id='method' name='method' value='add_nopd'>");                

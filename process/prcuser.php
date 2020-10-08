@@ -32,6 +32,8 @@ if ($method == 'add_user') {
         $ss_process = 0;
     }elseif ($ss_Status=='MUSER') {
         $ss_process=6;
+    }elseif ($ss_Status=='TUSER') {
+        $ss_process=8;
     }
     
     $data = array($ss_Username, $ss_Password, $ss_user_name, $ss_Name,$ss_Status, $ss_process);
@@ -54,6 +56,8 @@ if ($method == 'add_user') {
         $ss_process = 0;
     }elseif ($ss_Status=='MUSER') {
         $ss_process=6;
+    }elseif ($ss_Status=='TUSER') {
+        $ss_process=8;
     }
     $table = "ss_member";
     $where="ss_UserID=:ss_UserID";

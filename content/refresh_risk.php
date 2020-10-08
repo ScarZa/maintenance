@@ -19,7 +19,7 @@ $result = $conn_DB->select_a();
                   <span class="label label-warning"><?=$result['alertRepair']?></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li class="header" style="color: red;"><b>คุณมี <?=$result['alertRepair']?> รายการแจ้งย้าย</b></li>
+                    <li class="header" style="color: red;"><b>คุณมี <?=$result['alertRepair']?> รายการแจ้งซ่อม</b></li>
                   <li>
                     <!-- inner menu: contains the actual data -->
                     <ul class="menu"><?php  $sql2 = "SELECT re.repair_id,re.repair_date

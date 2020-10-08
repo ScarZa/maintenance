@@ -18,6 +18,7 @@ $sql="SELECT no_pdid
 ,CASE no_pdtype
 WHEN '1' THEN 'แจ้งซ่อมคอมฯ(ไม่ใช่ครุภัณฑ์)'
 WHEN '2' THEN 'ขอข้อมูล/รายงาน/Dev.'
+WHEN '3' THEN 'แจ้งซ่อมงานช่าง(ไม่ใช่ครุภัณฑ์)'
 ELSE NULL END as no_pdtype
 ,no_pdname
 FROM m_no_pd"; 

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset='utf-8'/>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+        <link rel='stylesheet' href='../template/bootstrap/css/bootstrap.min.css'>
+        <!-- Select2 -->
+        <link rel="stylesheet" href="../template/plugins/select2/select2.min.css">
+
+        <link rel="stylesheet" href="../template/plugins/jquery-ui-1.11.4.custom/jquery-ui-1.11.4.custom.css" />
+        <link rel="stylesheet" href="../template/plugins/jquery-ui-1.11.4.custom/SpecialDateSheet.css" />
+        <script src="../template/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+<style type="text/css">
+    .qr-code-generator {
+        width: 500px;
+        margin: 0 auto;
+    }
+
+    .qr-code-generator * {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    #qrcode {
+        width: 128px;
+        height: 128px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    #qrcode a {
+        font-size: 0.8em;
+    }
+
+    .qr-url,
+    .qr-size {
+        padding: 0.5em;
+        border: 1px solid #ddd;
+        border-radius: 2px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .qr-url {
+        width: 79%;
+    }
+
+    .qr-size {
+        width: 20%;
+    }
+
+    .generate-qr-code {
+        display: block;
+        width: 100%;
+        margin: 0.5em 0 0;
+        padding: 0.25em;
+        font-size: 1.2em;
+        border: none;
+        cursor: pointer;
+        background-color: #e5554e;
+        color: #fff;
+    }
+</style>
+<style type="text/css">
+    @media print {
+        header,footer,.sidebar, aside,.sidebar,.navbar,.main-sidebar,.qr-code-generator,#div_print,#head-title {
+display: none;
+}
+}
+</style>
+<style type="text/css">
+    .blockQR {
+        width: 60px;
+        height: 60px;
+        margin: 2px;
+        background: #FFFFFF;
+        float: left;
+    }
+</style>
+<div id="head-title"><h3 align='center'>พิมพ์ Label ครุภัณฑ์ขนาด A4</h3></div>
+        <div class="qr-code-generator">
+            <a href='#' class="btn btn-success" id="plus-btn"><i class='fa fa-plus-circle'></i> เพิ่มครุภัณฑ์</a>
+            <a href='#' class="btn btn-danger" id="minus-btn"><i class='fa fa-minus-circle'></i> ลบครุภัณฑ์</a>
+            <p>
+                <form id="frmgenQR">
+                    <div id="qr-input">
+                        <select name="gn-val[]" class='form-control select2' id="gn-val[]" required></select>
+                    </div><p><p>
+                    <input type="number" class="qr-size" value="70" min="20" max="500"><b> : ขนาด</b>
+                    <input type="button" class="generate-qr-code" value="Generate QRCode" id="gn-btn" />
+                    <input type="button" class="generate-qr-code" value="Send Notify" id="NF-btn" />
+                </form><p><p>
+                <span id='div_print'></span><p>
+        </div>
+        <div id="genQRCode"></div>
+<!-- End My JS script-->
+<script type="text/javascript">
+function DataProds(content) {
+$.getJSON('../JsonData/data_prods.php', function (GD) {
+                    var option="<option value=''> เลือกหมวดครุภัณฑ์ </option>";
+                    for (var key in GD) {
+                        option += "$('<option value='"+GD[key].pd_id+"'> " + GD[key].pd_number + " : " + GD[key].name + " (" + GD[key].note + ") </option>'),";
+                    } 
+                    $(content).empty().append(option);
+                    $(".select2").select2();
+                });
+            }
+            DataProds("select"); 
+
+    $('#plus-btn').click(function () {
+        $("#qr-input").append("<select name='gn-val[]' class='form-control select2' id='gn-val[]' required></select>")
+        DataProds("select:last"); 
+    });
+    $('#minus-btn').click(function () {
+        $("div >select:last").select2('destroy').remove();
+     });
+
+    //$(window).load(function () {
+        $("#NF-btn").click(function () {
+          var settings = {
+  "url": "https://notify-api.line.me/api/notify",
+  "method": "POST",
+  "timeout": 0,
+  "headers": {
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Access-Control-Allow-Origin": "*",
+    "Authorization": "Bearer 2bs05X1pgtYXH6nauTZCcyKSqdpi1qDvuKSo7C5FUKk"
+  },
+  "data": {
+    "message": "ทดสอบส่ง Notify โดย JQuery 05"
+  }
+};
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+        });
+     
+        $('#gn-btn').click(function () {
+            $("#div_print").show();
+            $("#genQRCode").show();
+            $("#div_print").empty().append($(" <button id='clear' class='btn btn-danger'>clear data</button> <button id='print' class='btn btn-primary'>พิมพ์ข้อมูล</button>"))
+            var val = $("#frmgenQR").serializeArray();
+            var count = Math.ceil(val.length/3);
+            $("#genQRCode").empty().append("<table width='100%' border=1><tbody></tbody></table>");
+            //$.each(val, function (key, vals) {
+                var I=0;
+
+                    for(var i=1;i<=count;i++){
+                        $("tbody").append("<tr id='row"+i+"'></tr>");
+                        for (var ii=0;ii<=2;ii++) {
+                
+                    if (val[I].value != '') {
+                        $("tr#row"+i).append("<td width='33%' height='75' valign='top' align='center'><span class='blockQR' align='center' valign='top' id='qr-example" + I + "'></span><span align='center' id='qr-label" + I + "'></span></td>");
+                        $('#qr-example' + I).empty().qrcode({ width: $('.qr-size').val(), height: $('.qr-size').val(), text: val[I].value });
+                        $.getJSON('../JsonData/detail_prodsQR.php', { data: val[I].value ,data2:I }, function (data) {
+                            $("#qr-label" + data.count).append(data.pd_number+"<br>"+data.name+"<br>"+data.depName);
+                        });
+                    } else {
+                        alert("โปรดใส่เลขครุภัณฑ์ใน list ที่" + (I + 1) + " ด้วยครับ !");
+                    }
+                    if(I == val.length-1){
+    break;
+}
+                    I++;
+                }
+            
+                }
+        
+            // for(var i=0;i < val.length;i++){
+            //     if (val[i].value != '') {console.log(val[i].value);
+            //         $("#genQRCode").append("<table id='tableId' width='100%'><tbody id='tb"+i+"'></tbody></table><br><br>");
+            //         $("tbody#tb"+i).append("<tr><td width='100%' valign='top' align='center'><span class='blockQR' align='center' valign='top' id='qr-example" + i + "'></span><span align='center' id='qr-label" + i + "'></span></td></tr>");
+            //         $('#qr-example' + i).empty().qrcode({ width: $('.qr-size').val(), height: $('.qr-size').val(), text: val[i].value });
+            //         $.getJSON('JsonData/detail_prodsQR.php', { data: val[i].value ,data2:i }, function (data) {
+            //             $("#qr-label" + data.count).append(data.pd_number+"<br>"+data.name+"<br>"+data.depName);
+            //         });
+            //     } else {
+            //         alert("โปรดใส่เลขครุภัณฑ์ใน list ที่" + (i + 1) + " ด้วยครับ !");
+            //     }
+            // }
+
+             $("button#print").click(function (e) {
+                    e.preventDefault();
+                    window.print()
+                });
+
+                $("button#clear").click(function (e) {
+                    e.preventDefault();
+                    $("#div_print").hide();
+                    $("#genQRCode").hide();
+                });
+        });
+
+</script>
+<!-- jQuery 2.1.4 -->
+    
+<script src="../template/plugins/select2/select2.full.min.js"></script>
+<!-- Bootstrap 3.3.5 -->
+<script src="../template/bootstrap/js/bootstrap.min.js"></script>
+<script src="../template/plugins/jquery-ui-1.11.4.custom/jquery-ui-1.11.4.custom.js"></script>
+<script src="../js/QRcode.js"></script>
+</body>
+</html>

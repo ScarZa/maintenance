@@ -37,6 +37,21 @@ if ($method == 'add_acc') {
     } else {
         echo "Insert complete!!!!";
     }
+}elseif ($method == 'add_accT') {
+    $repairT_id = $_POST['repairT_id'];
+    $acc_part = $_POST['acc_part'];
+    $acc_detail = $_POST['acc_detail'];
+    $acc_price = $_POST['acc_price'];
+    
+    $data = array($repairT_id, $acc_part, $acc_detail, $acc_price);
+    $table = "m_accessoriest";
+    $add_acc = $connDB->insert($table, $data);
+    $connDB->close_PDO();
+    if ($add_acc == false) {
+        echo "Insert not complete " .$add_acc->errorInfo();
+    } else {
+        echo "Insert complete!!!!";
+    }
 }elseif ($method == 'edit_repair') {
     $repair_id= $_POST['repair_id'];
     $repair_date =insert_date($_POST['datepicker1']);

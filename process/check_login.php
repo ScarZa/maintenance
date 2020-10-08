@@ -20,7 +20,7 @@ from ss_member ss
 INNER JOIN emppersonal e1 on e1.empno=ss.ss_Name
 INNER JOIN work_history wh ON wh.empno=e1.empno
 inner join department d1 on wh.depid=d1.depId
-where ss.ss_Username= :user_account && ss.ss_Password= :user_pwd and (ss.ss_process=0 or ss.ss_process=6) and (wh.dateEnd_w='0000-00-00' or ISNULL(wh.dateEnd_w))";
+where ss.ss_Username= :user_account && ss.ss_Password= :user_pwd and (ss.ss_process=0 or ss.ss_process=6 or ss.ss_process=8) and (wh.dateEnd_w='0000-00-00' or ISNULL(wh.dateEnd_w))";
 $execute=array(':user_account' => $user_account, ':user_pwd' => $user_pwd);
 $dbh->imp_sql($sql);
 $result=$dbh->select_a($execute);
@@ -44,7 +44,7 @@ $tokenkey=$dbh->select_a();
     $_SESSION['UserID'] = $result['ss_UserID'];
     $_SESSION['m_dep'] = $result['dep'];;
     $_SESSION['m_process'] = $result['process'];
-    if($result['status']=='SUSER' || $result['status']=='USUSER' || $result['status']=='MUSER' || $result['status']=='ADMIN'){
+    if($result['status']=='SUSER' || $result['status']=='USUSER' || $result['status']=='MUSER' || $result['status']=='TUSER' || $result['status']=='ADMIN'){
     $_SESSION['m_status'] = $result['status'];
     } else {
         $_SESSION['m_status'] = 'USER';

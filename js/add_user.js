@@ -43,7 +43,9 @@ function AddUser (content,id=null) {
                                 }); 
                 $("select#ss_Status").append($("<option value=''> เลือกระดับการใช้งาน </option>")
                                             ,$("<option value='ADMIN'> ผู้ดูแลระบบสูงสุด </option>")
-                                            ,$("<option value='MUSER'> ผู้ดูแลระบบซ่อม </option>"));
+                                            , $("<option value='MUSER'> ผู้ดูแลระบบซ่อม(com) </option>")
+                                            , $("<option value='TUSER'> ผู้ดูแลระบบซ่อม(ช่าง) </option>")
+                );
                                     
             $("div#DUS_content").append("<input type='hidden' id='method' name='method' value='add_user'>");                
             $("div#DUS_content").append("<div class='col-md-12' align='center'><button type='submit' class='btn btn-primary' id='USsubmit'>บันทึก</button></div>");

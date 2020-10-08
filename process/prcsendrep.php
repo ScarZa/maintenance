@@ -38,6 +38,22 @@ if ($method == 'add_sendRepair') {
     } else {
         echo "Insert complete!!!!";
     }
+}elseif ($method == 'add_sendRepairT') {
+    $repairT_id = $_POST['repairT_id'];
+    $comp_id = $_POST['comp_id'];
+    $send_date = insert_date($_POST['datepicker3']);
+    $acc_part = $_POST['acc_part'];
+    $repair_detail = $_POST['modalrepair_detail'];
+    
+    $data = array($repairT_id, $comp_id, $send_date, $repair_detail,$acc_part);
+    $table = "m_sendrept";
+    $add_sendrep = $connDB->insert($table, $data);
+    $connDB->close_PDO();
+    if ($add_sendrep == false) {
+        echo "Insert not complete " .$add_sendrep->errorInfo();
+    } else {
+        echo "Insert complete!!!!";
+    }
 }elseif ($method == 'edit_repair') {
     $repair_id= $_POST['repair_id'];
     $repair_date =insert_date($_POST['datepicker1']);

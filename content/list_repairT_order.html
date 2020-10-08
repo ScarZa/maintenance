@@ -1,0 +1,29 @@
+            <h2 style="color: blue"><img src='images/icon_set2/tools.ico' width='40'> รายการแจ้งซ่อมครุภัณฑ์(ช่าง)</h2>
+            <ol class="breadcrumb">
+              <li><a href="index.html"><i class="หน้าหลัก"></i> หน้าหลัก</a></li>
+              <li class="active"><i class="fa fa-wrench"></i> รายการแจ้งซ่อม</li>
+            </ol>
+             
+<script language="Javascript" type="text/javascript">
+    //var column1 = '{"รายการความเสี่ยงที่รอ RM man มาตรวจสอบ":["เลขที่","รายการ","เกิดขึ้นเมื่อ","ได้รับเมื่อ"]}';
+    var column1 = ["ลำดับ","วันที่แจ้ง","เลขครุภัณฑ์","เครื่อง","หมายเหตุ","อาการ","งาน","ความสำคัญ","ผู้แจ้ง","รับใบแจ้ง","แก้ไข","ลบ"];
+              var CTb = new createTableAjax();
+              var setattrCTb = CTb.GetNewTableAjax('contentTB','JsonData/DT_LRPT.php','JsonData/tempSendData.php',column1
+              ,'AddRepairT','m_repair_pdt','repairT_id','content/list_repairT_order.html',true,false,null,true,'receiveTModal',false,null,'เร่งด่วน',null,null,'ไม่เร่งด่วน','dbtb');
+              
+</script>
+<div class="row">
+    <div class="col-md-12">
+            <div class="box box-primary box-solid">
+                <div class="box-header with-border">
+                    <h4 class="box-title"><i class="fa fa-star"></i> รายการแจ้งซ่อมครุภัณฑ์(ช่าง) </h4>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div><!-- /.box-tools -->
+                </div><!-- /.box-header -->
+                <div class="box-body">
+        <div id="contentTB" class="table-responsive"></div>
+                </div>
+            </div>
+    </div>
+</div>

@@ -86,6 +86,8 @@
                             AddNotify(content, result);
                         } else if (subgetfunc[0] == 'AddRepair') {
                             AddRepair(content, result);
+                        } else if (subgetfunc[0] == 'AddRepairT') {
+                            AddRepairT(content, result);
                         } else if (subgetfunc[0] == 'AddPM') {
                             AddPM(content, result);
                             if (subgetfunc[1] == 'AddP') {
@@ -97,7 +99,9 @@
                             }
                         } else if (subgetfunc[0] == 'RecRepair') {
                             RecRepair(content, result);
-                        } else if (subgetfunc[0] == 'HisRepair') {
+                        } else if (subgetfunc[0] == 'RecTRepair') {
+                            RecTRepair(content, result);
+                        }else if (subgetfunc[0] == 'HisRepair') {
                             HisRepair(content, result);
                         } else if (subgetfunc[0] == 'ListDev') {
                             ListDev(content, result);
@@ -180,7 +184,7 @@
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini" style="color: yellow"><b>M</b>-V1</span>
                     <!-- logo for regular state and mobile devices -->
-                    <span class="logo-lg" style="color: yellow"><b>Maintenance</b> V.1.5</span>
+                    <span class="logo-lg" style="color: yellow"><b>Maintenance</b> V.2.0</span>
                 </a>
                 <!-- Header Navbar: style can be found in header.less -->
                 <nav class="navbar navbar-static-top" role="navigation">
@@ -249,6 +253,10 @@
         <script src="js/add_pdcate.js" type="text/javascript"></script>
         <script src="js/paneldetail_M.js" type="text/javascript"></script>
         <script src="js/QRcode.js"></script>
+        <script src="js/add_repairT.js"></script>
+        <script src="js/genHisRepairT.js"></script>
+        <script src="js/genReceiveTRepair.js"></script>
+        <script src="js/rec_Trepair.js"></script>
         <!------------------------ End My scripts ------------------------>     
         <script type="text/javascript">
             //            function getURL(objN){
