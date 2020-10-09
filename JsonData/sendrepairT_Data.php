@@ -14,10 +14,13 @@ $conn_DB->conn_PDO();
 $rslt=array();
 $result=array();
 $repairT_id = isset($_GET['data'])?$_GET['data']:$_POST['data'];
-$sql="SELECT s.send_id,s.repairT_id,pp.pd_id,pp.pd_number,s.send_date,s.repair_detail,c.comp_name 
+$sql="SELECT s.send_id,s.repairT_id,pp.pd_id
+,if(rp.pd_id!=0,pp.pd_number,if(rp.no_pdid!=0,npd.no_pdname,if(rp.request_data!=0,npd.no_pdname,''))) as pd_number
+,s.send_date,s.repair_detail,c.comp_name 
 FROM m_sendrept s
 INNER JOIN m_repair_pdt rp on rp.repairT_id=s.repairT_id
-INNER JOIN pd_product pp on pp.pd_id = rp.pd_id
+LEFT OUTER JOIN pd_product pp on pp.pd_id = rp.pd_id
+LEFT OUTER JOIN m_no_pd npd on npd.no_pdid=rp.no_pdid or npd.no_pdid=rp.request_data
 INNER JOIN se_company c on c.comp_id=s.comp_id
 WHERE s.repairT_id=:repairT_id";
 $execute = array(':repairT_id' => $repairT_id);

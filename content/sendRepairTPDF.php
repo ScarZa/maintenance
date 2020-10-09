@@ -50,26 +50,29 @@ INNER JOIN pcode p on p.pcode=e.pcode";
     $connDB->imp_sql($sql_hos);
     $hospital=$connDB->select_a();
     
-    $sql_send=  "SELECT CONCAT(e.firstname,' ',e.lastname)fullname,re.repairT_id,sc.comp_name,p.posname,d.depName,pd.name,pd.pd_number,re.symptom,re.repair_date
-,(SELECT CONCAT(e.firstname,' ',e.lastname) FROM emppersonal e WHERE e.empno=re.informer)informer
-,(SELECT p.posname FROM m_repair_pdt re
-INNER JOIN emppersonal e on e.empno=re.informer
-INNER JOIN work_history wh ON wh.empno=e.empno 
-INNER JOIN posid p on p.posId=wh.posid
-WHERE (wh.dateEnd_w='0000-00-00' or ISNULL(wh.dateEnd_w)) and re.repairT_id=$id)posi_inform
-,CASE re.vital
-WHEN '0' THEN 'ไม่เร่งด่วน'
-WHEN '1' THEN 'เร่งด่วน'
-ELSE NULL END as vital
-FROM m_sendrept ms
-INNER JOIN m_repair_pdt re on re.repairT_id=ms.repairT_id
-INNER JOIN pd_product pd on pd.pd_id=re.pd_id
-INNER JOIN department d on d.depId=re.depid
-INNER JOIN se_company sc on sc.comp_id=ms.comp_id
-INNER JOIN emppersonal e on e.empno=re.repairer
-INNER JOIN work_history wh ON wh.empno=e.empno
-INNER JOIN posid p on p.posId=wh.posid
-WHERE (wh.dateEnd_w='0000-00-00' or ISNULL(wh.dateEnd_w)) and re.repairT_id=$id";
+    $sql_send=  "SELECT CONCAT(e.firstname,' ',e.lastname)fullname,re.repairT_id,sc.comp_name,p.posname,d.depName,pd.name
+    ,if(re.pd_id!=0,pd.pd_number,if(re.no_pdid!=0,npd.no_pdname,if(re.request_data!=0,npd.no_pdname,''))) as pd_number
+    ,re.symptom,re.repair_date
+    ,(SELECT CONCAT(e.firstname,' ',e.lastname) FROM emppersonal e WHERE e.empno=re.informer)informer
+    ,(SELECT p.posname FROM m_repair_pdt re
+    INNER JOIN emppersonal e on e.empno=re.informer
+    INNER JOIN work_history wh ON wh.empno=e.empno 
+    INNER JOIN posid p on p.posId=wh.posid
+    WHERE (wh.dateEnd_w='0000-00-00' or ISNULL(wh.dateEnd_w)) and re.repairT_id=$id)posi_inform
+    ,CASE re.vital
+    WHEN '0' THEN 'ไม่เร่งด่วน'
+    WHEN '1' THEN 'เร่งด่วน'
+    ELSE NULL END as vital
+    FROM m_sendrept ms
+    LEFT OUTER JOIN m_repair_pdt re on re.repairT_id=ms.repairT_id
+    LEFT OUTER JOIN pd_product pd on pd.pd_id=re.pd_id
+    LEFT OUTER JOIN m_no_pd npd on npd.no_pdid=re.no_pdid or npd.no_pdid=re.request_data
+    LEFT OUTER JOIN department d on d.depId=re.depid
+    INNER JOIN se_company sc on sc.comp_id=ms.comp_id
+    INNER JOIN emppersonal e on e.empno=re.repairer
+    INNER JOIN work_history wh ON wh.empno=e.empno
+    INNER JOIN posid p on p.posId=wh.posid
+    WHERE (wh.dateEnd_w='0000-00-00' or ISNULL(wh.dateEnd_w)) and re.repairT_id=$id";
     $connDB->imp_sql($sql_send);
     $sendre=$connDB->select_a();
     
@@ -143,13 +146,16 @@ ob_start(); // ทำการเก็บค่า html นะครับ*/
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ด้วยฝ่ายมีความประสงค์ขอซ่อม มีรายการดังนี้<br>
 <!--    <div class="col-lg-12" id="contentTB">ใช้สร้างตาราง</div>-->
     <div class="col-lg-12"><?php
-        $sql="SELECT se.acc_part, se.repair_detail,pd.pd_number,COUNT(se.send_id)amount,d.depName
-FROM m_repair_pdt re
-INNER JOIN m_sendrept se on se.repairT_id=re.repairT_id
-INNER JOIN pd_product pd on pd.pd_id=re.pd_id
-INNER JOIN pd_place pp on pp.pd_id=pd.pd_id
-INNER JOIN department d on d.depId=pp.depId
-WHERE re.repairT_id=$id";
+        $sql="SELECT se.acc_part, se.repair_detail
+        ,if(re.pd_id!=0,pd.pd_number,if(re.no_pdid!=0,npd.no_pdname,if(re.request_data!=0,npd.no_pdname,''))) as pd_number
+        ,COUNT(se.send_id)amount,d.depName
+        FROM m_repair_pdt re
+        LEFT OUTER JOIN m_sendrept se on se.repairT_id=re.repairT_id
+        LEFT OUTER JOIN pd_product pd on pd.pd_id=re.pd_id
+        LEFT OUTER JOIN m_no_pd npd on npd.no_pdid=re.no_pdid or npd.no_pdid=re.request_data
+        LEFT OUTER JOIN pd_place pp on pp.pd_id=pd.pd_id
+        LEFT OUTER JOIN department d on d.depId=pp.depId
+        WHERE re.repairT_id=$id";
                     $connDB->imp_sql($sql);
         $connDB->select();
 $column=array("รายการ","อาการเสีย","หมายเลขครุภัณฑ์","จำนวน","สถานที่ติดตั้งครุภัณฑ์");

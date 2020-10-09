@@ -110,5 +110,29 @@ if ($method == 'add_hisdev') {
     } else {
         echo "แก้ไขโมดูลสำเร็จครับ!!!!";
     }
+}elseif ($method == 'add_hisreT') {
+    //$module_id= $_POST['module_id'];
+    $dev_detail = $_POST['dev_detail'];
+    $dev_date =insert_date($_POST['datepickerT1']);
+    $take_hours = isset($_POST['H-beginT']) ? $_POST['H-beginT'] : '';
+    $take_minutes = isset($_POST['M-beginT']) ? $_POST['M-beginT'] : '';
+    $dev_stime = $take_hours . ":" . $take_minutes;
+    $take_houre = isset($_POST['H-endT']) ? $_POST['H-endT'] : '';
+    $take_minutee = isset($_POST['M-endT']) ? $_POST['M-endT'] : '';
+    $dev_etime = $take_houre . ":" . $take_minutee;
+    $developer=$_SESSION['m_id'];
+    $repairT_id = isset($_POST['repairT_id'])?$_POST['repairT_id']:'';
+    
+    $data = array($dev_detail, $dev_date, $developer, $dev_stime, $dev_etime, $repairT_id);
+    $table = "rept_history";
+    $add_hisdev = $connDB->insert($table, $data);
+    
+        
+    $connDB->close_PDO();
+    if ($add_hisdev == false) {
+        echo "Insert not complete " .$add_hisdev->errorInfo();
+    } else {
+        echo "บันทึกประวัติการซ่อมสำเร็จ!!!!";
+    }
 }
 $connDB->close_PDO();

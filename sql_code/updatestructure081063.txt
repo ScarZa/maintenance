@@ -1,0 +1,8 @@
+ALTER TABLE `ss_member` 
+MODIFY COLUMN `ss_Status` enum('ADMIN','SUSER','NUSER','MUSER','AUSER','TUSER') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL AFTER `ss_Name`;
+
+INSERT INTO `m_no_pd` VALUES (16, 3, 'ระบบไฟฟ้า');
+INSERT INTO `m_no_pd` VALUES (17, 3, 'ระบบห้องน้ำ/น้ำปะปา');
+INSERT INTO `m_no_pd` VALUES (18, 3, 'อาคารสถานที่');
+
+INSERT INTO `notify` VALUES (4, 'maintenance', '');

@@ -1,15 +1,15 @@
 function RecTRepair (content,id=null) {
 $.getJSON('JsonData/repairT_Data.php',{data: id.data},function (data) { 
-        $(content).empty().append("<h2 style='color: blue'>บันทึกงานซ่อมคอมพิวเตอร์(ครุภัณฑ์คอมพิวเตอร์)</h2>"+
+        $(content).empty().append("<h2 style='color: blue'>บันทึกงานซ่อมงานช่าง</h2>"+
                                     "<ol class='breadcrumb'>"+
                                     "<li><a href='index.html'><i class='fa fa-home'></i> หน้าหลัก</a></li>"+
-                                    "<li class='active'><i class='fa fa-envelope'></i> บันทึกงานซ่อมคอมพิวเตอร์</li>"+
+                                    "<li class='active'><i class='fa fa-envelope'></i> บันทึกงานซ่อมงานช่าง</li>"+
                                     "</ol><form name='frmresult' id='frmresult'>"+
                                     "<div class='row'>"+
                                     "<div class='col-md-12'>"+
                                     "<div class='box box-primary box-solid'>"+
                                     "<div class='box-header with-border'>"+
-                                    "<h4 class='box-title'> บันทึกงานซ่อมครุภัณฑ์คอมพิวเตอร์ </h4></div>"+
+                                    "<h4 class='box-title'> บันทึกงานซ่อมงานช่าง </h4></div>"+
                                     "<div class='box-body'><div class='col-md-12' id='add_repair'>"+
                                     "ผู้แจ้งซ่อม : "+data.inform+"  &nbsp;&nbsp;งาน : "+data.depName+"<br>"
                             +"เลขครุภัณฑ์ : "+data.pd_number+"  &nbsp;&nbsp;หมายเหตุ : "+data.note+"<br>"
@@ -30,10 +30,10 @@ $.getJSON('JsonData/repairT_Data.php',{data: id.data},function (data) {
                                     +"<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>"
                                     +"<h4 class='modal-title' id='sendreModalLabel'>ส่งซ่อมภายนอก</h4></div><div class='modal-body' id='modelsendre-body'></div>"
                                     +"<div class='modal-footer'><button type='button' class='btn btn-danger' id='sendredismiss'>ปิด</button><button type='button' class='btn btn-success' id='submsendre'>บันทึกส่งซ่อมภายนอก</button></div></div></div></div>");
-                            if(data.request_data!=0){
-                                $("#block_litle").prepend("<a href='#'><i class='fa fa-plus'></i> บันทึกการพัฒนา</a>");
-                                    $("#block_litle > a").attr("onclick","loadAjax('#index_content','JsonData/tempSendData.php',"+data.repairT_id+",'ListDev');").addClass('btn btn-success');
-                            }
+                            //if(data.request_data!=0){
+                                $("#block_litle").prepend("<a href='#'><i class='fa fa-plus'></i> บันทึกช่วงเวลาการซ่อม</a>");
+                                    $("#block_litle > a").attr("data-toggle","modal").attr("data-target","#recTDevModal").attr("data-whatever",data.repairT_id).attr("onclick","recTDevModal("+data.repairT_id+");").addClass('btn btn-success');
+                            //}
                             ///////////////// End Send Repair Modal ////////////////////
         $('div#Rr_content').append($("<div class='row'><div class='col-md-3 col-xs-12'><div class='form-group'><label for='datepicker1' class='control-label'>วันที่เริ่มซ่อม </label><input type='text' name='datepicker1' id='datepicker1' class='form-control' readonly required></div></div>"
                                     +"<div class='col-md-1 col-xs-12'><div class='form-group'><label for='H-begin' class='control-label'>ชั่วโมง </label><select name='H-begin' id='H-begin' class='select2 form-control'></select></div></div>"

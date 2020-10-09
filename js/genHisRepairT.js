@@ -12,13 +12,24 @@ $("#createModal").empty().append("<div class='modal' id='HisTModal' role='dialog
    $.getJSON('JsonData/synopsisT_repair_Data.php',{data: recipient},function (data) {
         $('span#his_detail').empty().append("ผู้แจ้งซ่อม : "+data.inform+"  &nbsp;&nbsp;งาน : "+data.depName+"<br>"
                             +"เลขครุภัณฑ์/สาเหตุ : "+data.pd_number+"  &nbsp;&nbsp;หมายเหตุ : "+data.note+"<br>"
-                            +"อาการ : "+data.symptom+"<br>วันที่แจ้ง : "+data.repair_date+" &nbsp;&nbsp;<b style='color: red;'>"+data.vital+"</b><br><hr>"
-                            +"วันที่รับใบแจ้ง : "+data.receive_date+"&nbsp;&nbsp;ผู้รับใบแจ้งซ่อม : "+data.receiver+"<br><hr>"
-                            +"วันที่เริ่ม : "+data.strepair_date+"&nbsp;&nbsp;วันที่เสร็จ : "+data.enrepair_dare+"&nbsp;&nbsp;รวมเวลาซ่อม : "+data.total_day+"&nbsp;วัน "+data.total_time+"&nbsp;ชม.<br>ผู้ซ่อม : "+data.repairer+"<br>"
-                            +"สรุปสาเหตุการเสีย : "+data.symp_name+"&nbsp;&nbsp;เกิดจาก &nbsp;&nbsp;"+data.symmptom_name+"<br>"
+                            +"อาการ : "+data.symptom+"<br>วันที่แจ้ง : "+data.repair_date+" &nbsp;&nbsp;<b style='color: red;'>"+data.vital+"</b><hr>"
+                            +"วันที่รับใบแจ้ง : "+data.receive_date+"&nbsp;&nbsp;ผู้รับใบแจ้งซ่อม : "+data.receiver+"<hr>"
+                            +"วันที่เริ่ม : "+data.strepair_date+"&nbsp;&nbsp;วันที่เสร็จ : "+data.enrepair_dare+"&nbsp;&nbsp;รวมเวลาซ่อม : "+data.total_day+"&nbsp;วัน "+data.total_time+"&nbsp;ชม.<br>ผู้ซ่อม : "+data.repairer+"<hr>"
+                            +"<b>ประวัติการซ่อม</b><br><span id='his'></span><hr>"
+                            + "สรุปสาเหตุการเสีย : " + data.symp_name + "&nbsp;&nbsp;เกิดจาก &nbsp;&nbsp;" + data.symmptom_name + "<br>"
                             +"รายละเอียดการซ่อม : "+data.repair_detail+"<br><span id='acc'></span><span id='send'></span>"
                             +"ผู้รับครื่อง : "+data.rece_pd+"<br>"
-                            +"วันที่บันทึกการซ่อม : "+data.result_recdate+"&nbsp;&nbsp;ผู้บันทึก : "+data.result_recorder);
+                            + "วันที่บันทึกการซ่อม : " + data.result_recdate + "&nbsp;&nbsp;ผู้บันทึก : " + data.result_recorder);
+       
+            $.getJSON('JsonData/detail_his_repair.php',{data: data.repairT_id}, function (CD) {
+                var option='';
+                var c=1;
+                for (var key in CD) {
+                          option += c+". "+CD[key].dev_date+" เวลาเริ่ม "+CD[key].dev_stime+" น. สิ้นสุด "+CD[key].dev_etime+" น. <br>&nbsp;&nbsp;&nbsp;&nbsp;รายละเอียด : "+CD[key].dev_detail+"<br>&nbsp;&nbsp;&nbsp;&nbsp;ผู้ดำเนินการ : "+CD[key].fullname+" <br>";
+                          c++;
+                    }
+                    $("span#his").empty().html(option);
+            }); 
                     if(data.accessories==1){
                         $.getJSON('JsonData/detail_acct_part.php',{data: data.repairT_id}, function (CD) {
                                     var option='อุปกรณ์ที่เปลี่ยน :<br>';
