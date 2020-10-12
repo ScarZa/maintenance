@@ -19,7 +19,7 @@ ssm.ss_Status AS status, ssm.ss_user_name
 FROM ss_member ssm
 INNER JOIN emppersonal e1 ON ssm.ss_Name=e1.empno
 INNER JOIN department d2 ON d2.depId=e1.depid
-where ssm.ss_process='0' or ssm.ss_process='6'
+where ssm.ss_process='0' or ssm.ss_process='6' or ssm.ss_process='8'
 order by ID"; 
 $conn_DB->imp_sql($sql);
     $num_risk = $conn_DB->select();

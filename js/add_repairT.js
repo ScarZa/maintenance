@@ -4,7 +4,7 @@ function AddRepairT(content, id = null) {
             "<ol class='breadcrumb'>" +
             "<li><a href='index.html'><i class='fa fa-home'></i> หน้าหลัก</a></li>" +
             "<li class='active'><i class='fa fa-envelope'></i> แจ้งขอรับบริการงานช่าง</li>" +
-            "</ol><form action='' name='frmaddrepair' id='frmaddrepair' method='post'>" +
+            "</ol><form action='' name='frmaddrepair' id='frmaddrepair' method='post' enctype='multipart/form-data'>" +
             "<div class='row'>" +
             "<div class='col-md-12'>" +
             "<div class='box box-primary box-solid'>" +
@@ -26,7 +26,11 @@ function AddRepairT(content, id = null) {
                 , $("<div class='form-group'>งาน : <select name='depid' class='form-control select2' id='depid' required></select></div>")
                 , $("<div class='form-group'>เครื่องที่เสีย : <select name='pd_id' class='form-control select2' id='pd_id' required></select></div>")
                 , $("<div class='form-group'>อาการเสีย : <textarea class='form-control' style='width: 100%' COLS='100%' rows='2' placeholder='ระบุอาการเสีย' name='symptom' id='symptom' required></textarea></div>")
-                , $("<div class='form-group'><input type='radio' value='1' name='vital' id='vital' required> : เร่งด่วน  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio' value='0' name='vital' id='vital' checked required> : ไม่เร่งด่วน</div>"));
+                , $("<div class='form-group'><input type='radio' value='1' name='vital' id='vital' required> : เร่งด่วน  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio' value='0' name='vital' id='vital' checked required> : ไม่เร่งด่วน</div>")
+                , $("<div class='main'><b>เพิ่มรูปอาการเสีย</b>")
+                , $("<div id='image_preview'><img id='previewing' src='images/icon_set2/image.ico' width='50' /></div>")
+                , $("<div id='selectImage'><label>เลือกรูปอาการเสีย</label><br/>")
+                , $("<input type='file' name='file' id='file' class='form-control' required /></div></div><h4 id='loading' >loading..</h4><div id='message'></div>"));
 
             if (data.status == 'ADMIN' && data.m_process == 0) {
                 $("#inform").append("ผู้แจ้ง : <select name='informer' class='form-control select2' id='informer' required></select>");
@@ -74,8 +78,9 @@ function AddRepairT(content, id = null) {
             if (data.status == 'USER') {
                 $("div#add_repair").append("<input type='hidden' id='informer' name='informer' value='" + data.empno + "'>");
             }
-            $("div#add_repair").append("<button type='submit' class='btn btn-primary' id='ARsubmit'>บันทึกใบแจ้งซ่อม</button>");
-            $("button#ARsubmit").click(function (e) {
+            $("div#add_repair").append("<input type='submit' class='btn btn-primary' id='ARsubmit' value='บันทึกใบแจ้งซ่อม' />");
+            $('#loading').hide();
+            $("input#ARsubmit").on('submit', (function (e) {
                 if ($("select#informer").val() == '') {
                     alert("กรุณาเลือกผู้แจ้งด้วยครับ!!!");
                     $("select#informer").focus();
@@ -86,10 +91,15 @@ function AddRepairT(content, id = null) {
                     alert("กรุณาระบุรายละเอียดด้วยครับ!!!");
                     $("#symptom").focus();
                 } else {
+                    $("#message").empty();
+                    $('#loading').show();
                     $.ajax({
                         type: "POST",
                         url: "process/prcrepair.php",
-                        data: $("#frmaddrepair").serialize(),
+                        data: new FormData(this),
+                        contentType: false,
+                        cache: false, 
+                        processData: false,
                         success: function (result) {
                             alert(result);
                             $.getJSON('JsonData/DT_TRP.php', function (data) {
@@ -102,7 +112,7 @@ function AddRepairT(content, id = null) {
                     });
                 }
                 e.preventDefault();
-            });
+            }));
         } else if (idrepair == 'NoPd') {
             $("h2").prepend("<img src='images/icon_set2/computer.ico' width='40'> ");
             $("h2").append(" : ซ่อมงานช่างที่ไม่ใช่ครุภัณฑ์");
@@ -110,7 +120,10 @@ function AddRepairT(content, id = null) {
                 , $("<div class='form-group'>งาน : <select name='depid' class='form-control select2' id='depid' required></select></div>")
                 , $("<div class='form-group'>อาการเสีย : <select name='no_pdid' class='form-control select2' id='no_pdid' required></select></div>")
                 , $("<div class='form-group'>อธิบายอาการเสีย : <textarea class='form-control' style='width: 100%' COLS='100%' rows='2' placeholder='ระบุอาการเสีย' name='symptom' id='symptom' required></textarea></div>")
-                , $("<div class='form-group'><input type='radio' value='1' name='vital' id='vital' required> : เร่งด่วน  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio' value='0' name='vital' id='vital' checked required> : ไม่เร่งด่วน</div>"));
+                , $("<div class='form-group'><input type='radio' value='1' name='vital' id='vital' required> : เร่งด่วน  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio' value='0' name='vital' id='vital' checked required> : ไม่เร่งด่วน</div>")
+                , $("<div id='image_preview'><img id='previewing' src='images/icon_set2/image.ico' width='50' /></div>")
+                , $("<div id='selectImage'><label>เลือกรูปอาการเสีย</label><br/>")
+                , $("<input type='file' name='file' id='file' class='form-control' required /></div></div><h4 id='loading' >loading..</h4><div id='message'></div>"));
 
             if (data.status == 'ADMIN' && data.m_process == 0) {
                 $("#inform").append("ผู้แจ้ง : <select name='informer' class='form-control select2' id='informer' required></select>");
@@ -161,6 +174,7 @@ function AddRepairT(content, id = null) {
                         url: "process/prcrepair.php",
                         data: $("#frmaddrepair").serialize(),
                         success: function (result) {
+                            $('#loading').hide();
                             alert(result);
                             $.getJSON('JsonData/DT_TRP.php', function (data) {
                                 if (data.req_repair != 0) {
@@ -230,6 +244,7 @@ function AddRepairT(content, id = null) {
                         url: "process/prcrepair.php",
                         data: $("#frmaddrepair").serialize(),
                         success: function (result) {
+                            $('#loading').hide();
                             alert(result);
                             $.getJSON('JsonData/DT_TRP.php', function (data) {
                                 if (data.req_repair != 0) {
@@ -313,5 +328,33 @@ function AddRepairT(content, id = null) {
 
             });
         }
+        $(function () {
+            $("#file").change(function () {
+                $("#message").empty(); // To remove the previous error message
+                var file = this.files[0];
+                var imagefile = file.type;
+                var match = ["image/jpeg", "image/png", "image/jpg","image/JPEG", "image/PNG", "image/JPG"];
+                if (!((imagefile == match[0]) || (imagefile == match[1]) || (imagefile == match[2] || imagefile == match[3]) || (imagefile == match[4]) || (imagefile == match[5])))
+                {
+                    $('#previewing').attr('src', 'noimage.png');
+                    $("#message").html("<p id='error'>Please Select A valid Image File</p>" + "<h4>Note</h4>" + "<span id='error_message'>Only jpeg, jpg and png Images type allowed</span>");
+                    return false;
+                } else
+                {
+                    var reader = new FileReader();
+                    reader.onload = imageIsLoaded;
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+        });
+        function imageIsLoaded(e) {
+            $("#file").css("color", "green");
+            $('#image_preview').css("display", "block");
+            $('#previewing').attr('src', e.target.result);
+            $('#previewing').attr('width', '250px');
+            //$('#previewing').attr('height', '230px');
+        }
+        
     });
+    
 }

@@ -101,11 +101,14 @@ function AddUser (content,id=null) {
                                 }); 
                 $("select#ss_Status").append($("<option value=''> เลือกระดับการใช้งาน </option>")
                                             ,$("<option value='ADMIN'> ผู้ดูแลระบบสูงสุด </option>")
-                                            ,$("<option value='MUSER'> ผู้ดูแลระบบซ่อม </option>"));
+                                            , $("<option value='MUSER'> ผู้ดูแลระบบซ่อม </option>")
+                                            , $("<option value='TUSER'> ผู้ดูแลระบบซ่อม(ช่าง) </option>"));
                                             if(data.ss_Status=='ADMIN'){
                                                 $("option[value^=ADMIN]").attr("selected","selected");
                                             }else if(data.ss_Status=='MUSER'){
                                                 $("option[value^=MUSER]").attr("selected","selected");
+                                            }else if(data.ss_Status=='TUSER'){
+                                                $("option[value^=TUSER]").attr("selected","selected");
                                             }
                  $("input#ss_user_name").attr("value",data.ss_user_name);                   
             $("div#DUS_content").append("<input type='hidden' id='method' name='method' value='edit_user'>");       
