@@ -1,0 +1,2 @@
+ALTER TABLE `m_repair_pdt` 
+ADD COLUMN `dg_img` varchar(255) CHARACTER SET tis620 COLLATE tis620_thai_ci AFTER `symptom`
