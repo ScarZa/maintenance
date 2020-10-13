@@ -80,7 +80,8 @@ function AddRepairT(content, id = null) {
             }
             $("div#add_repair").append("<input type='submit' class='btn btn-primary' id='ARsubmit' value='บันทึกใบแจ้งซ่อม' />");
             $('#loading').hide();
-            $("input#ARsubmit").on('submit', (function (e) {
+            $("#frmaddrepair").on('submit', (function (e) {
+                e.preventDefault();
                 if ($("select#informer").val() == '') {
                     alert("กรุณาเลือกผู้แจ้งด้วยครับ!!!");
                     $("select#informer").focus();
@@ -93,14 +94,23 @@ function AddRepairT(content, id = null) {
                 } else {
                     $("#message").empty();
                     $('#loading').show();
-                    $.ajax({
+                    var dataForm = new FormData(this);
+                    // console.log(dataForm)
+                    // for (var value of dataForm.values()) {
+                    //     console.log(value);
+                    // }
+                    var settings = {
                         type: "POST",
                         url: "process/prcrepair.php",
-                        data: new FormData(this),
+                        async: true,
+                        crossDomain: true,
+                        data: dataForm,
                         contentType: false,
-                        cache: false, 
-                        processData: false,
-                        success: function (result) {
+                        cache: false,
+                        processData: false
+                    }
+                    $.ajax(settings).done(function (result) {
+                            $('#loading').hide();
                             alert(result);
                             $.getJSON('JsonData/DT_TRP.php', function (data) {
                                 if (data.req_repair != 0) {
@@ -108,10 +118,10 @@ function AddRepairT(content, id = null) {
                                 }
                                 AddRepairT('#index_content')
                             });
-                        }
-                    });
+                            
+                        });
                 }
-                e.preventDefault();
+               
             }));
         } else if (idrepair == 'NoPd') {
             $("h2").prepend("<img src='images/icon_set2/computer.ico' width='40'> ");
@@ -161,7 +171,9 @@ function AddRepairT(content, id = null) {
                 $("div#add_repair").append("<input type='hidden' id='informer' name='informer' value='" + data.empno + "'>");
             }
             $("div#add_repair").append("<button type='submit' class='btn btn-primary' id='ARsubmit'>บันทึกใบแจ้งซ่อม</button>");
-            $("button#ARsubmit").click(function (e) {
+            $('#loading').hide();
+            $("#frmaddrepair").on('submit', (function (e) {
+                e.preventDefault();
                 if ($("#no_pdid").val() == '') {
                     alert("กรุณาเลือกอาการเสียด้วยครับ!!!");
                     $("#no_pdid").focus();
@@ -169,11 +181,24 @@ function AddRepairT(content, id = null) {
                     alert("กรุณาระบุรายละเอียดด้วยครับ!!!");
                     $("#symptom").focus();
                 } else {
-                    $.ajax({
+                    $("#message").empty();
+                    $('#loading').show();
+                    var dataForm = new FormData(this);
+                    // console.log(dataForm)
+                    // for (var value of dataForm.values()) {
+                    //     console.log(value);
+                    // }
+                    var settings = {
                         type: "POST",
                         url: "process/prcrepair.php",
-                        data: $("#frmaddrepair").serialize(),
-                        success: function (result) {
+                        async: true,
+                        crossDomain: true,
+                        data: dataForm,
+                        contentType: false,
+                        cache: false,
+                        processData: false
+                    }
+                    $.ajax(settings).done(function (result) {
                             $('#loading').hide();
                             alert(result);
                             $.getJSON('JsonData/DT_TRP.php', function (data) {
@@ -182,11 +207,10 @@ function AddRepairT(content, id = null) {
                                 }
                                 AddRepairT('#index_content', 'NoPd');
                             });
-                        }
-                    });
+                        });
                 }
                 e.preventDefault();
-            });
+            }));
         } else if (idrepair.data == 'ReqRp') {
             $("h2").prepend("<img src='images/icon_set2/clipboard.ico' width='40'> ");
             $("h2").append(" : ขอข้อมูล/รายงาน/พัฒนาโปรแกรม");
@@ -255,7 +279,6 @@ function AddRepairT(content, id = null) {
                         }
                     });
                 }
-                e.preventDefault();
             });
         } else { 
             $.getJSON('JsonData/detail_repairT.php', { data: idrepair.data }, function (data) {

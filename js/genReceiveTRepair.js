@@ -2,15 +2,20 @@ function receiveTModal () {
 $("#createModal").empty().append("<div class='modal' id='receiveTModal' role='dialog' aria-labelledby='exampleModalLabel'>"
                                     +"<div class='modal-dialog' role='document'><div class='modal-content'><div class='modal-header'>"
                                     +"<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>"
-                                    +"<h4 class='modal-title' id='receiveTModalLabel'>รับใบแจ้งซ่อม</h4></div><div class='modal-body' id='modelrepair'><span id='repair_detail'></span></div>"
+                                    +"<h4 class='modal-title' id='receiveTModalLabel'>รับใบแจ้งซ่อม</h4></div><div class='modal-body' id='modelrepair'><div class='block'><img id='DGimage' width='180' /></div><span id='repair_detail'></span></div>"
                                     +"<div class='modal-footer'><button type='button' class='btn btn-danger' data-dismiss='modal'>ปิด</button><button type='button' class='btn btn-success' id='submrepair'>รับใบแจ้งซ่อม</button></div></div></div></div>");
     $('#receiveTModal').on('show.bs.modal', function (event) {
   var button = $(event.relatedTarget)
   var recipient = button.data('whatever')
   var modal = $(this)
-  modal.find('.modal-title').text('รับใบแจ้งซ่อม(ช่าง) : ลำดับที่ ' + recipient)
+  modal.find('.modal-title').text('รับใบแจ้งซ่อม(ช่าง) : รายการที่ ' + recipient)
   
-   $.getJSON('JsonData/repairT_Data.php',{data: recipient},function (data) {
+        $.getJSON('JsonData/repairT_Data.php', { data: recipient }, function (data) {
+            if(data.dg_img == '' || data.dg_img === null){
+                $('#DGimage').empty().attr('src', 'images/icon_set2/image.ico');
+            }else{
+                $('#DGimage').empty().attr('src', 'DG_imgs/'+data.dg_img);
+            }
         $('#repair_detail').empty().append("ผู้แจ้งซ่อม : "+data.inform+"  &nbsp;&nbsp;งาน : "+data.depName+"<br>"
                             +"เลขครุภัณฑ์/อาการ/ความต้องการ : "+data.pd_number+"  &nbsp;&nbsp;หมายเหตุ : "+data.note+"<br>"
                             +"รายละเอียดอาการ : "+data.symptom+"<br>วันที่แจ้ง : "+data.repair_date+"  &nbsp;&nbsp;<b style='color: red;'>"+data.vital+"</b>");
