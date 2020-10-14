@@ -15,7 +15,7 @@
     <div class="col-md-12">
             <div class="box box-primary box-solid">
                 <div class="box-header with-border">
-                    <h4 class="box-title"><i class="fa fa-star"></i> รายการซ่อมครุภัณฑ์คอมพิวเตอร์ </h4>
+                    <h4 class="box-title"><i class="fa fa-star"></i> รายการซ่อมครุภัณฑ์(ช่าง) </h4>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                     </div><!-- /.box-tools -->
@@ -35,7 +35,7 @@
         <h4 class="modal-title" id="receiveModalLabel">รับใบแจ้งซ่อม</h4>
       </div>
         <div class="modal-body">
-          <span id="detail"></span>
+          <div class='block'><img id='DGimage' width='180' /></div><span id="detail"></span>
       </div>
       <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
@@ -49,9 +49,14 @@
   var button = $(event.relatedTarget)
   var recipient = button.data('whatever')
   var modal = $(this)
-  modal.find('.modal-title').text('รายละเอียดใบแจ้งซ่อม : ลำดับที่ ' + recipient)
+  modal.find('.modal-title').text('รายละเอียดใบแจ้งซ่อม : รายการที่ ' + recipient)
   
    $.getJSON('JsonData/repairT_Data.php',{data: recipient},function (data) {
+    if(data.dg_img == '' || data.dg_img === null){
+                $('#DGimage').empty().attr('src', 'images/icon_set2/image.ico');
+            }else{
+                $('#DGimage').empty().attr('src', 'DG_imgs/'+data.dg_img);
+            }
         $('span#detail').empty().append("ผู้แจ้งซ่อม : "+data.inform+"  &nbsp;&nbsp;งาน : "+data.depName+"<br>"
                             +"เลขครุภัณฑ์/อาการ/ความต้องการ : "+data.pd_number+"  &nbsp;&nbsp;หมายเหตุ : "+data.note+"<br>"
                             +"รายละเอียดอาการ : "+data.symptom+"<br>วันที่แจ้ง : "+data.repair_date+" &nbsp;&nbsp;<b style='color: red;'>"+data.vital+"</b>  &nbsp;&nbsp;วันที่รับใบแจ้ง : "+data.receive_date);

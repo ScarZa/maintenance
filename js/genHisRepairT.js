@@ -2,14 +2,19 @@ function HisTModal () {
 $("#createModal").empty().append("<div class='modal' id='HisTModal' role='dialog' aria-labelledby='exampleModalLabel'>"
                                     +"<div class='modal-dialog' role='document'><div class='modal-content'><div class='modal-header'>"
                                     +"<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>"
-                                    +"<h4 class='modal-title' id='hisTModalLabel'>รับใบแจ้งซ่อม</h4></div><div class='modal-body' id='modelhis'><span id='his_detail'></span></div>"
+                                    +"<h4 class='modal-title' id='hisTModalLabel'>รับใบแจ้งซ่อม</h4></div><div class='modal-body' id='modelhis'><div class='block'><img id='DGimage' width='180' /></div><span id='his_detail'></span></div>"
                                     +"<div class='modal-footer'><button type='button' class='btn btn-danger' data-dismiss='modal'>ปิด</button></div></div></div></div>");
     $('#HisTModal').on('show.bs.modal', function (event) {
   var button = $(event.relatedTarget)
   var recipient = button.data('whatever')
   var modal = $(this)
-  modal.find('.modal-title').text('รายละเอียดใบแจ้ง : ลำดับที่ ' + recipient)
-   $.getJSON('JsonData/synopsisT_repair_Data.php',{data: recipient},function (data) {
+  modal.find('.modal-title').text('รายละเอียดใบแจ้ง : รายการที่ ' + recipient)
+        $.getJSON('JsonData/synopsisT_repair_Data.php', { data: recipient }, function (data) {
+            if(data.dg_img == '' || data.dg_img === null){
+                $('#DGimage').empty().attr('src', 'images/icon_set2/image.ico');
+            }else{
+                $('#DGimage').empty().attr('src', 'DG_imgs/'+data.dg_img);
+            }
         $('span#his_detail').empty().append("ผู้แจ้งซ่อม : "+data.inform+"  &nbsp;&nbsp;งาน : "+data.depName+"<br>"
                             +"เลขครุภัณฑ์/สาเหตุ : "+data.pd_number+"  &nbsp;&nbsp;หมายเหตุ : "+data.note+"<br>"
                             +"อาการ : "+data.symptom+"<br>วันที่แจ้ง : "+data.repair_date+" &nbsp;&nbsp;<b style='color: red;'>"+data.vital+"</b><hr>"

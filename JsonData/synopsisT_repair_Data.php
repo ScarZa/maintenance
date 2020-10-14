@@ -14,7 +14,7 @@ $conn_DB->conn_PDO();
 $rslt=array();
 $result=array();
 $repairT_id = isset($_GET['data'])?$_GET['data']:$_POST['data'];
-$sql="SELECT re.repairT_id,re.repair_date,pp.pd_id
+$sql="SELECT re.repairT_id,re.repair_date,pp.pd_id,re.dg_img
 ,if(re.pd_id!=0,pp.pd_number,if(re.no_pdid!=0,npd.no_pdname,if(re.request_data!=0,npd.no_pdname,''))) as pd_number
 ,ppl.note,re.symptom,depName
 ,re.accessories,re.send_repair,syg.symp_name,syc.symmptom_name,re.repair_detail,re.result_recdate
@@ -49,6 +49,7 @@ $data['pd_id'] = $result['pd_id'];
 $data['pd_number'] = $result['pd_number'];
 $data['note'] = $result['note'];
 $data['symptom'] = $result['symptom'];
+$data['dg_img'] = $result['dg_img'];
 $data['depName'] = $result['depName'];
 $data['vital'] = $result['vital'];
 $data['accessories'] = $result['accessories'];

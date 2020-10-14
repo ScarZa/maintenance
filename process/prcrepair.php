@@ -94,16 +94,23 @@ $res = notify_message($text,$token);
     $repair_status = 0;
     $symptom = $_POST['symptom'];
     
-    $sql="SELECT * FROM m_repair_pdT WHERE pd_id=:pd_id and pd_id !='' AND end_process = 0"; 
+    $sql="SELECT * FROM m_repair_pdt WHERE pd_id=:pd_id and pd_id !='' AND end_process = 0"; 
 $connDB->imp_sql($sql);
 $execute = array(':pd_id' => $pd_id);
 $chkRepair = $connDB->select($execute);
 if(count($chkRepair)==0){    
-    $newname = new upload_resizeimage("file", "../DG_imgs", "DGimage".$pd_id."N".$no_pdid);
-    $img = $newname->upload();
-    $data = array($informer, $depid, $repair_date, $record_date, $pd_id, $no_pdid, $request_data,$vital, $repair_status,$symptom,$img);
-    $table = "m_repair_pdT";
+    
+    $data = array($informer, $depid, $repair_date, $record_date, $pd_id, $no_pdid, $request_data,$vital, $repair_status,$symptom);
+    $table = "m_repair_pdt";
     $add_repair = $connDB->insert($table, $data);
+    $newname = new upload_resizeimage("file", "../DG_imgs", "DGimage".$add_repair);
+    $img = $newname->upload();
+    $data2 = array($img);
+    $field=array("dg_img");
+    $table2 = "m_repair_pdt";
+    $where="repairT_id=:repairT_id";
+    $execute=array(':repairT_id' => $add_repair);
+    $edit_repairT=$connDB->update($table2, $data2, $where, $field, $execute);
     
     $sql="SELECT re.repair_date
 ,if(re.pd_id!=0,pp.pd_number,if(re.no_pdid!=0,npd.no_pdname,if(re.request_data!=0,npd.no_pdname,''))) as pd_number
@@ -113,7 +120,7 @@ WHEN '0' THEN 'ไม่เร่งด่วน'
 WHEN '1' THEN 'เร่งด่วน'
 ELSE NULL END as vital
 ,(SELECT CONCAT(e.firstname,' ',e.lastname) FROM emppersonal e WHERE e.empno=re.informer) inform
-FROM m_repair_pdT re
+FROM m_repair_pdt re
 LEFT OUTER JOIN pd_product pp on pp.pd_id=re.pd_id
 LEFT OUTER JOIN m_no_pd npd on npd.no_pdid=re.no_pdid or npd.no_pdid=re.request_data
 LEFT OUTER JOIN pd_place ppl on ppl.pd_id=pp.pd_id
