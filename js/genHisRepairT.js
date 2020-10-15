@@ -15,8 +15,9 @@ $("#createModal").empty().append("<div class='modal' id='HisTModal' role='dialog
             }else{
                 $('#DGimage').empty().attr('src', 'DG_imgs/'+data.dg_img);
             }
-        $('span#his_detail').empty().append("ผู้แจ้งซ่อม : "+data.inform+"  &nbsp;&nbsp;งาน : "+data.depName+"<br>"
-                            +"เลขครุภัณฑ์/สาเหตุ : "+data.pd_number+"  &nbsp;&nbsp;หมายเหตุ : "+data.note+"<br>"
+            $('span#his_detail').empty().append("ผู้แจ้งซ่อม : " + data.inform + "  &nbsp;&nbsp;งาน : " + data.depName + "<br>"
+                            +"สถานที่ : "+data.place_name+"<br>"
+                            +"เลขครุภัณฑ์/สาเหตุ : "+data.pd_number+"  <br>หมายเหตุ : "+data.note+"<br>"
                             +"อาการ : "+data.symptom+"<br>วันที่แจ้ง : "+data.repair_date+" &nbsp;&nbsp;<b style='color: red;'>"+data.vital+"</b><hr>"
                             +"วันที่รับใบแจ้ง : "+data.receive_date+"&nbsp;&nbsp;ผู้รับใบแจ้งซ่อม : "+data.receiver+"<hr>"
                             +"วันที่เริ่ม : "+data.strepair_date+"&nbsp;&nbsp;วันที่เสร็จ : "+data.enrepair_dare+"&nbsp;&nbsp;รวมเวลาซ่อม : "+data.total_day+"&nbsp;วัน "+data.total_time+"&nbsp;ชม.<br>ผู้ซ่อม : "+data.repairer+"<hr>"

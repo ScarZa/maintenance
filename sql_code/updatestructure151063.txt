@@ -1,0 +1,2 @@
+ALTER TABLE `m_repair_pdt` 
+ADD COLUMN `place_id` int(2) NOT NULL AFTER `depid`

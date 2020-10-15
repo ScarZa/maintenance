@@ -23,7 +23,7 @@ WHEN '0' THEN 'ไม่เร่งด่วน'
 WHEN '1' THEN 'เร่งด่วน'
 ELSE NULL END as vital
 ,(SELECT CONCAT(e.firstname,' ',e.lastname) FROM emppersonal e WHERE e.empno=re.informer) inform
-,re.receive_date
+,re.receive_date,pc.place_name
 ,(SELECT CONCAT(e.firstname,' ',e.lastname) FROM emppersonal e WHERE e.empno=re.receiver) receiver
 ,re.strepair_date,re.enrepair_dare
 ,DATEDIFF(re.enrepair_dare,re.strepair_date) total_day
@@ -38,6 +38,7 @@ LEFT OUTER JOIN m_no_pd npd on npd.no_pdid=re.no_pdid or npd.no_pdid=re.request_
 LEFT OUTER JOIN m_symmptom_category syc on syc.symmptom_cid=re.cause
 LEFT OUTER JOIN m_symptom_group syg on syg.symp_gid=syc.symmptom_gid
 LEFT OUTER JOIN department d on d.depId=re.depid
+LEFT OUTER JOIN m_place pc on pc.place_id = re.place_id
 WHERE repairT_id=:repairT_id";
 $execute = array(':repairT_id' => $repairT_id);
 $conn_DB->imp_sql($sql);
@@ -49,6 +50,7 @@ $data['pd_id'] = $result['pd_id'];
 $data['pd_number'] = $result['pd_number'];
 $data['note'] = $result['note'];
 $data['symptom'] = $result['symptom'];
+$data['place_name'] = isset($result['place_name'])?$result['place_name']:'';
 $data['dg_img'] = $result['dg_img'];
 $data['depName'] = $result['depName'];
 $data['vital'] = $result['vital'];

@@ -21,12 +21,13 @@ $sql="SELECT re.repairT_id,re.repair_date,pp.pd_id,re.request_data,re.dg_img
 WHEN '0' THEN 'ไม่เร่งด่วน'
 WHEN '1' THEN 'เร่งด่วน'
 ELSE NULL END as vital,re.receive_date
-,(SELECT CONCAT(e.firstname,' ',e.lastname) FROM emppersonal e WHERE e.empno=re.informer) inform
+,(SELECT CONCAT(e.firstname,' ',e.lastname) FROM emppersonal e WHERE e.empno=re.informer) inform,pc.place_name
 FROM m_repair_pdt re
 LEFT OUTER JOIN pd_product pp on pp.pd_id=re.pd_id
 LEFT OUTER JOIN m_no_pd npd on npd.no_pdid=re.no_pdid or npd.no_pdid=re.request_data
 LEFT OUTER JOIN pd_place ppl on ppl.pd_id=pp.pd_id
 LEFT OUTER JOIN department d on d.depId=re.depid
+LEFT OUTER JOIN m_place pc on pc.place_id = re.place_id
 WHERE repairT_id=:repairT_id";
 $execute = array(':repairT_id' => $repairT_id);
 $conn_DB->imp_sql($sql);
@@ -37,7 +38,8 @@ $data['repair_date'] = DateThai1($result['repair_date']);
 $data['pd_id'] = $result['pd_id'];
 $data['request_data'] = $result['request_data'];
 $data['pd_number'] = $result['pd_number'];
-$data['note'] = $result['note'];
+$data['place_name'] = isset($result['place_name'])?$result['place_name']:'';
+$data['note'] = isset($result['note'])?$result['note']:'';
 $data['symptom'] = $result['symptom'];
 $data['dg_img'] = $result['dg_img'];
 $data['depName'] = $result['depName'];

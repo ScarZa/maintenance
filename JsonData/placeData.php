@@ -14,7 +14,7 @@ $conn_DB->conn_PDO();
 $rslt=array();
 $result=array();
 $data = isset($_GET['data'])?$_GET['data']:'';
-$sql="select * from place order by name";
+$sql="select place_id id,place_name name from m_place order by id asc";
 $conn_DB->imp_sql($sql);
 $result=$conn_DB->select();
 print json_encode($result);

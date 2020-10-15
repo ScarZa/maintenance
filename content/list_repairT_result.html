@@ -38,7 +38,7 @@
           <div class='block'><img id='DGimage' width='180' /></div><span id="detail"></span>
       </div>
       <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
+          <div class="row col-lg-12"><button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button></div>
       </div>
     </div>
   </div>
@@ -58,7 +58,8 @@
                 $('#DGimage').empty().attr('src', 'DG_imgs/'+data.dg_img);
             }
         $('span#detail').empty().append("ผู้แจ้งซ่อม : "+data.inform+"  &nbsp;&nbsp;งาน : "+data.depName+"<br>"
-                            +"เลขครุภัณฑ์/อาการ/ความต้องการ : "+data.pd_number+"  &nbsp;&nbsp;หมายเหตุ : "+data.note+"<br>"
+        +"สถานที่ : "+data.place_name+"<br>"
+                            +"เลขครุภัณฑ์/อาการ/ความต้องการ : "+data.pd_number+"  <br>หมายเหตุ : "+data.note+"<br>"
                             +"รายละเอียดอาการ : "+data.symptom+"<br>วันที่แจ้ง : "+data.repair_date+" &nbsp;&nbsp;<b style='color: red;'>"+data.vital+"</b>  &nbsp;&nbsp;วันที่รับใบแจ้ง : "+data.receive_date);
 
     });

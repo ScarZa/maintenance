@@ -89,6 +89,7 @@ $res = notify_message($text,$token);
     $record_date = date('Y-m-d H:i:s');
     $pd_id = isset($_POST['pd_id'])?$_POST['pd_id']:'';
     $no_pdid = isset($_POST['no_pdid'])?$_POST['no_pdid']:'';
+    $place_id = isset($_POST['place_id'])?$_POST['place_id']:'';
     $request_data = isset($_POST['request_data'])?$_POST['request_data']:'';
     $vital = $_POST['vital'];
     $repair_status = 0;
@@ -100,9 +101,10 @@ $execute = array(':pd_id' => $pd_id);
 $chkRepair = $connDB->select($execute);
 if(count($chkRepair)==0){    
     
-    $data = array($informer, $depid, $repair_date, $record_date, $pd_id, $no_pdid, $request_data,$vital, $repair_status,$symptom);
+    $data = array($informer, $depid,$place_id , $repair_date, $record_date, $pd_id, $no_pdid, $request_data,$vital, $repair_status,$symptom);
     $table = "m_repair_pdt";
     $add_repair = $connDB->insert($table, $data);
+    if (isset($_FILES["file"]["type"])) {
     $newname = new upload_resizeimage("file", "../DG_imgs", "DGimage".$add_repair);
     $img = $newname->upload();
     $data2 = array($img);
@@ -111,7 +113,7 @@ if(count($chkRepair)==0){
     $where="repairT_id=:repairT_id";
     $execute=array(':repairT_id' => $add_repair);
     $edit_repairT=$connDB->update($table2, $data2, $where, $field, $execute);
-    
+    }
     $sql="SELECT re.repair_date
 ,if(re.pd_id!=0,pp.pd_number,if(re.no_pdid!=0,npd.no_pdname,if(re.request_data!=0,npd.no_pdname,''))) as pd_number
 ,IFNULL(ppl.note,'-') note,re.symptom,d.depName
@@ -119,12 +121,13 @@ if(count($chkRepair)==0){
 WHEN '0' THEN 'ไม่เร่งด่วน'
 WHEN '1' THEN 'เร่งด่วน'
 ELSE NULL END as vital
-,(SELECT CONCAT(e.firstname,' ',e.lastname) FROM emppersonal e WHERE e.empno=re.informer) inform
+,(SELECT CONCAT(e.firstname,' ',e.lastname) FROM emppersonal e WHERE e.empno=re.informer) inform,pc.place_name
 FROM m_repair_pdt re
 LEFT OUTER JOIN pd_product pp on pp.pd_id=re.pd_id
 LEFT OUTER JOIN m_no_pd npd on npd.no_pdid=re.no_pdid or npd.no_pdid=re.request_data
 LEFT OUTER JOIN pd_place ppl on ppl.pd_id=pp.pd_id
 LEFT OUTER JOIN department d on d.depId=re.depid
+inner join m_place pc on pc.place_id = re.place_id
 WHERE re.repairT_id= :repairT_id"; 
 $connDB->imp_sql($sql);
 $execute = array(':repairT_id' => $add_repair);
@@ -134,7 +137,7 @@ if(!empty($_SESSION['m_tokenkey2'])){
 include_once '../function/LineNotify.php';  
 include_once '../template/plugins/funcDateThai.php';
 $token = $_SESSION['m_tokenkey2'];
-$text = "แจ้งซ่อม : ".DateThai1($LineText['repair_date'])." เวลา ".substr($LineText['repair_date'], 11,5)." น.\n".$LineText['pd_number']." ".$LineText['symptom']." ".$LineText['depName']." ".$LineText['inform']." ".$LineText['vital'];
+$text = "วันที่ ".DateThai1($LineText['repair_date'])." เวลา ".substr($LineText['repair_date'], 11,5)." น.\n".$LineText['depName']." \n".$LineText['pd_number']." \nสถานที่ : ".$LineText['place_name']." \n".$LineText['symptom']." \n".$LineText['inform']." ".$LineText['vital'];
  
 $res = notify_message($text,$token);
 }

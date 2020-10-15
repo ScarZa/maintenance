@@ -216,7 +216,7 @@ $.getJSON('JsonData/repairT_Data.php',{data: id.data},function (data) {
                     $('#rece_pd_sel').empty().append("<label for='repairer' class='control-label'>ผู้รับการซ่อม</label><select name='rece_pd' id='rece_pd' class='form-control select2'></select>");
                                 $("select#cause").addClass("select2");
                     $("select#cause").append($("<option value=''> เลือกสรุปอาการเสีย </option>"));
-                    $.getJSON('JsonData/symmptom_category.php', function (GD) {
+                    $.getJSON('JsonData/symmptomT_category.php',{data:5}, function (GD) {
                                     for (var key in GD) {
                                         //if(GD[key].pd_id==data.pd_id){var select='selected';}else{var select='';}
                                               $("select#cause").append($("<option value='"+GD[key].symmptom_cid+"'> "+GD[key].symmptom_name+"</option>"));

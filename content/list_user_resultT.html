@@ -6,7 +6,7 @@
              
 <script language="Javascript" type="text/javascript">
     //var column1 = '{"รายการความเสี่ยงที่รอ RM man มาตรวจสอบ":["เลขที่","รายการ","เกิดขึ้นเมื่อ","ได้รับเมื่อ"]}';
-    var column1 = ["ใบแจ้ง","วันที่แจ้ง","เครื่อง/อาการ/ขอข้อมูล","ผู้แจ้งซ่อม","วันที่รับใบซ่อม","ผู้ซ่อม","สถานะ","รายละเอียด"];
+    var column1 = ["ใบแจ้ง","วันที่แจ้ง","เครื่อง/อาการ/ขอข้อมูล","ผู้แจ้งซ่อม","วันที่รับใบซ่อม","ผู้ซ่อม","สถานะการซ่อม","รายละเอียด"];
               var CTb = new createTableAjax();
               CTb.GetNewTableAjax('contentTB','JsonData/DT_LURT.php','JsonData/tempSendData.php',column1
               ,null,null,null,null,false,false,null,true,'HisTModal',false,null,'ซ่อมไม่ได้','อยู่ระหว่างดำเนินการ',null,'ซ่อมสำเร็จ','dbtb');

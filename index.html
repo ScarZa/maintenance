@@ -168,7 +168,7 @@
         <style type="text/css">
             .block {
                 width: 180px;
-                height: 180px;
+                height: 250px;
                 margin: 2px;
                 background: #FFFFFF;
                 float: right;
@@ -317,6 +317,18 @@
         <!-- AdminLTE for demo purposes -->
         <script src="template/dist/js/demo.js"></script>
         <script language="Javascript">
+            function selectList(content, data, title, check = null) {
+            $.getJSON("JsonData/" + data, function (CmD) {
+                var option="<option value=''> " + title + " </option>";
+                for (var key in CmD) {
+                    if (CmD[key].id == check) { var select = 'selected'; } else { var select = ''; }
+                    option +="<option value='" + CmD[key].id + "' " + select + "> " + CmD[key].name + " </option>";
+                } 
+                $(content).empty().append(option);
+                $(".select2").select2();
+            });
+
+        }
             function MakeHour(content, hour = null) {
                 //var option = "$('<option value=''>ชั่วโมง</option>'),";
                 var option;
