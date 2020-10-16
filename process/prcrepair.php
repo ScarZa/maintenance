@@ -137,9 +137,46 @@ if(!empty($_SESSION['m_tokenkey2'])){
 include_once '../function/LineNotify.php';  
 include_once '../template/plugins/funcDateThai.php';
 $token = $_SESSION['m_tokenkey2'];
-$text = "วันที่ ".DateThai1($LineText['repair_date'])." เวลา ".substr($LineText['repair_date'], 11,5)." น.\n".$LineText['depName']." \n".$LineText['pd_number']." \nสถานที่ : ".$LineText['place_name']." \n".$LineText['symptom']." \n".$LineText['inform']." ".$LineText['vital'];
+$text = "รายการที่ ".$add_repair."\nวันที่ ".DateThai1($LineText['repair_date'])." เวลา ".substr($LineText['repair_date'], 11,5)." น.\n".$LineText['depName']." \n".$LineText['pd_number']." \nสถานที่ : ".$LineText['place_name']
+        ." \n".$LineText['symptom']." \n".$LineText['inform']." ".$LineText['vital']."\nเข้าสู่ระบบซ่อม :\nhttp://www.rploei.go.th/maintenance/";
  
-$res = notify_message($text,$token);
+//$res = notify_message($text,$token);
+
+//$photo=$_GET["photo"];
+/*-------------line noti----------------------*/
+// $line_api = 'https://notify-api.line.me/api/notify';
+//     $access_token = '';
+
+    //$message = 'test send photo';    //text max 1,000 charecter
+    $image_thumbnail_url = 'http://www.rploei.go.th/maintenance/images/bin.jpg';  // max size 240x240px JPEG
+    $image_fullsize_url = 'http://www.rploei.go.th/maintenance//DG_imgs/'.$img; //max size 1024x1024px JPEG
+    $imageFile ="../DG_imgs/".$img;
+    //$imageFile =curl_file_create('../DG_imgs/'.$img, 'image/jpg', $img);
+    $sticker_package_id = '';  // Package ID sticker
+    $sticker_id = '';    // ID sticker
+
+    // if (function_exists('curl_file_create')) {
+    //     $cFile = curl_file_create($imageFile );
+    //     } else {
+    //     $cFile = '@'.realpath($imageFile );
+    //     }
+
+    $message_data = array(
+  'imageThumbnail' => $image_thumbnail_url,
+  'imageFullsize' => $image_fullsize_url,
+  'message' => $text,
+  'imageFile' => $imageFile,
+  'stickerPackageId' => $sticker_package_id,
+  'stickerId' => $sticker_id
+    );
+
+    $result = send_notify_message($message_data,$token);
+
+// echo '<pre>';
+//      print_r($result);
+//      echo '</pre>';
+/*-------------line noti----------------------*/
+
 }
 //print_r($res);
 
