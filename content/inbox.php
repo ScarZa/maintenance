@@ -78,6 +78,9 @@ WHERE re.repair_status=0";
     </li>-->
     <?php if ($_SESSION['m_status'] == 'ADMIN' or $_SESSION['m_status'] == 'MUSER') { ?>
         <li class="dropdown notifications-menu" id="mySpan"></li>
+        <?php }
+     if ($_SESSION['m_status'] == 'ADMIN' or $_SESSION['m_status'] == 'TUSER') { ?>
+        <li class="dropdown notifications-menu" id="myTSpan"></li>
     <?php }
 } if (empty($_SESSION['m_id'])) { ?>
     <li class="dropdown messages-menu">

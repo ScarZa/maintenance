@@ -22,7 +22,7 @@
                                                         ,$("<li id='home'><a href='#'><img src='images/gohome.ico' width='20'> <span>หน้าหลัก</span></a></li>"));
                                                         
                                     $(".content-wrapper").append("<section class='content' id='sec_content'></section>");   
-                                            $("#sec_content").append("<div id='index_content'></div><div id='createModal'></div>");
+                    $("#sec_content").append($("<div id='index_content'></div><div id='createModal'></div><div id='createModal2'></div>"));
                                         if(data.m_status == ''){
                                             $("#home > a").attr("onclick","loadPage('#index_content','content/NoLogon_index.html');");
                                             $("#index_content").empty().load("content/NoLogon_index.html");

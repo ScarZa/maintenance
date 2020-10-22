@@ -259,6 +259,7 @@
         <script src="js/genHisRepairT.js"></script>
         <script src="js/genReceiveTRepair.js"></script>
         <script src="js/rec_Trepair.js"></script>
+        <script src="js/refresh_repairT.js"></script>
         <!------------------------ End My scripts ------------------------>     
         <script type="text/javascript">
             //            function getURL(objN){
@@ -429,6 +430,8 @@
                 <script language="JavaScript">
                     RefreshRepair_old ();
                     var myRef = setInterval(function(){ RefreshRepair_old () }, 15000);
+                    RefreshRepairT ();
+                    var myRef2 = setInterval(function(){ RefreshRepairT () }, 15000);
                 </script>
         
         <script type="text/javascript">
