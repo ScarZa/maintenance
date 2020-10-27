@@ -25,7 +25,8 @@ function AddRepairT(content, id = null) {
             $("#Dr_content").append($("<div class='form-group' id='inform'></div>")
                 , $("<div class='form-group'>งาน (ที่อุปกรณ์ติดตั้งอยู่) : <select name='depid' class='form-control select2' id='depid' required></select></div>")
                 , $("<div class='form-group'>เครื่องที่เสีย : <select name='pd_id' class='form-control select2' id='pd_id' required></select></div>")
-                , $("<div class='form-group'>สถานที่ : <select name='place_id' class='form-control select2' id='place_id' required></select></div>")
+                , $("<div class='form-group'>บริเวณ : <select name='place_id' class='form-control select2' id='place_id' required></select></div>")
+                , $("<div class='form-group'>สถานที่ : <input type='text' id='place' name='place' class='form-control' placeholder='ระบุสถานที่'></div>")
                 , $("<div class='form-group'>อาการเสีย : <textarea class='form-control' style='width: 100%' COLS='100%' rows='2' placeholder='ระบุอาการเสีย' name='symptom' id='symptom' required></textarea></div>")
                 , $("<div class='form-group'><input type='radio' value='1' name='vital' id='vital' required> : เร่งด่วน  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio' value='0' name='vital' id='vital' checked required> : ไม่เร่งด่วน</div>")
                 , $("<div class='main'><b>เพิ่มรูปอาการเสีย</b>")
@@ -33,7 +34,7 @@ function AddRepairT(content, id = null) {
                 , $("<div id='selectImage'><label>เลือกรูปอาการเสีย</label><br/>")
                 , $("<input type='file' name='file' id='file' class='form-control' /></div></div><h4 id='loading' >loading..</h4><div id='message'></div>"));
 
-            if (data.status == 'ADMIN' && data.m_process == 0) {
+            if ((data.status == 'ADMIN' && data.m_process == 0) || data.status == 'TUSER') {
                 $("#inform").append("ผู้แจ้ง : <select name='informer' class='form-control select2' id='informer' required></select>");
                 $("select#informer").append($("<option value=''> เลือกผู้แจ้ง </option>"));
                 $.getJSON('JsonData/emp_Data.php', function (GD) {
@@ -73,7 +74,7 @@ function AddRepairT(content, id = null) {
                     $(".select2").select2();
                 });
             });
-            selectList("#place_id", "placeData.php", "เลือกสถานที่");
+            selectList("#place_id", "placeData.php", "เลือกบริเวณสถานที่");
 
             $("div#add_repair").append("<input type='hidden' id='method' name='method' value='add_repairT'>");
             if (data.status == 'USER') {
@@ -130,14 +131,15 @@ function AddRepairT(content, id = null) {
             $("#Dr_content").append($("<div class='form-group' id='inform'></div>")
                 , $("<div class='form-group'>งาน (ที่รับผิดชอบอุปกรณ์/สถานที่) : <select name='depid' class='form-control select2' id='depid' required></select></div>")
                 , $("<div class='form-group'>อาการเสีย : <select name='no_pdid' class='form-control select2' id='no_pdid' required></select></div>")
-                , $("<div class='form-group'>สถานที่ : <select name='place_id' class='form-control select2' id='place_id' required></select></div>")
+                , $("<div class='form-group'>บริเวณ : <select name='place_id' class='form-control select2' id='place_id' required></select></div>")
+                , $("<div class='form-group'>สถานที่ : <input type='text' id='place' name='place' class='form-control' placeholder='ระบุสถานที่'></div>")
                 , $("<div class='form-group'>อธิบายอาการเสีย : <textarea class='form-control' style='width: 100%' COLS='100%' rows='2' placeholder='ระบุอาการเสีย' name='symptom' id='symptom' required></textarea></div>")
                 , $("<div class='form-group'><input type='radio' value='1' name='vital' id='vital' required> : เร่งด่วน  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio' value='0' name='vital' id='vital' checked required> : ไม่เร่งด่วน</div>")
                 , $("<div id='image_preview'><img id='previewing' src='images/icon_set2/image.ico' width='50' /></div>")
                 , $("<div id='selectImage'><label>เลือกรูปอาการเสีย</label><br/>")
                 , $("<input type='file' name='file' id='file' class='form-control' /></div></div><h4 id='loading' >loading..</h4><div id='message'></div>"));
 
-            if (data.status == 'ADMIN' && data.m_process == 0) {
+            if ((data.status == 'ADMIN' && data.m_process == 0) || data.status == 'TUSER') {
                 $("#inform").append("ผู้แจ้ง : <select name='informer' class='form-control select2' id='informer' required></select>");
                 $("select#informer").append($("<option value=''> เลือกผู้แจ้ง </option>"));
                 $.getJSON('JsonData/emp_Data.php', function (GD) {
@@ -166,7 +168,7 @@ function AddRepairT(content, id = null) {
                 $("select#no_pdid").empty().append(option);
                 $(".select2").select2();
             });
-            selectList("#place_id", "placeData.php", "เลือกสถานที่");
+            selectList("#place_id", "placeData.php", "เลือกบริเวณสถานที่");
 
             $("div#add_repair").append("<input type='hidden' id='method' name='method' value='add_repairT'>");
             if (data.status == 'USER') {

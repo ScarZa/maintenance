@@ -17,7 +17,7 @@ $("#createModal2").empty().append("<div class='modal' id='receiveTModal' role='d
                 $('#DGimage').empty().attr('src', 'DG_imgs/'+data.dg_img);
             }
             $('#repair_detail').empty().append("ผู้แจ้งซ่อม : " + data.inform + "  &nbsp;&nbsp;งาน : " + data.depName + "<br>"
-            +"สถานที่ : "+data.place_name+"<br>"
+            +"บริเวณ : "+data.place_name+"<br>สถานที่ : "+data.place+"<br>"
                             +"เลขครุภัณฑ์/อาการ/ความต้องการ : "+data.pd_number+"<br>หมายเหตุ : "+data.note+"<br>"
                 + "รายละเอียดอาการ : " + data.symptom + "<br>วันที่แจ้ง : " + data.repair_date + "  &nbsp;&nbsp;<b style='color: red;'>" + data.vital + "</b>"
                             +"<div class='row' id='reciveform'></div>");

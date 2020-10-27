@@ -90,6 +90,7 @@ $res = notify_message($text,$token);
     $pd_id = isset($_POST['pd_id'])?$_POST['pd_id']:'';
     $no_pdid = isset($_POST['no_pdid'])?$_POST['no_pdid']:'';
     $place_id = isset($_POST['place_id'])?$_POST['place_id']:'';
+    $place = isset($_POST['place'])?$_POST['place']:'';
     $request_data = isset($_POST['request_data'])?$_POST['request_data']:'';
     $vital = $_POST['vital'];
     $repair_status = 0;
@@ -101,7 +102,7 @@ $execute = array(':pd_id' => $pd_id);
 $chkRepair = $connDB->select($execute);
 if(count($chkRepair)==0){    
     
-    $data = array($informer, $depid,$place_id , $repair_date, $record_date, $pd_id, $no_pdid, $request_data,$vital, $repair_status,$symptom);
+    $data = array($informer, $depid,$place_id ,$place, $repair_date, $record_date, $pd_id, $no_pdid, $request_data,$vital, $repair_status,$symptom);
     $table = "m_repair_pdt";
     $add_repair = $connDB->insert($table, $data);
     if (isset($_FILES["file"]["type"])) {
@@ -137,7 +138,7 @@ if(!empty($_SESSION['m_tokenkey2'])){
 include_once '../function/LineNotify.php';  
 include_once '../template/plugins/funcDateThai.php';
 $token = $_SESSION['m_tokenkey2'];
-$text = "รายการที่ ".$add_repair."\nวันที่ ".DateThai1($LineText['repair_date'])." เวลา ".substr($LineText['repair_date'], 11,5)." น.\n".$LineText['depName']." \n".$LineText['pd_number']." \nสถานที่ : ".$LineText['place_name']
+$text = "รายการที่ ".$add_repair."\nวันที่ ".DateThai1($LineText['repair_date'])." เวลา ".substr($LineText['repair_date'], 11,5)." น.\n".$LineText['depName']." \n".$LineText['pd_number']." \nบริเวณ : ".$LineText['place_name']." \nสถานที่ : ".$place
         ." \n".$LineText['symptom']." \n".$LineText['inform']." ".$LineText['vital']."\nเข้าสู่ระบบซ่อม :\nhttp://www.rploei.go.th/maintenance/";
  
 //$res = notify_message($text,$token);
