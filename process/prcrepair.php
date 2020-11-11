@@ -147,10 +147,13 @@ $text = "รายการที่ ".$add_repair."\nวันที่ ".DateT
 /*-------------line noti----------------------*/
 // $line_api = 'https://notify-api.line.me/api/notify';
 //     $access_token = '';
-
+if (!empty($img)) {
+$sql2="SELECT url FROM hospital"; 
+$connDB->imp_sql($sql2);
+$url = $connDB->select_a();
     //$message = 'test send photo';    //text max 1,000 charecter
-    $image_thumbnail_url = 'http://www.rploei.go.th/maintenance/images/bin.jpg';  // max size 240x240px JPEG
-    $image_fullsize_url = 'http://www.rploei.go.th/maintenance//DG_imgs/'.$img; //max size 1024x1024px JPEG
+    $image_thumbnail_url = $url['url'].'maintenance/images/bin.jpg';  // max size 240x240px JPEG
+    $image_fullsize_url = $url['url'].'maintenance//DG_imgs/'.$img; //max size 1024x1024px JPEG
     $imageFile ="../DG_imgs/".$img;
     //$imageFile =curl_file_create('../DG_imgs/'.$img, 'image/jpg', $img);
     $sticker_package_id = '';  // Package ID sticker
@@ -172,9 +175,11 @@ $text = "รายการที่ ".$add_repair."\nวันที่ ".DateT
     );
 
     $result = send_notify_message($message_data,$token);
-
+}else{
+    $result = notify_message($text,$token);
+}
 // echo '<pre>';
-//      print_r($result);
+//    print_r($result);
 //      echo '</pre>';
 /*-------------line noti----------------------*/
 
@@ -187,7 +192,7 @@ $text = "รายการที่ ".$add_repair."\nวันที่ ".DateT
     if ($add_repair == false) {
         echo "Insert not complete " .$add_repair->errorInfo();
     } else {
-        echo "Insert complete!!!!";
+        echo "Insert complete!!!! ".$_SESSION['m_tokenkey2'];
     }
 }else{
     echo "ครุภัณฑ์ชิ้นนี้อยู่ระหว่างการซ่อมครับ";
