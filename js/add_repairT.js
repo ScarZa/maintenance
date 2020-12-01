@@ -129,7 +129,7 @@ function AddRepairT(content, id = null) {
             $("h2").prepend("<img src='images/icon_set2/computer.ico' width='40'> ");
             $("h2").append(" : ซ่อมงานช่างที่ไม่ใช่ครุภัณฑ์");
             $("#Dr_content").append($("<div class='form-group' id='inform'></div>")
-                , $("<div class='form-group'>งาน (ที่รับผิดชอบอุปกรณ์/สถานที่) : <select name='depid' class='form-control select2' id='depid' required></select></div>")
+                , $("<div class='form-group'>หน่วยงานที่อุปกรณ์ติดตั้งอยู่/หน่วยงานที่รับผิดชอบอุปกรณ์ : <select name='depid' class='form-control select2' id='depid' required></select></div>")
                 , $("<div class='form-group'>อาการเสีย : <select name='no_pdid' class='form-control select2' id='no_pdid' required></select></div>")
                 , $("<div class='form-group'>บริเวณ : <select name='place_id' class='form-control select2' id='place_id' required></select></div>")
                 , $("<div class='form-group'>สถานที่ : <input type='text' id='place' name='place' class='form-control' placeholder='ระบุสถานที่'></div>")

@@ -141,7 +141,7 @@
                                                                                             //,$("<li id='us_report'><a href='#'>&nbsp;&nbsp;<img src='images/icon_set2/piechart.ico' width='20'> รายงานผู้ใช้ทั่วไป <i class='fa fa-angle-left pull-right'></i></a></li>")
                                                                                             );
                                                                 $("#ad_treeview-menu32").append($("<li class=''><a id='addRepairTUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/tools.ico' width='20'> <span>แจ้งซ่อมครุภัณฑ์</span></a></li>")
-                                                                                            ,$("<li class=''><a id='addRepairNoTUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/tools.ico' width='20'> <span>แจ้งซ่อมไม่ใช่ครุภัณฑ์</span></a></li>")
+                                                                                            ,$("<li class=''><a id='addRepairNoTUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/tools.ico' width='20'> <span>แจ้งซ่อมวัสดุ/<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;อาคารสถานที่</span></a></li>")
                                                                                             ,$("<li class=''><a id='reqStatusTUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/eye.ico' width='20'> <span>สถานะคำขอ</span></a></li>")
                                                                                             );                            
                                                                                     $("#addRepairUser").attr("onclick","loadPage('#index_content','content/add_repair.html');");
@@ -190,7 +190,7 @@
                                                   );
                                                   $("#technician").append("<ul id='technician_list' class='treeview-menu'></ul>");
                                                     $("#technician_list").append($("<li class=''><a id='addRepairTUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/tools.ico' width='20'> <span>แจ้งซ่อมครุภัณฑ์</span></a></li>")
-                                                            ,$("<li class=''><a id='addRepairNoTUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/tools.ico' width='20'> <span>แจ้งซ่อมไม่ใช่ครุภัณฑ์</span></a></li>")
+                                                            ,$("<li class=''><a id='addRepairNoTUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/tools.ico' width='20'> <span>แจ้งซ่อมวัสดุ/<p>อาคารสถานที่</p></span></a></li>")
                                                             ,$("<li class=''><a id='reqStatusTUser' href='#'>&nbsp;&nbsp;<img src='images/icon_set2/eye.ico' width='20'> <span>สถานะคำขอ</span></a></li>")
                                                             );
                                             $("a#QRCode").attr("onclick","popup('readQRCode.html', popup, 400, 600);")
