@@ -69,7 +69,7 @@ if (isset($_FILES["$this->file"]["type"])) {
         }
     } else {
 //echo "<span id='invalid'>***Invalid file Size or Type***<span>";
-        echo "***ไม่ใช่ไฟล์ชนิดรูปภาพ หรือไม่ได้เลือกรูปภาพ ***";
+        echo "***ไม่ใช่ไฟล์ชนิดรูปภาพ หรือไม่ได้เลือกรูปภาพ *** ";
         return FALSE;
     }
     //return $image;

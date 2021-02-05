@@ -77,7 +77,7 @@ $res = notify_message($text,$token);
     if ($add_repair == false) {
         echo "Insert not complete " .$add_repair->errorInfo();
     } else {
-        echo "Insert complete!!!!";
+        echo "บันทึกการแจ้งซ่อมงานคอมฯสำเร็จ!!!!";
     }
 }else{
     echo "ครุภัณฑ์คอมพิวเตอร์ชิ้นนี้อยู่ระหว่างการซ่อมครับ";
@@ -105,7 +105,7 @@ if(count($chkRepair)==0){
     $data = array($informer, $depid,$place_id ,$place, $repair_date, $record_date, $pd_id, $no_pdid, $request_data,$vital, $repair_status,$symptom);
     $table = "m_repair_pdt";
     $add_repair = $connDB->insert($table, $data);
-    if (isset($_FILES["file"]["type"])) {
+    if (!empty($_FILES["file"]["type"])) {
     $newname = new upload_resizeimage("file", "../DG_imgs", "DGimage".$add_repair);
     $img = $newname->upload();
     $data2 = array($img);
@@ -192,7 +192,7 @@ $url = $connDB->select_a();
     if ($add_repair == false) {
         echo "Insert not complete " .$add_repair->errorInfo();
     } else {
-        echo "Insert complete!!!! ".$_SESSION['m_tokenkey2'];
+        echo " บันทึกการแจ้งซ่อมช่างสำเร็จ!!!! ";
     }
 }else{
     echo "ครุภัณฑ์ชิ้นนี้อยู่ระหว่างการซ่อมครับ";
