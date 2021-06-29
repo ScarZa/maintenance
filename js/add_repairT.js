@@ -32,7 +32,7 @@ function AddRepairT(content, id = null) {
                 , $("<div class='main'><b>เพิ่มรูปอาการเสีย</b>")
                 , $("<div id='image_preview'><img id='previewing' src='images/icon_set2/image.ico' width='50' /></div>")
                 , $("<div id='selectImage'><label>เลือกรูปอาการเสีย</label><br/>")
-                , $("<input type='file' name='file' id='file' class='form-control' /></div></div><h4 id='loading' >loading..</h4><div id='message'></div>"));
+                , $("<input type='file' name='file' id='file' class='form-control' /></div></div><h4 id='loading' >loading.. <i class='fa fa-spinner fa-pulse fa-3x fa-fw'></i></h4><div id='message'></div>"));
 
             if ((data.status == 'ADMIN' && data.m_process == 0) || data.status == 'TUSER') {
                 $("#inform").append("ผู้แจ้ง : <select name='informer' class='form-control select2' id='informer' required></select>");
@@ -96,6 +96,7 @@ function AddRepairT(content, id = null) {
                 } else {
                     $("#message").empty();
                     $('#loading').show();
+                    if ($("#file").val() == '') {
                     var dataForm = new FormData(this);
                     // console.log(dataForm)
                     // for (var value of dataForm.values()) {
@@ -121,7 +122,11 @@ function AddRepairT(content, id = null) {
                                 AddRepairT('#index_content')
                             });
                             
-                        });
+                    });
+                    } else {
+                        console.log('1234');
+                ResizeImage(this);
+            }
                 }
                
             }));
@@ -137,7 +142,7 @@ function AddRepairT(content, id = null) {
                 , $("<div class='form-group'><input type='radio' value='1' name='vital' id='vital' required> : เร่งด่วน  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio' value='0' name='vital' id='vital' checked required> : ไม่เร่งด่วน</div>")
                 , $("<div id='image_preview'><img id='previewing' src='images/icon_set2/image.ico' width='50' /></div>")
                 , $("<div id='selectImage'><label>เลือกรูปอาการเสีย</label><br/>")
-                , $("<input type='file' name='file' id='file' class='form-control' /></div></div><h4 id='loading' >loading..</h4><div id='message'></div>"));
+                , $("<input type='file' name='file' id='file' class='form-control' /></div></div><h4 id='loading' >loading.. <i class='fa fa-spinner fa-pulse fa-3x fa-fw'></i></h4><div id='message'></div>"));
 
             if ((data.status == 'ADMIN' && data.m_process == 0) || data.status == 'TUSER') {
                 $("#inform").append("ผู้แจ้ง : <select name='informer' class='form-control select2' id='informer' required></select>");
@@ -187,6 +192,7 @@ function AddRepairT(content, id = null) {
                 } else {
                     $("#message").empty();
                     $('#loading').show();
+                    if ($("#file").val() == '') {
                     var dataForm = new FormData(this);
                     // console.log(dataForm)
                     // for (var value of dataForm.values()) {
@@ -211,7 +217,10 @@ function AddRepairT(content, id = null) {
                                 }
                                 AddRepairT('#index_content', 'NoPd');
                             });
-                        });
+                    });
+                } else { console.log('1234');
+                ResizeImage(this,'NoPd');
+            }
                 }
                 e.preventDefault();
             }));
@@ -368,6 +377,7 @@ function AddRepairT(content, id = null) {
                     return false;
                 } else
                 {
+                    $("#frmaddrepair").append($("<input type='hidden' name='hidden_data' id='hidden_data' />"));
                     var reader = new FileReader();
                     reader.onload = imageIsLoaded;
                     reader.readAsDataURL(this.files[0]);
@@ -382,6 +392,83 @@ function AddRepairT(content, id = null) {
             //$('#previewing').attr('height', '230px');
         }
         
+        function ResizeImage(dis,chk) {
+            var filesToUpload = document.getElementById('file').files;
+            var file = filesToUpload[0];
+              
+            // Create an image
+            var img = document.createElement("img");
+            // Create a file reader
+            var reader2 = new FileReader();
+            // Set the image once loaded into file reader
+            reader2.onload = function(e) {
+            //img.src = e.target.result;
+              
+            var img = new Image();
+              
+            img.src = this.result;
+          
+            setTimeout(function(){
+                var canvas = document.createElement("canvas");
+                  
+                var MAX_WIDTH = 600;
+                var MAX_HEIGHT = 600;
+                var width = img.width;
+                var height = img.height;
+                  
+                if (width > height) {
+                    if (width > MAX_WIDTH) {
+                        height *= MAX_WIDTH / width;
+                        width = MAX_WIDTH;
+                    }
+                } else {
+                    if (height > MAX_HEIGHT) {
+                        width *= MAX_HEIGHT / height;
+                        height = MAX_HEIGHT;
+                    }
+                }
+                    canvas.width = width;
+                    canvas.height = height;
+                    var ctx = canvas.getContext("2d");
+                    ctx.drawImage(img, 0, 0, width, height);
+                    var dataurl = canvas.toDataURL("image/jpeg");
+                    //document.getElementById('output').src = dataurl;
+                     
+                    $("#hidden_data").val(dataurl);
+                     
+                    //console.log(canvas);
+                    $.ajax({
+                        type: "POST",
+                        url: "process/prcrepair.php",
+                        async: true,
+                        crossDomain: true,
+                        data: new FormData(dis), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+                        contentType: false, // The content type used when sending data to the server.
+                        cache: false, // To unable request pages to be cached
+                        processData: false,
+                                                 //,data0:'add_prods'},
+                        success: function(result) {
+                         alert(result);
+                         $.getJSON('JsonData/DT_TRP.php', function (data) {
+                            if (data.req_repair != 0) {
+                                $("#listRepair").append($("<small class='label pull-right bg-red'>" + data.req_repair + "</small>"));
+                            }
+                            AddRepairT('#index_content', chk);
+                        });
+                        },
+                        error: function() 
+                        {
+                        } 
+                     })
+                
+                
+                },200);
+                }
+                // Load files into file reader
+                console.log(file);
+                 
+                reader2.readAsDataURL(file);
+            }
     });
     
 }

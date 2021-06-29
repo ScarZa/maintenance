@@ -20,7 +20,7 @@ function insert_date($take_date_conv) {
     $take_date = "$take_date_year-" . @$take_date[1] . "-" . @$take_date[0] . "";
     return $take_date;
 }
-
+include '../function/uploadResize.php';
 $method = isset($_POST['method']) ? $_POST['method'] : $_GET['method'];
 if ($method == 'add_repair') {
     $informer = $_POST['informer'];
@@ -106,9 +106,14 @@ if(count($chkRepair)==0){
     $table = "m_repair_pdt";
     $add_repair = $connDB->insert($table, $data);
     if (!empty($_FILES["file"]["type"])) {
-    $newname = new upload_resizeimage("file", "../DG_imgs", "DGimage".$add_repair);
-    $img = $newname->upload();
+
+    // $newname = new upload_resizeimage("file", "../DG_imgs", "DGimage".$add_repair);
+    // $img = $newname->upload();
+    // $data2 = array($img);
+    $hidden_data = isset($_POST['hidden_data'])?$_POST['hidden_data']:'';
+    $img = uploadResize("file",$hidden_data, "../DG_imgs", "DGimage".$add_repair);
     $data2 = array($img);
+    
     $field=array("dg_img");
     $table2 = "m_repair_pdt";
     $where="repairT_id=:repairT_id";
@@ -152,8 +157,8 @@ $sql2="SELECT url FROM hospital";
 $connDB->imp_sql($sql2);
 $url = $connDB->select_a();
     //$message = 'test send photo';    //text max 1,000 charecter
-    $image_thumbnail_url = $url['url'].'maintenance/images/bin.jpg';  // max size 240x240px JPEG
-    $image_fullsize_url = $url['url'].'maintenance//DG_imgs/'.$img; //max size 1024x1024px JPEG
+    $image_thumbnail_url = $url['url'].'maintenance/images/clipboard.png';  // max size 240x240px JPEG
+    $image_fullsize_url = $url['url'].'maintenance/DG_imgs/'.$img; //max size 1024x1024px JPEG
     $imageFile ="../DG_imgs/".$img;
     //$imageFile =curl_file_create('../DG_imgs/'.$img, 'image/jpg', $img);
     $sticker_package_id = '';  // Package ID sticker

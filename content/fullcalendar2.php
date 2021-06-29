@@ -10,35 +10,12 @@ function __autoload($class_name) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ระบบข้อมูลบุคคลากรโรงพยาบาล</title>
+    <title>ระบบข้อแจ้งซ่อม</title>
 <LINK REL="SHORTCUT ICON" HREF="../images/logo.png">
     <link rel="stylesheet" href="../template/plugins/fullcalendar/js/fullcalendar-2.1.1/fullcalendar.min.css">
-    <script type="text/javascript">
-            $(function() {
-                $('#calendar').fullCalendar({
-                    header: {
-                        left: 'month,agendaWeek,agendaDay',
-                        center: 'title',
-                        right: 'prev,next today'
-                    },
-                    editable: true,
-                    theme: true,
-                    events: "../JsonData/data_events2.php?gData=1",
-                    loading: function(bool) {
-                        if (bool)
-                            $('#loading').show();
-                        else
-                            $('#loading').hide();
-                    },
-                    eventLimit:true,  
-                    lang:'th'// put your options and callbacks here  
-                });
-
-            });
-        </script>
     <style type="text/css">
     html,body{
-        maring:0;padding:0;
+        margin:0;padding:0;
         font-family:tahoma, "Microsoft Sans Serif", sans-serif, Verdana;   
         font-size:12px;
     }
@@ -78,6 +55,30 @@ for($I=0;$I<count($result);$I++){  ?>
 <script type="text/javascript" src="../template/plugins/fullcalendar/js/fullcalendar-2.1.1/lib/moment.min.js"></script>
 <script type="text/javascript" src="../template/plugins/fullcalendar/js/fullcalendar-2.1.1/fullcalendar.min.js"></script>
 <script type="text/javascript" src="../template/plugins/fullcalendar/js/fullcalendar-2.1.1/lang/th.js"></script>
-<script type="text/javascript" src="../js/script2.js"></script>            
+<script type="text/javascript" src="../js/script2.js"></script>      
+<script type="text/javascript">
+            $(function() {
+                $('#calendar').fullCalendar({
+                    header: {
+                        left: 'month,agendaWeek,agendaDay',
+                        center: 'title',
+                        right: 'prev,next today'
+                    },
+                    editable: true,
+                    theme: true,
+                    events: "../JsonData/data_events2.php?gData=1",
+                    loading: function(bool) {
+                        if (bool)
+                            $('#loading').show();
+                        else
+                            $('#loading').hide();
+                    },
+                    eventLimit:true,  
+                    lang:'th'// put your options and callbacks here  
+                });
+
+            });
+        </script>
+
 </body>
 </html>
