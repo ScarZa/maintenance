@@ -135,7 +135,7 @@
                     if (val[i].value != '') {
                             $("#genQRCode").append("<table id='tableId' width='100%'><tbody id='tb"+i+"'></tbody></table>");   
                         $("tbody#tb"+i).append("<tr><td width='100%' valign='top' align='center'><br><span class='blockQR' align='center' valign='top' id='qr-example" + i + "'></span><span align='center' id='qr-label" + i + "'></span></td></tr>");
-                        $('#qr-example' + i).empty().qrcode({ width: $('.qr-size').val(), height: $('.qr-size').val(), text: val[i].value });
+                        $('#qr-example' + i).empty().qrcode({ width: $('.qr-size').val(), height: $('.qr-size').val(), text: "http://1.179.191.130/maintenance/login_pageQR.html?pd_id="+val[i].value });
                         $.getJSON('../JsonData/detail_prodsQR.php', { data: val[i].value ,data2:i }, function (data) {
                             $("#qr-label" + data.count).empty().append(data.pd_number+"<br>"+data.name+"<br>"+data.depName);
                         });

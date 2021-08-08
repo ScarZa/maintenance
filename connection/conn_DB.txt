@@ -1,6 +1,6 @@
-localhost
-root
-
+10.0.0.11
+admintoy
+gotoytoynoy
 hrd
 3306
 utf8

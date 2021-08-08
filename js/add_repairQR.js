@@ -2,7 +2,7 @@ function AddRepairQR(content, id = null) {
     $.getJSON('JsonData/head_repair.php', function (data) {
         $(content).empty().append("<h2 style='color: blue'>แจ้งขอรับบริการงานคอมพิวเตอร์</h2>" +
             "<ol class='breadcrumb'>" +
-            "<li><a href='readQRCode.html'><i class='fa fa-home'></i> หน้าหลัก</a></li>" +
+            "<li><a href=#' id='homeQR'><i class='fa fa-home'></i> หน้าหลัก</a></li>" +
             "<li class='active'><i class='fa fa-envelope'></i> แจ้งขอรับบริการงานคอมพิวเตอร์</li>" +
             "</ol><form action='' name='frmaddrepair' id='frmaddrepair' method='post'>" +
             "<div class='row'>" +
@@ -14,7 +14,11 @@ function AddRepairQR(content, id = null) {
             "<div class='box box-primary box-solid'><div class='box-header with-border'>" +
             "<h4 class='box-title'> รายละเอียด </h4></div><div class='box-body'><div id='Dr_content'></div></div></div></div>" +
             "</div></div></div></form>");
-
+            
+        $("#homeQR").click(function () {
+                DetialQR(content, id);
+              })
+              
         var idrepair = id;
         var fullname = data.fullname;
         var posi = data.posi;
@@ -23,8 +27,8 @@ function AddRepairQR(content, id = null) {
         $("h2").prepend("<img src='images/icon_set2/computer.ico' width='40'> ");
         $("h2").append(" : ซ่อมงานคอมพิวเตอร์");
         $("#Dr_content").append($("<div class='form-group' id='inform'></div>")
-            , $("<div class='form-group'>งาน : <select name='depid' class='form-control select2' id='depid' required></select></div>")
-            , $("<div class='form-group'>เครื่องที่เสีย : <select name='pd_id' class='form-control select2' id='pd_id' required></select></div>")
+            , $("<div class='form-group'>งาน : <select name='depid' class='form-control' id='depid' required readonly></select></div>")
+            , $("<div class='form-group'>เครื่องที่เสีย : <select name='pd_id' class='form-control' id='pd_id' required readonly></select></div>")
             , $("<div class='form-group'>อาการเสีย : <textarea class='form-control' style='width: 100%' COLS='100%' rows='2' placeholder='ระบุอาการเสีย' name='symptom' id='symptom' required></textarea></div>")
             , $("<div class='form-group'><input type='radio' value='1' name='vital' id='vital' required> : เร่งด่วน  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio' value='0' name='vital' id='vital' checked required> : ไม่เร่งด่วน</div>"));
 
@@ -67,7 +71,7 @@ function AddRepairQR(content, id = null) {
                     option += "$('<option value='" + GD[key].pd_id + "'> " + GD[key].pd_number + " : " + GD[key].name + " (" + GD[key].note + ") </option>'),";
                 }
                 $("select#pd_id").empty().append(option);
-                $(".select2").select2();
+                // $(".select2").select2();
             });
         });
 
