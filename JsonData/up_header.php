@@ -37,6 +37,7 @@ $data['m_fullname'] = isset($_SESSION['m_fullname'])?$_SESSION['m_fullname']:'';
 $data['m_dep'] = isset($_SESSION['m_dep'])?(int) $_SESSION['m_dep']:'';
 $data['m_process'] = isset($_SESSION['m_process'])?(int) $_SESSION['m_process']:'';
 $data['m_status'] = isset($_SESSION['m_status'])?$_SESSION['m_status']:''; 
+$data['url'] =  $resultComm['url']; 
 print json_encode($data);                       
 }else {
     $data['check']=  md5(trim('check'));

@@ -34,6 +34,7 @@ var photoPDModal = function(content,id){
                 , $("<input type='hidden' class='form-control' id='method' name='method'>")
                 , $("<br><input type='submit' value='เพิ่มรูป' class='btn btn-success' />"));
 
+            $("#pd_id").val(data.pd_id);
             
             $('#loading').hide();
             $("#uploadimage").on('submit', (function (e) {
@@ -52,8 +53,9 @@ var photoPDModal = function(content,id){
                         $('#loading').hide();
                         //$("#message").html(data);
                         alert(data);
+                        DetialQR(content, id);
                         e.preventDefault();
-                        modal.modal('hide');
+                        
                     }
                 });
             }));

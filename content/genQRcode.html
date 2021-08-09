@@ -128,16 +128,16 @@ $.getJSON('../JsonData/data_prods.php', function (GD) {
             $("#genQRCode").empty().append("<table width='100%' border=1><tbody></tbody></table>");
             //$.each(val, function (key, vals) {
                 var I=0;
-
+                $.getJSON('../JsonData/up_header.php',function (data) { 
                     for(var i=1;i<=count;i++){
                         $("tbody").append("<tr id='row"+i+"'></tr>");
                         for (var ii=0;ii<=2;ii++) {
                 
                     if (val[I].value != '') {
                         $("tr#row"+i).append("<td width='33%' height='75' valign='top' align='center'><span class='blockQR' align='center' valign='top' id='qr-example" + I + "'></span><span align='center' id='qr-label" + I + "'></span></td>");
-                        $('#qr-example' + I).empty().qrcode({ width: $('.qr-size').val(), height: $('.qr-size').val(), text: "http://1.179.191.130/maintenance/login_pageQR.html?pd_id="+val[I].value });
+                        $('#qr-example' + I).empty().qrcode({ width: $('.qr-size').val(), height: $('.qr-size').val(), text: data.url+"/maintenance/login_pageQR.html?pd_id="+val[I].value });
                         $.getJSON('../JsonData/detail_prodsQR.php', { data: val[I].value ,data2:I }, function (data) {
-                            $("#qr-label" + data.count).append(data.pd_number+"<br>"+data.name+"<br>"+data.depName);
+                            $("#qr-label" + data.count).append(data.pd_number+"<br>"+data.name+"<br>"+data.depName+"<span style='font-size:9px'> ...(NewQR)</span>");
                         });
                     } else {
                         alert("โปรดใส่เลขครุภัณฑ์ใน list ที่" + (I + 1) + " ด้วยครับ !");
@@ -149,7 +149,7 @@ $.getJSON('../JsonData/data_prods.php', function (GD) {
                 }
             
                 }
-        
+            });
             // for(var i=0;i < val.length;i++){
             //     if (val[i].value != '') {console.log(val[i].value);
             //         $("#genQRCode").append("<table id='tableId' width='100%'><tbody id='tb"+i+"'></tbody></table><br><br>");
