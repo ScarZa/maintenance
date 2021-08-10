@@ -41,23 +41,24 @@ var photoPDModal = function(content,id){
                 e.preventDefault();
                 $("#message").empty();
                 $('#loading').show();
-                $.ajax({
-                    url: "process/prcupimg.php", // Url to which the request is send
-                    type: "POST", // Type of request to be send, called as method
-                    data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
-                    contentType: false, // The content type used when sending data to the server.
-                    cache: false, // To unable request pages to be cached
-                    processData: false, // To send DOMDocument or non processed data file it is set to false
-                    success: function (data)   // A function to be called if request succeeds
-                    {
-                        $('#loading').hide();
-                        //$("#message").html(data);
-                        alert(data);
-                        DetialQR(content, id);
-                        e.preventDefault();
+                // $.ajax({
+                //     url: "process/prcupimg.php", // Url to which the request is send
+                //     type: "POST", // Type of request to be send, called as method
+                //     data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+                //     contentType: false, // The content type used when sending data to the server.
+                //     cache: false, // To unable request pages to be cached
+                //     processData: false, // To send DOMDocument or non processed data file it is set to false
+                //     success: function (data)   // A function to be called if request succeeds
+                //     {
+                //         $('#loading').hide();
+                //         //$("#message").html(data);
+                //         alert(data);
+                //         DetialQR(content, id);
+                //         e.preventDefault();
                         
-                    }
-                });
+                //     }
+                // });
+                ResizeImage(this);
             }));
 
             // Function to preview image after validation
@@ -66,12 +67,15 @@ var photoPDModal = function(content,id){
                     $("#message").empty(); // To remove the previous error message
                     var file = this.files[0];
                     var imagefile = file.type;
-                    var match = ["image/jpeg", "image/png", "image/jpg", "image/JPEG", "image/PNG", "image/JPG"];
-                    if (!((imagefile == match[0]) || (imagefile == match[1]) || (imagefile == match[2] || imagefile == match[3]) || (imagefile == match[4]) || (imagefile == match[5]))) {
+                    var match = ["image/jpeg", "image/png", "image/jpg","image/JPEG", "image/PNG", "image/JPG"];
+                    if (!((imagefile == match[0]) || (imagefile == match[1]) || (imagefile == match[2] || imagefile == match[3]) || (imagefile == match[4]) || (imagefile == match[5])))
+                    {
                         $('#previewing').attr('src', 'noimage.png');
                         $("#message").html("<p id='error'>Please Select A valid Image File</p>" + "<h4>Note</h4>" + "<span id='error_message'>Only jpeg, jpg and png Images type allowed</span>");
                         return false;
-                    } else {
+                    } else
+                    {
+                        $("#uploadimage").append($("<input type='hidden' name='hidden_data' id='hidden_data' />"));
                         var reader = new FileReader();
                         reader.onload = imageIsLoaded;
                         reader.readAsDataURL(this.files[0]);
@@ -85,8 +89,82 @@ var photoPDModal = function(content,id){
                 $('#previewing').attr('width', '250px');
                 //$('#previewing').attr('height', '230px');
             }
-            ;
-
+            
+            function ResizeImage(dis,chk) {
+                var filesToUpload = document.getElementById('file').files;
+                var file = filesToUpload[0];
+                  
+                // Create an image
+                var img = document.createElement("img");
+                // Create a file reader
+                var reader2 = new FileReader();
+                // Set the image once loaded into file reader
+                reader2.onload = function(e) {
+                //img.src = e.target.result;
+                  
+                var img = new Image();
+                  
+                img.src = this.result;
+              
+                setTimeout(function(){
+                    var canvas = document.createElement("canvas");
+                      
+                    var MAX_WIDTH = 600;
+                    var MAX_HEIGHT = 600;
+                    var width = img.width;
+                    var height = img.height;
+                      
+                    if (width > height) {
+                        if (width > MAX_WIDTH) {
+                            height *= MAX_WIDTH / width;
+                            width = MAX_WIDTH;
+                        }
+                    } else {
+                        if (height > MAX_HEIGHT) {
+                            width *= MAX_HEIGHT / height;
+                            height = MAX_HEIGHT;
+                        }
+                    }
+                        canvas.width = width;
+                        canvas.height = height;
+                        var ctx = canvas.getContext("2d");
+                        ctx.drawImage(img, 0, 0, width, height);
+                        var dataurl = canvas.toDataURL("image/jpeg");
+                        //document.getElementById('output').src = dataurl;
+                         
+                        $("#hidden_data").val(dataurl);
+                         
+                        //console.log(canvas);
+                        $.ajax({
+                            type: "POST",
+                            url: "process/prcupimg.php",
+                            async: true,
+                            crossDomain: true,
+                            data: new FormData(dis), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+                            contentType: false, // The content type used when sending data to the server.
+                            cache: false, // To unable request pages to be cached
+                            processData: false,
+                                                     //,data0:'add_prods'},
+                            success: function(result) {
+                             alert(result);
+                             $('#loading').hide();
+                        //$("#message").html(data);
+                        
+                        DetialQR(content, id);
+                            },
+                            error: function() 
+                            {
+                            } 
+                         })
+                    
+                    
+                    },200);
+                    }
+                    // Load files into file reader
+                    console.log(file);
+                     
+                    reader2.readAsDataURL(file);
+                }
         });
     }
 }

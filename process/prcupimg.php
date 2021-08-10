@@ -20,6 +20,7 @@ function insert_date($take_date_conv) {
     $take_date = "$take_date_year-" . @$take_date[1] . "-" . @$take_date[0] . "";
     return $take_date;
 }
+include '../function/uploadResize.php';
 $pd_id = $_POST['pd_id'];
 //if (isset($_FILES["file"]["type"])) {
 //    $validextensions = array("jpeg", "jpg", "png");
@@ -64,7 +65,7 @@ $pd_id = $_POST['pd_id'];
 //                imagedestroy($img_ori);
 //                imagedestroy($img_new);
     //////////////// add photo in DB   
-if (isset($_FILES["file"]["type"])) {
+    if (!empty($_FILES["file"]["type"])) {
     $del_photo="select photo_pd from pd_product where pd_id=:pd_id";
                 $connDB->imp_sql($del_photo);
                 $execute=array(':pd_id' => $pd_id);
@@ -74,8 +75,9 @@ if (isset($_FILES["file"]["type"])) {
                 include '../function/delet_file.php';
                 fulldelete($location);}
 }
-    $newname = new upload_resizeimage("file", "../PD_imgs", "PDimage".$pd_id);
-    $img = $newname->upload();
+$hidden_data = isset($_POST['hidden_data'])?$_POST['hidden_data']:'';
+$img = uploadResize("file",$hidden_data, "../PD_imgs", "PDimage".$pd_id);
+//$data2 = array($img);
     //print_r($newname);
     if($img != FALSE){
     $table = "pd_product";
